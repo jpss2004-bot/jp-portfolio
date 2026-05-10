@@ -1,41 +1,25 @@
-import { siteConfig } from "@/data/site";
-import SectionHeader from "@/components/ui/SectionHeader";
+﻿import { siteConfig } from "@/data/site";
 import ButtonLink from "@/components/ui/ButtonLink";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function Resume() {
   return (
-    <section id="resume" className="container-shell py-20 sm:py-24">
-      <div className="panel rounded-[2rem] p-8 sm:p-10">
+    <section id="resume" className="container-shell py-16 sm:py-24">
+      <div className="grid gap-6 lg:grid-cols-[1fr_0.8fr] lg:items-center">
         <SectionHeader
           eyebrow="Resume"
-          title="A concise view of my background"
-          copy="Download my resume for a fuller overview of academic experience, technical projects, and the tools I work with."
+          title="The website shows the work. The resume gives the fast scan."
+          description="Use the resume as the quick overview, then use the project case studies to inspect the deeper technical evidence."
         />
 
-        <div className="flex flex-wrap gap-4">
-          <ButtonLink href={siteConfig.links.resume} variant="primary">
-            Download Resume
-          </ButtonLink>
-          <ButtonLink href={siteConfig.links.linkedin}>
-            LinkedIn
-          </ButtonLink>
-          <ButtonLink href={siteConfig.links.github}>
-            GitHub
-          </ButtonLink>
-        </div>
-
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4">
-            <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Focus</p>
-            <p className="mt-2 text-sm leading-7 text-zinc-200">Software engineering and backend-oriented systems.</p>
-          </div>
-          <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4">
-            <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Strength</p>
-            <p className="mt-2 text-sm leading-7 text-zinc-200">Structured projects with strong presentation and memorable product thinking.</p>
-          </div>
-          <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4">
-            <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Resume file</p>
-            <p className="mt-2 text-sm leading-7 text-zinc-200">Place your final PDF at public/resume.pdf to activate the download link.</p>
+        <div className="panel rounded-[2rem] p-6">
+          <p className="text-sm leading-7 text-zinc-400">
+            Place the final resume PDF at <span className="font-mono text-emerald-300">public/resume.pdf</span>. The button below is already wired to that path.
+          </p>
+          <div className="mt-6">
+            <ButtonLink href={siteConfig.links.resume} variant="primary">
+              Download resume
+            </ButtonLink>
           </div>
         </div>
       </div>

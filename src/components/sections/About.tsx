@@ -1,43 +1,29 @@
-import { siteConfig } from "@/data/site";
-import SectionHeader from "@/components/ui/SectionHeader";
+﻿import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function About() {
   return (
-    <section id="about" className="container-shell py-20 sm:py-24">
-      <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-        <div>
-          <SectionHeader
-            eyebrow="About"
-            title="A builder who cares about systems, clarity, and user experience."
-          />
-        </div>
+    <section id="about" className="container-shell py-16 sm:py-24">
+      <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+        <SectionHeader
+          eyebrow="About JP"
+          title="A CS student with product instincts and systems taste."
+          description="My strongest work sits where technical architecture, user experience, and practical problem-solving meet."
+        />
 
-        <div className="space-y-6">
-          <p className="section-copy">
-            I’m a Computer Science student at Acadia University with a strong interest
-            in software engineering, backend systems, AI-driven tools, and thoughtful
-            digital experiences.
-          </p>
-          <p className="section-copy">
-            My work often combines technical structure, product thinking, and clear
-            presentation — whether I’m designing recommendation systems, healthcare
-            workflow tools, or data-driven concepts with real-world impact.
-          </p>
-
-          <div className="panel rounded-[1.5rem] p-6">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <p className="text-xs uppercase tracking-[0.18em] text-emerald-300">
-                  Location
-                </p>
-                <p className="mt-2 text-sm text-zinc-200">{siteConfig.location}</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.18em] text-emerald-300">
-                  Status
-                </p>
-                <p className="mt-2 text-sm text-zinc-200">{siteConfig.status}</p>
-              </div>
+        <div className="panel rounded-[2rem] p-6 sm:p-8">
+          <div className="grid gap-5 text-sm leading-8 text-zinc-300 sm:text-base">
+            <p>
+              I am a Computer Science student focused on building software that feels practical, understandable, and polished. My projects usually start from a real workflow problem: choosing where to eat, managing an emergency queue, coordinating city traffic, or making a family game feel personal.
+            </p>
+            <p>
+              I care about the full path from idea to implementation: data modeling, backend routes, frontend structure, user flows, deployment, and how the project is explained afterward. This portfolio is designed to show that complete process.
+            </p>
+            <div className="grid gap-3 pt-2 sm:grid-cols-3">
+              {["Software systems", "AI products", "Workflow tools"].map((item) => (
+                <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4 text-sm font-semibold text-white">
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -1,12 +1,12 @@
-export const siteConfig = {
+﻿export const siteConfig = {
   name: "JP Samano",
   shortName: "JP",
-  title: "JP Samano | Portfolio",
+  title: "JP Samano | Full-Stack Systems Portfolio",
   description:
-    "Creative and technically driven Computer Science portfolio focused on backend systems, AI-driven products, and thoughtful digital experiences.",
+    "A command-center portfolio for JP Samano: full-stack software systems, AI product thinking, and real-world workflow tools.",
   url: "http://localhost:3000",
-  location: "Nova Scotia, Canada",
-  status: "Open to internships, opportunities, and technical collaborations.",
+  location: "Nova Scotia, Canada · Mexico City",
+  status: "Open to software internships, product engineering opportunities, and technical collaborations.",
   email: "jpss2004@icloud.com",
   links: {
     github: "https://github.com/jpsamanosuarez",
@@ -14,16 +14,23 @@ export const siteConfig = {
     resume: "/resume.pdf",
   },
   hero: {
-    eyebrow: "JP Samano • Software Builder • Systems Thinker",
-    headline:
-      "I build software that feels thoughtful, structured, and memorable.",
+    eyebrow: "JP Samano · Software Builder · Systems Thinker",
+    headline: "I turn messy real-world workflows into clear, usable software systems.",
     supporting:
-      "I’m JP Samano — a Computer Science student designing backend systems, intelligent products, and polished digital experiences with equal attention to technical depth and presentation.",
+      "Computer Science student building full-stack applications, AI-assisted products, and workflow tools with strong technical foundations and polished user experience.",
+    command: "Inspect JP's project systems",
     highlights: [
-      "Backend Systems",
-      "AI Product Thinking",
-      "Software Engineering",
-      "Clear Presentation",
+      "Full-stack engineering",
+      "AI product thinking",
+      "Workflow automation",
+      "Human-centered interfaces",
     ],
   },
-};
+  nav: [
+    { label: "Projects", href: "#projects" },
+    { label: "Stack", href: "#skills" },
+    { label: "About", href: "#about" },
+    { label: "Resume", href: "#resume" },
+    { label: "Contact", href: "#contact" },
+  ],
+} as const;

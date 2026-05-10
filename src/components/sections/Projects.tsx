@@ -1,59 +1,28 @@
-import { projects } from "@/data/projects";
+﻿import { projects } from "@/data/projects";
 import SectionHeader from "@/components/ui/SectionHeader";
-import Badge from "@/components/ui/Badge";
-import ProjectCard from "@/components/ui/ProjectCard";
-import SpotlightPanel from "@/components/ui/SpotlightPanel";
+import ProjectBentoCard from "@/components/ui/ProjectBentoCard";
 
 export default function Projects() {
-  const featuredProjects = projects.filter((project) => project.featured);
-  const selectedProjects = projects.filter((project) => !project.featured);
-
-  const filters = [
-    "Featured",
-    "Backend",
-    "AI",
-    "Systems Design",
-    "Product Thinking",
-  ];
+  const sortedProjects = [...projects].sort((a, b) => a.priority - b.priority);
 
   return (
-    <section id="projects" className="container-shell py-20 sm:py-24">
-      <SectionHeader
-        eyebrow="Projects"
-        title="Selected systems and product work"
-        copy="A curated set of projects and concepts that reflect how I think about software, systems, user context, and real-world applications."
-      />
-
-      <div className="mb-8 flex flex-wrap gap-2">
-        {filters.map((filter, index) => (
-          <Badge key={filter} tone={index === 0 ? "accent" : "neutral"}>
-            {filter}
-          </Badge>
-        ))}
+    <section id="projects" className="container-shell py-16 sm:py-24">
+      <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <SectionHeader
+          eyebrow="Project systems"
+          title="Not just assignments — product-shaped builds."
+          description="Each project is framed like a real system: problem, architecture, technical decisions, proof of work, and the next iteration."
+        />
+        <p className="max-w-sm text-sm leading-7 text-zinc-500">
+          The next step is adding screenshots and demos. This patch creates the visual structure that will make that evidence look professional.
+        </p>
       </div>
 
-      <SpotlightPanel className="p-1">
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-      </SpotlightPanel>
-
-      {selectedProjects.length ? (
-        <div className="mt-14">
-          <div className="mb-8">
-            <p className="section-eyebrow">More Work</p>
-            <h3 className="text-2xl font-semibold text-white">Additional concepts and direction</h3>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            {selectedProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} compact />
-            ))}
-          </div>
-        </div>
-      ) : null}
+      <div className="mt-10 grid gap-5 lg:grid-cols-2">
+        {sortedProjects.map((project, index) => (
+          <ProjectBentoCard key={project.slug} project={project} large={index === 0} />
+        ))}
+      </div>
     </section>
   );
 }

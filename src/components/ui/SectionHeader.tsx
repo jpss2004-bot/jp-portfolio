@@ -1,19 +1,18 @@
-type SectionHeaderProps = {
+﻿type SectionHeaderProps = {
   eyebrow: string;
   title: string;
+  description?: string;
   copy?: string;
 };
 
-export default function SectionHeader({
-  eyebrow,
-  title,
-  copy,
-}: SectionHeaderProps) {
+export default function SectionHeader({ eyebrow, title, description, copy }: SectionHeaderProps) {
+  const body = description ?? copy ?? "";
+
   return (
-    <div className="mb-10">
-      <p className="section-eyebrow">{eyebrow}</p>
-      <h2 className="section-title">{title}</h2>
-      {copy ? <p className="section-copy mt-4 max-w-2xl">{copy}</p> : null}
+    <div className="max-w-3xl">
+      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-300">{eyebrow}</p>
+      <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">{title}</h2>
+      {body ? <p className="mt-5 text-base leading-8 text-zinc-400 sm:text-lg">{body}</p> : null}
     </div>
   );
 }

@@ -1,35 +1,36 @@
-import Link from "next/link";
+﻿import type { ReactNode } from "react";
 
 type ButtonLinkProps = {
   href: string;
-  children: React.ReactNode;
-  variant?: "primary" | "secondary";
+  children: ReactNode;
+  variant?: "primary" | "secondary" | "ghost";
+  external?: boolean;
+  className?: string;
+};
+
+const variants = {
+  primary:
+    "border-emerald-300/40 bg-emerald-300 text-slate-950 shadow-[0_0_32px_rgba(53,242,180,0.24)] hover:bg-white",
+  secondary:
+    "border-white/15 bg-white/[0.075] text-white hover:border-white/30 hover:bg-white/[0.11]",
+  ghost:
+    "border-transparent bg-transparent text-zinc-300 hover:text-white",
 };
 
 export default function ButtonLink({
   href,
   children,
   variant = "secondary",
+  external = false,
+  className = "",
 }: ButtonLinkProps) {
-  const styles =
-    variant === "primary"
-      ? "bg-emerald-400 text-black hover:translate-y-[-1px] hover:opacity-95"
-      : "border border-white/15 text-white hover:border-white/30 hover:bg-white/5";
-
-  const className = `inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold transition ${styles}`;
-
-  const isInternal = href.startsWith("/") || href.startsWith("#");
-
-  if (isInternal) {
-    return (
-      <Link href={href} className={className}>
-        {children}
-      </Link>
-    );
-  }
-
   return (
-    <a href={href} className={className}>
+    <a
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
+      className={`inline-flex items-center justify-center rounded-full border px-5 py-3 text-sm font-semibold transition ${variants[variant]} ${className}`}
+    >
       {children}
     </a>
   );

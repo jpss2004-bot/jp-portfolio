@@ -1,47 +1,31 @@
-import { experience } from "@/data/experience";
+﻿import { experienceItems } from "@/data/experience";
 import SectionHeader from "@/components/ui/SectionHeader";
-import Badge from "@/components/ui/Badge";
 
 export default function Experience() {
   return (
-    <section id="experience" className="container-shell py-20 sm:py-24">
-      <SectionHeader
-        eyebrow="Highlights"
-        title="Experience, presentation, and initiative"
-        copy="A few experiences that reflect communication ability, discipline, and the range behind my technical work."
-      />
+    <section className="container-shell py-16 sm:py-24">
+      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <SectionHeader
+          eyebrow="Trajectory"
+          title="A builder profile shaped by projects, communication, and systems thinking."
+          description="A few experiences that reflect technical direction, communication ability, and the range behind my software work."
+        />
 
-      <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-        <div className="panel rounded-[1.75rem] p-6">
-          <p className="text-xs uppercase tracking-[0.18em] text-emerald-300">
-            What stands out
-          </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <Badge tone="accent">Communication</Badge>
-            <Badge>Presentations</Badge>
-            <Badge>Academic Projects</Badge>
-            <Badge>Discipline</Badge>
-            <Badge>Initiative</Badge>
-          </div>
-          <p className="mt-6 text-sm leading-7 text-zinc-300">
-            This section is here to show that your portfolio is not only code. It also
-            reflects how you present ideas, work through structured projects, and build
-            credibility beyond a skill list.
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {experience.map((item) => (
-            <article key={item.title} className="panel rounded-[1.75rem] p-6">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                  <p className="mt-1 text-sm text-emerald-300">{item.subtitle}</p>
-                </div>
-                <Badge>{item.period}</Badge>
+        <div className="grid gap-4">
+          {experienceItems.map((item, index) => (
+            <article key={item.title} className="panel relative overflow-hidden rounded-[1.75rem] p-5">
+              <div className="absolute right-5 top-4 text-5xl font-bold text-white/[0.035]">
+                0{index + 1}
               </div>
-
-              <p className="mt-4 text-sm leading-7 text-zinc-300">{item.description}</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-300">
+                {item.label}
+              </p>
+              <h3 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-white">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-zinc-400">
+                {item.description}
+              </p>
             </article>
           ))}
         </div>
