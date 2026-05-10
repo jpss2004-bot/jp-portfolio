@@ -1,0 +1,6 @@
+Add your final PDF resume to this folder with the exact filename:
+
+resume.pdf
+
+Path:
+public/resume.pdf

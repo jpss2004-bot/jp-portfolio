@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0b0f14;
+  --background-soft: #10161d;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --foreground: #f5f7fa;
+  --muted: #a4adba;
+  --muted-strong: #c8d0da;
+  --accent: #43e6a5;
+  --accent-foreground: #05120d;
+  --max-width: 76rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(67, 230, 165, 0.08), transparent 30%),
+    linear-gradient(to bottom, #0b0f14, #0b0f14);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: rgba(67, 230, 165, 0.28);
+}
+
+.container-shell {
+  margin-inline: auto;
+  max-width: var(--max-width);
+  padding-inline: 1.5rem;
+}
+
+.section-eyebrow {
+  margin-bottom: 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 2.4vw, 3rem);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+}
+
+.section-copy {
+  line-height: 1.9;
+  color: var(--muted);
+}
+
+.panel {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+}
+
+.grid-glow {
+  position: relative;
+}
+
+.grid-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(67, 230, 165, 0.12),
+    transparent 35%,
+    transparent 65%,
+    rgba(67, 230, 165, 0.06)
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.grid-glow:hover::before {
+  opacity: 1;
+}
+
+a,
+button {
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+@media (max-width: 640px) {
+  .container-shell {
+    padding-inline: 1.1rem;
+  }
+}
