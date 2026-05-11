@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { profile } from "@/data/portfolio";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://jp-portfolio-beta.vercel.app").replace(/\/$/, "");
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -28,6 +28,14 @@ export const metadata: Metadata = {
       "Bilingual portfolio organized around routes, nodes, proof, and technical decisions.",
     url: siteUrl,
     siteName: "JP Samano Signal Atlas",
+    locale: "en_CA",
+    alternateLocale: ["es_MX"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "JP Samano | Signal Atlas",
+    description:
+      "Bilingual software systems portfolio with full-stack projects, workflow tools, and proof-first case studies.",
   },
 };
 

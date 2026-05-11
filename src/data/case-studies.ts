@@ -326,11 +326,27 @@ function toCaseStudy(project: Project, index: number): ProjectCaseStudy {
     nextSteps: localized(project.next, es.nextSteps),
     gallery: [
       {
-        src: `/projects/${project.slug}/hero.svg`,
-        alt: localized(`${project.shortName} project proof visual`, `${es.title} visual de evidencia`),
+        src: `/projects/${project.slug}/proof-1.svg`,
+        alt: localized(`${project.shortName} primary proof visual`, `${project.shortName} visual principal de evidencia`),
         caption: localized(
-          "Placeholder proof visual until real project screenshots are added.",
-          "Visual temporal de evidencia hasta agregar capturas reales del proyecto.",
+          "Primary proof placeholder. Replace with a real screenshot when available.",
+          "Visual principal temporal. Reemplazar con una captura real cuando estÃ© disponible.",
+        ),
+      },
+      {
+        src: `/projects/${project.slug}/architecture.svg`,
+        alt: localized(`${project.shortName} architecture visual`, `${project.shortName} diagrama de arquitectura`),
+        caption: localized(
+          "Architecture and system-flow placeholder for the case study.",
+          "Diagrama temporal de arquitectura y flujo del sistema para el caso de estudio.",
+        ),
+      },
+      {
+        src: `/projects/${project.slug}/proof-2.svg`,
+        alt: localized(`${project.shortName} secondary proof visual`, `${project.shortName} visual secundario de evidencia`),
+        caption: localized(
+          "Secondary proof placeholder for interface, workflow, or result evidence.",
+          "Visual secundario temporal para evidencia de interfaz, flujo o resultados.",
         ),
       },
     ],

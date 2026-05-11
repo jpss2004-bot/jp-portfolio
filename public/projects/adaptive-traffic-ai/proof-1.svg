@@ -1,0 +1,41 @@
+<svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Traffic AI PRIMARY PROOF">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#08111A"/>
+      <stop offset="54%" stop-color="#102033"/>
+      <stop offset="100%" stop-color="#0F1925"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="76%" cy="24%" r="68%">
+      <stop offset="0%" stop-color="#E76A4C" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#E76A4C" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="54" height="54" patternUnits="userSpaceOnUse">
+      <path d="M 54 0 L 0 0 0 54" fill="none" stroke="#F3F7FB" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <rect width="1200" height="720" fill="url(#glow)"/>
+  <rect width="1200" height="720" fill="url(#grid)" opacity="0.9"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="80" y="70" width="1040" height="580" rx="46" fill="rgba(243,247,251,0.08)" stroke="rgba(243,247,251,0.16)"/>
+    <text x="126" y="150" fill="#E76A4C" font-size="22" font-weight="900" letter-spacing="5">PRIMARY PROOF</text>
+    <text x="126" y="226" fill="#F3F7FB" font-size="72" font-weight="900" letter-spacing="-4">Traffic AI</text>
+    <text x="126" y="276" fill="#B3C0D0" font-size="27" font-weight="700">Simulation-first coordination</text>
+    <rect x="126" y="342" width="460" height="198" rx="28" fill="rgba(243,247,251,0.10)" stroke="rgba(243,247,251,0.17)"/>
+    <text x="158" y="406" fill="#F3F7FB" font-size="31" font-weight="900">City grid and intersection state</text>
+    <text x="158" y="462" fill="#B3C0D0" font-size="22">temporary proof visual / replace with screenshot</text>
+    <g transform="translate(660 332)">
+      <path d="M 20 160 C 110 20, 255 30, 348 74" fill="none" stroke="#E76A4C" stroke-width="8" stroke-linecap="round"/>
+      <path d="M 20 160 C 125 210, 248 194, 380 112" fill="none" stroke="#78AFFF" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+      <circle cx="20" cy="160" r="16" fill="#F4C15D"/>
+      <circle cx="348" cy="74" r="16" fill="#E76A4C"/>
+      <circle cx="380" cy="112" r="16" fill="#E76A4C"/>
+      <rect x="72" y="230" width="96" height="44" rx="22" fill="rgba(243,247,251,0.12)"/>
+      <text x="120" y="259" fill="#F3F7FB" text-anchor="middle" font-size="16" font-weight="800">input</text>
+      <rect x="185" y="230" width="106" height="44" rx="22" fill="rgba(243,247,251,0.12)"/>
+      <text x="238" y="259" fill="#F3F7FB" text-anchor="middle" font-size="16" font-weight="800">logic</text>
+      <rect x="308" y="230" width="104" height="44" rx="22" fill="rgba(243,247,251,0.12)"/>
+      <text x="360" y="259" fill="#F3F7FB" text-anchor="middle" font-size="16" font-weight="800">proof</text>
+    </g>
+  </g>
+</svg>

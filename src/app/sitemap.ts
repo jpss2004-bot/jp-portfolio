@@ -3,7 +3,7 @@ import { caseStudies } from "@/data/case-studies";
 import { locales } from "@/data/i18n";
 
 function getBaseUrl() {
-  return (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+  return (process.env.NEXT_PUBLIC_SITE_URL ?? "https://jp-portfolio-beta.vercel.app").replace(/\/$/, "");
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {

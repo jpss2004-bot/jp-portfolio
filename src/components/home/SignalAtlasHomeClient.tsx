@@ -8,7 +8,10 @@ import type { Locale } from "@/data/i18n";
 import { operatingPrinciples, profile, stackLayers, timeline } from "@/data/portfolio";
 import { DesktopFloatingDock } from "@/components/layout/DesktopFloatingDock";
 import { Header } from "@/components/layout/Header";
+import { SignalAtmosphere } from "@/components/home/SignalAtmosphere";
+import { SignalJourneyRail } from "@/components/home/SignalJourneyRail";
 import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
+import { SignalRouteProgress } from "@/components/home/SignalRouteProgress";
 
 export type Language = Locale;
 
@@ -20,23 +23,23 @@ const copy = {
     navProcess: "Process",
     navContact: "Contact",
     eyebrow: "Canada \\u2194 Mexico / Bilingual software systems",
-    headline: "Software systems that make complex workflows clear.",
+    headline: "I turn messy workflows into software people can trust.",
     subhead:
-      "Computer Science student building backend-heavy products, workflow tools, and AI-assisted systems with clean interfaces, practical architecture, and visible proof.",
+      "Computer Science student building backend-heavy products, workflow tools, and AI-assisted systems with clear interfaces, practical architecture, and visible proof.",
     primaryCta: "Explore selected systems",
     resumeCta: "View resume",
     downloadResume: "Download PDF",
     githubCta: "Open GitHub",
     proofOne: "Open to internships",
-    proofTwo: "English / Spanish",
+    proofTwo: "English / EspaÃ±ol",
     proofThree: "Backend + product",
     proofFour: "Next.js / Python / SQL",
     sceneLabel: "Interactive Signal Atlas scene",
-    sceneCaption: "Routes, nodes, projects, and decisions connected into one portfolio system.",
+    sceneCaption: "Projects, proof, and technical decisions connected into one portfolio system.",
     workEyebrow: "Selected systems",
     workTitle: "Selected systems with clear proof paths.",
     workCopy:
-      "Each card highlights the project route, role, stack, and proof signals that lead into the case study.",
+      "Each card highlights the role, stack, proof signals, and case-study route. Real screenshots will replace temporary visuals as the projects mature.",
     stackEyebrow: "Technical map",
     stackTitle: "Stack grouped by where it creates value.",
     stackCopy: "Interface, application logic, data, and delivery are shown as a system, not a random skills cloud.",
@@ -52,7 +55,7 @@ const copy = {
       "My strongest work connects software engineering, product thinking, and practical workflows. The visual system is personal, but the content stays recruiter-readable.",
     contactEyebrow: "Contact",
     contactTitle: "Have an internship, project, or technical opportunity?",
-    contactCopy: "Abierto a internships, roles junior de ingenieria de producto y colaboraciones tecnicas practicas.",
+    contactCopy: "Open to internships, junior product engineering roles, and practical technical collaborations.",
     emailMe: "Email JP",
     openCase: "Read case study",
     visualLabel: "Generated project visual preview",
@@ -64,7 +67,7 @@ const copy = {
     navProcess: "Proceso",
     navContact: "Contacto",
     eyebrow: "Canad\\u00e1 \\u2194 M\\u00e9xico / Sistemas de software biling\\u00fces",
-    headline: "Sistemas que vuelven claros los flujos complejos.",
+    headline: "Convierto flujos complejos en software confiable.",
     subhead:
       "Estudiante de Ciencias de la Computaci\\u00f3n que construye productos con backend fuerte, herramientas de flujo de trabajo y sistemas asistidos por IA con criterio de producto, arquitectura y evidencia.",
     primaryCta: "Explorar sistemas seleccionados",
@@ -76,11 +79,11 @@ const copy = {
     proofThree: "Backend + producto",
     proofFour: "Next.js / Python / SQL",
     sceneLabel: "Escena interactiva de Signal Atlas",
-    sceneCaption: "Rutas, nodos, proyectos y decisiones conectados en un solo sistema de portafolio.",
+    sceneCaption: "Proyectos, evidencia y decisiones tÃ©cnicas conectadas en un solo sistema de portafolio.",
     workEyebrow: "Sistemas seleccionados",
     workTitle: "Sistemas seleccionados con rutas de evidencia claras.",
     workCopy:
-      "Cada tarjeta resume la ruta del proyecto, el rol, el stack y las seÃ±ales de evidencia que llevan al caso de estudio.",
+      "Cada tarjeta resume el rol, el stack, las seÃ±ales de evidencia y la ruta al caso de estudio. Las capturas reales reemplazarÃ¡n los visuales temporales conforme maduren los proyectos.",
     stackEyebrow: "Mapa t\\u00e9cnico",
     stackTitle: "Stack agrupado por el valor que aporta.",
     stackCopy: "Interfaz, l\\u00f3gica de aplicaci\\u00f3n, datos y entrega se muestran como sistema, no como lista aleatoria.",
@@ -96,7 +99,7 @@ const copy = {
       "Mi trabajo conecta ingenier\\u00eda de software, pensamiento de producto y flujos reales. El sistema visual es personal, pero el contenido sigue siendo claro para reclutadores.",
     contactEyebrow: "Contacto",
     contactTitle: "\\u00bfTienes una oportunidad, proyecto o internship?",
-    contactCopy: "Abierto a internships, roles junior de ingenieria de producto y colaboraciones tecnicas practicas.",
+    contactCopy: "Abierto a internships, roles junior de ingenierÃ­a de producto y colaboraciones tÃ©cnicas prÃ¡cticas.",
     emailMe: "Escribir a JP",
     openCase: "Leer caso de estudio",
     visualLabel: "Vista visual generada del proyecto",
@@ -232,6 +235,7 @@ function Work({ language }: { language: Locale }) {
                   width={1200}
                   height={720}
                   alt={`${title} ${t.visualLabel}`}
+                  sizes={index === 0 ? "(max-width: 980px) 100vw, 66vw" : "(max-width: 980px) 100vw, 33vw"}
                   unoptimized
                   priority={index === 0}
                 />
@@ -350,7 +354,7 @@ function About({ language }: { language: Locale }) {
   const t = copy[language];
 
   return (
-    <section className="section shell about-grid">
+    <section id="about" className="section shell about-grid">
       <div className="about-card">
         <p className="eyebrow">{decode(t.aboutEyebrow)}</p>
         <h2>{decode(t.aboutTitle)}</h2>
@@ -401,12 +405,10 @@ export function SignalAtlasHomeClient({ initialLocale = "en" }: { initialLocale?
   return (
     <main id="main-content" className="portfolio-page">
       <DocumentLocaleSync locale={language} />
-      <div className="animated-background" aria-hidden="true">
-        <div className="bg-orb bg-orb-one" />
-        <div className="bg-orb bg-orb-two" />
-        <div className="bg-orb bg-orb-three" />
-      </div>
+      <SignalAtmosphere locale={language} mode="home" />
       <Header locale={language} navItems={dockItems} />
+      <SignalJourneyRail locale={language} />
+      <SignalRouteProgress locale={language} />
       <Hero language={language} />
       <Work language={language} />
       <Stack language={language} />

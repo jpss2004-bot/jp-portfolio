@@ -2,8 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
+import { SignalAtmosphere } from "@/components/home/SignalAtmosphere";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { caseStudies, getCaseStudy, getLocalizedValue } from "@/data/case-studies";
+import {
+  caseStudies,
+  getCaseStudy,
+  getLocalizedValue,
+  type ProjectCaseStudy,
+} from "@/data/case-studies";
 import { isLocale, locales, type Locale } from "@/data/i18n";
 
 const navLabels = {
@@ -31,6 +38,9 @@ const labels = {
     problemTitle: "What this project solves",
     solutionEyebrow: "Solution",
     solutionTitle: "How I approached it",
+    galleryEyebrow: "Proof gallery",
+    galleryTitle: "Visual evidence and system proof",
+    galleryNote: "Temporary proof visuals are used until real screenshots are added.",
     architectureEyebrow: "Architecture",
     architectureTitle: "How the system is structured",
     decisionsEyebrow: "Decisions",
@@ -50,17 +60,20 @@ const labels = {
     role: "Rol",
     featured: "Destacado",
     problemEyebrow: "Problema",
-    problemTitle: "Que resuelve este proyecto",
-    solutionEyebrow: "Solucion",
-    solutionTitle: "Como lo aborde",
+    problemTitle: "QuÃ© resuelve este proyecto",
+    solutionEyebrow: "SoluciÃ³n",
+    solutionTitle: "CÃ³mo lo abordÃ©",
+    galleryEyebrow: "GalerÃ­a de evidencia",
+    galleryTitle: "Evidencia visual y prueba del sistema",
+    galleryNote: "Estos visuales son temporales hasta agregar capturas reales.",
     architectureEyebrow: "Arquitectura",
-    architectureTitle: "Como esta estructurado el sistema",
+    architectureTitle: "CÃ³mo estÃ¡ estructurado el sistema",
     decisionsEyebrow: "Decisiones",
     decisionsTitle: "Tradeoffs y resultados",
     resultsEyebrow: "Resultados",
     resultsTitle: "Evidencia e impacto",
-    nextEyebrow: "Siguiente iteracion",
-    nextTitle: "Que mejoraria despues",
+    nextEyebrow: "Siguiente iteraciÃ³n",
+    nextTitle: "QuÃ© mejorarÃ­a despuÃ©s",
     snapshot: "Panel de evidencia",
     impact: "Impacto",
     proof: "Evidencia",
@@ -75,16 +88,73 @@ type ProjectPageProps = {
   }>;
 };
 
-function Badge({ children }: { children: React.ReactNode }) {
+type PageLabels = typeof labels.en | typeof labels.es;
+
+function Badge({ children }: { children: ReactNode }) {
   return <span className="tag">{children}</span>;
 }
 
-function CaseBlock({ eyebrow, title, children }: { eyebrow: string; title: string; children: React.ReactNode }) {
+function CaseBlock({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
   return (
-    <section className="project-detail-block">
+    <section className="project-detail-block signal-surface">
       <p className="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
       <div>{children}</div>
+    </section>
+  );
+}
+
+function ProofGallery({
+  project,
+  locale,
+  t,
+}: {
+  project: ProjectCaseStudy;
+  locale: Locale;
+  t: PageLabels;
+}) {
+  const galleryItems = project.gallery.length > 0
+    ? project.gallery
+    : [
+        {
+          src: project.heroImage,
+          alt: project.title,
+          caption: undefined,
+        },
+      ];
+
+  return (
+    <section className="project-detail-block proof-gallery-block signal-surface">
+      <div className="proof-gallery-heading">
+        <div>
+          <p className="eyebrow">{t.galleryEyebrow}</p>
+          <h2>{t.galleryTitle}</h2>
+        </div>
+        <p>{t.galleryNote}</p>
+      </div>
+
+      <div className="proof-gallery-grid">
+        {galleryItems.map((item, index) => {
+          const alt = getLocalizedValue(item.alt, locale);
+          const caption = item.caption ? getLocalizedValue(item.caption, locale) : undefined;
+
+          return (
+            <figure className={index === 0 ? "proof-gallery-item proof-gallery-item-large" : "proof-gallery-item"} key={item.src}>
+              <div className="proof-gallery-media">
+                <Image
+                  src={item.src}
+                  alt={alt}
+                  width={1200}
+                  height={720}
+                  sizes={index === 0 ? "(max-width: 980px) 100vw, 52vw" : "(max-width: 980px) 100vw, 26vw"}
+                  unoptimized
+                />
+              </div>
+              {caption ? <figcaption>{caption}</figcaption> : null}
+            </figure>
+          );
+        })}
+      </div>
     </section>
   );
 }
@@ -158,10 +228,7 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
 
   return (
     <SiteShell locale={locale} navItems={navItems} projectSlug={project.slug}>
-      <div className="animated-background" aria-hidden="true">
-        <div className="bg-orb bg-orb-one" />
-        <div className="bg-orb bg-orb-two" />
-      </div>
+      <SignalAtmosphere locale={locale} mode="project" />
 
       <section className="shell project-hero-detail">
         <Link href={`/${locale}`} className="button button-soft project-back-link">
@@ -169,7 +236,7 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
         </Link>
 
         <div className="project-hero-grid">
-          <div>
+          <div className="project-hero-copy-panel">
             <div className="project-badges">
               <Badge>{getLocalizedValue(project.statusLabel, locale)}</Badge>
               <Badge>{project.year}</Badge>
@@ -200,13 +267,14 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
             </div>
           </div>
 
-          <aside className="project-proof-panel" aria-label={t.snapshot}>
+          <aside className="project-proof-panel signal-surface" aria-label={t.snapshot}>
             <div className="project-proof-media">
               <Image
                 src={project.heroImage}
                 alt={visualAlt}
                 width={1200}
                 height={720}
+                sizes="(max-width: 980px) 100vw, 38vw"
                 priority
                 unoptimized
               />
@@ -240,6 +308,8 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
             <p>{approach}</p>
           </CaseBlock>
 
+          <ProofGallery project={project} locale={locale} t={t} />
+
           <CaseBlock eyebrow={t.architectureEyebrow} title={t.architectureTitle}>
             <ul>
               {architecture.map((item) => <li key={item}>{item}</li>)}
@@ -247,7 +317,7 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
           </CaseBlock>
 
           <CaseBlock eyebrow={t.decisionsEyebrow} title={t.decisionsTitle}>
-            <div className="principle-list">
+            <div className="principle-list decision-log-list">
               {project.decisions.map((decision, index) => (
                 <article key={`${project.slug}-decision-${index}`}>
                   <span>{index + 1}</span>
@@ -273,7 +343,7 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
           </CaseBlock>
         </div>
 
-        <aside className="project-sidebar">
+        <aside className="project-sidebar signal-surface">
           <p className="eyebrow">{t.proof}</p>
           <h3>{title}</h3>
           <p>{tagline}</p>

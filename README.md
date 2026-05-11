@@ -1,28 +1,44 @@
-# JP Samano Portfolio - Signal Atlas Migration
+# JP Samano â€” Signal Atlas Portfolio
 
-This is JP Samano's personal portfolio website.
+Production portfolio for JP Samano, built as a bilingual software systems portfolio around the **Signal Atlas** direction: routes, nodes, proof, and technical decisions.
 
-## Current Phase
+Live site: https://jp-portfolio-beta.vercel.app  
+Repository: https://github.com/jpss2004-bot/jp-portfolio
 
-Phase 1: Foundation, Audit, and Stabilization.
+## Purpose
 
-The project is being migrated toward the Signal Atlas V1 direction: a bilingual, proof-first, systems-oriented portfolio organized around routes, nodes, proof, and decisions.
+This site is designed for internships, recruiters, technical opportunities, and professional networking. It presents JP's strongest software work through selected projects, case-study pages, resume access, bilingual navigation, and proof-oriented technical storytelling.
 
-## What Phase 1 Protects
+## Current Direction
 
-- Keeps the current Next.js app running locally.
-- Preserves the existing homepage and project routes.
-- Fixes the resume file path mismatch.
-- Updates obvious stale Portfolio OS labels to Signal Atlas foundation language.
-- Keeps changes small before route-level localization and component extraction.
+The portfolio follows these principles:
 
-## Stack
+- **Recruiter-first:** resume, contact, selected work, and technical focus are easy to find.
+- **Bilingual:** English and Spanish routes are supported through `/en` and `/es`.
+- **Proof-first:** projects are structured around problem, role, architecture, decisions, results, and next steps.
+- **Systems-oriented:** the design emphasizes workflows, backend/product thinking, and practical implementation.
+- **Controlled motion:** visual effects should support Signal Atlas routes/nodes, not become random dashboard decoration.
 
-- Next.js
+## Tech Stack
+
+- Next.js App Router
 - React
 - TypeScript
 - Tailwind CSS
-- motion
+- Vercel deployment
+
+## Routes
+
+```text
+/
+ /en
+ /es
+ /en/projects/[slug]
+ /es/projects/[slug]
+ /projects/[slug] -> redirects to /en/projects/[slug]
+ /sitemap.xml
+ /robots.txt
+```
 
 ## Local Development
 
@@ -34,10 +50,13 @@ npm run dev
 Open:
 
 ```text
-http://localhost:3000
+http://localhost:3000/en
+http://localhost:3000/es
 ```
 
 ## Verification
+
+Run before every commit:
 
 ```bash
 npm run lint
@@ -45,6 +64,47 @@ npx tsc --noEmit
 npm run build
 ```
 
-## Phase 1 Rule
+Recommended manual checks:
 
-Do not push, deploy, or perform a large visual rewrite from this phase alone. Use this as the clean baseline before Phase 2 localization and content-model work.
+```text
+/en
+/es
+/en/projects/savr
+/es/projects/savr
+/projects/savr
+/sitemap.xml
+/robots.txt
+resume view/download
+mobile navigation
+keyboard tab order
+```
+
+## Deployment Notes
+
+Set this environment variable in Vercel for Production and Preview:
+
+```text
+NEXT_PUBLIC_SITE_URL=https://jp-portfolio-beta.vercel.app
+```
+
+The app uses this value for metadata, sitemap, robots, and canonical URL generation.
+
+## Project Proof Roadmap
+
+The next major improvement is replacing temporary project visuals with real proof media:
+
+- SAVR recommendation-flow screenshots and architecture diagram.
+- ER Triage queue/dashboard screenshots and triage scoring explanation.
+- Family Phrase Game gameplay screenshot and live-app proof.
+- Concept projects clearly labeled with diagrams and honest implementation status.
+
+## Patch Status
+
+- Patch A: Critical encoding, metadata, sitemap, robots, and README cleanup.
+- Patch B: Visual clarity pass for hero, header, spacing, card alignment, readability, and responsive layout.
+- Patch C: Proof and case-study upgrade with proof gallery structure, architecture placeholders, and contrast safeguards.
+- Patch D.1: Redesigned cohesive Signal Atlas motion system, integrated background, desktop journey rail, and restrained 3D depth.
+- Next: Patch E will handle final QA, recruiter readiness, SEO/social preview, mobile checks, and repository cleanup.
+
+
+

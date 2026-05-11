@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "*.ps1",
+    ".portfolio-patch-temp/**",
+    "_portfolio_audits/**",
+    "_portfolio_backups/**",
   ]),
 ]);
 
