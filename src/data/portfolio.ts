@@ -34,13 +34,13 @@ export type Project = {
 export const profile = {
   name: "JP Samano",
   fullName: "Jose Pablo Samano Suarez",
-  title: "Computer Science student building full-stack systems, AI-assisted products, and workflow tools.",
+  title: "Computer Science student focused on software engineering, cybersecurity, and practical product systems.",
   location: "Nova Scotia, Canada / Mexico City",
   email: "jpss2004@icloud.com",
   github: "https://github.com/jpss2004-bot",
   linkedin: "https://ca.linkedin.com/in/jose-pablo-samano-suarez",
   resume: "/resume/jp-samano-resume-en.pdf",
-  availability: "Open to software internships, junior product engineering roles, and practical build collaborations.",
+  availability: "Open to software engineering internships, cybersecurity-adjacent technical roles, and practical product collaborations.",
 };
 
 export const operatingPrinciples = [
@@ -109,9 +109,9 @@ export const projects: Project[] = [
     status: "In Progress",
     year: "2026",
     role: "Product direction, backend API, frontend flows, data modeling, recommendation logic",
-    oneLiner: "A dining recommendation system that understands context, not just cuisine.",
+    oneLiner: "A full-stack dining recommendation platform that uses context, preference signals, and explainable flows.",
     summary:
-      "SAVR helps people choose restaurants and dining experiences based on taste, budget, atmosphere, group context, dietary needs, and the type of night they want.",
+      "A full-stack dining recommendation platform that uses user preferences, budget, social context, and intent to produce more relevant restaurant and experience suggestions.",
     problem:
       "Restaurant discovery is often generic. It usually filters by location or cuisine, but ignores why someone is going out, who they are with, what mood they want, and what constraints actually matter.",
     solution:
@@ -165,9 +165,9 @@ export const projects: Project[] = [
     status: "Prototype",
     year: "2025",
     role: "System design, Python implementation, data model, workflow logic",
-    oneLiner: "A clinical workflow prototype for intake, triage, queues, and treatment state.",
+    oneLiner: "A workflow prototype for emergency-room queue visibility, patient-state tracking, and triage prioritization.",
     summary:
-      "A Python-based emergency room workflow prototype for patient intake, nurse vitals, automated priority scoring, real-time queue visibility, and treatment progression.",
+      "A workflow prototype for emergency-room queue visibility, patient-state tracking, and triage prioritization using structured forms, local data persistence, and dashboard views.",
     problem:
       "Emergency room workflows depend on clear shared visibility. Intake, vitals, priority, room assignment, and treatment progression can become fragmented if they are not represented in one system.",
     solution:
@@ -221,9 +221,9 @@ export const projects: Project[] = [
     status: "Live",
     year: "2026",
     role: "Full-stack implementation, game flow design, deployment",
-    oneLiner: "A personalized Catchphrase-style game built around real family inside jokes.",
+    oneLiner: "A deployed Flask web app that turns family-submitted phrases into a playable party game.",
     summary:
-      "A deployed Flask web app that lets a family play a personalized guessing game using custom phrases collected through a Google Forms workflow.",
+      "A deployed Flask web app that turns family-submitted inside jokes and catchphrases into a playable party game with scoring, phrase loading, and a simple live interface.",
     problem:
       "Generic party games are fun, but they become more meaningful when the content is personal, familiar, and specific to the people playing.",
     solution:
@@ -278,9 +278,9 @@ export const projects: Project[] = [
     status: "Case Study",
     year: "2025",
     role: "Research direction, simulation plan, system architecture",
-    oneLiner: "A simulation-first AI concept for city-wide adaptive traffic light coordination.",
+    oneLiner: "A systems-design case study for adaptive traffic-light coordination using simulation and AI-assisted reasoning.",
     summary:
-      "A system concept for training and testing an AI-driven traffic light coordination model in a simulated city before exploring real-world use.",
+      "A systems-design case study exploring how synthetic traffic simulation, congestion signals, and AI-assisted reasoning could support adaptive traffic-light coordination.",
     problem:
       "Urban traffic is often managed intersection by intersection, but congestion forms across networks. A smarter system needs to reason about the city as a connected environment.",
     solution:
@@ -332,9 +332,9 @@ export const projects: Project[] = [
     status: "Case Study",
     year: "2025",
     role: "Product concept, security UX, reporting workflow design",
-    oneLiner: "A safety-focused assistant for documenting suspicious calls and cyberharassment reports.",
+    oneLiner: "A cybersecurity product concept for documenting suspicious calls and preparing safer reporting workflows.",
     summary:
-      "A product concept for helping people organize incident details, classify risk signals, and generate structured reporting material for suspicious calls or cyberharassment situations.",
+      "A cybersecurity product concept for helping users document suspicious calls, classify risk, and prepare structured reporting workflows with privacy and safety boundaries.",
     problem:
       "People facing suspicious calls or online harassment often do not know how to document what happened clearly or what information matters.",
     solution:

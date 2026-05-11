@@ -74,10 +74,10 @@ function localized<T>(en: T, es: T): Localized<T> {
 const spanishBySlug: Record<string, SpanishProjectCopy> = {
   savr: {
     title: "SAVR - Plataforma de Recomendaciones Contextuales",
-    tagline: "Un sistema de recomendaciones que entiende el contexto, no solo la cocina.",
+    tagline: "Prototipo de flujo de trabajo para visibilidad de filas, estado de pacientes y priorizaci\\u00f3n de triage.",
     role: "Dirección de producto, API backend, flujos frontend, modelo de datos y logica de recomendacion",
     summary:
-      "SAVR ayuda a elegir restaurantes y experiencias según gusto, presupuesto, ambiente, grupo, restricciones y el tipo de noche que busca el usuario.",
+      "Prototipo de flujo de trabajo para visibilidad de filas en urgencias, seguimiento del estado de pacientes y priorizaci\\u00f3n de triage mediante formularios estructurados, persistencia local y vistas tipo dashboard.",
     challenge:
       "La busqueda de restaurantes suele ser generica. Normalmente filtra por ubicacion o cocina, pero ignora con quien vas, que ambiente quieres y que restricciones importan.",
     approach:
@@ -104,10 +104,10 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
   },
   "er-triage-queue-manager": {
     title: "ER Triage & Queue Manager",
-    tagline: "Prototipo de flujo clínico para intake, triage, colas y estado de tratamiento.",
+    tagline: "Aplicaci\\u00f3n Flask desplegada que convierte frases familiares en un juego grupal.",
     role: "Diseño de sistema, implementacion en Python, modelo de datos y logica de flujo",
     summary:
-      "Prototipo de sala de emergencias para registro de pacientes, signos vitales, prioridad automatizada, visibilidad de cola y progreso de tratamiento.",
+      "Aplicaci\\u00f3n web desplegada con Flask que convierte frases familiares y chistes internos en un juego grupal con puntuaci\\u00f3n, carga de frases e interfaz simple en vivo.",
     challenge:
       "Los flujos de emergencias dependen de visibilidad compartida. Intake, signos vitales, prioridad, cuarto y tratamiento se fragmentan si no viven en un solo sistema.",
     approach:
@@ -134,10 +134,10 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
   },
   "family-phrase-game": {
     title: "Family Phrase Game",
-    tagline: "Juego tipo Catchphrase personalizado con frases reales de familia.",
+    tagline: "Caso de estudio sobre coordinaci\\u00f3n adaptativa de sem\\u00e1foros con simulaci\\u00f3n e IA.",
     role: "Implementacion full-stack, diseño del flujo de juego y despliegue",
     summary:
-      "Aplicación Flask desplegada para jugar con frases personalizadas recolectadas desde un flujo de Google Forms.",
+      "Caso de estudio de dise\\u00f1o de sistemas que explora c\\u00f3mo la simulaci\\u00f3n sint\\u00e9tica de tr\\u00e1fico, se\\u00f1ales de congesti\\u00f3n y razonamiento asistido por IA podr\\u00edan apoyar la coordinaci\\u00f3n adaptativa de sem\\u00e1foros.",
     challenge:
       "Los juegos genericos son divertidos, pero se vuelven mas significativos cuando el contenido es personal y especifico del grupo.",
     approach:
@@ -164,10 +164,10 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
   },
   "adaptive-traffic-ai": {
     title: "Adaptive Traffic AI System",
-    tagline: "Concepto con simulación para coordinación adaptativa de semáforos.",
+    tagline: "Concepto de producto de ciberseguridad para documentaci\\u00f3n y reportes m\\u00e1s seguros.",
     role: "Dirección de investigacion, plan de simulación y arquitectura de sistema",
     summary:
-      "Concepto de sistema para entrenar y probar coordinación de semáforos con IA en una ciudad simulada antes de explorar uso real.",
+      "Concepto de producto de ciberseguridad para ayudar a usuarios a documentar llamadas sospechosas, clasificar riesgo y preparar flujos de denuncia estructurados con l\\u00edmites de privacidad y seguridad.",
     challenge:
       "El trafico urbano suele gestionarse por interseccion, pero la congestion se forma en redes completas. El sistema necesita razonar sobre la ciudad conectada.",
     approach:
@@ -278,14 +278,201 @@ function getLinkLabel(link: Project["links"][number]): Localized<string> {
   return localized(link.label, "Caso de estudio");
 }
 
-function buildDecisions(project: Project, es: SpanishProjectCopy): Decision[] {
-  const englishSource = project.challenges.length > 0 ? project.challenges : project.architecture;
-  const spanishSource = es.architecture.length > 0 ? es.architecture : [es.challenge, es.approach];
+const projectDecisionLibrary: Record<string, Decision[]> = {
+  savr: [
+    {
+      title: localized("Recommendation input model", "Modelo de entradas de recomendaci\u00f3n"),
+      tradeoff: localized(
+        "A simple restaurant list would be faster to build, but it would not capture why someone is going out, who they are with, budget, dietary limits, or atmosphere.",
+        "Una lista simple de restaurantes ser\u00eda m\u00e1s r\u00e1pida de construir, pero no capturar\u00eda por qu\u00e9 alguien sale, con qui\u00e9n va, su presupuesto, restricciones o ambiente."
+      ),
+      outcome: localized(
+        "Structured the product around Describe Your Night, Build Your Night, and Surprise Me so recommendation results can be explained and extended.",
+        "Estructur\u00e9 el producto alrededor de Describe Your Night, Build Your Night y Surprise Me para que los resultados sean explicables y extensibles."
+      ),
+    },
+    {
+      title: localized("Backend and frontend contract", "Contrato entre backend y frontend"),
+      tradeoff: localized(
+        "Recommendation features become fragile when UI filters and backend scoring logic evolve separately.",
+        "Las funciones de recomendaci\u00f3n se vuelven fr\u00e1giles cuando los filtros de UI y la l\u00f3gica de scoring del backend evolucionan por separado."
+      ),
+      outcome: localized(
+        "Kept API routes, data fields, and result cards aligned around explicit preference signals, restaurant metadata, and explainable output.",
+        "Mantuve rutas API, campos de datos y tarjetas de resultados alineadas con se\u00f1ales expl\u00edcitas de preferencia, metadatos de restaurantes y resultados explicables."
+      ),
+    },
+    {
+      title: localized("Proof before polish", "Evidencia antes de pulido visual"),
+      tradeoff: localized(
+        "Premium visuals can make a product look finished before the recommendation logic and data model are actually useful.",
+        "Los visuales premium pueden hacer que un producto parezca terminado antes de que la l\u00f3gica de recomendaci\u00f3n y el modelo de datos sean realmente \u00fatiles."
+      ),
+      outcome: localized(
+        "Prioritized working flows, authentication, restaurant data, presets, APIs, and recommendation cards before final visual polish.",
+        "Prioric\u00e9 flujos funcionales, autenticaci\u00f3n, datos de restaurantes, presets, APIs y tarjetas de recomendaci\u00f3n antes del pulido visual final."
+      ),
+    },
+  ],
 
-  return englishSource.slice(0, 3).map((item, index) => ({
-    title: localized(`Decision ${index + 1}`, `Decision ${index + 1}`),
-    tradeoff: localized(item, spanishSource[index] ?? es.challenge),
-    outcome: localized(project.next[index] ?? project.solution, es.nextSteps[index] ?? es.approach),
+  "er-triage-queue-manager": [
+    {
+      title: localized("Workflow model before interface", "Modelo de flujo antes de la interfaz"),
+      tradeoff: localized(
+        "A hospital queue screen can look useful even if it does not reflect patient states, priority changes, or staff handoff.",
+        "Una pantalla de fila hospitalaria puede parecer \u00fatil aunque no refleje estados de pacientes, cambios de prioridad o transferencia entre personal."
+      ),
+      outcome: localized(
+        "Modeled queue visibility, triage priority, patient status, and dashboard state before treating the UI as the final artifact.",
+        "Model\u00e9 visibilidad de fila, prioridad de triage, estado de pacientes y dashboard antes de tratar la UI como el artefacto final."
+      ),
+    },
+    {
+      title: localized("Local persistence for prototype speed", "Persistencia local para velocidad de prototipo"),
+      tradeoff: localized(
+        "A cloud backend would be more realistic, but it would slow early iteration for a workflow prototype.",
+        "Un backend en la nube ser\u00eda m\u00e1s realista, pero har\u00eda m\u00e1s lenta la iteraci\u00f3n temprana de un prototipo de flujo."
+      ),
+      outcome: localized(
+        "Used local data persistence so the prototype could demonstrate patient state changes, queue behavior, and dashboard updates quickly.",
+        "Us\u00e9 persistencia local para demostrar r\u00e1pidamente cambios de estado, comportamiento de fila y actualizaciones del dashboard."
+      ),
+    },
+    {
+      title: localized("Explainable priority over black-box scoring", "Prioridad explicable sobre scoring opaco"),
+      tradeoff: localized(
+        "Automated priority scoring can become unsafe or untrusted if users cannot understand why a patient moved in the queue.",
+        "El scoring autom\u00e1tico de prioridad puede volverse inseguro o poco confiable si los usuarios no entienden por qu\u00e9 un paciente se movi\u00f3 en la fila."
+      ),
+      outcome: localized(
+        "Kept triage logic structured so future versions can show the reason behind priority changes and attention flags.",
+        "Mantuve la l\u00f3gica de triage estructurada para que futuras versiones puedan mostrar la raz\u00f3n detr\u00e1s de cambios de prioridad y alertas de atenci\u00f3n."
+      ),
+    },
+  ],
+
+  "family-phrase-game": [
+    {
+      title: localized("Personal content over generic word banks", "Contenido personal sobre bancos gen\u00e9ricos"),
+      tradeoff: localized(
+        "Generic catchphrase lists are easier to ship, but they remove the personal value of the family game.",
+        "Las listas gen\u00e9ricas de frases son m\u00e1s f\u00e1ciles de lanzar, pero eliminan el valor personal del juego familiar."
+      ),
+      outcome: localized(
+        "Designed phrase loading around family-submitted catchphrases so the game feels custom, funny, and replayable.",
+        "Dise\u00f1\u00e9 la carga de frases alrededor de expresiones enviadas por la familia para que el juego se sienta personalizado, divertido y rejugable."
+      ),
+    },
+    {
+      title: localized("Simple live interface over account complexity", "Interfaz simple sobre complejidad de cuentas"),
+      tradeoff: localized(
+        "Accounts and database features could make the game more robust, but they would add friction before the event.",
+        "Las cuentas y funciones de base de datos podr\u00edan hacer el juego m\u00e1s robusto, pero agregar\u00edan fricci\u00f3n antes del evento."
+      ),
+      outcome: localized(
+        "Chose Flask, simple screens, scoring, and phrase loading to get a playable web app deployed quickly.",
+        "Eleg\u00ed Flask, pantallas simples, puntuaci\u00f3n y carga de frases para desplegar r\u00e1pidamente una app web jugable."
+      ),
+    },
+    {
+      title: localized("Deployable MVP instead of local-only demo", "MVP desplegable en vez de demo local"),
+      tradeoff: localized(
+        "Running locally would be easier, but it would make the project harder to share, test, and explain.",
+        "Correrlo localmente ser\u00eda m\u00e1s f\u00e1cil, pero har\u00eda el proyecto m\u00e1s dif\u00edcil de compartir, probar y explicar."
+      ),
+      outcome: localized(
+        "Deployed the app so the project could be opened from a browser and presented as a real working system.",
+        "Desplegu\u00e9 la app para que el proyecto pudiera abrirse desde el navegador y presentarse como un sistema funcional real."
+      ),
+    },
+  ],
+
+  "adaptive-traffic-ai": [
+    {
+      title: localized("Simulation before real-world claims", "Simulaci\u00f3n antes de promesas reales"),
+      tradeoff: localized(
+        "Real traffic-light control is high-stakes and cannot be responsibly claimed without validated data, infrastructure access, and safety testing.",
+        "El control real de sem\u00e1foros es de alto riesgo y no debe afirmarse sin datos validados, acceso a infraestructura y pruebas de seguridad."
+      ),
+      outcome: localized(
+        "Framed the project as a systems-design and simulation case study before any real-world deployment claim.",
+        "Enmarqu\u00e9 el proyecto como caso de estudio de dise\u00f1o de sistemas y simulaci\u00f3n antes de cualquier afirmaci\u00f3n de despliegue real."
+      ),
+    },
+    {
+      title: localized("Synthetic data before city integration", "Datos sint\u00e9ticos antes de integraci\u00f3n urbana"),
+      tradeoff: localized(
+        "Live city integration sounds impressive, but without access and validation it would be unrealistic and hard to test.",
+        "La integraci\u00f3n con una ciudad real suena impresionante, pero sin acceso y validaci\u00f3n ser\u00eda poco realista y dif\u00edcil de probar."
+      ),
+      outcome: localized(
+        "Started from synthetic congestion patterns, simulation inputs, and evaluation metrics to test adaptive-control ideas safely.",
+        "Part\u00ed de patrones sint\u00e9ticos de congesti\u00f3n, entradas de simulaci\u00f3n y m\u00e9tricas de evaluaci\u00f3n para probar ideas de control adaptativo con seguridad."
+      ),
+    },
+    {
+      title: localized("City-wide coordination over isolated optimization", "Coordinaci\u00f3n urbana sobre optimizaci\u00f3n aislada"),
+      tradeoff: localized(
+        "Optimizing one intersection can make a local signal look better while creating bottlenecks elsewhere.",
+        "Optimizar una sola intersecci\u00f3n puede mejorar una se\u00f1al local mientras crea cuellos de botella en otras zonas."
+      ),
+      outcome: localized(
+        "Treated coordination, constraints, congestion propagation, and network-level flow as core parts of the system design.",
+        "Trat\u00e9 la coordinaci\u00f3n, restricciones, propagaci\u00f3n de congesti\u00f3n y flujo a nivel red como partes centrales del dise\u00f1o del sistema."
+      ),
+    },
+  ],
+
+  "cyber-reporting-assistant": [
+    {
+      title: localized("Privacy boundaries before automation", "L\u00edmites de privacidad antes de automatizaci\u00f3n"),
+      tradeoff: localized(
+        "A reporting assistant could help users document incidents, but it can also create risk if it stores sensitive call data carelessly.",
+        "Un asistente de denuncias puede ayudar a documentar incidentes, pero tambi\u00e9n puede crear riesgo si almacena datos sensibles de llamadas sin cuidado."
+      ),
+      outcome: localized(
+        "Framed the system around documentation, risk classification, and structured reporting with explicit privacy and safety boundaries.",
+        "Enmarqu\u00e9 el sistema alrededor de documentaci\u00f3n, clasificaci\u00f3n de riesgo y reportes estructurados con l\u00edmites claros de privacidad y seguridad."
+      ),
+    },
+    {
+      title: localized("Assistance, not legal replacement", "Asistencia, no reemplazo legal"),
+      tradeoff: localized(
+        "Automating reports can reduce friction, but the tool should not pretend to replace authorities, emergency services, or legal advice.",
+        "Automatizar reportes puede reducir fricci\u00f3n, pero la herramienta no debe pretender reemplazar autoridades, servicios de emergencia o asesor\u00eda legal."
+      ),
+      outcome: localized(
+        "Kept the concept positioned as workflow support that helps users organize information before escalation.",
+        "Mantuve el concepto como apoyo de flujo de trabajo que ayuda a organizar informaci\u00f3n antes de una posible escalaci\u00f3n."
+      ),
+    },
+    {
+      title: localized("Structured evidence over free-form notes", "Evidencia estructurada sobre notas libres"),
+      tradeoff: localized(
+        "Free-form notes are easy to collect, but they are harder to review, classify, and turn into a useful report.",
+        "Las notas libres son f\u00e1ciles de recopilar, pero son m\u00e1s dif\u00edciles de revisar, clasificar y convertir en un reporte \u00fatil."
+      ),
+      outcome: localized(
+        "Designed the concept around structured incident fields, risk labels, summaries, and report-ready outputs.",
+        "Dise\u00f1\u00e9 el concepto alrededor de campos estructurados del incidente, etiquetas de riesgo, res\u00famenes y salidas listas para reporte."
+      ),
+    },
+  ],
+};
+
+function buildDecisions(project: Project): Decision[] {
+  const customDecisions = projectDecisionLibrary[project.slug];
+
+  if (customDecisions) {
+    return customDecisions;
+  }
+
+  const source = project.challenges.length > 0 ? project.challenges : project.architecture;
+
+  return source.slice(0, 3).map((item, index) => ({
+    title: localized("Decision " + (index + 1), "Decisi\u00f3n " + (index + 1)),
+    tradeoff: localized(item),
+    outcome: localized(project.next[index] ?? project.solution),
   }));
 }
 
