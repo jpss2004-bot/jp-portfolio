@@ -1,4 +1,4 @@
-﻿# JP Samano - Signal Atlas Portfolio
+# JP Samano - Signal Atlas Portfolio
 
 Production portfolio for JP Samano, built as a bilingual software systems portfolio around the **Signal Atlas** direction: routes, nodes, proof, and technical decisions.
 
