@@ -31,7 +31,7 @@ const copy = {
     downloadResume: "Download PDF",
     githubCta: "Open GitHub",
     proofOne: "Open to internships",
-    proofTwo: "English / EspaÃ±ol",
+    proofTwo: "English / Español",
     proofThree: "Backend + product",
     proofFour: "Next.js / Python / SQL",
     sceneLabel: "Interactive Signal Atlas scene",
@@ -39,7 +39,7 @@ const copy = {
     workEyebrow: "Selected systems",
     workTitle: "Selected systems with clear proof paths.",
     workCopy:
-      "Each card highlights the role, stack, proof signals, and case-study route. Real screenshots will replace temporary visuals as the projects mature.",
+      "Each card highlights the role, stack, proof signals, real project evidence, and the case-study route behind the work.",
     stackEyebrow: "Technical map",
     stackTitle: "Stack grouped by where it creates value.",
     stackCopy: "Interface, application logic, data, and delivery are shown as a system, not a random skills cloud.",
@@ -58,7 +58,7 @@ const copy = {
     contactCopy: "Open to internships, junior product engineering roles, and practical technical collaborations.",
     emailMe: "Email JP",
     openCase: "Read case study",
-    visualLabel: "Generated project visual preview",
+    visualLabel: "project proof preview",
   },
   es: {
     navWork: "Proyectos",
@@ -79,11 +79,11 @@ const copy = {
     proofThree: "Backend + producto",
     proofFour: "Next.js / Python / SQL",
     sceneLabel: "Escena interactiva de Signal Atlas",
-    sceneCaption: "Proyectos, evidencia y decisiones tÃ©cnicas conectadas en un solo sistema de portafolio.",
+    sceneCaption: "Proyectos, evidencia y decisiones técnicas conectadas en un solo sistema de portafolio.",
     workEyebrow: "Sistemas seleccionados",
     workTitle: "Sistemas seleccionados con rutas de evidencia claras.",
     workCopy:
-      "Cada tarjeta resume el rol, el stack, las seÃ±ales de evidencia y la ruta al caso de estudio. Las capturas reales reemplazarÃ¡n los visuales temporales conforme maduren los proyectos.",
+      "Cada tarjeta resume el rol, el stack, las señales de evidencia y la ruta al caso de estudio. Las capturas reales reemplazarÃ¡n los visuales temporales conforme maduren los proyectos.",
     stackEyebrow: "Mapa t\\u00e9cnico",
     stackTitle: "Stack agrupado por el valor que aporta.",
     stackCopy: "Interfaz, l\\u00f3gica de aplicaci\\u00f3n, datos y entrega se muestran como sistema, no como lista aleatoria.",
@@ -99,10 +99,10 @@ const copy = {
       "Mi trabajo conecta ingenier\\u00eda de software, pensamiento de producto y flujos reales. El sistema visual es personal, pero el contenido sigue siendo claro para reclutadores.",
     contactEyebrow: "Contacto",
     contactTitle: "\\u00bfTienes una oportunidad, proyecto o internship?",
-    contactCopy: "Abierto a internships, roles junior de ingenierÃ­a de producto y colaboraciones tÃ©cnicas prÃ¡cticas.",
+    contactCopy: "Abierto a internships, roles junior de ingeniería de producto y colaboraciones técnicas prácticas.",
     emailMe: "Escribir a JP",
     openCase: "Leer caso de estudio",
-    visualLabel: "Vista visual generada del proyecto",
+    visualLabel: "vista de evidencia del proyecto",
   },
 } as const;
 
@@ -201,7 +201,12 @@ function Hero({ language }: { language: Locale }) {
 }
 
 function projectVisual(slug: string) {
-  return `/projects/${slug}/preview.svg`;
+  const realProofImages: Record<string, string> = {
+    savr: "/projects/savr/savr-onboarding.png",
+    "family-phrase-game": "/projects/family-phrase-game/family-phrase-game-main.png",
+  };
+
+  return realProofImages[slug] ?? `/projects/${slug}/preview.svg`;
 }
 
 function Work({ language }: { language: Locale }) {

@@ -13,8 +13,8 @@ const labels = {
     routeD: "Systems",
   },
   es: {
-    routeA: "CanadÃ¡",
-    routeB: "MÃ©xico",
+    routeA: "Canadá",
+    routeB: "México",
     routeC: "Evidencia",
     routeD: "Sistemas",
   },

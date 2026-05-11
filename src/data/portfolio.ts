@@ -144,7 +144,7 @@ export const projects: Project[] = [
       "Creating a data model flexible enough for venues, dishes, events, budgets, and atmosphere.",
     ],
     next: [
-      "Add real screenshots from the current app.",
+      "Expand the proof gallery with recommendation-result screenshots and an architecture diagram.",
       "Add a live deployed demo once stable.",
       "Add dish-level explanations and event-aware scoring.",
     ],
@@ -267,6 +267,7 @@ export const projects: Project[] = [
     ],
     links: [
       { label: "Live App", href: "https://family-phrase-game.onrender.com/" },
+      { label: "GitHub", href: "https://github.com/jpss2004-bot/family-phrase-game" },
     ],
   },
   {

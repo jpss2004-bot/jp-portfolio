@@ -329,7 +329,7 @@ function toCaseStudy(project: Project, index: number): ProjectCaseStudy {
         src: `/projects/${project.slug}/proof-1.svg`,
         alt: localized(`${project.shortName} primary proof visual`, `${project.shortName} visual principal de evidencia`),
         caption: localized(
-          "Primary proof placeholder. Replace with a real screenshot when available.",
+          "Primary visual proof panel for the case study.",
           "Visual principal temporal. Reemplazar con una captura real cuando estÃ© disponible.",
         ),
       },
@@ -337,16 +337,16 @@ function toCaseStudy(project: Project, index: number): ProjectCaseStudy {
         src: `/projects/${project.slug}/architecture.svg`,
         alt: localized(`${project.shortName} architecture visual`, `${project.shortName} diagrama de arquitectura`),
         caption: localized(
-          "Architecture and system-flow placeholder for the case study.",
-          "Diagrama temporal de arquitectura y flujo del sistema para el caso de estudio.",
+          "Architecture and system-flow visual for the case study.",
+          "Diagrama de arquitectura y flujo del sistema para el caso de estudio.",
         ),
       },
       {
         src: `/projects/${project.slug}/proof-2.svg`,
         alt: localized(`${project.shortName} secondary proof visual`, `${project.shortName} visual secundario de evidencia`),
         caption: localized(
-          "Secondary proof placeholder for interface, workflow, or result evidence.",
-          "Visual secundario temporal para evidencia de interfaz, flujo o resultados.",
+          "Secondary visual for interface, workflow, or result evidence.",
+          "Visual secundario para evidencia de interfaz, flujo o resultados.",
         ),
       },
     ],
@@ -354,7 +354,87 @@ function toCaseStudy(project: Project, index: number): ProjectCaseStudy {
   };
 }
 
-export const caseStudies: ProjectCaseStudy[] = legacyProjects.map(toCaseStudy);
+export const caseStudies: ProjectCaseStudy[] = legacyProjects.map(toCaseStudy).map((project) => {
+  if (project.slug === "savr") {
+    return {
+      ...project,
+      heroImage: "/projects/savr/savr-onboarding.png",
+      gallery: [
+        {
+          src: "/projects/savr/savr-onboarding.png",
+          alt: localized("SAVR guided onboarding profile setup screenshot", "Captura del onboarding guiado de SAVR"),
+          caption: localized(
+            "Real interface proof from the SAVR profile setup flow.",
+            "Evidencia real de interfaz del flujo de configuración de perfil de SAVR.",
+          ),
+        },
+        {
+          src: "/projects/savr/architecture.svg",
+          alt: localized("SAVR architecture and recommendation flow visual", "Diagrama de arquitectura y recomendación de SAVR"),
+          caption: localized(
+            "System architecture view connecting onboarding, restaurant data, and recommendation logic.",
+            "Vista de arquitectura que conecta onboarding, datos de restaurantes y lógica de recomendación.",
+          ),
+        },
+        {
+          src: "/projects/savr/proof-2.svg",
+          alt: localized("SAVR recommendation proof panel", "Panel de evidencia de recomendaciones SAVR"),
+          caption: localized(
+            "Recommendation-flow proof panel for Describe, Build, and Surprise paths.",
+            "Panel de evidencia del flujo de recomendaciones para las rutas Describe, Build y Surprise.",
+          ),
+        },
+      ],
+      nextSteps: localized(
+        [
+          "Add recommendation-result screenshots from the deployed app.",
+          "Add a stable live demo once the production database and auth flow are ready.",
+          "Add dish-level explanations and event-aware scoring.",
+        ],
+        [
+          "Agregar capturas de resultados de recomendación de la app desplegada.",
+          "Agregar una demo estable cuando la base de datos y autenticación de producción estén listas.",
+          "Agregar explicaciones por platillo y ranking por eventos.",
+        ],
+      ),
+    };
+  }
+
+  if (project.slug === "family-phrase-game") {
+    return {
+      ...project,
+      heroImage: "/projects/family-phrase-game/family-phrase-game-main.png",
+      gallery: [
+        {
+          src: "/projects/family-phrase-game/family-phrase-game-main.png",
+          alt: localized("Family Phrase Game live interface screenshot", "Captura de la interfaz de Family Phrase Game"),
+          caption: localized(
+            "Real deployed interface proof from the Family Phrase Game MVP.",
+            "Evidencia real de la interfaz desplegada del MVP Family Phrase Game.",
+          ),
+        },
+        {
+          src: "/projects/family-phrase-game/architecture.svg",
+          alt: localized("Family Phrase Game architecture visual", "Diagrama de arquitectura de Family Phrase Game"),
+          caption: localized(
+            "Simple Flask deployment architecture for a fast family-event web app.",
+            "Arquitectura simple de despliegue Flask para una app web de evento familiar.",
+          ),
+        },
+        {
+          src: "/projects/family-phrase-game/proof-2.svg",
+          alt: localized("Family Phrase Game gameplay flow visual", "Visual del flujo de juego de Family Phrase Game"),
+          caption: localized(
+            "Gameplay proof panel showing phrase loading, scoring, and round controls.",
+            "Panel de evidencia del juego con carga de frases, puntuación y controles de ronda.",
+          ),
+        },
+      ],
+    };
+  }
+
+  return project;
+});
 
 export function getCaseStudy(slug: string) {
   return caseStudies.find((project) => project.slug === slug);

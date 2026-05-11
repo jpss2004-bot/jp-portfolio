@@ -19,9 +19,9 @@ const labels = {
   ],
   es: [
     { id: "work", label: "Sistemas seleccionados", short: "Proyectos" },
-    { id: "stack", label: "Mapa tÃ©cnico", short: "Stack" },
+    { id: "stack", label: "Mapa técnico", short: "Stack" },
     { id: "resume", label: "CV", short: "CV" },
-    { id: "process", label: "MÃ©todo de trabajo", short: "MÃ©todo" },
+    { id: "process", label: "Método de trabajo", short: "Método" },
     { id: "contact", label: "Contacto", short: "Contacto" },
   ],
 } satisfies Record<Locale, RouteNode[]>;

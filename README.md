@@ -1,4 +1,4 @@
-# JP Samano â€” Signal Atlas Portfolio
+# JP Samano - Signal Atlas Portfolio
 
 Production portfolio for JP Samano, built as a bilingual software systems portfolio around the **Signal Atlas** direction: routes, nodes, proof, and technical decisions.
 
@@ -91,7 +91,7 @@ The app uses this value for metadata, sitemap, robots, and canonical URL generat
 
 ## Project Proof Roadmap
 
-The next major improvement is replacing temporary project visuals with real proof media:
+The next major improvement is expanding project proof media with additional screenshots, diagrams, and demo artifacts:
 
 - SAVR recommendation-flow screenshots and architecture diagram.
 - ER Triage queue/dashboard screenshots and triage scoring explanation.
