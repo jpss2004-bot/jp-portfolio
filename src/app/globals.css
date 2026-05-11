@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 :root {
   --bg-0: #08111a;
@@ -2900,3 +2900,346 @@ body {
   border-radius: 999px;
 }
 /* === PHASE 2F SAFE HOMEPAGE CASE-STUDY CONSISTENCY END === */
+
+
+/* === PHASE 3B TARGETED VISUAL POLISH START === */
+
+/*
+  Safe targeted visual polish.
+  Rules target existing component classes only.
+  No broad selectors such as #work article are used.
+*/
+
+/* Global section rhythm */
+.work-section {
+  padding-top: clamp(4rem, 7vw, 6.5rem);
+}
+
+.work-section .section-heading-row {
+  align-items: flex-end;
+  margin-bottom: clamp(1.5rem, 3vw, 2.4rem);
+}
+
+.work-section .section-title h2 {
+  max-width: 12.5ch;
+  color: var(--text-0);
+}
+
+.work-section .section-title p {
+  max-width: 56rem;
+  color: rgba(211, 221, 233, 0.88);
+}
+
+/* Project card layout: preserve geometry, improve polish */
+.synchronized-grid {
+  gap: clamp(1rem, 2vw, 1.35rem);
+}
+
+.project-card {
+  isolation: isolate;
+  min-width: 0;
+  border-radius: 1.75rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(241, 247, 253, 0.9));
+  box-shadow:
+    0 22px 70px rgba(8, 17, 26, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.project-card.featured {
+  min-height: 100%;
+}
+
+.project-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 16% 8%, rgba(120, 175, 255, 0.16), transparent 16rem),
+    radial-gradient(circle at 88% 18%, rgba(47, 211, 163, 0.12), transparent 14rem);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.project-card:hover::after {
+  opacity: 1;
+}
+
+.project-card-visual {
+  min-height: 12rem;
+  border-bottom: 1px solid rgba(18, 32, 51, 0.08);
+}
+
+.project-card.featured .project-card-visual {
+  min-height: clamp(16rem, 28vw, 24rem);
+}
+
+.project-card-visual img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-status-pill {
+  max-width: calc(100% - 2rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-card-content {
+  min-width: 0;
+  padding: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+.project-title-row {
+  align-items: flex-start;
+}
+
+.project-title-row > div {
+  min-width: 0;
+}
+
+.project-title-row h3 {
+  max-width: 16ch;
+  overflow-wrap: anywhere;
+}
+
+.project-card.featured .project-title-row h3 {
+  max-width: 22ch;
+}
+
+.project-one-liner {
+  max-width: 42rem;
+  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+}
+
+.project-summary {
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 4.85rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.project-card.featured .project-summary {
+  -webkit-line-clamp: 4;
+  min-height: 6.1rem;
+}
+
+.metric-band {
+  align-items: stretch;
+}
+
+.metric-band div {
+  display: grid;
+  align-content: center;
+  min-height: 4.75rem;
+  overflow: hidden;
+}
+
+.metric-band small {
+  line-height: 1.2;
+}
+
+.metric-band strong {
+  overflow-wrap: anywhere;
+  line-height: 1.1;
+}
+
+.stack-row {
+  align-content: flex-start;
+}
+
+.stack-row span {
+  white-space: nowrap;
+}
+
+.card-footer {
+  align-items: center;
+  min-height: 4.1rem;
+}
+
+.card-footer span {
+  min-width: 0;
+  overflow: hidden;
+  color: #5d6a7c;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-footer strong {
+  white-space: nowrap;
+}
+
+/* Hero proof strip */
+.proof-strip div {
+  position: relative;
+  overflow: hidden;
+}
+
+.proof-strip div::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--jade), var(--blue), transparent);
+  opacity: 0.78;
+}
+
+.proof-strip strong {
+  overflow-wrap: anywhere;
+}
+
+/* Atlas stage controlled depth */
+.atlas-stage {
+  min-height: clamp(30rem, 52vw, 38rem);
+}
+
+.atlas-core {
+  transform: translate(-50%, -50%) translateZ(56px);
+}
+
+.scene-node {
+  max-width: 9.5rem;
+}
+
+/* Resume and lower sections */
+.resume-card,
+.contact-card,
+.about-card,
+.principle-list article,
+.timeline-list article {
+  backdrop-filter: blur(12px);
+}
+
+.resume-card {
+  border-color: rgba(18, 32, 51, 0.12);
+}
+
+.resume-preview {
+  overflow: hidden;
+}
+
+/* Case-study pages: targeted polish only */
+.case-polish-proof-visual {
+  background-color: #0b1520;
+}
+
+.case-polish-proof-image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.case-polish-generated-proof strong {
+  max-width: 12ch;
+  margin-inline: auto;
+}
+
+.case-polish-sidebar {
+  align-self: start;
+}
+
+.case-polish-sidebar-card {
+  overflow: hidden;
+}
+
+.case-polish-sidebar-links a {
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.case-polish-sidebar-links a:hover {
+  transform: translateY(-1px);
+  border-color: rgba(120, 175, 255, 0.35);
+  background: #e6f0fb;
+}
+
+/* Safer responsive behavior */
+@media (max-width: 1120px) {
+  .synchronized-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-card.featured {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 780px) {
+  .work-section .section-heading-row {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .work-section .section-heading-row > .button {
+    width: fit-content;
+  }
+
+  .synchronized-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card,
+  .project-card.featured {
+    grid-column: auto;
+  }
+
+  .project-card.featured .project-card-visual,
+  .project-card-visual {
+    min-height: 13.5rem;
+  }
+
+  .metric-band {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-band div {
+    min-height: auto;
+  }
+
+  .card-footer {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .card-footer span,
+  .card-footer strong {
+    white-space: normal;
+  }
+
+  .proof-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resume-card {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .proof-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .project-title-row {
+    display: grid;
+  }
+
+  .project-title-row > span {
+    order: -1;
+    font-size: 1.35rem;
+  }
+
+  .work-section .section-heading-row > .button {
+    width: 100%;
+  }
+}
+
+/* === PHASE 3B TARGETED VISUAL POLISH END === */
+
