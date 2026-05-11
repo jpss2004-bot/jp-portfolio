@@ -3243,3 +3243,250 @@ body {
 
 /* === PHASE 3B TARGETED VISUAL POLISH END === */
 
+
+/* === PHASE 3D SCREENSHOT VISUAL QA FIX START === */
+
+/*
+  Screenshot-based visual corrections.
+  Targets exact classes only. No broad #work article selectors.
+*/
+
+/* Fix stray route-label text appearing at top-left */
+.signal-route-progress {
+  pointer-events: none;
+}
+
+.signal-route-progress a {
+  pointer-events: auto;
+}
+
+.signal-route-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.signal-route-node:hover .signal-route-label,
+.signal-route-node:focus-visible .signal-route-label,
+.signal-route-node.active .signal-route-label {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
+  white-space: nowrap;
+}
+
+/* Hero readability */
+.hero {
+  grid-template-columns: minmax(0, 0.98fr) minmax(360px, 0.82fr);
+  gap: clamp(2rem, 4vw, 3.2rem);
+  padding-top: clamp(3.2rem, 5vw, 4.4rem);
+}
+
+.hero-copy {
+  max-width: 46rem;
+}
+
+.hero-copy h1 {
+  max-width: 13.8ch;
+  font-size: clamp(3rem, 7vw, 6.25rem);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+  word-spacing: 0.04em;
+}
+
+.hero-subtitle {
+  max-width: 42rem;
+}
+
+.proof-strip {
+  gap: 0.62rem;
+}
+
+.proof-strip div {
+  min-height: 4.75rem;
+  padding: 0.9rem;
+}
+
+.proof-strip strong {
+  font-size: 0.82rem;
+}
+
+/* Work section hierarchy */
+.work-section {
+  padding-bottom: clamp(7rem, 11vw, 10rem);
+}
+
+.work-section .section-title {
+  max-width: 62rem;
+}
+
+.work-section .section-title h2 {
+  max-width: 17ch;
+  font-size: clamp(2.6rem, 5.4vw, 5rem);
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+}
+
+.work-section .section-title p {
+  max-width: 64rem;
+}
+
+/* Project card balance */
+.project-card-visual {
+  min-height: 11.5rem;
+}
+
+.project-card.featured .project-card-visual {
+  min-height: clamp(15rem, 24vw, 21rem);
+}
+
+.project-card-content {
+  padding-bottom: 1rem;
+}
+
+.project-title-row h3 {
+  line-height: 1.04;
+}
+
+.project-summary {
+  min-height: 4.25rem;
+}
+
+.project-card.featured .project-summary {
+  min-height: 5rem;
+}
+
+.metric-band div {
+  min-height: 4.25rem;
+}
+
+.card-footer {
+  min-height: 3.65rem;
+}
+
+/* Keep the dark project section visually containing all cards */
+.work-section + #stack,
+.work-section + .section {
+  margin-top: 0;
+}
+
+/* Contact card correction */
+.contact-card {
+  align-items: center;
+  padding: clamp(1.3rem, 3vw, 2rem);
+}
+
+.contact-card h2 {
+  max-width: 15ch;
+  font-size: clamp(2.25rem, 4.6vw, 4.6rem);
+  line-height: 0.98;
+}
+
+.contact-card p {
+  max-width: 42rem;
+  margin-top: 0.9rem;
+}
+
+.contact-actions {
+  min-width: max-content;
+}
+
+/* Resume card spacing */
+.resume-card {
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem) auto;
+}
+
+/* Case-study page density correction */
+.case-polish-hero-copy h1 {
+  font-size: clamp(3rem, 6vw, 5.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+}
+
+.case-polish-snapshot,
+.case-polish-hero-copy {
+  background: rgba(255, 255, 255, 0.085);
+}
+
+.case-polish-facts div {
+  background: rgba(10, 24, 36, 0.64);
+}
+
+.case-polish-proof-visual {
+  min-height: clamp(18rem, 35vw, 28rem);
+}
+
+/* Mobile-specific readability */
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-copy {
+    max-width: none;
+  }
+
+  .hero-copy h1 {
+    max-width: 12.5ch;
+  }
+
+  .atlas-stage {
+    min-height: 28rem;
+  }
+
+  .contact-actions {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 780px) {
+  .work-section .section-title h2 {
+    max-width: 13ch;
+    font-size: clamp(2.4rem, 12vw, 4rem);
+  }
+
+  .work-section {
+    padding-bottom: 5rem;
+  }
+
+  .resume-card {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-card {
+    display: grid;
+  }
+
+  .contact-card h2 {
+    max-width: 13ch;
+  }
+
+  .contact-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-copy h1 {
+    max-width: 11.5ch;
+    font-size: clamp(2.8rem, 15vw, 3.8rem);
+    letter-spacing: -0.045em;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+  .contact-card h2 {
+    font-size: clamp(2.2rem, 13vw, 3.4rem);
+  }
+}
+
+/* === PHASE 3D SCREENSHOT VISUAL QA FIX END === */
+
