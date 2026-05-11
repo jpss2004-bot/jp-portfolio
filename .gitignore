@@ -55,3 +55,10 @@ node_modules/
 # Environment files
 .env.*
 !.env.example
+
+# Local patch packages and temporary AI patch files
+phase*.zip
+README_PHASE*.txt
+phase*_assets/
+phase*_patch_package/
+*_portfolio_patch_package.zip
