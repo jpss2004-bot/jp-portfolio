@@ -2498,3 +2498,379 @@ body {
     transform: none !important;
   }
 }
+
+/* === PHASE 2E CASE STUDY RECRUITER POLISH START === */
+.tag-strong {
+  border-color: rgba(244, 193, 93, 0.38);
+  background: rgba(244, 193, 93, 0.13);
+  color: #ffe2a0;
+}
+
+.case-study-page-polish {
+  background:
+    radial-gradient(circle at 16% 8%, rgba(120, 175, 255, 0.16), transparent 28rem),
+    radial-gradient(circle at 84% 10%, rgba(47, 211, 163, 0.12), transparent 26rem),
+    linear-gradient(180deg, var(--bg-0) 0%, #0b1520 36%, var(--paper-0) 36%, var(--paper-0) 100%);
+}
+
+.case-polish-hero { padding: clamp(4.2rem, 7vw, 6.2rem) 0 2.5rem; }
+
+.case-polish-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.case-polish-topbar-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  color: var(--text-2);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.case-polish-topbar-meta strong { color: var(--blue); }
+
+.case-polish-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.55fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.case-polish-hero-copy,
+.case-polish-snapshot {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: var(--radius-2xl);
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: var(--shadow-xl);
+  backdrop-filter: blur(18px);
+}
+
+.case-polish-hero-copy { padding: clamp(1.35rem, 3vw, 2rem); }
+
+.case-polish-hero-copy h1 {
+  max-width: 13ch;
+  margin: 1rem 0 0;
+  color: var(--text-0);
+  font-size: clamp(3rem, 7vw, 6.1rem);
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  text-wrap: balance;
+}
+
+.case-polish-tagline {
+  max-width: 48rem;
+  margin: 1.25rem 0 0;
+  color: white;
+  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+  font-weight: 850;
+  line-height: 1.4;
+}
+
+.case-polish-summary {
+  max-width: 52rem;
+  margin: 1rem 0 0;
+  color: var(--text-1);
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+.case-polish-actions { margin-top: 1.55rem; }
+.case-polish-snapshot { padding: 1.1rem; }
+.case-polish-snapshot .console-topline { margin-bottom: 1rem; }
+
+.case-polish-facts {
+  display: grid;
+  gap: 0.72rem;
+  margin: 0;
+}
+
+.case-polish-facts div {
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 1rem;
+  background: rgba(8, 17, 26, 0.45);
+  padding: 0.8rem;
+}
+
+.case-polish-facts dt,
+.case-polish-mini-stack p {
+  margin: 0 0 0.35rem;
+  color: var(--blue);
+  font-size: 0.68rem;
+  font-weight: 950;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.case-polish-facts dd {
+  margin: 0;
+  color: var(--text-0);
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.case-polish-mini-stack {
+  margin-top: 0.9rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.85rem;
+}
+
+.case-polish-mini-stack div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+}
+
+.case-polish-mini-stack span {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: var(--text-1);
+  padding: 0.32rem 0.48rem;
+  font-size: 0.7rem;
+  font-weight: 850;
+}
+
+.case-polish-proof-visual {
+  position: relative;
+  min-height: clamp(18rem, 40vw, 31rem);
+  margin-top: 1.25rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-2xl);
+  background:
+    radial-gradient(circle at 30% 10%, rgba(120, 175, 255, 0.24), transparent 26rem),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.035));
+  box-shadow: var(--shadow-xl);
+}
+
+.case-polish-proof-image { object-fit: cover; }
+
+.case-polish-generated-proof {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  padding: 2rem;
+  text-align: center;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.case-polish-generated-proof span {
+  color: var(--jade);
+  font-size: 0.85rem;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.case-polish-generated-proof strong {
+  display: block;
+  margin-top: 0.65rem;
+  color: white;
+  font-size: clamp(2.1rem, 5vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.case-polish-generated-proof p {
+  max-width: 40rem;
+  margin: 1rem auto 0;
+  color: var(--text-1);
+  line-height: 1.7;
+}
+
+.case-polish-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.34fr);
+  gap: 1.25rem;
+  align-items: start;
+  padding: 2rem 0 5.5rem;
+}
+
+.case-polish-main { display: grid; gap: 1rem; }
+
+.case-polish-block,
+.case-polish-sidebar-card {
+  border: 1px solid rgba(18, 32, 51, 0.11);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--text-dark);
+  box-shadow: var(--shadow-soft);
+}
+
+.case-polish-block { padding: clamp(1.15rem, 2.2vw, 1.65rem); }
+
+.case-polish-block-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.case-polish-block h2 {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: clamp(1.75rem, 3.1vw, 3.35rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.case-polish-lede {
+  max-width: 68rem;
+  margin: 0;
+  color: #536174;
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+.case-polish-list-grid,
+.case-polish-proof-grid,
+.case-polish-roadmap { display: grid; gap: 0.75rem; }
+.case-polish-list-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.case-polish-list-grid article,
+.case-polish-proof-grid article,
+.case-polish-roadmap article,
+.case-polish-decisions article {
+  border: 1px solid rgba(18, 32, 51, 0.1);
+  border-radius: 1.15rem;
+  background: #f4f8fc;
+  padding: 0.95rem;
+}
+
+.case-polish-list-grid article,
+.case-polish-proof-grid article,
+.case-polish-roadmap article {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+}
+
+.case-polish-list-grid span,
+.case-polish-proof-grid span,
+.case-polish-roadmap span,
+.case-polish-decisions article > span {
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 999px;
+  background: var(--bg-0);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 950;
+}
+
+.case-polish-list-grid p,
+.case-polish-proof-grid p,
+.case-polish-roadmap p {
+  margin: 0;
+  color: #536174;
+  line-height: 1.65;
+}
+
+.case-polish-decisions { display: grid; gap: 0.85rem; }
+
+.case-polish-decisions article {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.95rem;
+}
+
+.case-polish-decisions h3 {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 1.2rem;
+  letter-spacing: -0.035em;
+}
+
+.case-polish-decision-copy {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.7rem;
+}
+
+.case-polish-decision-copy p {
+  margin: 0;
+  color: #536174;
+  line-height: 1.65;
+}
+
+.case-polish-decision-copy strong { color: var(--text-dark); }
+
+.case-polish-block-proof {
+  background: linear-gradient(135deg, rgba(47, 211, 163, 0.12), rgba(255, 255, 255, 0.88) 34%), white;
+}
+
+.case-polish-block-roadmap {
+  background: linear-gradient(135deg, rgba(120, 175, 255, 0.14), rgba(255, 255, 255, 0.88) 34%), white;
+}
+
+.case-polish-sidebar {
+  position: sticky;
+  top: 6.8rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.case-polish-sidebar-card { padding: 1rem; }
+
+.case-polish-sidebar-card h3 {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 1.4rem;
+  letter-spacing: -0.04em;
+}
+
+.case-polish-sidebar-card p { color: #536174; line-height: 1.65; }
+.case-polish-sidebar-stack { padding: 0; min-height: 0; }
+
+.case-polish-sidebar-links { display: grid; gap: 0.5rem; }
+
+.case-polish-sidebar-links a {
+  border: 1px solid rgba(18, 32, 51, 0.1);
+  border-radius: 0.95rem;
+  background: #eef4fa;
+  color: var(--text-dark);
+  padding: 0.72rem 0.82rem;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+@media (max-width: 980px) {
+  .case-polish-hero-grid,
+  .case-polish-layout { grid-template-columns: 1fr; }
+  .case-polish-sidebar { position: static; }
+  .case-polish-list-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .case-polish-topbar,
+  .case-polish-block-heading {
+    display: grid;
+    justify-content: stretch;
+  }
+
+  .case-polish-topbar-meta { justify-content: flex-start; }
+  .case-polish-hero-copy h1 { font-size: clamp(2.7rem, 15vw, 4rem); }
+  .case-polish-actions .button { width: 100%; }
+
+  .case-polish-decisions article,
+  .case-polish-list-grid article,
+  .case-polish-proof-grid article,
+  .case-polish-roadmap article { grid-template-columns: 1fr; }
+}
+/* === PHASE 2E CASE STUDY RECRUITER POLISH END === */
