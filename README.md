@@ -1,4 +1,4 @@
-# JP Samano - Signal Atlas Portfolio
+﻿# JP Samano - Signal Atlas Portfolio
 
 Production portfolio for JP Samano, built as a bilingual software systems portfolio around the **Signal Atlas** direction: routes, nodes, proof, and technical decisions.
 
@@ -98,13 +98,29 @@ The next major improvement is expanding project proof media with additional scre
 - Family Phrase Game gameplay screenshot and live-app proof.
 - Concept projects clearly labeled with diagrams and honest implementation status.
 
-## Patch Status
+## Current Status
 
-- Patch A: Critical encoding, metadata, sitemap, robots, and README cleanup.
-- Patch B: Visual clarity pass for hero, header, spacing, card alignment, readability, and responsive layout.
-- Patch C: Proof and case-study upgrade with proof gallery structure, architecture placeholders, and contrast safeguards.
-- Patch D.1: Redesigned cohesive Signal Atlas motion system, integrated background, desktop journey rail, and restrained 3D depth.
-- Next: Patch E will handle final QA, recruiter readiness, SEO/social preview, mobile checks, and repository cleanup.
+The portfolio is currently in a strong beta state.
 
+Completed work includes:
 
+- Phase 1A-1C: credibility cleanup, resume assets, Spanish encoding/localization cleanup, and repo hygiene.
+- Phase 2B: resume-aligned homepage and project content foundation.
+- Phase 2C: case-study decision rewrite using tradeoff, decision, and outcome logic.
+- Phase 2D: project proof/results and next-iteration rewrite.
+- Phase 2 Recovery: repaired broken case-study data and removed old patch clutter.
+- Phase 2E: recruiter-polished case-study layout.
+- Phase 2F: homepage/case-study consistency attempt, followed by repair of unsafe broad CSS.
+- Phase 3B: targeted visual polish using exact component classes.
+- Phase 3D: screenshot-based visual QA fixes.
+- Phase 3E: final mobile polish pass.
+
+The next meaningful upgrade is Phase 4B - Proof Asset Pack.
+
+The site already has strong structure and visual direction. It now needs more concrete evidence:
+
+- SAVR screenshots and architecture flow.
+- ER Triage screenshots and state/priority explanation.
+- Family Phrase Game gameplay and mobile proof.
+- Honest diagrams for concept projects where live demos do not exist.
 

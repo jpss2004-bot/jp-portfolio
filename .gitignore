@@ -67,3 +67,4 @@ final_signal*.ps1
 signal_atlas*.ps1
 phase*_apply_patch.cjs
 phase*_helper.cjs
+# Local patch scripts, generated patch packages, and recovery artifacts
