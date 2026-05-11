@@ -57,7 +57,7 @@ const copy = {
     contactTitle: "Have a software engineering, cybersecurity, or product opportunity?",
     contactCopy: "I am open to internships, junior technical roles, project collaborations, and conversations with teams building practical software systems.",
     emailMe: "Email JP",
-    openCase: "Read case study",
+    openCase: "Read full case study",
     visualLabel: "project proof preview",
   },
   es: {
@@ -70,7 +70,7 @@ const copy = {
     headline: "Construyo sistemas de software que convierten flujos complejos en herramientas claras y confiables.",
     subhead:
       "Estudiante de Ciencias de la Computaci\\u00f3n en Acadia University con enfoque en ingenier\\u00eda de software, desarrollo full-stack, ciberseguridad, respuesta a incidentes y sistemas pr\\u00e1cticos de producto. Construyo herramientas que conectan l\\u00f3gica t\\u00e9cnica, flujos de usuario y evidencia clara.",
-    primaryCta: "Ver proyectos seleccionados",
+    primaryCta: "Abrir casos seleccionados",
     resumeCta: "Ver CV",
     downloadResume: "Descargar PDF",
     githubCta: "Abrir GitHub",
@@ -100,7 +100,7 @@ const copy = {
     contactTitle: "\\u00bfTienes una oportunidad en ingenier\\u00eda de software, ciberseguridad o producto?",
     contactCopy: "Estoy abierto a internships, roles t\\u00e9cnicos junior, colaboraciones de proyecto y conversaciones con equipos que construyen sistemas de software pr\\u00e1cticos.",
     emailMe: "Escribir a JP",
-    openCase: "Leer caso de estudio",
+    openCase: "Leer caso completo",
     visualLabel: "vista de evidencia del proyecto",
   },
 } as const;

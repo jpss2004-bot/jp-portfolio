@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 :root {
   --bg-0: #08111a;
@@ -2874,3 +2874,29 @@ body {
   .case-polish-roadmap article { grid-template-columns: 1fr; }
 }
 /* === PHASE 2E CASE STUDY RECRUITER POLISH END === */
+
+/* === PHASE 2F SAFE HOMEPAGE CASE-STUDY CONSISTENCY START === */
+/*
+  Safe version: do not target every article inside #work.
+  The earlier broad selector broke card layout by affecting nested article/card internals.
+  This block only improves project links and image edges without changing card geometry.
+*/
+
+.portfolio-page #work a[href*="/projects/"],
+.portfolio-page section[id="work"] a[href*="/projects/"] {
+  text-decoration: none;
+}
+
+.portfolio-page #work img,
+.portfolio-page section[id="work"] img {
+  max-width: 100%;
+  height: auto;
+}
+
+.portfolio-page #work a[href*="/projects/"]:focus-visible,
+.portfolio-page section[id="work"] a[href*="/projects/"]:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+/* === PHASE 2F SAFE HOMEPAGE CASE-STUDY CONSISTENCY END === */
