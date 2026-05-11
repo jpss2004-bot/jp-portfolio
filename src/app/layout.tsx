@@ -1,34 +1,33 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { siteConfig } from "@/data/site";
+import { profile } from "@/data/portfolio";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: siteConfig.title,
-  description: siteConfig.description,
-  applicationName: siteConfig.name,
-  keywords: [
-    "JP Samano",
-    "Computer Science Portfolio",
-    "Software Engineering",
-    "Backend Developer",
-    "Student Portfolio",
-    "AI Projects",
-  ],
-  authors: [{ name: siteConfig.name }],
-  creator: siteConfig.name,
-  openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.title,
-    locale: "en_CA",
-    type: "website",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "JP Samano | Signal Atlas",
+    template: "%s | JP Samano",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.title,
-    description: siteConfig.description,
+  description:
+    "Bilingual software systems portfolio for JP Samano: full-stack projects, workflow tools, AI-assisted systems, architecture notes, and proof-first case studies.",
+  authors: [{ name: profile.name }],
+  creator: profile.name,
+  alternates: {
+    canonical: "/en",
+    languages: {
+      en: "/en",
+      es: "/es",
+    },
+  },
+  openGraph: {
+    type: "website",
+    title: "JP Samano | Signal Atlas",
+    description:
+      "Bilingual portfolio organized around routes, nodes, proof, and technical decisions.",
+    url: siteUrl,
+    siteName: "JP Samano Signal Atlas",
   },
 };
 
@@ -38,8 +37,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="bg-[var(--background)] text-[var(--foreground)] antialiased">
+    <html lang="en" data-scroll-behavior="smooth">
+      <body>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         {children}
       </body>
     </html>

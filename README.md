@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JP Samano Portfolio - Signal Atlas Migration
 
-## Getting Started
+This is JP Samano's personal portfolio website.
 
-First, run the development server:
+## Current Phase
+
+Phase 1: Foundation, Audit, and Stabilization.
+
+The project is being migrated toward the Signal Atlas V1 direction: a bilingual, proof-first, systems-oriented portfolio organized around routes, nodes, proof, and decisions.
+
+## What Phase 1 Protects
+
+- Keeps the current Next.js app running locally.
+- Preserves the existing homepage and project routes.
+- Fixes the resume file path mismatch.
+- Updates obvious stale Portfolio OS labels to Signal Atlas foundation language.
+- Keeps changes small before route-level localization and component extraction.
+
+## Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- motion
+
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Verification
 
-## Learn More
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Phase 1 Rule
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Do not push, deploy, or perform a large visual rewrite from this phase alone. Use this as the clean baseline before Phase 2 localization and content-model work.

@@ -39,3 +39,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local portfolio patch artifacts
+_portfolio_backups/
+_portfolio_audits/
+phase*.ps1
+patch*.ps1
+verified_clean_fix_jp_portfolio.ps1
+repair-log.txt
+
+# Build/runtime artifacts
+node_modules/
+*.log
+
+# Environment files
+.env.*
+!.env.example

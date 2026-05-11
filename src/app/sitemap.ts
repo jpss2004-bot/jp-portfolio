@@ -1,18 +1,26 @@
-import type { MetadataRoute } from "next";
-import { siteConfig } from "@/data/site";
-import { projects } from "@/data/projects";
+﻿import type { MetadataRoute } from "next";
+import { caseStudies } from "@/data/case-studies";
+import { locales } from "@/data/i18n";
+
+function getBaseUrl() {
+  return (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const projectEntries = projects.map((project) => ({
-    url: `${siteConfig.url}/projects/${project.slug}`,
-    lastModified: new Date(),
-  }));
+  const baseUrl = getBaseUrl();
+  const lastModified = new Date();
 
   return [
-    {
-      url: siteConfig.url,
-      lastModified: new Date(),
-    },
-    ...projectEntries,
+    { url: baseUrl, lastModified },
+    ...locales.map((locale) => ({
+      url: `${baseUrl}/${locale}`,
+      lastModified,
+    })),
+    ...locales.flatMap((locale) =>
+      caseStudies.map((project) => ({
+        url: `${baseUrl}/${locale}/projects/${project.slug}`,
+        lastModified,
+      })),
+    ),
   ];
 }
