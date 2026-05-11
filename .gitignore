@@ -63,3 +63,7 @@ phase*_assets/
 phase*_patch_package/
 *_portfolio_patch_package.zip
 # Local patch backups
+final_signal*.ps1
+signal_atlas*.ps1
+phase*_apply_patch.cjs
+phase*_helper.cjs
