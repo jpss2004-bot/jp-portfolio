@@ -1,4 +1,4 @@
-﻿import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { caseStudies } from "@/data/case-studies";
 
 type LegacyProjectPageProps = {

@@ -1,4 +1,4 @@
-﻿export type Locale = "en" | "es";
+export type Locale = "en" | "es";
 
 export type Localized<T> = {
   en: T;

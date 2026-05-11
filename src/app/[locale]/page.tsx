@@ -1,4 +1,4 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { SignalAtlasHomeClient } from "@/components/home/SignalAtlasHomeClient";
 import { isLocale, locales } from "@/data/i18n";
 

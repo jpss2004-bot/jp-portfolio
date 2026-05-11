@@ -1,4 +1,4 @@
-﻿import type { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 import { caseStudies } from "@/data/case-studies";
 import { locales } from "@/data/i18n";
 

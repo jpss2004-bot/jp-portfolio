@@ -8,6 +8,7 @@ import type { Locale } from "@/data/i18n";
 import { operatingPrinciples, profile, stackLayers, timeline } from "@/data/portfolio";
 import { DesktopFloatingDock } from "@/components/layout/DesktopFloatingDock";
 import { Header } from "@/components/layout/Header";
+import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
 
 export type Language = Locale;
 
@@ -35,7 +36,7 @@ const copy = {
     workEyebrow: "Selected systems",
     workTitle: "Selected systems with clear proof paths.",
     workCopy:
-      "Each card shows the project route, role, stack, proof signals, and next case-study action. Generated visuals are temporary placeholders until real screenshots are captured.",
+      "Each card highlights the project route, role, stack, and proof signals that lead into the case study.",
     stackEyebrow: "Technical map",
     stackTitle: "Stack grouped by where it creates value.",
     stackCopy: "Interface, application logic, data, and delivery are shown as a system, not a random skills cloud.",
@@ -51,7 +52,7 @@ const copy = {
       "My strongest work connects software engineering, product thinking, and practical workflows. The visual system is personal, but the content stays recruiter-readable.",
     contactEyebrow: "Contact",
     contactTitle: "Have an internship, project, or technical opportunity?",
-    contactCopy: profile.availability,
+    contactCopy: "Abierto a internships, roles junior de ingenieria de producto y colaboraciones tecnicas practicas.",
     emailMe: "Email JP",
     openCase: "Read case study",
     visualLabel: "Generated project visual preview",
@@ -79,7 +80,7 @@ const copy = {
     workEyebrow: "Sistemas seleccionados",
     workTitle: "Sistemas seleccionados con rutas de evidencia claras.",
     workCopy:
-      "Las tarjetas ahora usan visuales generados, alturas estables, m\\u00e9tricas, stack y llamadas a la acci\\u00f3n m\\u00e1s claras. Despu\\u00e9s podemos reemplazar los visuales con capturas reales sin romper el layout.",
+      "Cada tarjeta resume la ruta del proyecto, el rol, el stack y las seÃ±ales de evidencia que llevan al caso de estudio.",
     stackEyebrow: "Mapa t\\u00e9cnico",
     stackTitle: "Stack agrupado por el valor que aporta.",
     stackCopy: "Interfaz, l\\u00f3gica de aplicaci\\u00f3n, datos y entrega se muestran como sistema, no como lista aleatoria.",
@@ -95,7 +96,7 @@ const copy = {
       "Mi trabajo conecta ingenier\\u00eda de software, pensamiento de producto y flujos reales. El sistema visual es personal, pero el contenido sigue siendo claro para reclutadores.",
     contactEyebrow: "Contacto",
     contactTitle: "\\u00bfTienes una oportunidad, proyecto o internship?",
-    contactCopy: profile.availability,
+    contactCopy: "Abierto a internships, roles junior de ingenieria de producto y colaboraciones tecnicas practicas.",
     emailMe: "Escribir a JP",
     openCase: "Leer caso de estudio",
     visualLabel: "Vista visual generada del proyecto",
@@ -399,6 +400,7 @@ export function SignalAtlasHomeClient({ initialLocale = "en" }: { initialLocale?
 
   return (
     <main id="main-content" className="portfolio-page">
+      <DocumentLocaleSync locale={language} />
       <div className="animated-background" aria-hidden="true">
         <div className="bg-orb bg-orb-one" />
         <div className="bg-orb bg-orb-two" />

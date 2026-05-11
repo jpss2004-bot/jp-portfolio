@@ -37,9 +37,9 @@ export const profile = {
   title: "Computer Science student building full-stack systems, AI-assisted products, and workflow tools.",
   location: "Nova Scotia, Canada / Mexico City",
   email: "jpss2004@icloud.com",
-  github: "https://github.com/jpsamanosuarez",
+  github: "https://github.com/jpss2004-bot",
   linkedin: "https://ca.linkedin.com/in/jose-pablo-samano-suarez",
-  resume: "/resume.pdf",
+  resume: "/resume/jp-samano-resume-en.pdf",
   availability: "Open to software internships, junior product engineering roles, and practical build collaborations.",
 };
 

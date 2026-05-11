@@ -1,14 +1,32 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { SiteShell } from "@/components/layout/SiteShell";
 import { caseStudies, getCaseStudy, getLocalizedValue } from "@/data/case-studies";
 import { isLocale, locales, type Locale } from "@/data/i18n";
+
+const navLabels = {
+  en: {
+    work: "Work",
+    stack: "Stack",
+    resume: "Resume",
+    contact: "Contact",
+  },
+  es: {
+    work: "Proyectos",
+    stack: "Stack",
+    resume: "CV",
+    contact: "Contacto",
+  },
+} as const;
 
 const labels = {
   en: {
     back: "Back to portfolio",
     requestWalkthrough: "Request walkthrough",
     role: "Role",
+    featured: "Featured",
     problemEyebrow: "Problem",
     problemTitle: "What this project solves",
     solutionEyebrow: "Solution",
@@ -21,7 +39,7 @@ const labels = {
     resultsTitle: "Evidence and impact",
     nextEyebrow: "Next iteration",
     nextTitle: "What I would improve next",
-    snapshot: "Snapshot",
+    snapshot: "Proof panel",
     impact: "Impact",
     proof: "Proof",
     stack: "Stack",
@@ -30,19 +48,20 @@ const labels = {
     back: "Volver al portafolio",
     requestWalkthrough: "Pedir walkthrough",
     role: "Rol",
+    featured: "Destacado",
     problemEyebrow: "Problema",
-    problemTitle: "QuÃ© resuelve este proyecto",
-    solutionEyebrow: "SoluciÃ³n",
-    solutionTitle: "CÃ³mo lo abordÃ©",
+    problemTitle: "Que resuelve este proyecto",
+    solutionEyebrow: "Solucion",
+    solutionTitle: "Como lo aborde",
     architectureEyebrow: "Arquitectura",
-    architectureTitle: "CÃ³mo estÃ¡ estructurado el sistema",
+    architectureTitle: "Como esta estructurado el sistema",
     decisionsEyebrow: "Decisiones",
     decisionsTitle: "Tradeoffs y resultados",
     resultsEyebrow: "Resultados",
     resultsTitle: "Evidencia e impacto",
-    nextEyebrow: "Siguiente iteraciÃ³n",
-    nextTitle: "QuÃ© mejorarÃ­a despuÃ©s",
-    snapshot: "Resumen",
+    nextEyebrow: "Siguiente iteracion",
+    nextTitle: "Que mejoraria despues",
+    snapshot: "Panel de evidencia",
     impact: "Impacto",
     proof: "Evidencia",
     stack: "Stack",
@@ -112,6 +131,7 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
 
   const locale: Locale = localeParam;
   const t = labels[locale];
+  const nav = navLabels[locale];
   const project = getCaseStudy(slug);
 
   if (!project) {
@@ -127,14 +147,24 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
   const architecture = getLocalizedValue(project.architecture, locale);
   const results = getLocalizedValue(project.results, locale);
   const nextSteps = getLocalizedValue(project.nextSteps, locale);
+  const visualAlt = getLocalizedValue(project.gallery[0]?.alt ?? project.title, locale);
+
+  const navItems = [
+    { href: `/${locale}#work`, label: nav.work },
+    { href: `/${locale}#stack`, label: nav.stack },
+    { href: `/${locale}#resume`, label: nav.resume },
+    { href: `/${locale}#contact`, label: nav.contact },
+  ];
 
   return (
-    <main id="main-content" className="portfolio-page">
-      <div className="ambient ambient-one" />
-      <div className="ambient ambient-two" />
+    <SiteShell locale={locale} navItems={navItems} projectSlug={project.slug}>
+      <div className="animated-background" aria-hidden="true">
+        <div className="bg-orb bg-orb-one" />
+        <div className="bg-orb bg-orb-two" />
+      </div>
 
       <section className="shell project-hero-detail">
-        <Link href={`/${locale}`} className="button button-soft">
+        <Link href={`/${locale}`} className="button button-soft project-back-link">
           {t.back}
         </Link>
 
@@ -143,11 +173,12 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
             <div className="project-badges">
               <Badge>{getLocalizedValue(project.statusLabel, locale)}</Badge>
               <Badge>{project.year}</Badge>
-              {project.featured ? <Badge>Featured</Badge> : null}
+              {project.featured ? <Badge>{t.featured}</Badge> : null}
             </div>
             <h1>{title}</h1>
             <p>{summary}</p>
             <p className="project-one-liner">{tagline}</p>
+
             <div className="hero-actions">
               {project.links.length > 0 ? (
                 project.links.map((link) => (
@@ -169,22 +200,31 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
             </div>
           </div>
 
-          <aside className="project-detail-console">
-            <div className="console-topline">
-              <div className="window-dots"><span /><span /><span /></div>
-              <p>SIGNAL-ATLAS.CASE</p>
+          <aside className="project-proof-panel" aria-label={t.snapshot}>
+            <div className="project-proof-media">
+              <Image
+                src={project.heroImage}
+                alt={visualAlt}
+                width={1200}
+                height={720}
+                priority
+                unoptimized
+              />
             </div>
-            <div className="mockup-lines">
-              {project.proofs.map((metric) => (
-                <div key={getLocalizedValue(metric.label, locale)}>
-                  <span>{getLocalizedValue(metric.label, locale)}</span>
-                  <strong>{metric.value}</strong>
-                </div>
-              ))}
-            </div>
-            <div className="terminal-card">
-              <p>{t.role}</p>
-              <code>{role}</code>
+
+            <div className="project-proof-facts">
+              <p className="eyebrow">{t.snapshot}</p>
+
+              <h3>{t.role}</h3>
+              <p>{role}</p>
+
+              <h3>{t.impact}</h3>
+              <p>{results[0] ?? summary}</p>
+
+              <h3>{t.stack}</h3>
+              <div className="stack-row">
+                {project.tech.map((tool) => <span key={tool}>{tool}</span>)}
+              </div>
             </div>
           </aside>
         </div>
@@ -195,35 +235,37 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
           <CaseBlock eyebrow={t.problemEyebrow} title={t.problemTitle}>
             <p>{challenge}</p>
           </CaseBlock>
+
           <CaseBlock eyebrow={t.solutionEyebrow} title={t.solutionTitle}>
             <p>{approach}</p>
           </CaseBlock>
+
           <CaseBlock eyebrow={t.architectureEyebrow} title={t.architectureTitle}>
             <ul>
               {architecture.map((item) => <li key={item}>{item}</li>)}
             </ul>
           </CaseBlock>
+
           <CaseBlock eyebrow={t.decisionsEyebrow} title={t.decisionsTitle}>
             <div className="principle-list">
-              {project.decisions.map((decision) => {
-                const decisionTitle = getLocalizedValue(decision.title, locale);
-                return (
-                  <article key={decisionTitle}>
-                    <span>{decisionTitle}</span>
-                    <div>
-                      <h3>{getLocalizedValue(decision.tradeoff, locale)}</h3>
-                      <p>{getLocalizedValue(decision.outcome, locale)}</p>
-                    </div>
-                  </article>
-                );
-              })}
+              {project.decisions.map((decision, index) => (
+                <article key={`${project.slug}-decision-${index}`}>
+                  <span>{index + 1}</span>
+                  <div>
+                    <h3>{getLocalizedValue(decision.tradeoff, locale)}</h3>
+                    <p>{getLocalizedValue(decision.outcome, locale)}</p>
+                  </div>
+                </article>
+              ))}
             </div>
           </CaseBlock>
+
           <CaseBlock eyebrow={t.resultsEyebrow} title={t.resultsTitle}>
             <ul>
               {results.map((item) => <li key={item}>{item}</li>)}
             </ul>
           </CaseBlock>
+
           <CaseBlock eyebrow={t.nextEyebrow} title={t.nextTitle}>
             <ul>
               {nextSteps.map((item) => <li key={item}>{item}</li>)}
@@ -232,16 +274,17 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
         </div>
 
         <aside className="project-sidebar">
-          <p className="eyebrow">{t.snapshot}</p>
-          <h3>{t.impact}</h3>
-          <p>{results[0]}</p>
-          <h3>{t.proof}</h3>
-          <ul>{results.slice(1).map((item) => <li key={item}>{item}</li>)}</ul>
-          <h3>{t.stack}</h3>
-          <div className="stack-row">{project.tech.map((tool) => <span key={tool}>{tool}</span>)}</div>
+          <p className="eyebrow">{t.proof}</p>
+          <h3>{title}</h3>
+          <p>{tagline}</p>
+          <ul>
+            {results.slice(1).map((item) => <li key={item}>{item}</li>)}
+          </ul>
+          <div className="stack-row">
+            {project.tech.slice(0, 6).map((tool) => <span key={tool}>{tool}</span>)}
+          </div>
         </aside>
       </section>
-    </main>
+    </SiteShell>
   );
 }
-
