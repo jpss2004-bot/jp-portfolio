@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { caseStudies, getLocalizedValue } from "@/data/case-studies";
 import type { Locale } from "@/data/i18n";
-import { operatingPrinciples, profile, stackLayers, timeline } from "@/data/portfolio";
+import { profile, stackLayers } from "@/data/portfolio";
 import { DesktopFloatingDock } from "@/components/layout/DesktopFloatingDock";
 import { Header } from "@/components/layout/Header";
 import { SignalAtmosphere } from "@/components/home/SignalAtmosphere";
@@ -82,8 +82,7 @@ const copy = {
     sceneCaption: "Proyectos, evidencia y decisiones técnicas conectadas en un solo sistema de portafolio.",
     workEyebrow: "Sistemas seleccionados",
     workTitle: "Sistemas seleccionados con rutas de evidencia claras.",
-    workCopy:
-      "Cada tarjeta resume el rol, el stack, las señales de evidencia y la ruta al caso de estudio. Las capturas reales reemplazarÃ¡n los visuales temporales conforme maduren los proyectos.",
+    workCopy: "Cada tarjeta resume el rol, el stack, la evidencia real y la ruta al caso de estudio.",
     stackEyebrow: "Mapa t\\u00e9cnico",
     stackTitle: "Stack agrupado por el valor que aporta.",
     stackCopy: "Interfaz, l\\u00f3gica de aplicaci\\u00f3n, datos y entrega se muestran como sistema, no como lista aleatoria.",
@@ -105,6 +104,120 @@ const copy = {
     visualLabel: "vista de evidencia del proyecto",
   },
 } as const;
+
+
+const localizedStackLayers = {
+  en: stackLayers,
+  es: [
+    {
+      layer: "Interfaz",
+      description: "Superficies de producto, UI responsiva, dise\u00f1o de interacci\u00f3n y presentaci\u00f3n profesional.",
+      tools: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Flujos UX"],
+    },
+    {
+      layer: "Aplicaci\u00f3n",
+      description: "Rutas, l\u00f3gica de servidor, autenticaci\u00f3n, validaci\u00f3n e implementaci\u00f3n de funciones.",
+      tools: ["Python", "FastAPI", "Flask", "REST APIs", "JWT Auth"],
+    },
+    {
+      layer: "Datos",
+      description: "Persistencia, esquemas, datos semilla, transiciones de estado y modelado de dominio.",
+      tools: ["PostgreSQL", "SQLite", "SQLAlchemy", "Modelado de datos", "Testing"],
+    },
+    {
+      layer: "Entrega",
+      description: "Control de versiones, despliegue, documentaci\u00f3n, demos y narrativa de proyectos.",
+      tools: ["GitHub", "Vercel", "Render", "README docs", "Casos de estudio"],
+    },
+  ],
+} satisfies Record<Locale, { layer: string; description: string; tools: string[] }[]>;
+
+const localizedOperatingPrinciples = {
+  en: [
+    {
+      title: "Build real systems, not just demos.",
+      detail: "Problem framing, architecture, interface, implementation, proof, and next iteration.",
+    },
+    {
+      title: "Make technical decisions explainable.",
+      detail: "Tradeoffs, constraints, decisions, and outcomes should be visible to recruiters and technical reviewers.",
+    },
+    {
+      title: "Design the workflow before designing the screen.",
+      detail: "The interface should reflect the real process, user state, and system behavior behind the product.",
+    },
+    {
+      title: "Show proof: code, screenshots, demos, architecture, and outcomes.",
+      detail: "Each project should give visitors something concrete to inspect.",
+    },
+  ],
+  es: [
+    {
+      title: "Construir sistemas reales, no solo demos.",
+      detail: "Problema, arquitectura, interfaz, implementaci\u00f3n, evidencia e iteraci\u00f3n siguiente.",
+    },
+    {
+      title: "Hacer explicables las decisiones t\u00e9cnicas.",
+      detail: "Tradeoffs, restricciones, decisiones y resultados deben ser claros para reclutadores y revisores t\u00e9cnicos.",
+    },
+    {
+      title: "Dise\u00f1ar el flujo antes de dise\u00f1ar la pantalla.",
+      detail: "La interfaz debe reflejar el proceso real, el estado del usuario y el comportamiento del sistema.",
+    },
+    {
+      title: "Mostrar evidencia: c\u00f3digo, capturas, demos, arquitectura y resultados.",
+      detail: "Cada proyecto debe dar al visitante algo concreto para revisar.",
+    },
+  ],
+} satisfies Record<Locale, { title: string; detail: string }[]>;
+
+const localizedTimeline = {
+  en: [
+    {
+      label: "Now",
+      title: "Building a professional project portfolio",
+      description: "Turning full-stack projects, prototypes, and product ideas into polished case studies with evidence, architecture, and public links.",
+    },
+    {
+      label: "2026",
+      title: "SAVR and deployed web apps",
+      description: "Developing context-aware recommendation systems and fast practical web apps that move from concept to implementation.",
+    },
+    {
+      label: "2025",
+      title: "Software engineering and workflow systems",
+      description: "Building projects around triage workflows, AI traffic concepts, cybersecurity reporting, and software design practices.",
+    },
+    {
+      label: "Foundation",
+      title: "Computer Science at Acadia University",
+      description: "Coursework across software engineering, data structures, discrete math, systems, cybersecurity, and human-machine interaction.",
+    },
+  ],
+  es: [
+    {
+      label: "Ahora",
+      title: "Construyendo un portafolio profesional de proyectos",
+      description: "Convirtiendo proyectos full-stack, prototipos e ideas de producto en casos de estudio con evidencia, arquitectura y enlaces p\u00fablicos.",
+    },
+    {
+      label: "2026",
+      title: "SAVR y aplicaciones web desplegadas",
+      description: "Desarrollando sistemas de recomendaci\u00f3n contextuales y apps web pr\u00e1cticas que pasan de concepto a implementaci\u00f3n.",
+    },
+    {
+      label: "2025",
+      title: "Ingenier\u00eda de software y sistemas de flujo de trabajo",
+      description: "Construyendo proyectos sobre triage, conceptos de IA para tr\u00e1fico, reportes de ciberseguridad y pr\u00e1cticas de dise\u00f1o de software.",
+    },
+    {
+      label: "Base",
+      title: "Ciencias de la Computaci\u00f3n en Acadia University",
+      description: "Cursos en ingenier\u00eda de software, estructuras de datos, matem\u00e1ticas discretas, sistemas, ciberseguridad e interacci\u00f3n humano-m\u00e1quina.",
+    },
+  ],
+} satisfies Record<Locale, { label: string; title: string; description: string }[]>;
+
 
 function decode(value: string) {
   return JSON.parse(`"${value}"`) as string;
@@ -292,7 +405,7 @@ function Stack({ language }: { language: Locale }) {
     <section id="stack" className="section shell">
       <SectionTitle eyebrow={decode(t.stackEyebrow)} title={decode(t.stackTitle)} copyText={decode(t.stackCopy)} />
       <div className="stack-cards stack-cards-wide">
-        {stackLayers.map((layer, index) => (
+        {localizedStackLayers[language].map((layer, index) => (
           <article className="stack-card" key={layer.layer}>
             <span>0{index + 1}</span>
             <h3>{layer.layer}</h3>
@@ -341,12 +454,12 @@ function Process({ language }: { language: Locale }) {
     <section id="process" className="section shell two-column">
       <SectionTitle eyebrow={decode(t.processEyebrow)} title={decode(t.processTitle)} copyText={decode(t.processCopy)} />
       <div className="principle-list">
-        {operatingPrinciples.map((principle, index) => (
-          <article key={principle}>
+        {localizedOperatingPrinciples[language].map((principle, index) => (
+          <article key={principle.title}>
             <span>{index + 1}</span>
             <div>
-              <h3>{principle}</h3>
-              <p>Problem framing, architecture, interface, implementation, proof, and next iteration.</p>
+              <h3>{principle.title}</h3>
+              <p>{principle.detail}</p>
             </div>
           </article>
         ))}
@@ -366,7 +479,7 @@ function About({ language }: { language: Locale }) {
         <p>{decode(t.aboutCopy)}</p>
       </div>
       <div className="timeline-list">
-        {timeline.map((item) => (
+        {localizedTimeline[language].map((item) => (
           <article key={item.title}>
             <small>{item.label}</small>
             <h3>{item.title}</h3>

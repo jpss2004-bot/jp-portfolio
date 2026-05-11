@@ -210,7 +210,7 @@ export const projects: Project[] = [
       { label: "Interface", value: "Dashboard" },
     ],
     links: [
-      { label: "GitHub", href: "https://github.com/jpsamanosuarez/ER-Tirage-System-COMP-2663-FINAL" },
+      { label: "GitHub", href: "https://github.com/jpss2004-bot/ER-Tirage-System-COMP-2663-FINAL" },
     ],
   },
   {

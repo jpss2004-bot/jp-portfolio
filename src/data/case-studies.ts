@@ -75,9 +75,9 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
   savr: {
     title: "SAVR - Plataforma de Recomendaciones Contextuales",
     tagline: "Un sistema de recomendaciones que entiende el contexto, no solo la cocina.",
-    role: "Direccion de producto, API backend, flujos frontend, modelo de datos y logica de recomendacion",
+    role: "Dirección de producto, API backend, flujos frontend, modelo de datos y logica de recomendacion",
     summary:
-      "SAVR ayuda a elegir restaurantes y experiencias segun gusto, presupuesto, ambiente, grupo, restricciones y el tipo de noche que busca el usuario.",
+      "SAVR ayuda a elegir restaurantes y experiencias según gusto, presupuesto, ambiente, grupo, restricciones y el tipo de noche que busca el usuario.",
     challenge:
       "La busqueda de restaurantes suele ser generica. Normalmente filtra por ubicacion o cocina, pero ignora con quien vas, que ambiente quieres y que restricciones importan.",
     approach:
@@ -85,14 +85,14 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
     architecture: [
       "La interfaz maneja onboarding, entradas de recomendacion y presentacion de resultados.",
       "La API separa autenticacion, restaurantes, experiencias y rutas de recomendacion.",
-      "El modelo de datos soporta preferencias, metadatos de restaurantes, ambiente y futuras senales de eventos.",
+      "El modelo de datos soporta preferencias, metadatos de restaurantes, ambiente y futuras señales de eventos.",
       "La capa de recomendacion conecta contexto del usuario con atributos del lugar y explica por que encaja.",
     ],
     results: [
       "Proyecto flagship porque combina producto, full-stack, logica de recomendacion, onboarding y experiencia de usuario.",
       "Estructura backend con FastAPI.",
       "Arquitectura frontend con React y TypeScript.",
-      "Direccion de autenticacion, onboarding y flujos de recomendacion.",
+      "Dirección de autenticacion, onboarding y flujos de recomendacion.",
       "Modos Describe, Build y Surprise como rutas de decision.",
     ],
     nextSteps: [
@@ -104,8 +104,8 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
   },
   "er-triage-queue-manager": {
     title: "ER Triage & Queue Manager",
-    tagline: "Prototipo de flujo clinico para intake, triage, colas y estado de tratamiento.",
-    role: "Diseno de sistema, implementacion en Python, modelo de datos y logica de flujo",
+    tagline: "Prototipo de flujo clínico para intake, triage, colas y estado de tratamiento.",
+    role: "Diseño de sistema, implementacion en Python, modelo de datos y logica de flujo",
     summary:
       "Prototipo de sala de emergencias para registro de pacientes, signos vitales, prioridad automatizada, visibilidad de cola y progreso de tratamiento.",
     challenge:
@@ -120,7 +120,7 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
     ],
     results: [
       "Muestra modelado de flujos, estructura de interfaz, persistencia y conversion de un problema operativo en software.",
-      "Estructura de aplicacion Python.",
+      "Estructura de aplicación Python.",
       "Modelo de base de datos SQLite.",
       "Estado de paciente e historial.",
       "Dashboard de cola y pantallas por rol.",
@@ -130,20 +130,20 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
       "Documentar claramente el algoritmo de scoring.",
       "Crear un video corto de demo.",
     ],
-    resumeBullet: "ER Triage: prototipo de cola y estado de pacientes para flujos clinicos.",
+    resumeBullet: "ER Triage: prototipo de cola y estado de pacientes para flujos clínicos.",
   },
   "family-phrase-game": {
     title: "Family Phrase Game",
     tagline: "Juego tipo Catchphrase personalizado con frases reales de familia.",
-    role: "Implementacion full-stack, diseno del flujo de juego y despliegue",
+    role: "Implementacion full-stack, diseño del flujo de juego y despliegue",
     summary:
-      "Aplicacion Flask desplegada para jugar con frases personalizadas recolectadas desde un flujo de Google Forms.",
+      "Aplicación Flask desplegada para jugar con frases personalizadas recolectadas desde un flujo de Google Forms.",
     challenge:
       "Los juegos genericos son divertidos, pero se vuelven mas significativos cuando el contenido es personal y especifico del grupo.",
     approach:
       "El juego usa frases enviadas por familiares y las presenta en una interfaz simple para que otros jugadores las describan y adivinen.",
     architecture: [
-      "Flask sirve la aplicacion y sus rutas.",
+      "Flask sirve la aplicación y sus rutas.",
       "El frontend estatico muestra la superficie de juego.",
       "Las frases pueden prepararse desde respuestas de Google Forms.",
       "El despliegue permite jugar desde el navegador.",
@@ -164,54 +164,54 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
   },
   "adaptive-traffic-ai": {
     title: "Adaptive Traffic AI System",
-    tagline: "Concepto con simulacion para coordinacion adaptativa de semaforos.",
-    role: "Direccion de investigacion, plan de simulacion y arquitectura de sistema",
+    tagline: "Concepto con simulación para coordinación adaptativa de semáforos.",
+    role: "Dirección de investigacion, plan de simulación y arquitectura de sistema",
     summary:
-      "Concepto de sistema para entrenar y probar coordinacion de semaforos con IA en una ciudad simulada antes de explorar uso real.",
+      "Concepto de sistema para entrenar y probar coordinación de semáforos con IA en una ciudad simulada antes de explorar uso real.",
     challenge:
       "El trafico urbano suele gestionarse por interseccion, pero la congestion se forma en redes completas. El sistema necesita razonar sobre la ciudad conectada.",
     approach:
-      "El proyecto inicia con una simulacion digital que genera datos sinteticos, prueba estrategias y evalua comportamiento adaptativo de forma segura.",
+      "El proyecto inicia con una simulación digital que genera datos sinteticos, prueba estrategias y evalua comportamiento adaptativo de forma segura.",
     architecture: [
-      "La simulacion genera estados de trafico y flujo de vehiculos.",
+      "La simulación genera estados de trafico y flujo de vehiculos.",
       "La capa de datos captura intersecciones, espera, densidad y congestion.",
-      "La capa de IA propone ajustes segun el estado de la red.",
+      "La capa de IA propone ajustes según el estado de la red.",
       "El dashboard visualiza intersecciones, intervenciones y resultados.",
     ],
     results: [
-      "Muestra pensamiento de sistemas, planeacion de IA, desarrollo con simulacion y limites responsables.",
+      "Muestra pensamiento de sistemas, planeacion de IA, desarrollo con simulación y limites responsables.",
       "Modelo mental de recoleccion y preparacion de datos.",
-      "Estrategia de desarrollo basada en simulacion.",
+      "Estrategia de desarrollo basada en simulación.",
       "Concepto de sistema de razonamiento.",
-      "Direccion de evaluacion y dashboard.",
+      "Dirección de evaluacion y dashboard.",
     ],
     nextSteps: [
-      "Construir la primera simulacion minima de una cuadricula.",
+      "Construir la primera simulación minima de una cuadricula.",
       "Definir algoritmos base para comparar.",
       "Crear un dashboard de evaluacion.",
     ],
-    resumeBullet: "Traffic AI: concepto de IA con simulacion para coordinacion urbana.",
+    resumeBullet: "Traffic AI: concepto de IA con simulación para coordinación urbana.",
   },
   "cyber-reporting-assistant": {
     title: "Cyber Harassment Reporting Assistant",
     tagline: "Asistente de seguridad para documentar llamadas sospechosas y reportes.",
-    role: "Concepto de producto, UX de seguridad y diseno de flujo de reporte",
+    role: "Concepto de producto, UX de seguridad y diseño de flujo de reporte",
     summary:
-      "Concepto para organizar detalles de incidentes, clasificar senales de riesgo y generar material estructurado de reporte.",
+      "Concepto para organizar detalles de incidentes, clasificar señales de riesgo y generar material estructurado de reporte.",
     challenge:
       "Personas que enfrentan llamadas sospechosas o acoso digital muchas veces no saben que documentar ni que informacion importa.",
     approach:
       "El asistente guia la captura del incidente, la clasificacion de riesgo y la generacion de reportes con limites claros de privacidad y seguridad.",
     architecture: [
       "La interfaz recopila detalles del incidente de forma estructurada.",
-      "La capa de clasificacion identifica urgencia y senales de riesgo.",
+      "La capa de clasificacion identifica urgencia y señales de riesgo.",
       "El generador convierte la informacion en documentacion organizada.",
       "Las reglas de almacenamiento definen privacidad, borrado y acceso.",
     ],
     results: [
-      "Muestra pensamiento de producto en ciberseguridad, UX segura y diseno de flujos de reporte.",
+      "Muestra pensamiento de producto en ciberseguridad, UX segura y diseño de flujos de reporte.",
       "Concepto de flujo de recoleccion de incidentes.",
-      "Direccion de modelo de clasificacion de riesgo.",
+      "Dirección de modelo de clasificacion de riesgo.",
       "Idea de generacion de reporte estructurado.",
       "Limites de privacidad y consentimiento.",
     ],
