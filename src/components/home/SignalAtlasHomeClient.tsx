@@ -8,11 +8,8 @@ import type { Locale } from "@/data/i18n";
 import { profile, stackLayers } from "@/data/portfolio";
 import { DesktopFloatingDock } from "@/components/layout/DesktopFloatingDock";
 import { Header } from "@/components/layout/Header";
-import { SignalAtmosphere } from "@/components/home/SignalAtmosphere";
-import { SignalJourneyRail } from "@/components/home/SignalJourneyRail";
 import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
-import { SignalRouteProgress } from "@/components/home/SignalRouteProgress";
-import { SignalField } from "@/components/home/SignalField";
+import { SignalWave } from "@/components/home/SignalWave";
 import { Reveal } from "@/components/home/Reveal";
 
 export type Language = Locale;
@@ -242,31 +239,46 @@ function SectionTitle({ eyebrow, title, copyText }: { eyebrow: string; title: st
 function Hero({ language }: { language: Locale }) {
   const t = copy[language];
   const resumeFile = language === "es" ? "/resume/jp-samano-resume-es.pdf" : "/resume/jp-samano-resume-en.pdf";
-  const proofItems = [t.proofOne, t.proofTwo, t.proofThree, t.proofFour];
+  const readout = [
+    { k: language === "es" ? "ESTADO" : "STATUS", v: decode(t.proofOne) },
+    { k: language === "es" ? "IDIOMA" : "LANG", v: decode(t.proofTwo) },
+    { k: language === "es" ? "ENFOQUE" : "FOCUS", v: decode(t.proofThree) },
+    { k: "STACK", v: decode(t.proofFour) },
+  ];
 
   return (
-    <section className="hero shell">
-      <div className="hero-copy reveal-up">
-        <Badge strong>{decode(t.eyebrow)}</Badge>
-        <h1>{t.headline}</h1>
-        <p className="hero-subtitle">{decode(t.subhead)}</p>
+    <section className="instr-hero shell">
+      <div className="instr-hero-main">
+        <p className="instr-kicker">
+          <span className="instr-kicker-dot" />
+          {decode(t.eyebrow)}
+        </p>
+        <h1 className="instr-headline">{t.headline}</h1>
+        <p className="instr-sub">{decode(t.subhead)}</p>
 
-        <div className="hero-actions">
-          <a href="#work" className="button button-primary">{t.primaryCta}</a>
-          <a href={resumeFile} target="_blank" rel="noreferrer" className="button button-soft">{t.resumeCta}</a>
-          <a href={resumeFile} download className="button button-ghost">{t.downloadResume}</a>
-        </div>
-
-        <div className="proof-strip" aria-label="Quick proof signals">
-          {proofItems.map((item) => (
-            <div key={item}>
-              <span />
-              <strong>{decode(item)}</strong>
-            </div>
-          ))}
+        <div className="instr-actions">
+          <a href="#work" className="btn btn-accent">{t.primaryCta}</a>
+          <a href={resumeFile} target="_blank" rel="noreferrer" className="btn btn-line">{t.resumeCta}</a>
         </div>
       </div>
-      <SignalField locale={language} />
+
+      <aside className="instr-panel" aria-label="System readout">
+        <div className="instr-panel-head">
+          <span className="instr-live"><span className="instr-live-dot" />{language === "es" ? "SEÑAL // EN VIVO" : "SIGNAL // LIVE"}</span>
+          <span className="instr-panel-id">JP—OS</span>
+        </div>
+        <div className="instr-wave">
+          <SignalWave className="instr-wave-canvas" />
+        </div>
+        <dl className="instr-readout">
+          {readout.map((row) => (
+            <div key={row.k}>
+              <dt>{row.k}</dt>
+              <dd>{row.v}</dd>
+            </div>
+          ))}
+        </dl>
+      </aside>
     </section>
   );
 }
@@ -483,12 +495,10 @@ export function SignalAtlasHomeClient({ initialLocale = "en" }: { initialLocale?
   ];
 
   return (
-    <main id="main-content" className="portfolio-page">
+    <main id="main-content" className="portfolio-page instr-page">
       <DocumentLocaleSync locale={language} />
-      <SignalAtmosphere locale={language} mode="home" />
+      <div className="instr-grid-bg" aria-hidden="true" />
       <Header locale={language} navItems={dockItems} />
-      <SignalJourneyRail locale={language} />
-      <SignalRouteProgress locale={language} />
       <Hero language={language} />
       <Work language={language} />
       <Stack language={language} />
