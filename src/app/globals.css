@@ -2066,8 +2066,7 @@ body {
 }
 
 .signal-journey-node:hover .signal-journey-label,
-.signal-journey-node:focus-visible .signal-journey-label,
-.signal-journey-node.active .signal-journey-label {
+.signal-journey-node:focus-visible .signal-journey-label {
   opacity: 1;
   transform: translate3d(0, -50%, 0);
 }
@@ -4070,4 +4069,3 @@ body {
 }
 
 /* === PHASE 3E FINAL MOBILE POLISH END === */
-
