@@ -1,6 +1,19 @@
 import type { Metadata } from "next";
+import { Bricolage_Grotesque, Geist } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/portfolio";
+
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-display-grotesque",
+  display: "swap",
+});
+
+const sans = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+  display: "swap",
+});
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://jp-portfolio-beta.vercel.app").replace(/\/$/, "");
 
@@ -45,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${sans.variable}`}>
       <body>
         <a href="#main-content" className="skip-link">
           Skip to content

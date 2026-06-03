@@ -1,24 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --bg-0: #08111a;
-  --bg-1: #0f1925;
-  --bg-2: #132233;
-  --paper-0: #f3f7fb;
-  --paper-1: #e7eef7;
-  --text-0: #f3f7fb;
-  --text-1: #b3c0d0;
-  --text-2: #8393a7;
-  --text-dark: #122033;
-  --line-0: rgba(255, 255, 255, 0.12);
-  --line-1: rgba(18, 32, 51, 0.12);
-  --blue: #78afff;
-  --jade: #2fd3a3;
-  --terracotta: #e76a4c;
-  --gold: #f4c15d;
-  --violet: #a78bfa;
-  --shadow-xl: 0 30px 100px rgba(0, 0, 0, 0.36);
-  --shadow-soft: 0 20px 60px rgba(8, 17, 26, 0.18);
+  /* Depth-tinted neutrals (OKLCH, never pure black/white) */
+  --bg-deep: oklch(0.11 0.022 258);
+  --bg-0: oklch(0.16 0.028 256);
+  --bg-1: oklch(0.21 0.030 256);
+  --bg-2: oklch(0.26 0.034 255);
+  --paper-0: oklch(0.972 0.006 250);
+  --paper-1: oklch(0.930 0.010 250);
+  --text-0: oklch(0.972 0.006 250);
+  --text-1: oklch(0.805 0.020 252);
+  --text-2: oklch(0.660 0.024 252);
+  --text-dark: oklch(0.245 0.030 256);
+  --line-0: oklch(0.97 0.01 250 / 0.12);
+  --line-1: oklch(0.245 0.03 256 / 0.12);
+
+  /* Signal accents */
+  --blue: oklch(0.745 0.150 262);
+  --jade: oklch(0.785 0.135 168);
+  --terracotta: oklch(0.680 0.160 38);
+  --gold: oklch(0.825 0.130 85);
+  --violet: oklch(0.720 0.150 295);
+
+  /* Luminous glows for the depth field */
+  --glow-blue: oklch(0.745 0.170 262 / 0.55);
+  --glow-jade: oklch(0.785 0.150 168 / 0.50);
+  --glow-gold: oklch(0.825 0.150 85 / 0.45);
+
+  /* Elevation: stacked, navy-tinted shadows that read as physical depth */
+  --elev-1: 0 1px 0 oklch(0.97 0.01 250 / 0.05), 0 6px 16px oklch(0.08 0.03 258 / 0.35);
+  --elev-2: 0 1px 0 oklch(0.97 0.01 250 / 0.06), 0 14px 36px oklch(0.08 0.03 258 / 0.45);
+  --elev-3: 0 1px 0 oklch(0.97 0.01 250 / 0.07), 0 28px 70px oklch(0.06 0.03 258 / 0.55);
+  --elev-4: 0 2px 0 oklch(0.97 0.01 250 / 0.08), 0 50px 120px oklch(0.05 0.03 258 / 0.65);
+  --shadow-xl: var(--elev-4);
+  --shadow-soft: 0 20px 60px oklch(0.08 0.03 258 / 0.22);
+
+  /* Motion easings (decisive ease-out, no bounce) */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Type (next/font sets --font-geist and --font-display-grotesque on <html>) */
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-display-grotesque), "Bricolage Grotesque", var(--font-sans);
+
   --radius-xl: 1.75rem;
   --radius-2xl: 2.25rem;
 }
@@ -29,9 +54,15 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
-  background: var(--bg-0);
+  background: var(--bg-deep);
   color: var(--text-0);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, .hero-copy h1, .section-title h2 {
+  font-family: var(--font-display);
+  font-feature-settings: "ss01" 1;
 }
 body::selection { background: rgba(120, 175, 255, 0.35); color: white; }
 a { color: inherit; text-decoration: none; }
@@ -142,8 +173,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .flag-mexico span { position: absolute; width: 0.26rem; height: 0.26rem; left: 50%; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; background: #b38b2d; }
 .mobile-nav-wrap { display: none; }
 
-.hero { display: grid; grid-template-columns: minmax(0, 0.94fr) minmax(360px, 0.86fr); align-items: center; gap: 2.5rem; min-height: calc(100vh - 6rem); padding: 4rem 0 5.5rem; }
-.hero-copy h1 { max-width: 12ch; margin: 1.2rem 0 0; font-size: clamp(3.3rem, 8vw, 6.8rem); line-height: 0.9; letter-spacing: -0.075em; font-weight: 900; text-wrap: balance; }
+.hero { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; min-height: calc(100vh - 6rem); padding: 4rem 0 5.5rem; }
+.hero-copy { position: relative; z-index: 2; max-width: 41rem; }
+.hero-copy h1 { max-width: 18ch; margin: 1.1rem 0 0; font-size: clamp(2.5rem, 4.8vw, 4.3rem); line-height: 0.98; letter-spacing: -0.035em; font-weight: 800; text-wrap: balance; }
 .hero-subtitle { max-width: 44rem; margin: 1.5rem 0 0; color: var(--text-1); font-size: clamp(1rem, 1.4vw, 1.22rem); line-height: 1.8; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 2.9rem; border-radius: 999px; padding: 0.86rem 1.08rem; border: 1px solid rgba(255,255,255,0.14); font-weight: 900; font-size: 0.92rem; transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease; }
@@ -3269,8 +3301,7 @@ body {
 }
 
 .signal-route-node:hover .signal-route-label,
-.signal-route-node:focus-visible .signal-route-label,
-.signal-route-node.active .signal-route-label {
+.signal-route-node:focus-visible .signal-route-label {
   position: static;
   width: auto;
   height: auto;
@@ -4069,3 +4100,489 @@ body {
 }
 
 /* === PHASE 3E FINAL MOBILE POLISH END === */
+
+/* ============================================================
+   SIGNAL FIELD — immersive 3D depth hero (Phase 1 redesign)
+   ============================================================ */
+.signal-field {
+  position: absolute;
+  inset: -4% -8% -4% 22%;
+  perspective: 1400px;
+  perspective-origin: 60% 46%;
+  transform-style: preserve-3d;
+  z-index: 0;
+}
+.sf-particles {
+  position: absolute;
+  inset: -10% -8%;
+  width: 116%;
+  height: 120%;
+  pointer-events: none;
+  z-index: 0;
+}
+.sf-camera {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+.sf-3d {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+/* Depth grid planes */
+.sf-plane {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 170%;
+  height: 170%;
+  transform: translate(-50%, -50%) translateZ(var(--pz)) rotateX(64deg);
+  background-image:
+    linear-gradient(oklch(0.745 0.15 262 / 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.745 0.15 262 / 0.12) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse at center, black, transparent 68%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black, transparent 68%);
+}
+.sf-plane-far { --pz: -340px; background-size: 48px 48px; opacity: 0.3; }
+.sf-plane-mid { --pz: -170px; background-size: 64px 64px; opacity: 0.5; }
+
+/* Signal routes */
+.sf-routes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(-30px);
+  overflow: visible;
+}
+.sf-route {
+  fill: none;
+  stroke: url(#sf-route);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px var(--glow-blue));
+}
+.sf-link {
+  fill: none;
+  stroke: oklch(0.745 0.15 262 / 0.22);
+  stroke-width: 1;
+  stroke-dasharray: 3 7;
+}
+.sf-pulse {
+  fill: oklch(0.96 0.04 200);
+  filter: drop-shadow(0 0 7px oklch(0.85 0.13 210));
+}
+
+/* Glow halo behind the core */
+.sf-core-glow {
+  position: absolute;
+  left: 52%;
+  top: 42%;
+  width: 460px;
+  height: 460px;
+  margin: -230px 0 0 -230px;
+  border-radius: 50%;
+  transform: translateZ(-90px);
+  background: radial-gradient(circle, var(--glow-blue) 0%, oklch(0.785 0.135 168 / 0.18) 38%, transparent 68%);
+  filter: blur(14px);
+  pointer-events: none;
+}
+
+/* Central signal core */
+.sf-core {
+  position: absolute;
+  left: 52%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  z-index: 2;
+}
+.sf-core-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 210px;
+  height: 210px;
+  margin: -105px 0 0 -105px;
+  border: 1px solid oklch(0.745 0.15 262 / 0.30);
+  border-radius: 50%;
+  animation: sf-spin 20s linear infinite;
+}
+.sf-core-ring-2 {
+  width: 320px;
+  height: 320px;
+  margin: -160px 0 0 -160px;
+  border-style: dashed;
+  border-color: oklch(0.785 0.135 168 / 0.22);
+  animation-duration: 34s;
+  animation-direction: reverse;
+}
+.sf-core-ring-3 {
+  width: 440px;
+  height: 440px;
+  margin: -220px 0 0 -220px;
+  border-color: oklch(0.745 0.15 262 / 0.10);
+  animation-duration: 52s;
+}
+/* Pulsing bloom behind the orb */
+.sf-core-bloom {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 220px;
+  height: 220px;
+  margin: -110px 0 0 -110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-blue) 0%, transparent 62%);
+  filter: blur(8px);
+  animation: sf-breathe 4.5s ease-in-out infinite;
+}
+/* Rotating radar sweep */
+.sf-core-sweep {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  margin: -150px 0 0 -150px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0deg, oklch(0.785 0.135 168 / 0.28) 22deg, transparent 60deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 38%, black 39%, black 100%);
+  mask-image: radial-gradient(circle, transparent 38%, black 39%, black 100%);
+  animation: sf-spin 7s linear infinite;
+}
+.sf-core-orb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 158px;
+  height: 158px;
+  border-radius: 50%;
+  background: conic-gradient(from 130deg, var(--gold), var(--jade), var(--blue), var(--violet), var(--gold));
+  box-shadow: 0 0 80px var(--glow-blue), 0 0 28px var(--glow-jade), inset 0 0 34px oklch(1 0 0 / 0.24);
+  color: var(--bg-deep);
+  text-align: center;
+}
+.sf-core-orb span {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1;
+}
+.sf-core-orb small {
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 800;
+  opacity: 0.82;
+}
+
+/* Depth nodes */
+.sf-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.sf-node-dot {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 16px var(--accent), 0 0 5px var(--accent);
+  flex: none;
+}
+.sf-node-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  padding: 0.36rem 0.62rem;
+  border-radius: 0.72rem;
+  background: oklch(0.16 0.028 256 / 0.62);
+  border: 1px solid oklch(0.97 0.01 250 / 0.13);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  font-weight: 800;
+  font-size: 0.76rem;
+  letter-spacing: 0.01em;
+  color: var(--text-0);
+  white-space: nowrap;
+  box-shadow: var(--elev-2);
+}
+.sf-node-label em {
+  font-style: normal;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.sf-node-lg .sf-node-label { font-size: 0.88rem; }
+.sf-node-sm .sf-node-label { font-size: 0.7rem; }
+
+.sf-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 78% 70% at 54% 44%, transparent 42%, oklch(0.11 0.022 258 / 0.5) 100%);
+  z-index: 3;
+}
+.sf-caption {
+  position: absolute;
+  left: 0.2rem;
+  bottom: 0.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  z-index: 4;
+}
+.sf-caption-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--jade);
+  box-shadow: 0 0 12px var(--jade);
+  animation: sf-blink 2.6s ease-in-out infinite;
+}
+
+@keyframes sf-spin { to { transform: rotate(360deg); } }
+@keyframes sf-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes sf-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+@media (max-width: 980px) {
+  .signal-field { height: min(64vh, 480px); }
+  .sf-core-orb { width: 104px; height: 104px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-core-ring,
+  .sf-core-bloom,
+  .sf-core-sweep,
+  .sf-caption-dot,
+  .sf-pulse { animation: none; }
+}
+
+/* ---- Redesign authoritative hero overrides (wins by source order over
+   the stacked phase patches above) ---- */
+.hero-copy {
+  max-width: 41rem;
+  position: relative;
+  z-index: 2;
+}
+.hero-copy h1 {
+  max-width: 17ch;
+  font-size: clamp(2.5rem, 4.7vw, 4.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+  word-spacing: normal;
+}
+.hero-subtitle {
+  max-width: 36rem;
+}
+
+/* ---- Phase 2: 3D tilt project cards (authoritative over phase hover rules) ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .synchronized-grid .project-card {
+    transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transform-style: preserve-3d;
+    transition: transform 240ms var(--ease-out-quart), box-shadow 240ms var(--ease-out-quart), border-color 200ms ease;
+  }
+  .synchronized-grid .project-card:hover {
+    transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px) scale(1.012);
+    box-shadow: var(--elev-4);
+    border-color: oklch(0.745 0.15 262 / 0.45);
+  }
+}
+
+/* ---- Redesign mobile hero: copy wraps cleanly, field flows below ---- */
+@media (max-width: 720px) {
+  .hero {
+    min-height: auto;
+    padding: 1.5rem 0 2.5rem;
+    gap: 1.5rem;
+  }
+  .hero-copy {
+    max-width: 100%;
+  }
+  .hero-copy h1 {
+    max-width: 100%;
+    font-size: clamp(2.05rem, 8vw, 3rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    overflow-wrap: anywhere;
+  }
+  .hero-subtitle {
+    max-width: 100%;
+  }
+  .signal-field {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 48vh;
+    margin-top: 0.5rem;
+    perspective-origin: 50% 50%;
+  }
+  .sf-particles { inset: 0; width: 100%; height: 100%; }
+}
+
+/* ---- Phase 4: scroll-timeline zoom-in reveals for static content blocks
+   (no hover transforms here, so a transform reveal is safe; graceful no-op
+   where view-timeline or motion isn't available) ---- */
+@keyframes reveal-zoom-in {
+  from { opacity: 0; transform: translateY(46px) scale(0.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .resume-card,
+    .about-card,
+    .timeline-list > article,
+    .principle-list > article,
+    .contact-card > div {
+      animation: reveal-zoom-in linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 34%;
+    }
+  }
+}
+
+/* ============================================================
+   PHASE 3 — Project / case-study pages: depth + cinematic transitions
+   ============================================================ */
+
+/* Cross-document (MPA) view transitions: cinematic cross-fade when moving
+   between the homepage and a project page. Graceful no-op where unsupported. */
+@view-transition { navigation: auto; }
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) { animation: vt-fade-out 220ms var(--ease-out-quart) both; }
+  ::view-transition-new(root) { animation: vt-fade-in 360ms var(--ease-out-expo) both; }
+}
+@keyframes vt-fade-out { to { opacity: 0; transform: scale(0.985); } }
+@keyframes vt-fade-in { from { opacity: 0; transform: scale(1.012); } to { opacity: 1; transform: none; } }
+
+/* Scroll-timeline reveals for case-study content (no hover transforms here) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .case-polish-block,
+    .case-polish-sidebar-card,
+    .case-polish-proof-visual {
+      animation: reveal-zoom-in linear both;
+      animation-timeline: view();
+      animation-range: entry 2% cover 30%;
+    }
+  }
+}
+
+/* Faint Signal Field particle depth behind the case-study hero */
+.case-polish-hero { position: relative; }
+.case-hero-depth {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: var(--radius-2xl);
+}
+.case-hero-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+}
+.case-polish-hero > *:not(.case-hero-depth) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   PHASE 4 — 404 / signal-lost page
+   ============================================================ */
+.notfound-page {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 30%, oklch(0.745 0.15 262 / 0.16), transparent 46%),
+    radial-gradient(circle at 80% 80%, oklch(0.785 0.135 168 / 0.12), transparent 48%),
+    var(--bg-deep);
+}
+.notfound-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 0;
+}
+.notfound-orb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 116px;
+  height: 116px;
+  margin-bottom: 2rem;
+  border-radius: 50%;
+  background: conic-gradient(from 130deg, var(--gold), var(--jade), var(--blue), var(--violet), var(--gold));
+  box-shadow: 0 0 64px var(--glow-blue), inset 0 0 28px oklch(1 0 0 / 0.22);
+  color: var(--bg-deep);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.7rem;
+}
+.notfound-orb-ring {
+  position: absolute;
+  inset: -22px;
+  border: 1px dashed oklch(0.745 0.15 262 / 0.3);
+  border-radius: 50%;
+  animation: sf-spin 26s linear infinite;
+}
+.notfound-code {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--jade);
+}
+.notfound-title {
+  margin: 1rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  color: var(--text-0);
+  max-width: 16ch;
+}
+.notfound-copy {
+  margin: 1.4rem 0 0;
+  max-width: 42ch;
+  color: var(--text-1);
+  line-height: 1.7;
+}
+.notfound-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 2.2rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .notfound-orb-ring { animation: none; }
+}

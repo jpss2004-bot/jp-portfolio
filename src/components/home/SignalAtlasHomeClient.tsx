@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import type { ReactNode } from "react";
+import { TiltCard } from "@/components/home/TiltCard";
 import { caseStudies, getLocalizedValue } from "@/data/case-studies";
 import type { Locale } from "@/data/i18n";
 import { profile, stackLayers } from "@/data/portfolio";
@@ -12,6 +12,8 @@ import { SignalAtmosphere } from "@/components/home/SignalAtmosphere";
 import { SignalJourneyRail } from "@/components/home/SignalJourneyRail";
 import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
 import { SignalRouteProgress } from "@/components/home/SignalRouteProgress";
+import { SignalField } from "@/components/home/SignalField";
+import { Reveal } from "@/components/home/Reveal";
 
 export type Language = Locale;
 
@@ -229,55 +231,11 @@ function Badge({ children, strong = false }: { children: ReactNode; strong?: boo
 
 function SectionTitle({ eyebrow, title, copyText }: { eyebrow: string; title: string; copyText: string }) {
   return (
-    <div className="section-title">
+    <Reveal className="section-title">
       <p className="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
       <p>{copyText}</p>
-    </div>
-  );
-}
-
-function AtlasScene({ language }: { language: Locale }) {
-  const t = copy[language];
-  const nodes = [
-    { label: "SAVR", className: "scene-node-a" },
-    { label: "ER", className: "scene-node-b" },
-    { label: "AI", className: "scene-node-c" },
-    { label: language === "es" ? decode("M\\u00e9xico") : "Mexico", className: "scene-node-d" },
-    { label: "Canada", className: "scene-node-e" },
-    { label: "Proof", className: "scene-node-f" },
-  ];
-
-  return (
-    <aside className="atlas-stage" aria-label={t.sceneLabel}>
-      <div className="stage-glow" />
-      <div className="stage-grid" />
-      <div className="orbital-system" aria-hidden="true">
-        <div className="orbit orbit-one" />
-        <div className="orbit orbit-two" />
-        <div className="orbit orbit-three" />
-        <div className="atlas-core">
-          <span>JP</span>
-          <small>Signal Atlas</small>
-        </div>
-        {nodes.map((node) => (
-          <div className={`scene-node ${node.className}`} key={node.label}>
-            <span />
-            <strong>{node.label}</strong>
-          </div>
-        ))}
-      </div>
-      <svg className="route-web" viewBox="0 0 620 460" aria-hidden="true">
-        <path d="M118 330 C196 104, 410 84, 512 140" />
-        <path d="M142 138 C246 244, 382 298, 516 318" />
-        <path d="M104 340 C242 396, 398 396, 520 318" />
-        <path d="M310 230 C330 150, 392 120, 512 140" />
-      </svg>
-      <div className="scene-caption">
-        <small>SIGNAL FIELD / ROUTES + NODES</small>
-        <p>{t.sceneCaption}</p>
-      </div>
-    </aside>
+    </Reveal>
   );
 }
 
@@ -308,7 +266,7 @@ function Hero({ language }: { language: Locale }) {
           ))}
         </div>
       </div>
-      <AtlasScene language={language} />
+      <SignalField locale={language} />
     </section>
   );
 }
@@ -332,6 +290,7 @@ function Work({ language }: { language: Locale }) {
         <a href={profile.github} target="_blank" rel="noreferrer" className="button button-soft">{t.githubCta}</a>
       </div>
 
+      <Reveal amount={0.1}>
       <div className="project-grid synchronized-grid">
         {caseStudies.map((project, index) => {
           const title = getLocalizedValue(project.title, language);
@@ -342,7 +301,7 @@ function Work({ language }: { language: Locale }) {
           const metrics = project.proofs.slice(0, 3);
 
           return (
-            <Link
+            <TiltCard
               href={`/${language}/projects/${project.slug}`}
               key={project.slug}
               className={index === 0 ? "project-card featured" : "project-card"}
@@ -390,10 +349,11 @@ function Work({ language }: { language: Locale }) {
                 <span>{role.split(",")[0]}</span>
                 <strong>{t.openCase}</strong>
               </div>
-            </Link>
+            </TiltCard>
           );
         })}
       </div>
+      </Reveal>
     </section>
   );
 }
@@ -404,6 +364,7 @@ function Stack({ language }: { language: Locale }) {
   return (
     <section id="stack" className="section shell">
       <SectionTitle eyebrow={decode(t.stackEyebrow)} title={decode(t.stackTitle)} copyText={decode(t.stackCopy)} />
+      <Reveal amount={0.1}>
       <div className="stack-cards stack-cards-wide">
         {localizedStackLayers[language].map((layer, index) => (
           <article className="stack-card" key={layer.layer}>
@@ -414,6 +375,7 @@ function Stack({ language }: { language: Locale }) {
           </article>
         ))}
       </div>
+      </Reveal>
     </section>
   );
 }
