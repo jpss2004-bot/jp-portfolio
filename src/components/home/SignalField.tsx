@@ -30,6 +30,8 @@ const NODES: FieldNode[] = [
   { id: "ai", label: { en: "Adaptive AI", es: "IA Adaptiva" }, sub: "concept", x: 84, y: 70, z: 120, accent: "var(--violet)", size: "sm" },
   { id: "mexico", label: { en: "Mexico", es: "México" }, x: 58, y: 86, z: -10, accent: "var(--gold)", size: "sm" },
   { id: "canada", label: { en: "Canada", es: "Canadá" }, x: 33, y: 64, z: -40, accent: "var(--blue)", size: "sm" },
+  { id: "systems", label: { en: "Systems", es: "Sistemas" }, x: 64, y: 50, z: 30, accent: "var(--jade)", size: "sm" },
+  { id: "cyber", label: { en: "Cybersecurity", es: "Ciberseguridad" }, sub: "edge", x: 46, y: 80, z: 70, accent: "var(--terracotta)", size: "sm" },
 ];
 
 // One route per node, radiating outward from the central core (~350,250 in viewBox)
@@ -40,7 +42,12 @@ const ROUTES = [
   "M 350 250 C 450 300, 540 345, 571 364", // ai
   "M 350 250 C 380 340, 392 410, 394 447", // mexico
   "M 350 250 C 300 290, 250 320, 224 333", // canada
+  "M 350 250 C 390 255, 420 262, 435 260", // systems
+  "M 350 250 C 340 320, 320 390, 313 416", // cyber
 ];
+
+// Faint constellation web linking the outer nodes
+const CONSTELLATION = "258,125 490,94 612,208 571,364 394,447 224,333";
 
 export function SignalField({ locale }: { locale: Locale }) {
   const reduce = useReducedMotion();
@@ -52,17 +59,21 @@ export function SignalField({ locale }: { locale: Locale }) {
   const spring = { stiffness: 55, damping: 18, mass: 0.7 };
   const sx = useSpring(px, spring);
   const sy = useSpring(py, spring);
-  const rotateY = useTransform(sx, [-0.5, 0.5], [14, -14]);
-  const rotateX = useTransform(sy, [-0.5, 0.5], [-11, 11]);
+  const rotateY = useTransform(sx, [-0.5, 0.5], [22, -22]);
 
-  // Scroll dolly: fly into the field as the hero leaves
+  // Scroll dolly: fly hard into the field as the hero leaves
   const { scrollYProgress } = useScroll({
     target: stageRef,
     offset: ["start start", "end start"],
   });
-  const camZ = useTransform(scrollYProgress, [0, 1], [0, 280]);
-  const camScale = useTransform(scrollYProgress, [0, 1], [1, 1.22]);
-  const camOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.65, 0]);
+  const camZ = useTransform(scrollYProgress, [0, 1], [0, 540]);
+  const camScale = useTransform(scrollYProgress, [0, 1], [1, 1.55]);
+  const camOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 0.5, 0]);
+  // Combine pointer tilt with a scroll-driven dive tilt on the X axis
+  const rotateX = useTransform([sy, scrollYProgress], (vals) => {
+    const [p, s] = vals as number[];
+    return p * -30 + s * 10;
+  });
 
   const handlePointer = (e: React.PointerEvent<HTMLDivElement>) => {
     if (reduce) return;
@@ -106,6 +117,7 @@ export function SignalField({ locale }: { locale: Locale }) {
                 <stop offset="100%" stopColor="oklch(0.825 0.13 85)" stopOpacity="0.1" />
               </linearGradient>
             </defs>
+            <polygon className="sf-link" points={CONSTELLATION} />
             {ROUTES.map((d, i) => (
               <g key={i}>
                 <path className="sf-route" d={d} />
@@ -125,8 +137,11 @@ export function SignalField({ locale }: { locale: Locale }) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           >
+            <div className="sf-core-bloom" />
+            {!reduce && <div className="sf-core-sweep" />}
             <div className="sf-core-ring" />
             <div className="sf-core-ring sf-core-ring-2" />
+            <div className="sf-core-ring sf-core-ring-3" />
             <div className="sf-core-orb">
               <span>JP</span>
               <small>Signal Atlas</small>

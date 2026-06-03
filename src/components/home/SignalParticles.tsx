@@ -40,7 +40,7 @@ export function SignalParticles({ className }: { className?: string }) {
       canvas!.width = Math.floor(width * dpr);
       canvas!.height = Math.floor(height * dpr);
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const density = Math.min(150, Math.floor((width * height) / 9000));
+      const density = Math.min(240, Math.floor((width * height) / 6200));
       particles = Array.from({ length: density }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
