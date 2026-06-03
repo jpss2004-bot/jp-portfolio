@@ -136,7 +136,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   const description = getLocalizedValue(project.summary, locale);
 
   return {
-    title: `${title} | JP Samano`,
+    title,
     description,
     alternates: {
       canonical: `/${locale}/projects/${project.slug}`,
@@ -232,9 +232,11 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
                 </a>
               ))}
 
-              <Link href={`/${locale}#contact`} className="button button-ghost">
-                {t.requestWalkthrough}
-              </Link>
+              {primaryLink ? (
+                <Link href={`/${locale}#contact`} className="button button-ghost">
+                  {t.requestWalkthrough}
+                </Link>
+              ) : null}
             </div>
           </div>
 
