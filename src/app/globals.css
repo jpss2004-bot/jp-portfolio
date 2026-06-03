@@ -4438,3 +4438,74 @@ body {
   }
   .sf-particles { inset: 0; width: 100%; height: 100%; }
 }
+
+/* ---- Phase 4: scroll-timeline zoom-in reveals for static content blocks
+   (no hover transforms here, so a transform reveal is safe; graceful no-op
+   where view-timeline or motion isn't available) ---- */
+@keyframes reveal-zoom-in {
+  from { opacity: 0; transform: translateY(46px) scale(0.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .resume-card,
+    .about-card,
+    .timeline-list > article,
+    .principle-list > article,
+    .contact-card > div {
+      animation: reveal-zoom-in linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 34%;
+    }
+  }
+}
+
+/* ============================================================
+   PHASE 3 — Project / case-study pages: depth + cinematic transitions
+   ============================================================ */
+
+/* Cross-document (MPA) view transitions: cinematic cross-fade when moving
+   between the homepage and a project page. Graceful no-op where unsupported. */
+@view-transition { navigation: auto; }
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) { animation: vt-fade-out 220ms var(--ease-out-quart) both; }
+  ::view-transition-new(root) { animation: vt-fade-in 360ms var(--ease-out-expo) both; }
+}
+@keyframes vt-fade-out { to { opacity: 0; transform: scale(0.985); } }
+@keyframes vt-fade-in { from { opacity: 0; transform: scale(1.012); } to { opacity: 1; transform: none; } }
+
+/* Scroll-timeline reveals for case-study content (no hover transforms here) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .case-polish-block,
+    .case-polish-sidebar-card,
+    .case-polish-proof-visual {
+      animation: reveal-zoom-in linear both;
+      animation-timeline: view();
+      animation-range: entry 2% cover 30%;
+    }
+  }
+}
+
+/* Faint Signal Field particle depth behind the case-study hero */
+.case-polish-hero { position: relative; }
+.case-hero-depth {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: var(--radius-2xl);
+}
+.case-hero-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+}
+.case-polish-hero > *:not(.case-hero-depth) {
+  position: relative;
+  z-index: 1;
+}
