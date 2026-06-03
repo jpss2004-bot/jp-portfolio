@@ -4394,3 +4394,17 @@ body {
 .hero-subtitle {
   max-width: 36rem;
 }
+
+/* ---- Phase 2: 3D tilt project cards (authoritative over phase hover rules) ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .synchronized-grid .project-card {
+    transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transform-style: preserve-3d;
+    transition: transform 240ms var(--ease-out-quart), box-shadow 240ms var(--ease-out-quart), border-color 200ms ease;
+  }
+  .synchronized-grid .project-card:hover {
+    transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px) scale(1.012);
+    box-shadow: var(--elev-4);
+    border-color: oklch(0.745 0.15 262 / 0.45);
+  }
+}

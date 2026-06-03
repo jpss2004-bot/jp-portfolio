@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import type { ReactNode } from "react";
+import { TiltCard } from "@/components/home/TiltCard";
 import { caseStudies, getLocalizedValue } from "@/data/case-studies";
 import type { Locale } from "@/data/i18n";
 import { profile, stackLayers } from "@/data/portfolio";
@@ -13,6 +13,7 @@ import { SignalJourneyRail } from "@/components/home/SignalJourneyRail";
 import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
 import { SignalRouteProgress } from "@/components/home/SignalRouteProgress";
 import { SignalField } from "@/components/home/SignalField";
+import { Reveal } from "@/components/home/Reveal";
 
 export type Language = Locale;
 
@@ -230,11 +231,11 @@ function Badge({ children, strong = false }: { children: ReactNode; strong?: boo
 
 function SectionTitle({ eyebrow, title, copyText }: { eyebrow: string; title: string; copyText: string }) {
   return (
-    <div className="section-title">
+    <Reveal className="section-title">
       <p className="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
       <p>{copyText}</p>
-    </div>
+    </Reveal>
   );
 }
 
@@ -289,6 +290,7 @@ function Work({ language }: { language: Locale }) {
         <a href={profile.github} target="_blank" rel="noreferrer" className="button button-soft">{t.githubCta}</a>
       </div>
 
+      <Reveal amount={0.1}>
       <div className="project-grid synchronized-grid">
         {caseStudies.map((project, index) => {
           const title = getLocalizedValue(project.title, language);
@@ -299,7 +301,7 @@ function Work({ language }: { language: Locale }) {
           const metrics = project.proofs.slice(0, 3);
 
           return (
-            <Link
+            <TiltCard
               href={`/${language}/projects/${project.slug}`}
               key={project.slug}
               className={index === 0 ? "project-card featured" : "project-card"}
@@ -347,10 +349,11 @@ function Work({ language }: { language: Locale }) {
                 <span>{role.split(",")[0]}</span>
                 <strong>{t.openCase}</strong>
               </div>
-            </Link>
+            </TiltCard>
           );
         })}
       </div>
+      </Reveal>
     </section>
   );
 }
@@ -361,6 +364,7 @@ function Stack({ language }: { language: Locale }) {
   return (
     <section id="stack" className="section shell">
       <SectionTitle eyebrow={decode(t.stackEyebrow)} title={decode(t.stackTitle)} copyText={decode(t.stackCopy)} />
+      <Reveal amount={0.1}>
       <div className="stack-cards stack-cards-wide">
         {localizedStackLayers[language].map((layer, index) => (
           <article className="stack-card" key={layer.layer}>
@@ -371,6 +375,7 @@ function Stack({ language }: { language: Locale }) {
           </article>
         ))}
       </div>
+      </Reveal>
     </section>
   );
 }
