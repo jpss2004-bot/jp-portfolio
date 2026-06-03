@@ -381,6 +381,7 @@ function Work({ language }: { language: Locale }) {
             <TiltCard
               href={`/${language}/projects/${project.slug}`}
               key={project.slug}
+              id={`sys-${project.slug}`}
               className={index === 0 ? "project-card featured" : "project-card"}
             >
               <div className="project-card-visual">

@@ -10,11 +10,13 @@ import type { ReactNode } from "react";
  */
 export function TiltCard({
   href,
+  id,
   className,
   children,
   max = 6.5,
 }: {
   href: string;
+  id?: string;
   className?: string;
   children: ReactNode;
   max?: number;
@@ -42,6 +44,7 @@ export function TiltCard({
   return (
     <Link
       ref={ref}
+      id={id}
       href={href}
       className={className}
       onPointerMove={onMove}

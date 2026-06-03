@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Locale } from "@/data/i18n";
+import { SignalWave } from "@/components/home/SignalWave";
 
 type Chapter = { id: string; idx: string; en: string; es: string };
 
@@ -64,6 +65,10 @@ export function SignalHUD({ locale }: { locale: Locale }) {
       </div>
 
       <nav className="signal-hud" aria-label={locale === "es" ? "Capítulos de señal" : "Signal chapters"}>
+        <div className="hud-wave" aria-hidden="true">
+          <SignalWave className="hud-wave-canvas" />
+        </div>
+
         <div className="hud-now">
           <span className="hud-idx">{ch.idx}</span>
           <span className="hud-sep">/</span>

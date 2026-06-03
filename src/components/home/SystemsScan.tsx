@@ -1,65 +1,51 @@
 "use client";
 
-import Link from "next/link";
 import { caseStudies, getLocalizedValue } from "@/data/case-studies";
 import type { Locale } from "@/data/i18n";
 
-// Visual "signal strength" per project slot (spectrum-analyzer heights, %).
-const HEIGHTS = [86, 54, 70, 46, 62, 58, 50];
-
-function codeFor(slug: string) {
-  return slug.split("-")[0].toUpperCase().slice(0, 4);
+function shortName(title: string) {
+  // "SAVR - Context-Aware Dining Platform" -> "SAVR"; "ER Triage & Queue Manager" -> "ER Triage"
+  const head = title.split(/[-–—:|&]/)[0].trim();
+  return head.length > 18 ? head.slice(0, 17).trim() + "…" : head;
 }
 
 /**
- * Systems frequency scan — reframes the projects as signals detected on a band.
- * Each project is a vertical signal bar (varying strength) you can tune into;
- * hovering lights it up, clicking opens the case study.
+ * Systems index — a clear, functional navigator for the five systems. Each is a
+ * labeled, numbered station on a signal baseline; selecting one jumps to (and
+ * highlights) its case-study card below. The "signal" aesthetic, made useful.
  */
 export function SystemsScan({ locale }: { locale: Locale }) {
   const items = caseStudies.map((p, i) => ({
     slug: p.slug,
-    code: codeFor(p.slug),
-    title: getLocalizedValue(p.title, locale),
+    num: String(i + 1).padStart(2, "0"),
+    name: shortName(getLocalizedValue(p.title, locale)),
     year: p.year,
-    height: HEIGHTS[i % HEIGHTS.length],
-    pos: caseStudies.length > 1 ? 6 + (i * 88) / (caseStudies.length - 1) : 50,
   }));
 
   return (
-    <div className="sys-scan" aria-label={locale === "es" ? "Escaneo de frecuencia de sistemas" : "Systems frequency scan"}>
-      <div className="sys-scan-head">
-        <span className="sys-scan-label">
-          <span className="sys-scan-live" />
-          {locale === "es" ? "ESCANEO DE FRECUENCIA" : "FREQUENCY SCAN"}
+    <nav className="sys-index" aria-label={locale === "es" ? "Índice de sistemas" : "Systems index"}>
+      <div className="sys-index-head">
+        <span className="sys-index-label">
+          <span className="sys-index-live" />
+          {locale === "es" ? "ÍNDICE DE SISTEMAS" : "SYSTEMS INDEX"}
         </span>
-        <span className="sys-scan-range">
-          {String(caseStudies.length).padStart(2, "0")} {locale === "es" ? "SEÑALES DETECTADAS" : "SIGNALS DETECTED"}
+        <span className="sys-index-hint">
+          {String(items.length).padStart(2, "0")} {locale === "es" ? "sistemas · elige para saltar" : "systems · select to jump"}
         </span>
       </div>
 
-      <div className="sys-scan-band">
-        {[0, 25, 50, 75, 100].map((g) => (
-          <span key={g} className="sys-scan-grid" style={{ left: `${g}%` }} />
-        ))}
+      <ul className="sys-index-track">
         {items.map((it) => (
-          <Link
-            key={it.slug}
-            href={`/${locale}/projects/${it.slug}`}
-            className="sys-peak"
-            style={{ left: `${it.pos}%` }}
-            aria-label={`${it.code} — ${it.title}`}
-          >
-            <span className="sys-peak-dot" />
-            <span className="sys-peak-bar" style={{ height: `${it.height}%` }} />
-            <span className="sys-peak-code">{it.code}</span>
-            <span className="sys-peak-card">
-              <strong>{it.title}</strong>
-              <em>{it.year}</em>
-            </span>
-          </Link>
+          <li key={it.slug}>
+            <a href={`#sys-${it.slug}`} className="sys-node">
+              <span className="sys-node-num">{it.num}</span>
+              <span className="sys-node-name">{it.name}</span>
+              <span className="sys-node-year">{it.year}</span>
+              <span className="sys-node-mark" aria-hidden="true" />
+            </a>
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </nav>
   );
 }
