@@ -12,6 +12,7 @@ import { SignalAtmosphere } from "@/components/home/SignalAtmosphere";
 import { SignalJourneyRail } from "@/components/home/SignalJourneyRail";
 import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
 import { SignalRouteProgress } from "@/components/home/SignalRouteProgress";
+import { SignalField } from "@/components/home/SignalField";
 
 export type Language = Locale;
 
@@ -237,50 +238,6 @@ function SectionTitle({ eyebrow, title, copyText }: { eyebrow: string; title: st
   );
 }
 
-function AtlasScene({ language }: { language: Locale }) {
-  const t = copy[language];
-  const nodes = [
-    { label: "SAVR", className: "scene-node-a" },
-    { label: "ER", className: "scene-node-b" },
-    { label: "AI", className: "scene-node-c" },
-    { label: language === "es" ? decode("M\\u00e9xico") : "Mexico", className: "scene-node-d" },
-    { label: "Canada", className: "scene-node-e" },
-    { label: "Proof", className: "scene-node-f" },
-  ];
-
-  return (
-    <aside className="atlas-stage" aria-label={t.sceneLabel}>
-      <div className="stage-glow" />
-      <div className="stage-grid" />
-      <div className="orbital-system" aria-hidden="true">
-        <div className="orbit orbit-one" />
-        <div className="orbit orbit-two" />
-        <div className="orbit orbit-three" />
-        <div className="atlas-core">
-          <span>JP</span>
-          <small>Signal Atlas</small>
-        </div>
-        {nodes.map((node) => (
-          <div className={`scene-node ${node.className}`} key={node.label}>
-            <span />
-            <strong>{node.label}</strong>
-          </div>
-        ))}
-      </div>
-      <svg className="route-web" viewBox="0 0 620 460" aria-hidden="true">
-        <path d="M118 330 C196 104, 410 84, 512 140" />
-        <path d="M142 138 C246 244, 382 298, 516 318" />
-        <path d="M104 340 C242 396, 398 396, 520 318" />
-        <path d="M310 230 C330 150, 392 120, 512 140" />
-      </svg>
-      <div className="scene-caption">
-        <small>SIGNAL FIELD / ROUTES + NODES</small>
-        <p>{t.sceneCaption}</p>
-      </div>
-    </aside>
-  );
-}
-
 function Hero({ language }: { language: Locale }) {
   const t = copy[language];
   const resumeFile = language === "es" ? "/resume/jp-samano-resume-es.pdf" : "/resume/jp-samano-resume-en.pdf";
@@ -308,7 +265,7 @@ function Hero({ language }: { language: Locale }) {
           ))}
         </div>
       </div>
-      <AtlasScene language={language} />
+      <SignalField locale={language} />
     </section>
   );
 }
