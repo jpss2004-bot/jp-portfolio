@@ -4654,7 +4654,7 @@ body {
   grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
   gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
-  min-height: calc(100vh - 6rem);
+  min-height: clamp(560px, calc(100vh - 6rem), 880px);
   padding: 3rem 0 4rem;
 }
 .instr-kicker {
@@ -4718,3 +4718,81 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .instr-live-dot { animation: none; }
 }
+
+/* ---------- Instrument: section headings ---------- */
+.instr-page .section-title { max-width: 60ch; }
+.instr-page .section-title h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); letter-spacing: -0.03em; font-weight: 600; color: var(--text-0); }
+.instr-page .section-title p { color: var(--text-1); }
+.instr-page .section-title .eyebrow { color: var(--accent); }
+.instr-page .section-heading-row { border-bottom: 1px solid var(--line-0); padding-bottom: 1.6rem; margin-bottom: 2.6rem; }
+
+/* ---------- Instrument: unified minimal card surfaces ---------- */
+.instr-page .project-card,
+.instr-page .stack-card,
+.instr-page .resume-card,
+.instr-page .principle-list article,
+.instr-page .timeline-list article,
+.instr-page .contact-card,
+.instr-page .resume-preview {
+  background: var(--bg-1);
+  border: 1px solid var(--line-0);
+  border-radius: var(--radius-xl);
+  box-shadow: none;
+  color: var(--text-0);
+}
+
+/* Project cards: flatten the old 3D tilt, clean hairline hover */
+.instr-page .synchronized-grid .project-card,
+.instr-page .synchronized-grid .project-card:hover {
+  transform: none;
+}
+.instr-page .project-card { overflow: hidden; transition: border-color 200ms ease, transform 220ms var(--ease-out-quart); }
+.instr-page .project-card:hover { border-color: var(--accent-line); transform: translateY(-3px); box-shadow: var(--elev-2); }
+.instr-page .visual-sheen { display: none; }
+.instr-page .project-card-visual { border-bottom: 1px solid var(--line-0); }
+.instr-page .project-card:hover .project-card-visual img { transform: none; }
+.instr-page .project-status-pill {
+  font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+  background: oklch(0.145 0.006 265 / 0.78); border: 1px solid var(--line-0); color: var(--text-1);
+  backdrop-filter: blur(6px);
+}
+.instr-page .project-title-row > div p { font-family: var(--font-mono); color: var(--text-2); font-size: 0.68rem; letter-spacing: 0.03em; }
+.instr-page .project-title-row h3 { font-weight: 600; letter-spacing: -0.02em; color: var(--text-0); }
+.instr-page .project-title-row > span { font-family: var(--font-mono); color: var(--accent); font-weight: 500; }
+.instr-page .project-one-liner { color: var(--text-1); }
+.instr-page .project-summary { color: var(--text-2); }
+.instr-page .metric-band { border-top: 1px solid var(--line-0); background: transparent; gap: 0; }
+.instr-page .metric-band > div { background: transparent; border: 0; border-left: 1px solid var(--line-0); border-radius: 0; padding: 0.1rem 0.9rem; }
+.instr-page .metric-band > div:first-child { border-left: 0; padding-left: 0; }
+/* Calm bright project imagery toward the monochrome aesthetic; full color on hover */
+.instr-page .project-card-visual img { filter: saturate(0.85) brightness(0.9) contrast(1.02); transition: filter 280ms var(--ease-out-quart); }
+.instr-page .project-card:hover .project-card-visual img { filter: none; }
+.instr-page .metric-band small { font-family: var(--font-mono); color: var(--text-2); font-size: 0.64rem; letter-spacing: 0.03em; }
+.instr-page .metric-band strong { color: var(--text-0); font-weight: 600; }
+.instr-page .stack-row span,
+.instr-page .case-polish-sidebar-stack span {
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
+  border: 1px solid var(--line-0); background: var(--bg-0); color: var(--text-1);
+}
+.instr-page .card-footer { border-top: 1px solid var(--line-0); }
+.instr-page .card-footer span { color: var(--text-2); font-family: var(--font-mono); font-size: 0.72rem; }
+.instr-page .card-footer strong { color: var(--accent); font-weight: 600; }
+
+/* Stack / Process / About / Contact accents */
+.instr-page .stack-card > span,
+.instr-page .principle-list article > span,
+.instr-page .timeline-list article small {
+  font-family: var(--font-mono); color: var(--accent); font-weight: 500;
+}
+.instr-page .stack-card h3,
+.instr-page .principle-list article h3,
+.instr-page .timeline-list article h3 { font-weight: 600; letter-spacing: -0.02em; color: var(--text-0); }
+.instr-page .stack-card p,
+.instr-page .principle-list article p,
+.instr-page .timeline-list article p { color: var(--text-2); }
+.instr-page .resume-card h2,
+.instr-page .contact-card h2 { font-weight: 600; letter-spacing: -0.03em; color: var(--text-0); }
+.instr-page .resume-card p,
+.instr-page .contact-card p { color: var(--text-1); }
+.instr-page .resume-preview strong { color: var(--text-0); }
+.instr-page .resume-preview small { color: var(--text-2); font-family: var(--font-mono); }
