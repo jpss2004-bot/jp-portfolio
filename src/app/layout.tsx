@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Geist } from "next/font/google";
+import { Host_Grotesk, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/portfolio";
 
-const display = Bricolage_Grotesque({
+const sans = Host_Grotesk({
   subsets: ["latin"],
-  variable: "--font-display-grotesque",
+  variable: "--font-host",
   display: "swap",
 });
 
-const sans = Geist({
+const mono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-geist",
+  variable: "--font-mono-geist",
   display: "swap",
 });
 
@@ -58,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${sans.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${sans.variable} ${mono.variable}`}>
       <body>
         <a href="#main-content" className="skip-link">
           Skip to content
