@@ -6,10 +6,10 @@ import { TiltCard } from "@/components/home/TiltCard";
 import { caseStudies, getLocalizedValue } from "@/data/case-studies";
 import type { Locale } from "@/data/i18n";
 import { profile, stackLayers } from "@/data/portfolio";
-import { DesktopFloatingDock } from "@/components/layout/DesktopFloatingDock";
 import { Header } from "@/components/layout/Header";
 import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
 import { SignalWave } from "@/components/home/SignalWave";
+import { SignalHUD } from "@/components/home/SignalHUD";
 import { Reveal } from "@/components/home/Reveal";
 
 export type Language = Locale;
@@ -247,7 +247,7 @@ function Hero({ language }: { language: Locale }) {
   ];
 
   return (
-    <section className="instr-hero shell">
+    <section id="signal" className="instr-hero shell">
       <div className="instr-hero-main">
         <p className="instr-kicker">
           <span className="instr-kicker-dot" />
@@ -499,6 +499,7 @@ export function SignalAtlasHomeClient({ initialLocale = "en" }: { initialLocale?
       <DocumentLocaleSync locale={language} />
       <div className="instr-grid-bg" aria-hidden="true" />
       <Header locale={language} navItems={dockItems} />
+      <SignalHUD locale={language} />
       <Hero language={language} />
       <Work language={language} />
       <Stack language={language} />
@@ -506,7 +507,6 @@ export function SignalAtlasHomeClient({ initialLocale = "en" }: { initialLocale?
       <Process language={language} />
       <About language={language} />
       <Contact language={language} />
-      <DesktopFloatingDock items={dockItems} />
     </main>
   );
 }

@@ -4850,3 +4850,64 @@ body {
 .instr-page .case-polish-sidebar-card h3 { color: var(--text-0); font-weight: 600; }
 .instr-page .case-polish-sidebar-card p { color: var(--text-1); }
 .instr-page .case-polish-sidebar-links a { color: var(--accent); font-family: var(--font-mono); }
+
+/* =====================================================================
+   NARRATIVE — Signal HUD (persistent instrument through-line)
+   ===================================================================== */
+.signal-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  z-index: 90; pointer-events: none;
+}
+.signal-progress span {
+  display: block; height: 100%; width: 100%;
+  transform-origin: 0 50%; background: var(--accent);
+  box-shadow: 0 0 12px var(--glow-accent);
+  transition: transform 80ms linear;
+}
+
+.signal-hud {
+  position: fixed; left: 50%; bottom: 1rem; transform: translateX(-50%);
+  z-index: 80;
+  display: flex; align-items: center; gap: 1.1rem;
+  padding: 0.5rem 0.75rem 0.5rem 0.95rem;
+  border: 1px solid var(--line-0); border-radius: 999px;
+  background: oklch(0.165 0.007 265 / 0.72); backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--elev-2);
+  font-family: var(--font-mono); font-size: 0.7rem;
+}
+.hud-now { display: inline-flex; align-items: center; gap: 0.4rem; letter-spacing: 0.04em; min-width: 9.5rem; }
+.hud-idx { color: var(--accent); font-weight: 600; }
+.hud-sep { color: var(--text-2); }
+.hud-name { color: var(--text-0); }
+.hud-ticks {
+  display: flex; align-items: center; gap: 0.5rem; list-style: none; margin: 0;
+  padding: 0 0.7rem; border-left: 1px solid var(--line-0); border-right: 1px solid var(--line-0);
+}
+.hud-ticks a { position: relative; display: grid; place-items: center; width: 0.9rem; height: 1.4rem; }
+.hud-tick {
+  width: 2px; height: 0.66rem; border-radius: 2px; background: var(--text-2); opacity: 0.45;
+  transition: height 220ms var(--ease-out-quart), opacity 220ms ease, background 220ms ease;
+}
+.hud-ticks a:hover .hud-tick { opacity: 1; height: 1rem; }
+.hud-ticks a.active .hud-tick { background: var(--accent); opacity: 1; height: 1.15rem; box-shadow: 0 0 8px var(--accent); }
+.hud-tick-label {
+  position: absolute; top: -0.95rem; font-size: 0.55rem; color: var(--text-2);
+  opacity: 0; transition: opacity 180ms ease;
+}
+.hud-ticks a:hover .hud-tick-label, .hud-ticks a.active .hud-tick-label { opacity: 1; color: var(--accent); }
+.hud-meter { display: inline-flex; align-items: center; gap: 0.4rem; min-width: 3.4rem; }
+.hud-meter-dot { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: instr-blink 2.4s ease-in-out infinite; }
+.hud-pct { color: var(--text-1); }
+.hud-pct::after { content: "%"; color: var(--text-2); margin-left: 1px; }
+
+@media (max-width: 720px) {
+  .signal-hud { gap: 0.65rem; bottom: 0.6rem; padding: 0.4rem 0.6rem; font-size: 0.62rem; }
+  .hud-now { min-width: 7rem; }
+  .hud-tick-label { display: none; }
+  .hud-ticks { padding: 0 0.5rem; gap: 0.4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hud-meter-dot { animation: none; }
+  .signal-progress span { transition: none; }
+}
