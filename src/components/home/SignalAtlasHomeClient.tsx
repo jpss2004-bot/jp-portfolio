@@ -8,7 +8,7 @@ import type { Locale } from "@/data/i18n";
 import { profile, stackLayers } from "@/data/portfolio";
 import { Header } from "@/components/layout/Header";
 import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
-import { SignalWave } from "@/components/home/SignalWave";
+import { SignalWave, modeForChapter } from "@/components/home/SignalWave";
 import { SignalHUD } from "@/components/home/SignalHUD";
 import { SignalBoot } from "@/components/home/SignalBoot";
 import { SystemsScan } from "@/components/home/SystemsScan";
@@ -294,6 +294,9 @@ function ChapterHeader({ id, language }: { id: string; language: Locale }) {
           <span className="chapter-tag">CH.{ch.idx}</span>
         </div>
         <p className="chapter-kicker">{ch.kicker[language]}</p>
+        <div className="chapter-wave" aria-hidden="true">
+          <SignalWave className="chapter-wave-canvas" mode={modeForChapter(id)} />
+        </div>
       </div>
     </div>
   );
