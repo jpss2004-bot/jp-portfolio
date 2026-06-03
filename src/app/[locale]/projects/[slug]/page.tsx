@@ -5,7 +5,6 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { caseStudies, getCaseStudy, getLocalizedValue } from "@/data/case-studies";
 import { isLocale, locales, type Locale } from "@/data/i18n";
-import { SignalParticles } from "@/components/home/SignalParticles";
 
 const labels = {
   en: {
@@ -184,14 +183,10 @@ export default async function LocaleProjectPage({ params }: ProjectPageProps) {
   const firstMetric = project.proofs[0];
 
   return (
-    <main id="main-content" className="portfolio-page case-study-page-polish">
-      <div className="ambient ambient-one" />
-      <div className="ambient ambient-two" />
+    <main id="main-content" className="portfolio-page case-study-page-polish instr-page">
+      <div className="instr-grid-bg" aria-hidden="true" />
 
       <section className="shell case-polish-hero">
-        <div className="case-hero-depth" aria-hidden="true">
-          <SignalParticles className="case-hero-particles" />
-        </div>
         <div className="case-polish-topbar">
           <Link href={`/${locale}`} className="button button-soft">
             {t.back}

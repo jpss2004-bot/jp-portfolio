@@ -4674,6 +4674,7 @@ body {
   margin: 1.5rem 0 0; max-width: 46ch;
   font-size: clamp(1rem, 1.15vw, 1.1rem); line-height: 1.65; color: var(--text-1);
 }
+.instr-hero-main { min-width: 0; }
 .instr-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2.2rem; }
 
 /* Instrument readout panel */
@@ -4712,7 +4713,8 @@ body {
 
 @media (max-width: 880px) {
   .instr-hero { grid-template-columns: 1fr; gap: 2.5rem; min-height: auto; padding: 1.5rem 0 3rem; }
-  .instr-headline { font-size: clamp(2.2rem, 9vw, 3.3rem); max-width: 100%; }
+  .instr-headline { font-size: clamp(2rem, 8.5vw, 3.1rem); max-width: 100%; overflow-wrap: break-word; }
+  .instr-sub { max-width: 100%; }
   .instr-page .section { padding: 4.5rem 0; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -4796,3 +4798,55 @@ body {
 .instr-page .contact-card p { color: var(--text-1); }
 .instr-page .resume-preview strong { color: var(--text-0); }
 .instr-page .resume-preview small { color: var(--text-2); font-family: var(--font-mono); }
+
+/* ---------- Instrument: project / case-study pages ---------- */
+.case-study-page-polish.instr-page { background: var(--bg-deep); }
+.instr-page .case-polish-topbar-meta { font-family: var(--font-mono); color: var(--text-2); }
+.instr-page .case-polish-topbar-meta strong { color: var(--accent); }
+.instr-page .case-polish-hero-copy h1 { font-weight: 600; letter-spacing: -0.035em; color: var(--text-0); }
+.instr-page .case-polish-tagline { color: var(--text-1); }
+.instr-page .case-polish-summary { color: var(--text-2); }
+
+/* Snapshot → instrument panel */
+.instr-page .case-polish-snapshot {
+  background: linear-gradient(180deg, var(--bg-1), var(--bg-0));
+  border: 1px solid var(--line-0); border-radius: var(--radius-2xl);
+  box-shadow: var(--elev-2);
+}
+.instr-page .console-topline { border-bottom: 1px solid var(--line-0); font-family: var(--font-mono); color: var(--text-2); }
+.instr-page .case-polish-facts div { border: 0; border-top: 1px solid var(--line-0); background: transparent; }
+.instr-page .case-polish-facts dt { font-family: var(--font-mono); color: var(--text-2); }
+.instr-page .case-polish-facts dd { color: var(--text-0); }
+.instr-page .case-polish-mini-stack p { font-family: var(--font-mono); color: var(--text-2); }
+
+/* Proof visual frame */
+.instr-page .case-polish-proof-visual { border: 1px solid var(--line-0); border-radius: var(--radius-2xl); overflow: hidden; box-shadow: var(--elev-2); }
+.instr-page .case-polish-proof-image { filter: saturate(0.9) brightness(0.95); }
+.instr-page .case-polish-generated-proof { background: var(--bg-1); }
+
+/* Case blocks + lists */
+.instr-page .case-polish-block-heading h2 { font-weight: 600; letter-spacing: -0.03em; color: var(--text-0); }
+.instr-page .case-polish-block-heading .eyebrow { color: var(--accent); }
+.instr-page .case-polish-lede { color: var(--text-1); }
+.instr-page .case-polish-list-grid article,
+.instr-page .case-polish-decisions article,
+.instr-page .case-polish-proof-grid article,
+.instr-page .case-polish-roadmap article {
+  background: var(--bg-1); border: 1px solid var(--line-0); border-radius: var(--radius-xl); box-shadow: none;
+}
+.instr-page .case-polish-list-grid article span,
+.instr-page .case-polish-decisions article > span,
+.instr-page .case-polish-proof-grid article span,
+.instr-page .case-polish-roadmap article span { font-family: var(--font-mono); color: var(--accent); }
+.instr-page .case-polish-decisions h3 { font-weight: 600; color: var(--text-0); }
+.instr-page .case-polish-decision-copy p { color: var(--text-2); }
+.instr-page .case-polish-decision-copy strong { color: var(--text-1); }
+.instr-page .case-polish-list-grid article p,
+.instr-page .case-polish-proof-grid article p,
+.instr-page .case-polish-roadmap article p { color: var(--text-1); }
+
+/* Sidebar cards */
+.instr-page .case-polish-sidebar-card { background: var(--bg-1); border: 1px solid var(--line-0); border-radius: var(--radius-xl); box-shadow: none; }
+.instr-page .case-polish-sidebar-card h3 { color: var(--text-0); font-weight: 600; }
+.instr-page .case-polish-sidebar-card p { color: var(--text-1); }
+.instr-page .case-polish-sidebar-links a { color: var(--accent); font-family: var(--font-mono); }
