@@ -5077,3 +5077,11 @@ body {
   .instr-hero-glow { display: none; }
 }
 
+/* Per-chapter signal: the waveform morphs to each chapter's data */
+.chapter-wave {
+  margin-top: 1.5rem; height: 46px; width: 100%; max-width: 38rem;
+  border: 1px solid var(--line-0); border-radius: 0.6rem;
+  background: oklch(0.145 0.006 265 / 0.5); overflow: hidden;
+}
+.chapter-wave-canvas { width: 100%; height: 100%; display: block; }
+
