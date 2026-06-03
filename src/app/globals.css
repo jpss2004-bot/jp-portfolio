@@ -4911,3 +4911,35 @@ body {
   .hud-meter-dot { animation: none; }
   .signal-progress span { transition: none; }
 }
+
+/* =====================================================================
+   NARRATIVE — Boot sequence + hero entrance handoff
+   ===================================================================== */
+.signal-boot {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; place-items: center;
+  background: var(--bg-deep); overflow: hidden;
+  opacity: 1; transition: opacity 0.55s var(--ease-out-quart);
+}
+.signal-boot--out { opacity: 0; pointer-events: none; }
+.boot-scan {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--line-0) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-0) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at center, black, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black, transparent 70%);
+  opacity: 0.5;
+}
+.boot-inner { width: min(560px, calc(100% - 3rem)); font-family: var(--font-mono); }
+.boot-brand { display: flex; align-items: center; gap: 0.6rem; color: var(--accent); font-size: 0.82rem; letter-spacing: 0.12em; margin-bottom: 1.4rem; }
+.boot-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); animation: instr-blink 1s ease-in-out infinite; }
+.boot-log { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; min-height: 9rem; }
+.boot-log li { color: var(--text-1); font-size: 0.82rem; }
+.boot-line { animation: boot-line-in 0.28s var(--ease-out-quart) both; }
+@keyframes boot-line-in { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+.boot-arrow { color: var(--accent); margin-right: 0.5rem; }
+.boot-bar { margin-top: 1.4rem; height: 2px; background: var(--line-0); border-radius: 2px; overflow: hidden; }
+.boot-bar span { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transition: transform 0.26s var(--ease-out-quart); box-shadow: 0 0 10px var(--glow-accent); }
+

@@ -10,6 +10,7 @@ import { Header } from "@/components/layout/Header";
 import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
 import { SignalWave } from "@/components/home/SignalWave";
 import { SignalHUD } from "@/components/home/SignalHUD";
+import { SignalBoot } from "@/components/home/SignalBoot";
 import { Reveal } from "@/components/home/Reveal";
 
 export type Language = Locale;
@@ -497,6 +498,7 @@ export function SignalAtlasHomeClient({ initialLocale = "en" }: { initialLocale?
   return (
     <main id="main-content" className="portfolio-page instr-page">
       <DocumentLocaleSync locale={language} />
+      <SignalBoot locale={language} />
       <div className="instr-grid-bg" aria-hidden="true" />
       <Header locale={language} navItems={dockItems} />
       <SignalHUD locale={language} />
