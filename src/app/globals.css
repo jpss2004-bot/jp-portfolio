@@ -4991,6 +4991,51 @@ body {
 .instr-page #stack .section-title .eyebrow,
 .instr-page #process .section-title .eyebrow { display: none; }
 
+/* ---------- Systems frequency scan (projects as signals on a band) ---------- */
+.sys-scan { margin-bottom: 3rem; }
+.sys-scan-head {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+  color: var(--text-2); margin-bottom: 0.9rem;
+}
+.sys-scan-label { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent); }
+.sys-scan-live { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: instr-blink 2s ease-in-out infinite; }
+.sys-scan-band {
+  position: relative; height: 150px;
+  border: 1px solid var(--line-0); border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--bg-1), var(--bg-0));
+  overflow: hidden;
+}
+.sys-scan-grid { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line-0); opacity: 0.5; }
+.sys-peak {
+  position: absolute; bottom: 0; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  height: 100%; padding-bottom: 1.5rem; width: 3.2rem;
+}
+.sys-peak-dot { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--text-2); margin-bottom: 0.25rem; transition: all 220ms var(--ease-out-quart); }
+.sys-peak-bar {
+  width: 2px; border-radius: 2px; background: var(--text-2);
+  transition: background 220ms ease, box-shadow 220ms ease, width 220ms ease;
+}
+.sys-peak-code { position: absolute; bottom: 0.5rem; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.04em; color: var(--text-2); transition: color 220ms ease; }
+.sys-peak-card {
+  position: absolute; top: 0.55rem; opacity: 0; pointer-events: none;
+  display: flex; flex-direction: column; align-items: center; gap: 0.1rem; white-space: nowrap;
+  transition: opacity 200ms ease, transform 200ms var(--ease-out-quart); transform: translateY(4px);
+}
+.sys-peak-card strong { font-size: 0.72rem; color: var(--text-0); font-weight: 600; }
+.sys-peak-card em { font-style: normal; font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-2); }
+.sys-peak:hover .sys-peak-bar, .sys-peak:focus-visible .sys-peak-bar { background: var(--accent); box-shadow: 0 0 12px var(--glow-accent); width: 3px; }
+.sys-peak:hover .sys-peak-dot, .sys-peak:focus-visible .sys-peak-dot { background: var(--accent); box-shadow: 0 0 10px var(--accent); transform: scale(1.3); }
+.sys-peak:hover .sys-peak-code, .sys-peak:focus-visible .sys-peak-code { color: var(--accent); }
+.sys-peak:hover .sys-peak-card, .sys-peak:focus-visible .sys-peak-card { opacity: 1; transform: none; }
+
+@media (max-width: 720px) {
+  .sys-scan-band { height: 120px; }
+  .sys-peak-card { display: none; }
+  .sys-peak { width: 2.2rem; }
+}
+
 @media (max-width: 720px) {
   .chapter-head { flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; }
   .chapter-idx { font-size: clamp(3rem, 18vw, 5rem); }

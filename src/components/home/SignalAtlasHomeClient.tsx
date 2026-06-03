@@ -11,6 +11,7 @@ import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
 import { SignalWave } from "@/components/home/SignalWave";
 import { SignalHUD } from "@/components/home/SignalHUD";
 import { SignalBoot } from "@/components/home/SignalBoot";
+import { SystemsScan } from "@/components/home/SystemsScan";
 import { Reveal } from "@/components/home/Reveal";
 
 export type Language = Locale;
@@ -360,6 +361,7 @@ function Work({ language }: { language: Locale }) {
   return (
     <section id="work" className="section shell work-section">
       <ChapterHeader id="work" language={language} />
+      <SystemsScan locale={language} />
       <div className="section-heading-row">
         <SectionTitle eyebrow={t.workEyebrow} title={decode(t.workTitle)} copyText={decode(t.workCopy)} />
         <a href={profile.github} target="_blank" rel="noreferrer" className="button button-soft">{t.githubCta}</a>
