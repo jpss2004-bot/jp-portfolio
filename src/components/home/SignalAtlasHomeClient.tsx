@@ -6,10 +6,12 @@ import { TiltCard } from "@/components/home/TiltCard";
 import { caseStudies, getLocalizedValue } from "@/data/case-studies";
 import type { Locale } from "@/data/i18n";
 import { profile, stackLayers } from "@/data/portfolio";
-import { DesktopFloatingDock } from "@/components/layout/DesktopFloatingDock";
 import { Header } from "@/components/layout/Header";
 import { DocumentLocaleSync } from "@/components/layout/DocumentLocaleSync";
 import { SignalWave } from "@/components/home/SignalWave";
+import { SignalHUD } from "@/components/home/SignalHUD";
+import { SignalBoot } from "@/components/home/SignalBoot";
+import { SystemsScan } from "@/components/home/SystemsScan";
 import { Reveal } from "@/components/home/Reveal";
 
 export type Language = Locale;
@@ -236,6 +238,67 @@ function SectionTitle({ eyebrow, title, copyText }: { eyebrow: string; title: st
   );
 }
 
+const CHAPTER_INFO: Record<string, { idx: string; name: { en: string; es: string }; kicker: { en: string; es: string } }> = {
+  work: {
+    idx: "01",
+    name: { en: "SYSTEMS", es: "SISTEMAS" },
+    kicker: {
+      en: "Five systems, each built to turn a messy problem into something clear and provable.",
+      es: "Cinco sistemas, cada uno construido para convertir un problema complejo en algo claro y demostrable.",
+    },
+  },
+  stack: {
+    idx: "02",
+    name: { en: "STACK", es: "STACK" },
+    kicker: {
+      en: "The instrument itself, broken down by where it creates value.",
+      es: "El instrumento mismo, desglosado por dónde crea valor.",
+    },
+  },
+  process: {
+    idx: "03",
+    name: { en: "METHOD", es: "MÉTODO" },
+    kicker: {
+      en: "How signal gets made: the operating method behind the work.",
+      es: "Cómo se genera la señal: el método de trabajo detrás de todo.",
+    },
+  },
+  about: {
+    idx: "04",
+    name: { en: "ORIGIN", es: "ORIGEN" },
+    kicker: {
+      en: "A signal that travels between two countries and two languages.",
+      es: "Una señal que viaja entre dos países y dos idiomas.",
+    },
+  },
+  contact: {
+    idx: "05",
+    name: { en: "TRANSMISSION", es: "TRANSMISIÓN" },
+    kicker: {
+      en: "Open a channel.",
+      es: "Abre un canal.",
+    },
+  },
+};
+
+function ChapterHeader({ id, language }: { id: string; language: Locale }) {
+  const ch = CHAPTER_INFO[id];
+  if (!ch) return null;
+  return (
+    <div className="chapter-head">
+      <span className="chapter-idx" aria-hidden="true">{ch.idx}</span>
+      <div className="chapter-meta">
+        <div className="chapter-line-row">
+          <span className="chapter-name">{ch.name[language]}</span>
+          <span className="chapter-rule" />
+          <span className="chapter-tag">CH.{ch.idx}</span>
+        </div>
+        <p className="chapter-kicker">{ch.kicker[language]}</p>
+      </div>
+    </div>
+  );
+}
+
 function Hero({ language }: { language: Locale }) {
   const t = copy[language];
   const resumeFile = language === "es" ? "/resume/jp-samano-resume-es.pdf" : "/resume/jp-samano-resume-en.pdf";
@@ -247,7 +310,7 @@ function Hero({ language }: { language: Locale }) {
   ];
 
   return (
-    <section className="instr-hero shell">
+    <section id="signal" className="instr-hero shell">
       <div className="instr-hero-main">
         <p className="instr-kicker">
           <span className="instr-kicker-dot" />
@@ -297,6 +360,8 @@ function Work({ language }: { language: Locale }) {
 
   return (
     <section id="work" className="section shell work-section">
+      <ChapterHeader id="work" language={language} />
+      <SystemsScan locale={language} />
       <div className="section-heading-row">
         <SectionTitle eyebrow={t.workEyebrow} title={decode(t.workTitle)} copyText={decode(t.workCopy)} />
         <a href={profile.github} target="_blank" rel="noreferrer" className="button button-soft">{t.githubCta}</a>
@@ -375,6 +440,7 @@ function Stack({ language }: { language: Locale }) {
 
   return (
     <section id="stack" className="section shell">
+      <ChapterHeader id="stack" language={language} />
       <SectionTitle eyebrow={decode(t.stackEyebrow)} title={decode(t.stackTitle)} copyText={decode(t.stackCopy)} />
       <Reveal amount={0.1}>
       <div className="stack-cards stack-cards-wide">
@@ -426,6 +492,7 @@ function Process({ language }: { language: Locale }) {
 
   return (
     <section id="process" className="section shell two-column">
+      <ChapterHeader id="process" language={language} />
       <SectionTitle eyebrow={decode(t.processEyebrow)} title={decode(t.processTitle)} copyText={decode(t.processCopy)} />
       <div className="principle-list">
         {localizedOperatingPrinciples[language].map((principle, index) => (
@@ -447,6 +514,7 @@ function About({ language }: { language: Locale }) {
 
   return (
     <section id="about" className="section shell about-grid">
+      <ChapterHeader id="about" language={language} />
       <div className="about-card">
         <p className="eyebrow">{decode(t.aboutEyebrow)}</p>
         <h2>{decode(t.aboutTitle)}</h2>
@@ -470,6 +538,7 @@ function Contact({ language }: { language: Locale }) {
 
   return (
     <section id="contact" className="section shell contact-card">
+      <ChapterHeader id="contact" language={language} />
       <div>
         <p className="eyebrow">{decode(t.contactEyebrow)}</p>
         <h2>{decode(t.contactTitle)}</h2>
@@ -497,8 +566,10 @@ export function SignalAtlasHomeClient({ initialLocale = "en" }: { initialLocale?
   return (
     <main id="main-content" className="portfolio-page instr-page">
       <DocumentLocaleSync locale={language} />
+      <SignalBoot locale={language} />
       <div className="instr-grid-bg" aria-hidden="true" />
       <Header locale={language} navItems={dockItems} />
+      <SignalHUD locale={language} />
       <Hero language={language} />
       <Work language={language} />
       <Stack language={language} />
@@ -506,7 +577,6 @@ export function SignalAtlasHomeClient({ initialLocale = "en" }: { initialLocale?
       <Process language={language} />
       <About language={language} />
       <Contact language={language} />
-      <DesktopFloatingDock items={dockItems} />
     </main>
   );
 }
