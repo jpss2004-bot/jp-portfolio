@@ -5046,3 +5046,34 @@ body {
   .chapter-kicker { font-size: 1.05rem; }
 }
 
+/* =====================================================================
+   NARRATIVE — Hero cursor-reactive depth
+   ===================================================================== */
+.instr-hero { position: relative; }
+.instr-hero-glow { position: absolute; inset: -12% -6%; pointer-events: none; z-index: 0; overflow: hidden; }
+.instr-hero-glow::before {
+  content: "";
+  position: absolute;
+  left: calc(50% + var(--hx, 0) * 55%);
+  top: calc(46% + var(--hy, 0) * 55%);
+  width: 44rem; height: 44rem;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--glow-accent), transparent 62%);
+  opacity: 0.09;
+  transition: left 320ms var(--ease-out-quart), top 320ms var(--ease-out-quart);
+}
+.instr-hero-main { position: relative; z-index: 1; }
+.instr-panel {
+  position: relative; z-index: 1;
+  transform: perspective(1300px) rotateY(calc(var(--hx, 0) * 5deg)) rotateX(calc(var(--hy, 0) * -5deg));
+  transition: transform 320ms var(--ease-out-quart);
+}
+@media (prefers-reduced-motion: reduce) {
+  .instr-panel { transform: none; }
+  .instr-hero-glow::before { transition: none; }
+}
+@media (max-width: 880px) {
+  .instr-panel { transform: none; }
+  .instr-hero-glow { display: none; }
+}
+

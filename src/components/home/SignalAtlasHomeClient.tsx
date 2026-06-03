@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import type { ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 import { TiltCard } from "@/components/home/TiltCard";
 import { caseStudies, getLocalizedValue } from "@/data/case-studies";
 import type { Locale } from "@/data/i18n";
@@ -302,6 +302,7 @@ function ChapterHeader({ id, language }: { id: string; language: Locale }) {
 function Hero({ language }: { language: Locale }) {
   const t = copy[language];
   const resumeFile = language === "es" ? "/resume/jp-samano-resume-es.pdf" : "/resume/jp-samano-resume-en.pdf";
+  const heroRef = useRef<HTMLElement>(null);
   const readout = [
     { k: language === "es" ? "ESTADO" : "STATUS", v: decode(t.proofOne) },
     { k: language === "es" ? "IDIOMA" : "LANG", v: decode(t.proofTwo) },
@@ -309,8 +310,23 @@ function Hero({ language }: { language: Locale }) {
     { k: "STACK", v: decode(t.proofFour) },
   ];
 
+  const onPointer = (e: React.PointerEvent<HTMLElement>) => {
+    const el = heroRef.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--hx", (((e.clientX - r.left) / r.width - 0.5)).toFixed(3));
+    el.style.setProperty("--hy", (((e.clientY - r.top) / r.height - 0.5)).toFixed(3));
+  };
+  const resetPointer = () => {
+    const el = heroRef.current;
+    if (!el) return;
+    el.style.setProperty("--hx", "0");
+    el.style.setProperty("--hy", "0");
+  };
+
   return (
-    <section id="signal" className="instr-hero shell">
+    <section id="signal" ref={heroRef} onPointerMove={onPointer} onPointerLeave={resetPointer} className="instr-hero shell">
+      <div className="instr-hero-glow" aria-hidden="true" />
       <div className="instr-hero-main">
         <p className="instr-kicker">
           <span className="instr-kicker-dot" />
