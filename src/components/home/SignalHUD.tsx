@@ -23,6 +23,21 @@ export const CHAPTERS: Chapter[] = [
 export function SignalHUD({ locale }: { locale: Locale }) {
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+
+  // Announce the HUD right as the boot clears (first visit), or quickly on return.
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let booted = false;
+    try {
+      booted = sessionStorage.getItem("jp-booted") === "1";
+    } catch {
+      booted = false;
+    }
+    const delay = reduce ? 0 : booted ? 350 : 2150;
+    const id = window.setTimeout(() => setRevealed(true), delay);
+    return () => window.clearTimeout(id);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -64,7 +79,10 @@ export function SignalHUD({ locale }: { locale: Locale }) {
         <span style={{ transform: `scaleX(${progress})` }} />
       </div>
 
-      <nav className="signal-hud" aria-label={locale === "es" ? "Capítulos de señal" : "Signal chapters"}>
+      <nav
+        className={revealed ? "signal-hud is-revealed" : "signal-hud"}
+        aria-label={locale === "es" ? "Capítulos de señal" : "Signal chapters"}
+      >
         <div className="hud-wave" aria-hidden="true">
           <SignalWave className="hud-wave-canvas" mode={modeForChapter(ch.id)} />
         </div>
@@ -85,7 +103,7 @@ export function SignalHUD({ locale }: { locale: Locale }) {
                 aria-label={`${c.idx} ${locale === "es" ? c.es : c.en}`}
               >
                 <span className="hud-tick" />
-                <span className="hud-tick-label">{c.idx}</span>
+                <span className="hud-tick-label">{c.idx} {locale === "es" ? c.es : c.en}</span>
               </a>
             </li>
           ))}
