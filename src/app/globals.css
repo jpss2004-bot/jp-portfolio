@@ -9,9 +9,9 @@
   /* legacy light tokens repointed to dark surfaces so old light sections go dark */
   --paper-0: oklch(0.200 0.008 265);
   --paper-1: oklch(0.245 0.009 265);
-  --text-0: oklch(0.965 0.003 265);
-  --text-1: oklch(0.740 0.006 265);
-  --text-2: oklch(0.560 0.008 265);
+  --text-0: oklch(0.970 0.003 265);
+  --text-1: oklch(0.780 0.006 265);
+  --text-2: oklch(0.650 0.010 265);
   --text-dark: oklch(0.965 0.003 265); /* legacy: was ink-on-light, now light */
   --line-0: oklch(1 0 0 / 0.08);
   --line-1: oklch(1 0 0 / 0.08);
@@ -4765,7 +4765,7 @@ body {
 .instr-page .project-title-row h3 { font-weight: 600; letter-spacing: -0.02em; color: var(--text-0); }
 .instr-page .project-title-row > span { font-family: var(--font-mono); color: var(--accent); font-weight: 500; }
 .instr-page .project-one-liner { color: var(--text-1); }
-.instr-page .project-summary { color: var(--text-2); }
+.instr-page .project-summary { color: var(--text-1); }
 .instr-page .metric-band { border-top: 1px solid var(--line-0); background: transparent; gap: 0; }
 .instr-page .metric-band > div { background: transparent; border: 0; border-left: 1px solid var(--line-0); border-radius: 0; padding: 0.1rem 0.9rem; }
 .instr-page .metric-band > div:first-child { border-left: 0; padding-left: 0; }
@@ -4808,7 +4808,7 @@ body {
 .instr-page .case-polish-topbar-meta strong { color: var(--accent); }
 .instr-page .case-polish-hero-copy h1 { font-weight: 600; letter-spacing: -0.035em; color: var(--text-0); }
 .instr-page .case-polish-tagline { color: var(--text-1); }
-.instr-page .case-polish-summary { color: var(--text-2); }
+.instr-page .case-polish-summary { color: var(--text-1); }
 
 /* Snapshot → instrument panel */
 .instr-page .case-polish-snapshot {
@@ -4976,12 +4976,15 @@ body {
   font-family: var(--font-display);
   font-size: clamp(3.4rem, 9vw, 7.5rem);
   font-weight: 700; line-height: 0.78; letter-spacing: -0.05em;
-  color: var(--accent-dim);
-  -webkit-text-stroke: 1.5px var(--accent-line);
+  color: oklch(0.885 0.195 128 / 0.85);
   will-change: transform;
 }
 @supports (-webkit-text-stroke: 1px black) {
-  .chapter-idx { color: transparent; }
+  /* readable ghost number: clear lime outline + a soft fill (was washed out) */
+  .chapter-idx {
+    color: oklch(0.885 0.195 128 / 0.14);
+    -webkit-text-stroke: 1.8px oklch(0.885 0.195 128 / 0.7);
+  }
 }
 .chapter-meta { flex: 1; min-width: 0; padding-top: 0.5rem; }
 .chapter-line-row { display: flex; align-items: center; gap: 1rem; }
