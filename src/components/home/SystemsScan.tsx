@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { caseStudies, getLocalizedValue } from "@/data/case-studies";
 import type { Locale } from "@/data/i18n";
 
@@ -10,9 +11,9 @@ function shortName(title: string) {
 }
 
 /**
- * Systems index — a clear, functional navigator for the five systems. Each is a
- * labeled, numbered station on a signal baseline; selecting one jumps to (and
- * highlights) its case-study card below. The "signal" aesthetic, made useful.
+ * Systems index — a live navigator/tracker for the five systems. It highlights
+ * the system you're currently reading (synced to scroll), previews its tagline,
+ * and lets you jump to any of them. A "you are here" minimap, made useful.
  */
 export function SystemsScan({ locale }: { locale: Locale }) {
   const items = caseStudies.map((p, i) => ({
@@ -20,7 +21,31 @@ export function SystemsScan({ locale }: { locale: Locale }) {
     num: String(i + 1).padStart(2, "0"),
     name: shortName(getLocalizedValue(p.title, locale)),
     year: p.year,
+    tagline: getLocalizedValue(p.tagline, locale),
   }));
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        const vis = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (vis) {
+          const i = caseStudies.findIndex((p) => `sys-${p.slug}` === vis.target.id);
+          if (i >= 0) setActive(i);
+        }
+      },
+      { rootMargin: "-40% 0px -45% 0px", threshold: [0, 0.3, 0.7] },
+    );
+    caseStudies.forEach((p) => {
+      const el = document.getElementById(`sys-${p.slug}`);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, []);
+
+  const current = items[active];
 
   return (
     <nav className="sys-index" aria-label={locale === "es" ? "Índice de sistemas" : "Systems index"}>
@@ -29,15 +54,20 @@ export function SystemsScan({ locale }: { locale: Locale }) {
           <span className="sys-index-live" />
           {locale === "es" ? "ÍNDICE DE SISTEMAS" : "SYSTEMS INDEX"}
         </span>
-        <span className="sys-index-hint">
-          {String(items.length).padStart(2, "0")} {locale === "es" ? "sistemas · elige para saltar" : "systems · select to jump"}
+        <span className="sys-index-now" aria-live="polite">
+          <span className="sys-index-now-num">{current.num}</span>
+          {current.tagline}
         </span>
       </div>
 
       <ul className="sys-index-track">
-        {items.map((it) => (
+        {items.map((it, i) => (
           <li key={it.slug}>
-            <a href={`#sys-${it.slug}`} className="sys-node">
+            <a
+              href={`#sys-${it.slug}`}
+              className={i === active ? "sys-node active" : "sys-node"}
+              aria-current={i === active ? "true" : undefined}
+            >
               <span className="sys-node-num">{it.num}</span>
               <span className="sys-node-name">{it.name}</span>
               <span className="sys-node-year">{it.year}</span>
