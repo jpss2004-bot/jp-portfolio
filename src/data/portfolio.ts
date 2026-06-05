@@ -117,7 +117,7 @@ export const projects: Project[] = [
     solution:
       "SAVR treats the dining decision like a context-aware recommendation problem. Users can describe their night, build their night through guided choices, or use a surprise flow to receive explainable recommendations.",
     impact:
-      "This is the flagship portfolio project because it combines product thinking, full-stack implementation, recommendation logic, onboarding, and real-world user experience design.",
+      "My most complete project: a full-stack build spanning product direction, a FastAPI backend, a React and TypeScript frontend, onboarding, and explainable recommendation logic.",
     proof: [
       "FastAPI backend route structure",
       "React and TypeScript frontend architecture",
@@ -173,7 +173,7 @@ export const projects: Project[] = [
     solution:
       "The prototype centralizes patient intake, vitals entry, priority scoring, queue monitoring, patient insight pages, and status history.",
     impact:
-      "This project shows workflow modeling, interface structure, data persistence, and the ability to convert a real operational problem into a functioning software prototype.",
+      "Turns a high-pressure operational process into a working prototype: structured intake, triage scoring, a live queue dashboard, and traceable patient state persisted in SQLite.",
     proof: [
       "Python application structure",
       "SQLite database model",
@@ -227,7 +227,7 @@ export const projects: Project[] = [
     solution:
       "The game uses custom phrases submitted by family members, then displays them in a simple web interface for players to describe and guess.",
     impact:
-      "This project shows speed of execution, deployment ability, and a practical user-first approach to building something people can actually use.",
+      "Shipped fast and deployed live: a Flask app real people played at a family event, built around custom phrases, scoring, and a simple gameplay loop.",
     proof: [
       "Live Render deployment",
       "Python Flask backend",
@@ -284,7 +284,7 @@ export const projects: Project[] = [
     solution:
       "The project starts with a digital city simulation that can generate synthetic traffic data, test signal strategies, and evaluate adaptive behavior safely.",
     impact:
-      "This case study shows systems thinking, AI planning, simulation-first development, and responsible boundaries around infrastructure automation.",
+      "A systems-design study: a simulation-first plan for adaptive traffic coordination, with honest boundaries around what can't be claimed without real-world validation.",
     proof: [
       "Mental model for data collection and preparation",
       "Simulation-first development strategy",
@@ -338,7 +338,7 @@ export const projects: Project[] = [
     solution:
       "The assistant guides the user through incident capture, risk classification, and structured report generation while respecting privacy and safety constraints.",
     impact:
-      "This case study shows cybersecurity product thinking, safety-aware UX, and practical reporting workflow design.",
+      "A cybersecurity product concept centered on safety: structured incident capture, risk classification, and report-ready output, with clear privacy boundaries.",
     proof: [
       "Incident collection flow concept",
       "Risk classification model direction",
