@@ -102,6 +102,64 @@ export const timeline = [
 
 export const projects: Project[] = [
   {
+    slug: "checkwise",
+    name: "CheckWise - REPSE Compliance Platform",
+    shortName: "CheckWise",
+    type: "Full-stack SaaS",
+    status: "Live",
+    year: "2026",
+    role: "Product direction, full-stack engineering, compliance domain modeling, design system",
+    oneLiner:
+      "A REPSE-compliance SaaS where vendors submit recurring evidence, LegalShelf reviewers adjudicate, and clients see portfolio-wide risk.",
+    summary:
+      "A REPSE-compliance platform for Mexico. Vendors upload monthly, bimonthly, four-monthly, and annual evidence (SAT, IMSS, INFONAVIT, acuses, corporate file); LegalShelf reviewers approve, reject, or request clarifications; and client companies read a portfolio-wide risk view.",
+    problem:
+      "REPSE compliance in Mexico requires vendors to submit recurring, institution-specific evidence on different cycles. Tracking it manually across many vendors is error-prone and opaque, and clients have no clear portfolio-wide view of their exposure.",
+    solution:
+      "CheckWise centralizes vendor evidence intake, the reviewer adjudication workflow (approve, reject, request clarification), and a portfolio-wide client risk view, with role-based access and an AI-assisted reports center that stays explainable.",
+    impact:
+      "A real client SaaS for LegalShelf: a full-stack build spanning a FastAPI backend, a Next.js 15 frontend with a locked design system across ~20 surfaces, role-based auth, and an AI-assisted reports flagship backed by 320+ backend tests including an AI-safety suite.",
+    proof: [
+      "Reports flagship: AI planner + streaming generator + embedded copilot",
+      "320+ backend tests including an AI-safety suite",
+      "Role-aware reviewer queue with JWT auth and RBAC",
+      "REPSE calendar (institution x month) and expediente gates",
+    ],
+    stack: ["FastAPI", "Next.js 15", "React 19", "PostgreSQL", "SQLAlchemy", "JWT Auth", "Tailwind CSS"],
+    features: [
+      "Vendor evidence intake on REPSE cycles",
+      "Reviewer approve / reject / clarify workflow",
+      "Portfolio-wide client risk view",
+      "AI-assisted Reports center with embedded copilot",
+      "Role-based access (provider, client, admin)",
+    ],
+    architecture: [
+      "Next.js 15 / React 19 frontend with a locked design system applied across admin, client, and portal surfaces.",
+      "FastAPI backend separates auth, RBAC, vendor expedientes, reviewer decisions, and reports.",
+      "PostgreSQL via SQLAlchemy and Alembic models vendors, evidence, institutions, cycles, and audit logs.",
+      "Reports layer adds an AI planner and streaming generator with per-block regenerate and explain, guarded by an AI-safety test suite.",
+    ],
+    challenges: [
+      "Modeling REPSE's recurring, institution-specific evidence cycles.",
+      "Holding one visual direction across roughly twenty admin, client, and portal surfaces.",
+      "Keeping AI report generation safe and explainable with a dedicated test suite.",
+    ],
+    next: [
+      "Finish wiring the remaining dashboards from mock adapters to live backend endpoints.",
+      "Move storage from the local filesystem to an S3-compatible production backend.",
+      "Replace the provider portal's opaque workspace token with full JWT auth.",
+    ],
+    metrics: [
+      { label: "Backend tests", value: "320+" },
+      { label: "Architecture", value: "Full-stack" },
+      { label: "Domain", value: "RegTech" },
+    ],
+    links: [
+      { label: "Live App", href: "https://checkwise-six.vercel.app" },
+      { label: "GitHub", href: "https://github.com/jpss2004-bot/checkwise" },
+    ],
+  },
+  {
     slug: "savr",
     name: "SAVR - Context-Aware Dining Platform",
     shortName: "SAVR",
@@ -209,7 +267,7 @@ export const projects: Project[] = [
       { label: "Database", value: "SQLite" },
       { label: "Interface", value: "Dashboard" },
     ],
-    links: [],
+    links: [{ label: "GitHub", href: "https://github.com/jpss2004-bot/ER-Triage-System" }],
   },
   {
     slug: "family-phrase-game",

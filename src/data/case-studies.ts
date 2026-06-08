@@ -72,6 +72,36 @@ function localized<T>(en: T, es: T): Localized<T> {
 }
 
 const spanishBySlug: Record<string, SpanishProjectCopy> = {
+  checkwise: {
+    title: "CheckWise - Plataforma de Cumplimiento REPSE",
+    tagline:
+      "SaaS de cumplimiento REPSE: los proveedores cargan evidencia, los revisores de LegalShelf dictaminan y los clientes ven el riesgo de su portafolio.",
+    role: "Dirección de producto, ingeniería full-stack, modelado del dominio de cumplimiento y sistema de diseño",
+    summary:
+      "Plataforma SaaS de cumplimiento REPSE para México. Los proveedores cargan evidencia mensual, bimestral, cuatrimestral y anual (SAT, IMSS, INFONAVIT, acuses, expediente corporativo); los revisores de LegalShelf aprueban, rechazan o piden aclaraciones; y las empresas cliente leen una vista de riesgo de todo su portafolio.",
+    challenge:
+      "El cumplimiento REPSE en México exige evidencia recurrente y específica por institución en distintos ciclos. Hacerlo manualmente entre muchos proveedores es propenso a errores y poco transparente, y los clientes no tienen una vista clara de su exposición.",
+    approach:
+      "CheckWise centraliza la recepción de evidencia, el flujo de dictamen del revisor (aprobar, rechazar, aclarar) y una vista de riesgo del portafolio para el cliente, con control de acceso por rol y un centro de reportes asistido por IA que se mantiene explicable.",
+    architecture: [
+      "Frontend en Next.js 15 / React 19 con un sistema de diseño fijo aplicado en superficies de administración, cliente y portal.",
+      "Backend en FastAPI que separa autenticación, RBAC, expedientes de proveedores, decisiones del revisor y reportes.",
+      "PostgreSQL con SQLAlchemy y Alembic modela proveedores, evidencia, instituciones, ciclos y bitácoras de auditoría.",
+      "La capa de reportes agrega un planificador y generador con IA, con regenerar y explicar por bloque, protegida por una suite de pruebas de seguridad de IA.",
+    ],
+    results: [
+      "Un SaaS real para LegalShelf: build full-stack con backend FastAPI, frontend Next.js 15 con dirección visual fija en ~20 superficies, autenticación por rol y un centro de reportes con IA.",
+      "Centro de reportes con planificador de IA, generador en streaming y copiloto embebido, respaldado por 320+ pruebas backend incluida una suite de seguridad de IA.",
+      "Cola de revisión por rol con autenticación JWT y RBAC, calendario REPSE (institución x mes) y compuertas de expediente.",
+    ],
+    nextSteps: [
+      "Terminar de conectar los dashboards restantes desde adaptadores mock hacia endpoints reales del backend.",
+      "Migrar el almacenamiento del sistema de archivos local a un backend de producción compatible con S3.",
+      "Reemplazar el token de workspace opaco del portal de proveedores por autenticación JWT completa.",
+    ],
+    resumeBullet:
+      "CheckWise: SaaS de cumplimiento REPSE para LegalShelf con FastAPI, Next.js 15 y PostgreSQL, centro de reportes con IA y 320+ pruebas backend.",
+  },
   savr: {
     title: "SAVR - Plataforma de Recomendaciones Contextuales",
     tagline: "Plataforma full-stack de recomendaciones gastronómicas con flujos explicables.",

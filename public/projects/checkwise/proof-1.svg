@@ -1,0 +1,36 @@
+<svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CheckWise reviewer queue proof visual">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#08111A"/>
+      <stop offset="100%" stop-color="#0F1925"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="30%" cy="18%" r="70%">
+      <stop offset="0%" stop-color="#2FD3A3" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#2FD3A3" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <rect width="1200" height="720" fill="url(#glow)"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="96" y="118" font-size="34" font-weight="900" fill="#F3F7FB">Reviewer decision queue</text>
+    <text x="96" y="156" font-size="18" font-weight="700" fill="#8FA0B3">JWT auth · tenant-scoped · approve / reject / clarify</text>
+    <g>
+      <rect x="96" y="196" width="1008" height="84" rx="16" fill="rgba(243,247,251,0.06)" stroke="rgba(243,247,251,0.16)"/>
+      <rect x="96" y="296" width="1008" height="84" rx="16" fill="rgba(243,247,251,0.06)" stroke="rgba(243,247,251,0.16)"/>
+      <rect x="96" y="396" width="1008" height="84" rx="16" fill="rgba(243,247,251,0.06)" stroke="rgba(243,247,251,0.16)"/>
+      <rect x="96" y="496" width="1008" height="84" rx="16" fill="rgba(243,247,251,0.06)" stroke="rgba(243,247,251,0.16)"/>
+    </g>
+    <g font-size="19" font-weight="800" fill="#DCE6F2">
+      <text x="128" y="246">Vendor Norte SA · SAT acuse</text>
+      <text x="128" y="346">Logística MX · IMSS evidence</text>
+      <text x="128" y="446">Servicios BC · INFONAVIT</text>
+      <text x="128" y="546">Corporativo GDL · annual file</text>
+    </g>
+    <g font-size="15" font-weight="800">
+      <rect x="900" y="218" width="170" height="40" rx="20" fill="rgba(47,211,163,0.18)" stroke="#2FD3A3"/><text x="930" y="244" fill="#9FE9D2">APPROVED</text>
+      <rect x="900" y="318" width="170" height="40" rx="20" fill="rgba(244,193,93,0.16)" stroke="#F4C15D"/><text x="924" y="344" fill="#EAD9AE">CLARIFY</text>
+      <rect x="900" y="418" width="170" height="40" rx="20" fill="rgba(120,175,255,0.16)" stroke="#78AFFF"/><text x="936" y="444" fill="#CAD9F2">PENDING</text>
+      <rect x="900" y="518" width="170" height="40" rx="20" fill="rgba(226,99,122,0.16)" stroke="#E2637A"/><text x="936" y="544" fill="#F2C2CB">REJECTED</text>
+    </g>
+  </g>
+</svg>
