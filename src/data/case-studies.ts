@@ -594,6 +594,48 @@ export const caseStudies: ProjectCaseStudy[] = legacyProjects.map(toCaseStudy).m
     };
   }
 
+  if (project.slug === "checkwise") {
+    return {
+      ...project,
+      heroImage: "/projects/checkwise/checkwise-landing.png",
+      gallery: [
+        {
+          src: "/projects/checkwise/checkwise-review-queue.png",
+          alt: localized(
+            "CheckWise reviewer decision queue screenshot",
+            "Captura de la cola de revisión de CheckWise"
+          ),
+          caption: localized(
+            "Reviewer decision queue: documents awaiting human review, with possible-inconsistency flags per institution.",
+            "Cola de revisión: documentos en espera de revisión humana, con señales de posible inconsistencia por institución."
+          ),
+        },
+        {
+          src: "/projects/checkwise/checkwise-client-risk.png",
+          alt: localized(
+            "CheckWise client portfolio risk view with the Wise AI copilot",
+            "Vista de riesgo del portafolio del cliente de CheckWise con el copiloto Wise"
+          ),
+          caption: localized(
+            "Client portfolio-wide risk view with the embedded Wise AI copilot answering compliance questions.",
+            "Vista de riesgo del portafolio del cliente con el copiloto Wise integrado respondiendo preguntas de cumplimiento."
+          ),
+        },
+        {
+          src: "/projects/checkwise/checkwise-calendar.png",
+          alt: localized(
+            "CheckWise REPSE operating calendar screenshot",
+            "Captura del calendario operativo REPSE de CheckWise"
+          ),
+          caption: localized(
+            "REPSE operating calendar: expected obligations by month and institution (IMSS, SAT, INFONAVIT, STPS).",
+            "Calendario operativo REPSE: obligaciones esperadas por mes e institución (IMSS, SAT, INFONAVIT, STPS)."
+          ),
+        },
+      ],
+    };
+  }
+
   return project;
 });
 
