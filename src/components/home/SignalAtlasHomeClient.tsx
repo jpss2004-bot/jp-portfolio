@@ -367,7 +367,7 @@ function Hero({ language }: { language: Locale }) {
 
 function projectVisual(slug: string) {
   const realProofImages: Record<string, string> = {
-    savr: "/projects/savr/savr-onboarding.png",
+    savr: "/projects/savr/savr-recommendations-hub.png",
     "family-phrase-game": "/projects/family-phrase-game/family-phrase-game-main.png",
     checkwise: "/projects/checkwise/checkwise-admin-dashboard.png",
   };

@@ -561,17 +561,46 @@ export const caseStudies: ProjectCaseStudy[] = legacyProjects.map(toCaseStudy).m
   if (project.slug === "savr") {
     return {
       ...project,
-      heroImage: "/projects/savr/savr-onboarding.png",
+      heroImage: "/projects/savr/savr-recommendations-results.png",
       gallery: [
+        {
+          src: "/projects/savr/savr-recommendations-results.png",
+          alt: localized(
+            "SAVR ranked dining recommendations with suggested dishes and drink pairings",
+            "Recomendaciones de SAVR clasificadas con platillos sugeridos y maridajes de bebidas"
+          ),
+          caption: localized(
+            "Ranked, explainable dining matches with a per-result fit score, suggested dishes, and drink pairings.",
+            "Coincidencias gastronómicas clasificadas y explicables con puntaje de ajuste, platillos sugeridos y maridajes."
+          ),
+        },
+        {
+          src: "/projects/savr/savr-recommendations-hub.png",
+          alt: localized(
+            "SAVR recommendation modes: Build Your Night, Describe Your Night, Surprise Me",
+            "Modos de recomendación de SAVR: Build Your Night, Describe Your Night, Surprise Me"
+          ),
+          caption: localized(
+            "Three recommendation flows — structured Build Your Night, natural-language Describe Your Night, and Surprise Me.",
+            "Tres flujos de recomendación: Build Your Night estructurado, Describe Your Night en lenguaje natural y Surprise Me."
+          ),
+        },
+        {
+          src: "/projects/savr/savr-restaurants.png",
+          alt: localized("SAVR restaurant catalog of 54 venues", "Catálogo de 54 restaurantes de SAVR"),
+          caption: localized(
+            "The restaurant catalog: 54 seeded venues with town, price tier, pace, and tags.",
+            "El catálogo de restaurantes: 54 lugares con localidad, nivel de precio, ritmo y etiquetas."
+          ),
+        },
         {
           src: "/projects/savr/savr-onboarding.png",
           alt: localized("SAVR guided onboarding profile setup screenshot", "Captura del onboarding guiado de SAVR"),
           caption: localized(
-            "Real interface proof from the SAVR profile setup flow.",
-            "Evidencia real de interfaz del flujo de configuración de perfil de SAVR."
+            "Guided onboarding that captures dietary, cuisine, atmosphere, and budget preferences.",
+            "Onboarding guiado que captura preferencias dietéticas, de cocina, ambiente y presupuesto."
           ),
         },
-        ...project.gallery.slice(1),
       ],
     };
   }
