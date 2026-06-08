@@ -5115,9 +5115,10 @@ body {
 }
 .instr-portrait-img {
   width: 100%;
-  height: 232px;
+  aspect-ratio: 4 / 5;
+  height: auto;
   object-fit: cover;
-  object-position: 50% 16%;
+  object-position: 50% 28%;
   display: block;
 }
 .instr-portrait::after {
