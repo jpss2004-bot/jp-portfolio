@@ -349,6 +349,20 @@ function Hero({ language }: { language: Locale }) {
           <span className="instr-live"><span className="instr-live-dot" />{language === "es" ? "SEÑAL // EN VIVO" : "SIGNAL // LIVE"}</span>
           <span className="instr-panel-id">JP—OS</span>
         </div>
+        <div className="instr-portrait">
+          <Image
+            src="/jp-samano.png"
+            width={674}
+            height={900}
+            alt="Jose Pablo Samano Suarez"
+            className="instr-portrait-img"
+            priority
+          />
+          <div className="instr-portrait-meta">
+            <strong>Jose Pablo Samano Suarez</strong>
+            <span>{language === "es" ? "Software · Ciberseguridad · Producto" : "Software Engineering · Cybersecurity · Product"}</span>
+          </div>
+        </div>
         <div className="instr-wave">
           <SignalWave className="instr-wave-canvas" />
         </div>
@@ -537,6 +551,19 @@ function About({ language }: { language: Locale }) {
     <section id="about" className="section shell about-grid">
       <ChapterHeader id="about" language={language} />
       <div className="about-card">
+        <div className="about-identity">
+          <Image
+            src="/jp-samano.png"
+            width={674}
+            height={900}
+            alt="Jose Pablo Samano Suarez"
+            className="about-avatar"
+          />
+          <div>
+            <strong>Jose Pablo Samano Suarez</strong>
+            <span>{language === "es" ? "Software · Ciberseguridad · Producto" : "Software Engineering · Cybersecurity · Product"}</span>
+          </div>
+        </div>
         <p className="eyebrow">{decode(t.aboutEyebrow)}</p>
         <h2>{decode(t.aboutTitle)}</h2>
         <p>{decode(t.aboutCopy)}</p>
@@ -560,10 +587,19 @@ function Contact({ language }: { language: Locale }) {
   return (
     <section id="contact" className="section shell contact-card">
       <ChapterHeader id="contact" language={language} />
-      <div>
-        <p className="eyebrow">{decode(t.contactEyebrow)}</p>
-        <h2>{decode(t.contactTitle)}</h2>
-        <p>{decode(t.contactCopy)}</p>
+      <div className="contact-lead">
+        <Image
+          src="/jp-samano.png"
+          width={674}
+          height={900}
+          alt="Jose Pablo Samano Suarez"
+          className="contact-avatar"
+        />
+        <div>
+          <p className="eyebrow">{decode(t.contactEyebrow)}</p>
+          <h2>{decode(t.contactTitle)}</h2>
+          <p>{decode(t.contactCopy)}</p>
+        </div>
       </div>
       <div className="contact-actions">
         <a className="button button-primary" href={`mailto:${profile.email}`}>{t.emailMe}</a>

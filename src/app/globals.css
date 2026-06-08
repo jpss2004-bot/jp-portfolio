@@ -5104,3 +5104,98 @@ body {
 }
 .chapter-wave-canvas { width: 100%; height: 100%; display: block; }
 
+
+/* ---- Headshot / identity portraits (added) ---- */
+.instr-portrait {
+  position: relative;
+  border-bottom: 1px solid var(--line-0);
+  overflow: hidden;
+}
+.instr-portrait-img {
+  width: 100%;
+  height: 232px;
+  object-fit: cover;
+  object-position: 50% 16%;
+  display: block;
+}
+.instr-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11,17,24,0) 38%, rgba(11,17,24,0.55) 72%, var(--bg-0) 100%);
+  pointer-events: none;
+}
+.instr-portrait-meta {
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 0.85rem;
+  z-index: 1;
+}
+.instr-portrait-meta strong {
+  display: block;
+  color: var(--text-0);
+  font-size: 1.02rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.instr-portrait-meta span {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.about-identity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(18,32,51,0.1);
+}
+.about-avatar {
+  width: 92px;
+  height: 92px;
+  border-radius: 1.1rem;
+  object-fit: cover;
+  object-position: 50% 14%;
+  flex-shrink: 0;
+  border: 1px solid rgba(18,32,51,0.12);
+  box-shadow: var(--shadow-soft);
+}
+.about-identity strong {
+  display: block;
+  color: var(--text-dark);
+  font-size: 1.12rem;
+  letter-spacing: -0.01em;
+}
+.about-identity span {
+  display: block;
+  margin-top: 0.25rem;
+  color: #536174;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.contact-lead {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  max-width: 48rem;
+}
+.contact-avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 14%;
+  flex-shrink: 0;
+  border: 2px solid rgba(18,32,51,0.12);
+  box-shadow: var(--shadow-soft);
+}

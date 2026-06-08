@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s | JP Samano",
   },
   description:
-    "Bilingual software systems portfolio for JP Samano: full-stack projects, workflow tools, AI-assisted systems, architecture notes, and proof-first case studies.",
+    "Jose Pablo Samano Suarez — software engineer across full-stack, cybersecurity, and product. Real systems shipped with proof: SAVR (context-aware dining), CheckWise (REPSE compliance), and ER Triage — each with architecture, live demos, and explainable technical decisions.",
   authors: [{ name: profile.name }],
   creator: profile.name,
   alternates: {
@@ -36,19 +36,28 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    title: "JP Samano | Signal Atlas",
+    title: "Jose Pablo Samano Suarez — Software Engineering · Cybersecurity · Product",
     description:
-      "Bilingual portfolio organized around routes, nodes, proof, and technical decisions.",
+      "Software engineer across full-stack, cybersecurity, and product. Real systems shipped with proof — SAVR, CheckWise, ER Triage — with architecture, live demos, and explainable decisions.",
     url: siteUrl,
     siteName: "JP Samano Signal Atlas",
     locale: "en_CA",
     alternateLocale: ["es_MX"],
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Jose Pablo Samano Suarez — Software Engineering, Cybersecurity, and Product portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "JP Samano | Signal Atlas",
+    title: "Jose Pablo Samano Suarez — Software · Cybersecurity · Product",
     description:
-      "Bilingual software systems portfolio with full-stack projects, workflow tools, and proof-first case studies.",
+      "Real systems shipped with proof — SAVR, CheckWise, ER Triage — with architecture, live demos, and explainable technical decisions.",
+    images: ["/og.png"],
   },
 };
 
