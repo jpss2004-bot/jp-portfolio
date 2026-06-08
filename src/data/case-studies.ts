@@ -665,6 +665,71 @@ export const caseStudies: ProjectCaseStudy[] = legacyProjects.map(toCaseStudy).m
     };
   }
 
+  if (project.slug === "er-triage-queue-manager") {
+    const base = "/projects/er-triage-queue-manager/";
+    return {
+      ...project,
+      heroImage: base + "shot-dashboard.png",
+      gallery: [
+        {
+          src: base + "shot-dashboard.png",
+          alt: localized(
+            "ER queue dashboard showing patients ranked by ESI acuity level",
+            "Dashboard de fila de urgencias mostrando pacientes ordenados por nivel de agudeza ESI"
+          ),
+          caption: localized(
+            "Live queue dashboard: patients ranked by ESI v4 acuity, color-coded, with room and status.",
+            "Dashboard de fila en vivo: pacientes ordenados por agudeza ESI v4, codificados por color, con sala y estado."
+          ),
+        },
+        {
+          src: base + "shot-nurse-list.png",
+          alt: localized(
+            "Nurse triage worklist sorted by clinical acuity with vitals and SpO2",
+            "Lista de triage de enfermería ordenada por agudeza clínica con signos vitales y SpO2"
+          ),
+          caption: localized(
+            "Nurse worklist sorted sickest-first, with vitals, SpO2, wait-vs-target, and stroke alerts.",
+            "Lista de enfermería ordenada del más grave primero, con signos vitales, SpO2, espera vs objetivo y alertas de ACV."
+          ),
+        },
+        {
+          src: base + "shot-triage-form.png",
+          alt: localized(
+            "Nurse triage form with vitals, AVPU, and ESI red-flag switches computing a suggested acuity",
+            "Formulario de triage con signos vitales, AVPU y banderas rojas ESI que calculan una agudeza sugerida"
+          ),
+          caption: localized(
+            "Triage decision-support: vitals, SpO2, AVPU, and ESI red flags compute a suggested level live.",
+            "Apoyo a la decision de triage: signos vitales, SpO2, AVPU y banderas rojas ESI calculan un nivel sugerido en vivo."
+          ),
+        },
+        {
+          src: base + "shot-patient-detail.png",
+          alt: localized(
+            "Patient detail showing ESI level and the clinical reasoning behind it",
+            "Detalle de paciente mostrando el nivel ESI y el razonamiento clinico detras"
+          ),
+          caption: localized(
+            "Explainable acuity: every ESI level shows its reasoning (e.g. critical hypoxemia, shock).",
+            "Agudeza explicable: cada nivel ESI muestra su razonamiento (p. ej. hipoxemia critica, shock)."
+          ),
+        },
+        {
+          src: base + "shot-audit-log.png",
+          alt: localized(
+            "Status history audit log recording who changed each patient status and when",
+            "Registro de auditoria de cambios de estado con quien cambio cada estado y cuando"
+          ),
+          caption: localized(
+            "Audit trail: every status change records who, what, and when across the patient lifecycle.",
+            "Rastro de auditoria: cada cambio de estado registra quien, que y cuando durante el ciclo del paciente."
+          ),
+        },
+      ],
+    };
+  }
+
   return project;
 });
 
