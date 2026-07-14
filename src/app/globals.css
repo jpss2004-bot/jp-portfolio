@@ -4802,6 +4802,85 @@ body {
 .instr-page .resume-preview strong { color: var(--text-0); }
 .instr-page .resume-preview small { color: var(--text-2); font-family: var(--font-mono); }
 
+/* Resume preview: miniature of the black-and-white one-page document. */
+.instr-page .resume-preview {
+  min-height: 15.5rem;
+  padding: 0.9rem;
+  background: #d8d8d6;
+  border-color: rgba(255, 255, 255, 0.12);
+  display: grid;
+  place-items: center;
+}
+
+.instr-page .resume-sheet-mini {
+  width: min(100%, 10.25rem);
+  aspect-ratio: 8.5 / 11;
+  padding: 0.75rem 0.62rem;
+  background: #fff;
+  color: #111;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.instr-page .resume-sheet-mini > strong {
+  display: block;
+  color: #111;
+  font-size: 0.45rem;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.instr-page .resume-sheet-mini > small {
+  display: block;
+  margin-top: 0.16rem;
+  color: #222;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.25rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.instr-page .resume-sheet-mini > i {
+  display: block;
+  width: 76%;
+  height: 2px;
+  margin: 0.22rem auto 0.32rem;
+  background: #d5d5d5;
+}
+
+.instr-page .resume-sheet-section {
+  margin-top: 0.28rem;
+}
+
+.instr-page .resume-sheet-section b {
+  display: block;
+  color: #111;
+  font-size: 0.27rem;
+  line-height: 1;
+}
+
+.instr-page .resume-sheet-section em {
+  display: block;
+  height: 1px;
+  margin: 0.08rem 0 0.12rem;
+  background: #111;
+}
+
+.instr-page .resume-sheet-section span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin: 0.11rem 0 0;
+  border-radius: 0;
+  background: #c5c5c5;
+}
+
+.instr-page .resume-sheet-section .resume-line-short {
+  width: 72%;
+}
+
 /* ---------- Instrument: project / case-study pages ---------- */
 .case-study-page-polish.instr-page { background: var(--bg-deep); }
 .instr-page .case-polish-topbar-meta { font-family: var(--font-mono); color: var(--text-2); }
@@ -5100,4 +5179,3 @@ body {
   background: oklch(0.145 0.006 265 / 0.5); overflow: hidden;
 }
 .chapter-wave-canvas { width: 100%; height: 100%; display: block; }
-

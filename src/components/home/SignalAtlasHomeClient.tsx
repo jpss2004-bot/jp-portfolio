@@ -491,11 +491,22 @@ function ResumeSection({ language }: { language: Locale }) {
           <p>{decode(t.resumeCopy)}</p>
         </div>
         <div className="resume-preview" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <strong>JP Samano</strong>
-          <small>{language === "es" ? "Software / Ciberseguridad / Producto" : "Software Engineering / Cybersecurity / Product"}</small>
+          <div className="resume-sheet-mini">
+            <strong>JOSE PABLO SAMANO SUAREZ</strong>
+            <small>{language === "es" ? "Ingeniería de Software · Ciberseguridad · Full-Stack" : "Software Engineering · Cybersecurity · Full-Stack"}</small>
+            <i />
+            {(language === "es"
+              ? ["EDUCACIÓN", "EXPERIENCIA LABORAL", "PROYECTOS", "LIDERAZGO"]
+              : ["EDUCATION", "WORK EXPERIENCE", "PROJECTS", "LEADERSHIP"]
+            ).map((label, index) => (
+              <div className="resume-sheet-section" key={label}>
+                <b>{label}</b>
+                <em />
+                <span className={index % 2 === 0 ? "resume-line-short" : undefined} />
+                <span />
+              </div>
+            ))}
+          </div>
         </div>
         <div className="resume-actions">
           <a href={resumeFile} target="_blank" rel="noreferrer" className="button button-primary">{t.resumeCta}</a>
