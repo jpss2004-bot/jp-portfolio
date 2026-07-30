@@ -19,6 +19,7 @@ type Copy = {
   heroLabel: string;
   heroHeadline: string;
   heroHeadlineLines: string[];
+  heroNameLines: string[];
   heroSub: string;
   heroCtaWork: string;
   heroCtaResume: string;
@@ -112,6 +113,7 @@ const en: Copy = {
   heroLabel: "Software engineering · Cybersecurity · Product",
   heroHeadline: "I build systems that turn messy workflows into clear, reliable tools.",
   heroHeadlineLines: ["I build systems that turn", "messy workflows into", "clear, reliable tools."],
+  heroNameLines: ["Jose Pablo", "Samano Suarez"],
   heroSub:
     "Computer Science at Acadia University. I ship full-stack products and workflow tools, then document the decisions behind them.",
   heroCtaWork: "See selected work",
@@ -210,6 +212,7 @@ const es: Copy = {
   heroLabel: "Ingeniería de software · Ciberseguridad · Producto",
   heroHeadline: "Construyo sistemas que convierten flujos de trabajo confusos en herramientas claras y confiables.",
   heroHeadlineLines: ["Construyo sistemas que", "convierten flujos confusos", "en herramientas confiables."],
+  heroNameLines: ["Jose Pablo", "Samano Suarez"],
   heroSub:
     "Ciencias de la Computación en Acadia University. Desarrollo productos full-stack y herramientas de flujo de trabajo, y documento las decisiones detrás de cada uno.",
   heroCtaWork: "Ver proyectos",

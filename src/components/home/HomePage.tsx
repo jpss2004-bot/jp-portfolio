@@ -53,12 +53,37 @@ export function HomePage({ locale }: { locale: Locale }) {
            * small label here only weakened the opening line.
            */}
           <section className="wrap hero">
-            <h1 className="hero-headline" data-reveal="lines">
-              <Lines lines={t.heroHeadlineLines} />
+            {/*
+             * The name is the hero. Two lines of display type with the framed
+             * portrait centred on top — the oval crops the cut-out's hard lower
+             * edge, and only the middles of the letterforms are covered, so the
+             * name still reads.
+             */}
+            <h1 className="name">
+              {t.heroNameLines.map((line, index) => (
+                <span className="name-line" key={line}>
+                  <span className="name-line-in" style={{ "--i": index } as CSSProperties}>
+                    {line}
+                  </span>
+                </span>
+              ))}
+
+              <span className="name-portrait">
+                <Image
+                  src="/jp-samano-cutout.png"
+                  alt={`${profile.fullName}, ${locale === "es" ? "retrato" : "portrait"}`}
+                  width={740}
+                  height={880}
+                  sizes="(max-width: 700px) 120px, 190px"
+                  quality={88}
+                  loading="eager"
+                  fetchPriority="high"
+                />
+              </span>
             </h1>
 
             <p className="lede hero-sub" data-reveal="fade" style={{ "--i": 3 } as CSSProperties}>
-              {t.heroSub}
+              {t.heroHeadline}
             </p>
 
             <div className="hero-actions" data-reveal="fade" style={{ "--i": 4 } as CSSProperties}>
@@ -243,24 +268,12 @@ export function HomePage({ locale }: { locale: Locale }) {
               </h2>
             </div>
 
+            {/*
+             * No second portrait here. The cut-out figure carries the hero, and
+             * running the same face twice on one page read as filler rather
+             * than as evidence.
+             */}
             <div className="profile" data-reveal="fade">
-              <div>
-                <div className="portrait">
-                  <Image
-                    src="/jp-samano.png"
-                    alt={`${profile.fullName}, ${locale === "es" ? "retrato" : "portrait"}`}
-                    width={674}
-                    height={900}
-                    sizes="(max-width: 860px) 240px, 320px"
-                    quality={82}
-                  />
-                </div>
-                <p className="portrait-caption">
-                  <strong>{profile.fullName}</strong>
-                  <span className="label">{t.wordmarkRole}</span>
-                </p>
-              </div>
-
               <div>
                 <div className="profile-copy lede">
                   {t.profileBody.map((paragraph) => (
