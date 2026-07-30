@@ -70,10 +70,16 @@ export function HomePage({ locale }: { locale: Locale }) {
 
               <span className="name-portrait">
                 <Image
-                  src="/jp-samano-cutout.png"
+                  /*
+                   * Relit low-key so it belongs on a dark page. Its own
+                   * background is near-black, so no cut-out is needed — the
+                   * oval reads as a window into the page rather than a sticker
+                   * pasted on top of it.
+                   */
+                  src="/jp-samano-dark.jpg"
                   alt={`${profile.fullName}, ${locale === "es" ? "retrato" : "portrait"}`}
-                  width={740}
-                  height={880}
+                  width={760}
+                  height={1018}
                   sizes="(max-width: 700px) 120px, 190px"
                   quality={88}
                   loading="eager"
