@@ -1,48 +1,54 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useId, useState } from "react";
 import type { Locale } from "@/data/i18n";
-import { profile } from "@/data/portfolio";
+import { getCopy, resumeHref } from "@/data/site-copy";
+import { Logo } from "@/components/ui/Logo";
 import { LocaleSwitch } from "./LocaleSwitch";
-import { MobileSheetNav, type MobileNavItem } from "./MobileSheetNav";
 
-export type HeaderNavItem = MobileNavItem;
+export type NavItem = { href: string; label: string };
 
-type HeaderProps = {
+const HOME_LABEL = "Jose Pablo Samano Suarez — home";
+
+/**
+ * Sticky header. Client-side only for the mobile disclosure — everything else
+ * is static markup, and the nav links work with JavaScript disabled.
+ */
+export function Header({
+  locale,
+  navItems,
+  projectSlug,
+}: {
   locale: Locale;
-  navItems: HeaderNavItem[];
+  navItems: NavItem[];
   projectSlug?: string;
-};
+}) {
+  const t = getCopy(locale);
+  const [open, setOpen] = useState(false);
+  const sheetId = useId();
 
-const labels = {
-  en: {
-    home: "JP Samano home",
-    nav: "Main navigation",
-    resume: "Resume",
-    github: "GitHub",
-  },
-  es: {
-    home: "Inicio de JP Samano",
-    nav: "Navegacion principal",
-    resume: "CV",
-    github: "GitHub",
-  },
-} as const;
-
-export function Header({ locale, navItems, projectSlug }: HeaderProps) {
-  const t = labels[locale];
-  const resumeFile = locale === "es" ? "/resume/jp-samano-resume-es.pdf" : "/resume/jp-samano-resume-en.pdf";
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <header className="site-header">
-      <div className="header-inner">
-        <Link href={`/${locale}`} className="brand-mark" aria-label={t.home}>
-          <span className="brand-orb">JP</span>
-          <span>
-            <strong>JP Samano</strong>
-            <small>Signal Atlas</small>
+      <div className="wrap header-bar">
+        <Link href={`/${locale}`} className="wordmark" aria-label={HOME_LABEL}>
+          <Logo size={30} />
+          <span className="wordmark-text">
+            <strong>Jose Pablo Samano</strong>
+            <span>{t.wordmarkRole}</span>
           </span>
         </Link>
 
-        <nav className="desktop-nav" aria-label={t.nav}>
+        <nav className="header-nav" aria-label={t.mainNav}>
           {navItems.map((item) => (
             <Link key={item.href} href={item.href}>
               {item.label}
@@ -52,15 +58,37 @@ export function Header({ locale, navItems, projectSlug }: HeaderProps) {
 
         <div className="header-actions">
           <LocaleSwitch currentLocale={locale} slug={projectSlug} />
-          <a href={resumeFile} target="_blank" rel="noreferrer" className="header-resume-link">
+          <a className="btn btn-line" href={resumeHref(locale)} target="_blank" rel="noreferrer">
             {t.resume}
           </a>
-          <a href={profile.github} target="_blank" rel="noreferrer" className="header-icon-link">
-            {t.github}
-          </a>
-          <MobileSheetNav locale={locale} navItems={navItems} />
+          <button
+            type="button"
+            className="nav-toggle"
+            aria-expanded={open}
+            aria-controls={sheetId}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? t.close : t.menu}
+            <span className="nav-toggle-bars" aria-hidden="true">
+              <span />
+              <span />
+            </span>
+          </button>
         </div>
       </div>
+
+      {open ? (
+        <nav id={sheetId} className="wrap nav-sheet" aria-label={t.mainNav}>
+          {navItems.map((item) => (
+            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+              {item.label}
+            </Link>
+          ))}
+          <a href={resumeHref(locale)} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
+            {t.resumePdf}
+          </a>
+        </nav>
+      ) : null}
     </header>
   );
 }

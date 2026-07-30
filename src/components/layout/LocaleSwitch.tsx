@@ -1,54 +1,39 @@
 import Link from "next/link";
-import type { Locale } from "@/data/i18n";
+import { Fragment } from "react";
+import { locales, type Locale } from "@/data/i18n";
 
-type LocaleSwitchProps = {
-  currentLocale: Locale;
-  slug?: string;
+const names: Record<Locale, string> = {
+  en: "English",
+  es: "Español",
 };
 
-function localeHref(locale: Locale, slug?: string) {
-  return slug ? `/${locale}/projects/${slug}` : `/${locale}`;
-}
-
-function FlagCanada() {
+/**
+ * Plain EN / ES. The previous version drew Canadian and Mexican flags out of
+ * CSS gradients, which conflated language with nationality and added noise to
+ * the header for no navigational benefit.
+ */
+export function LocaleSwitch({ currentLocale, slug }: { currentLocale: Locale; slug?: string }) {
   return (
-    <span className="flag flag-canada" aria-hidden="true">
-      <span />
-    </span>
-  );
-}
-
-function FlagMexico() {
-  return (
-    <span className="flag flag-mexico" aria-hidden="true">
-      <span />
-    </span>
-  );
-}
-
-export function LocaleSwitch({ currentLocale, slug }: LocaleSwitchProps) {
-  const items = [
-    { locale: "en" as const, label: "EN", sr: "English", Flag: FlagCanada },
-    { locale: "es" as const, label: "ES", sr: "Espa\u00f1ol", Flag: FlagMexico },
-  ];
-
-  return (
-    <nav className="language-switch" aria-label="Language selector">
-      {items.map(({ locale, label, sr, Flag }) => {
-        const active = currentLocale === locale;
-
+    <nav className="locale-switch" aria-label="Language">
+      {locales.map((locale, index) => {
+        const active = locale === currentLocale;
         return (
-          <Link
-            key={locale}
-            href={localeHref(locale, slug)}
-            hrefLang={locale}
-            aria-label={sr}
-            aria-current={active ? "page" : undefined}
-            className={active ? "language-option active" : "language-option"}
-          >
-            <Flag />
-            <span>{label}</span>
-          </Link>
+          <Fragment key={locale}>
+            {index > 0 ? (
+              <span className="locale-sep" aria-hidden="true">
+                /
+              </span>
+            ) : null}
+            <Link
+              href={slug ? `/${locale}/projects/${slug}` : `/${locale}`}
+              hrefLang={locale}
+              lang={locale}
+              aria-current={active ? "page" : undefined}
+            >
+              <span className="sr-only">{names[locale]}</span>
+              <span aria-hidden="true">{locale.toUpperCase()}</span>
+            </Link>
+          </Fragment>
         );
       })}
     </nav>

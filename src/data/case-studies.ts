@@ -33,14 +33,23 @@ export type GalleryItem = {
 export type ProjectCaseStudy = {
   slug: string;
   featured: boolean;
+  /**
+   * `built` means a running interface exists and real captures back it up.
+   * `concept` means documentation only — no interface is shown or implied.
+   */
+  kind: "built" | "concept";
+  /** Short, plain-language nouns used by the concept plate. */
+  conceptNodes: Localized<string[]>;
   status: CaseStudyStatus;
   statusLabel: Localized<string>;
   year: string;
   title: Localized<string>;
+  shortName: string;
+  type: Localized<string>;
   tagline: Localized<string>;
   role: Localized<string>;
   summary: Localized<string>;
-  heroImage: string;
+  heroImage: string | null;
   tech: string[];
   proofs: ProofMetric[];
   links: ProjectLink[];
@@ -295,6 +304,41 @@ function getLinkLabel(link: Project["links"][number]): Localized<string> {
 }
 
 const projectDecisionLibrary: Record<string, Decision[]> = {
+  checkwise: [
+    {
+      title: localized("One locked design system across every surface", "Un sistema de diseño fijo en todas las superficies"),
+      tradeoff: localized(
+        "Shipping roughly twenty admin, client, and provider-portal surfaces quickly would have meant letting each one drift into its own layout and component conventions.",
+        "Entregar rápido cerca de veinte superficies de administración, cliente y portal de proveedores habría significado dejar que cada una tomara su propio layout y convenciones."
+      ),
+      outcome: localized(
+        "Locked a single design system first and applied it everywhere, so the platform reads as one product instead of three tools stitched together.",
+        "Fijé primero un solo sistema de diseño y lo apliqué en todas, para que la plataforma se lea como un producto y no como tres herramientas unidas."
+      ),
+    },
+    {
+      title: localized("Model REPSE cycles instead of a flat checklist", "Modelar los ciclos REPSE en vez de una lista fija"),
+      tradeoff: localized(
+        "A flat document checklist would have shipped sooner, but it breaks as soon as an institution's cadence differs — REPSE evidence arrives monthly, bimonthly, four-monthly, and annually depending on the institution.",
+        "Una lista fija de documentos habría salido antes, pero se rompe en cuanto la cadencia de una institución cambia: la evidencia REPSE llega mensual, bimestral, cuatrimestral y anualmente según la institución."
+      ),
+      outcome: localized(
+        "Modelled institution x cycle explicitly, so the operating calendar and the expediente gates derive from the data model rather than from hardcoded rules.",
+        "Modelé institución x ciclo de forma explícita, para que el calendario operativo y las compuertas de expediente se deriven del modelo de datos y no de reglas fijas."
+      ),
+    },
+    {
+      title: localized("AI reports had to be testable, not just impressive", "Reportes con IA que se puedan probar, no solo impresionar"),
+      tradeoff: localized(
+        "A single free-form generator demos better, but in a compliance product an unexplainable report is a liability rather than a feature.",
+        "Un generador libre luce mejor en demo, pero en un producto de cumplimiento un reporte inexplicable es un riesgo, no una función."
+      ),
+      outcome: localized(
+        "Split it into a planner plus a streaming generator with per-block regenerate and explain, and guarded the whole path with an AI-safety suite inside 320+ backend tests.",
+        "Lo separé en un planificador y un generador en streaming con regenerar y explicar por bloque, y protegí todo el camino con una suite de seguridad de IA dentro de 320+ pruebas backend."
+      ),
+    },
+  ],
   savr: [
     {
       title: localized("Recommendation input model", "Modelo de entradas de recomendación"),
@@ -472,50 +516,43 @@ const projectDecisionLibrary: Record<string, Decision[]> = {
   ],
 };
 
-function buildGallery(project: Project): GalleryItem[] {
-  return [
-    {
-      src: "/projects/" + project.slug + "/proof-1.svg",
-      alt: localized(project.shortName + " primary proof visual", project.shortName + " visual principal de evidencia"),
-      caption: localized(
-        "Primary visual proof panel for the case study.",
-        "Visual principal de evidencia para el caso de estudio."
-      ),
-    },
-    {
-      src: "/projects/" + project.slug + "/architecture.svg",
-      alt: localized(project.shortName + " architecture visual", project.shortName + " diagrama de arquitectura"),
-      caption: localized(
-        "Architecture and system-flow visual for the case study.",
-        "Diagrama de arquitectura y flujo del sistema para el caso de estudio."
-      ),
-    },
-    {
-      src: "/projects/" + project.slug + "/proof-2.svg",
-      alt: localized(project.shortName + " secondary proof visual", project.shortName + " visual secundario de evidencia"),
-      caption: localized(
-        "Secondary visual for interface, workflow, or result evidence.",
-        "Visual secundario para evidencia de interfaz, flujo o resultados."
-      ),
-    },
-  ];
+/**
+ * Only real captures belong in a gallery. Projects without a built interface
+ * get an empty gallery and are rendered with an explicit concept plate, so the
+ * site never implies a screenshot exists where none does.
+ */
+function buildGallery(): GalleryItem[] {
+  return [];
 }
 
+/**
+ * Every project has hand-written decisions. If one is ever added without them,
+ * return nothing rather than auto-generating "Decision 1" from mismatched
+ * challenge/next-step pairs, which is what the previous version did.
+ */
 function buildDecisions(project: Project): Decision[] {
-  const customDecisions = projectDecisionLibrary[project.slug];
-
-  if (customDecisions) {
-    return customDecisions;
-  }
-
-  const source = project.challenges.length > 0 ? project.challenges : project.architecture;
-
-  return source.slice(0, 3).map((item, index) => ({
-    title: localized("Decision " + (index + 1), "Decisión " + (index + 1)),
-    tradeoff: localized(item, item),
-    outcome: localized(project.next[index] ?? project.solution, project.next[index] ?? project.solution),
-  }));
+  return projectDecisionLibrary[project.slug] ?? [];
 }
+
+const conceptNodesBySlug: Record<string, Localized<string[]>> = {
+  "adaptive-traffic-ai": localized(
+    ["Simulation", "Traffic state", "Signal policy", "Evaluation"],
+    ["Simulación", "Estado de tráfico", "Política de semáforo", "Evaluación"]
+  ),
+  "cyber-reporting-assistant": localized(
+    ["Intake", "Risk labels", "Report", "Retention rules"],
+    ["Captura", "Etiquetas de riesgo", "Reporte", "Reglas de retención"]
+  ),
+};
+
+const typeEs: Record<string, string> = {
+  "Full-stack SaaS": "SaaS full-stack",
+  "Full-stack product": "Producto full-stack",
+  "Workflow system": "Sistema de flujo de trabajo",
+  "Deployed web app": "App web desplegada",
+  "AI systems concept": "Concepto de sistemas con IA",
+  "Cybersecurity product": "Producto de ciberseguridad",
+};
 
 function toCaseStudy(project: Project, index: number): ProjectCaseStudy {
   const es = spanishBySlug[project.slug];
@@ -524,17 +561,23 @@ function toCaseStudy(project: Project, index: number): ProjectCaseStudy {
     throw new Error("Missing Spanish project copy for " + project.slug);
   }
 
+  const conceptNodes = conceptNodesBySlug[project.slug];
+
   return {
     slug: project.slug,
     featured: index < 3,
+    kind: conceptNodes ? "concept" : "built",
+    conceptNodes: conceptNodes ?? localized<string[]>([], []),
     status: getStatus(project.status),
     statusLabel: getStatusLabel(project.status),
     year: project.year,
     title: localized(project.name, es.title),
+    shortName: project.shortName,
+    type: localized(project.type, typeEs[project.type] ?? project.type),
     tagline: localized(project.oneLiner, es.tagline),
     role: localized(project.role, es.role),
     summary: localized(project.summary, es.summary),
-    heroImage: "/projects/" + project.slug + "/hero.svg",
+    heroImage: null,
     tech: project.stack,
     proofs: project.metrics.map((metric) => ({
       label: localized(metric.label, metricLabelsEs[metric.label] ?? metric.label),
@@ -552,7 +595,7 @@ function toCaseStudy(project: Project, index: number): ProjectCaseStudy {
     decisions: buildDecisions(project),
     results: localized([project.impact, ...project.proof], es.results),
     nextSteps: localized(project.next, es.nextSteps),
-    gallery: buildGallery(project),
+    gallery: buildGallery(),
     resumeBullet: localized(project.shortName + ": " + project.oneLiner, es.resumeBullet),
   };
 }
@@ -601,6 +644,17 @@ export const caseStudies: ProjectCaseStudy[] = legacyProjects.map(toCaseStudy).m
             "Onboarding guiado que captura preferencias dietéticas, de cocina, ambiente y presupuesto."
           ),
         },
+        {
+          src: "/projects/savr/savr-dashboard.png",
+          alt: localized(
+            "SAVR account dashboard showing profile readiness, saved cuisine signals, and saved presets",
+            "Dashboard de cuenta de SAVR con estado del perfil, señales de cocina guardadas y presets"
+          ),
+          caption: localized(
+            "The signed-in dashboard: profile readiness, how many preference signals are shaping results, and saved presets.",
+            "El dashboard con sesión iniciada: estado del perfil, cuántas señales de preferencia moldean los resultados y presets guardados."
+          ),
+        },
       ],
     };
   }
@@ -614,11 +668,10 @@ export const caseStudies: ProjectCaseStudy[] = legacyProjects.map(toCaseStudy).m
           src: "/projects/family-phrase-game/family-phrase-game-main.png",
           alt: localized("Family Phrase Game live interface screenshot", "Captura de la interfaz de Family Phrase Game"),
           caption: localized(
-            "Real deployed interface proof from the Family Phrase Game MVP.",
-            "Evidencia real de la interfaz desplegada del MVP Family Phrase Game."
+            "The deployed game surface: a family-submitted phrase, the round timer, and team scoring.",
+            "La superficie de juego desplegada: una frase enviada por la familia, el temporizador de ronda y la puntuación por equipos."
           ),
         },
-        ...project.gallery.slice(1),
       ],
     };
   }
@@ -659,6 +712,17 @@ export const caseStudies: ProjectCaseStudy[] = legacyProjects.map(toCaseStudy).m
           caption: localized(
             "REPSE operating calendar: expected obligations by month and institution (IMSS, SAT, INFONAVIT, STPS).",
             "Calendario operativo REPSE: obligaciones esperadas por mes e institución (IMSS, SAT, INFONAVIT, STPS)."
+          ),
+        },
+        {
+          src: "/projects/checkwise/checkwise-admin-dashboard.png",
+          alt: localized(
+            "CheckWise internal operations overview with counts for clients, vendors, review queue, and audit events",
+            "Resumen de operaciones internas de CheckWise con conteos de clientes, proveedores, cola de revisión y eventos de auditoría"
+          ),
+          caption: localized(
+            "Internal operations overview: clients, registered vendors, active expedientes, the human review queue, and recent audit events in one read.",
+            "Resumen de operaciones internas: clientes, proveedores registrados, expedientes activos, la cola de revisión humana y eventos recientes de auditoría en una sola lectura."
           ),
         },
       ],
