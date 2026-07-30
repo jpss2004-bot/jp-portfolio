@@ -11,25 +11,25 @@
 
 :root {
   /* --- Surfaces --------------------------------------------------------- */
-  --paper: #faf9f7;
-  --paper-2: #f2f0ec;
-  --surface: #ffffff;
+  --paper: #0b0c0f;
+  --paper-2: #16181d;
+  --surface: #131519;
 
-  /* --- Ink -------------------------------------------------------------- */
-  --ink: #131418;
-  --ink-2: #52545b;
-  --ink-3: #6e7077;
+  /* --- Ink (inverted: "ink" is the light text on a dark page) ----------- */
+  --ink: #f5f4f2;
+  --ink-2: #a8aab2;
+  --ink-3: #7c7e86;
 
   /* --- Lines ------------------------------------------------------------ */
-  --rule: rgb(19 20 24 / 0.13);
-  --rule-strong: rgb(19 20 24 / 0.3);
-  --grid-line: rgb(19 20 24 / 0.05);
-  --grid-lens: rgb(179 52 26 / 0.22);
+  --rule: rgb(255 255 255 / 0.12);
+  --rule-strong: rgb(255 255 255 / 0.26);
+  --grid-line: rgb(255 255 255 / 0.045);
+  --grid-lens: rgb(232 115 79 / 0.24);
 
   /* --- Accent (one, used sparingly) ------------------------------------- */
-  --accent: #b3341a;
-  --accent-ink: #ffffff;
-  --accent-wash: rgb(179 52 26 / 0.07);
+  --accent: #e8734f;
+  --accent-ink: #0b0c0f;
+  --accent-wash: rgb(232 115 79 / 0.1);
 
   /* --- Semantic (what components actually consume) ---------------------- */
   --bg: var(--paper);
@@ -67,7 +67,7 @@
   /* --- Shape ------------------------------------------------------------ */
   --radius: 2px;
   --radius-media: 3px;
-  --shadow-media: 0 1px 2px rgb(19 20 24 / 0.05), 0 22px 50px -22px rgb(19 20 24 / 0.32);
+  --shadow-media: 0 1px 0 rgb(255 255 255 / 0.04), 0 30px 70px -28px rgb(0 0 0 / 0.85);
 
   /* --- Motion ----------------------------------------------------------- */
   --dur: 160ms;
@@ -76,24 +76,17 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* The one dark band. Same system, inverted — only tokens flip. */
+/*
+ * The site is dark throughout, so this is no longer an inverted band — the
+ * closing section just sits a shade deeper than the page and is separated by a
+ * hairline. Kept as a class so the markup reads the same.
+ */
 .band-ink {
-  --bg: var(--ink);
-  --fg: #f7f6f4;
-  --fg-2: #b6b8bf;
-  --fg-3: #9b9da4;
-  --rule: rgb(255 255 255 / 0.14);
-  --rule-strong: rgb(255 255 255 / 0.3);
-  --accent: #e8734f;
-  --accent-ink: #131418;
-  --accent-wash: rgb(232 115 79 / 0.12);
-  --focus: #e8734f;
-  --surface: #1d1e23;
-  --paper-2: #1d1e23;
+  --bg: #08090b;
   position: relative;
   z-index: 1;
+  border-top: 1px solid var(--rule);
   background: var(--bg);
-  color: var(--fg);
 }
 
 /* ==========================================================================
@@ -311,9 +304,9 @@ button {
  * approach is meant to avoid.
  */
 @media (prefers-reduced-motion: no-preference) {
-  .hero-headline .line-in {
+  .name-line-in {
     animation: line-up var(--dur-reveal) var(--ease-out) backwards;
-    animation-delay: calc(var(--i, 0) * 85ms + var(--delay, 0ms));
+    animation-delay: calc(var(--i, 0) * 110ms);
   }
 
   .hero [data-reveal="fade"] {
@@ -336,12 +329,12 @@ button {
      * so the mask can stagger without every line measuring its own (already
      * translated) box.
      */
-    [data-reveal="lines"]:not(.hero-headline) {
+    [data-reveal="lines"]:not(.name) {
       view-timeline-name: --reveal-lines;
       view-timeline-axis: block;
     }
 
-    [data-reveal="lines"]:not(.hero-headline) .line-in {
+    [data-reveal="lines"]:not(.name) .line-in {
       animation: line-up linear both;
       animation-timeline: --reveal-lines;
       animation-range: entry calc(6% + var(--i, 0) * 7%) cover calc(20% + var(--i, 0) * 7%);
@@ -708,34 +701,67 @@ button {
 }
 
 /*
- * Cut-out portrait closing the hero. It stands on the same hairline that opens
- * the facts rail, with a soft contact shadow so it reads as placed on the page
- * rather than pasted onto it. The copy block above stays intact — the figure
- * gets its own moment instead of splitting the headline from its lede.
+ * The name is the hero.
+ *
+ * Two lines of very large display type with the framed portrait sitting dead
+ * centre on top of them. The oval crops the cut-out's hard lower edge, and the
+ * letterforms stay readable because only their middles are covered.
  */
-.hero-portrait {
+.name {
   position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  margin-top: clamp(2.5rem, 6vw, 5rem);
 }
 
-.hero-portrait::before {
-  content: "";
+.name-line {
+  display: block;
+  overflow: hidden;
+}
+
+.name-line-in {
+  display: block;
+  font-family: var(--font-stack-display);
+  /* Sized so the longest line clears the gutter, not so it fills the viewport. */
+  font-size: clamp(2.35rem, 10.6vw, 10.25rem);
+  font-weight: 800;
+  font-variation-settings: "wght" 820, "wdth" var(--wdth, 100);
+  line-height: 0.84;
+  letter-spacing: -0.052em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--accent);
+}
+
+/*
+ * The two lines have different letter counts, so the shorter one is stretched
+ * on Archivo's width axis until both block up to the same measure. This is
+ * what the variable font is for — no manual tracking hacks.
+ */
+.name-line:first-child .name-line-in {
+  --wdth: 123;
+}
+
+.name-portrait {
   position: absolute;
+  top: 50%;
   left: 50%;
-  bottom: 0;
-  width: clamp(14rem, 32vw, 30rem);
-  height: 2.25rem;
-  transform: translateX(-50%);
-  background: radial-gradient(ellipse 50% 50% at 50% 100%, rgb(19 20 24 / 0.16), transparent 70%);
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: clamp(5.5rem, 10.5vw, 10.5rem);
+  aspect-ratio: 100 / 168;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--paper-2);
+  box-shadow: 0 24px 60px -24px rgb(19 20 24 / 0.5);
 }
 
-.hero-portrait img {
-  position: relative;
-  width: auto;
-  height: clamp(13rem, 27vw, 23rem);
+.name-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 8%;
 }
 
 .facts {
