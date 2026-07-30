@@ -118,8 +118,10 @@ export const projects: Project[] = [
     solution:
       "CheckWise centralizes vendor evidence intake, the reviewer adjudication workflow (approve, reject, request clarification), and a portfolio-wide client risk view, with role-based access and an AI-assisted reports center that stays explainable.",
     impact:
-      "A real client SaaS for LegalShelf: a full-stack build spanning a FastAPI backend, a Next.js 15 frontend with a locked design system across ~20 surfaces, role-based auth, and an AI-assisted reports flagship backed by 320+ backend tests including an AI-safety suite.",
+      "In production for LegalShelf: three real client companies and more than fifteen vendors run their REPSE compliance through it, and it has processed close to 20,000 documents.",
     proof: [
+      "In production with 3 client companies and 15+ vendors",
+      "Close to 20,000 compliance documents processed",
       "Reports flagship: AI planner + streaming generator + embedded copilot",
       "320+ backend tests including an AI-safety suite",
       "Role-aware reviewer queue with JWT auth and RBAC",
@@ -150,9 +152,9 @@ export const projects: Project[] = [
       "Replace the provider portal's opaque workspace token with full JWT auth.",
     ],
     metrics: [
-      { label: "Backend tests", value: "320+" },
-      { label: "Architecture", value: "Full-stack" },
-      { label: "Domain", value: "RegTech" },
+      { label: "Documents processed", value: "~20,000" },
+      { label: "Client companies", value: "3" },
+      { label: "Vendors", value: "15+" },
     ],
     links: [
       { label: "Live App", href: "https://checkwise-six.vercel.app" },
@@ -164,7 +166,7 @@ export const projects: Project[] = [
     name: "SAVR - Context-Aware Dining Platform",
     shortName: "SAVR",
     type: "Full-stack product",
-    status: "In Progress",
+    status: "Live",
     year: "2026",
     role: "Product direction, backend API, frontend flows, data modeling, recommendation logic",
     oneLiner: "A full-stack dining recommendation platform that uses context, preference signals, and explainable flows.",
@@ -202,9 +204,8 @@ export const projects: Project[] = [
       "Creating a data model flexible enough for venues, dishes, events, budgets, and atmosphere.",
     ],
     next: [
-      "Expand the proof gallery with recommendation-result screenshots and an architecture diagram.",
-      "Add a live deployed demo once stable.",
       "Add dish-level explanations and event-aware scoring.",
+      "Expand the recommendation model with saved presets and event signals.",
     ],
     metrics: [
       { label: "Core modes", value: "3" },

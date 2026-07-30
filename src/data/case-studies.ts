@@ -99,7 +99,7 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
       "La capa de reportes agrega un planificador y generador con IA, con regenerar y explicar por bloque, protegida por una suite de pruebas de seguridad de IA.",
     ],
     results: [
-      "Un SaaS real para LegalShelf: build full-stack con backend FastAPI, frontend Next.js 15 con dirección visual fija en ~20 superficies, autenticación por rol y un centro de reportes con IA.",
+      "En producción para LegalShelf: tres empresas cliente reales y más de quince proveedores gestionan su cumplimiento REPSE ahí, con cerca de 20,000 documentos procesados.",
       "Centro de reportes con planificador de IA, generador en streaming y copiloto embebido, respaldado por 320+ pruebas backend incluida una suite de seguridad de IA.",
       "Cola de revisión por rol con autenticación JWT y RBAC, calendario REPSE (institución x mes) y compuertas de expediente.",
     ],
@@ -133,9 +133,8 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
       "Agregué evidencia visible mediante capturas del proyecto, estructura de caso de estudio, detalles del stack y una explicación clara de cómo la lógica conecta con el contexto del usuario.",
     ],
     nextSteps: [
-      "Agregar capturas reales de resultados de recomendación, diagramas de arquitectura y ejemplos de payloads API.",
-      "Desplegar una demo pública estable cuando las rutas principales, los datos semilla y las salidas de recomendación estén limpias para producción.",
-      "Expandir la lógica de ranking con recomendaciones a nivel platillo, señales de eventos, presets guardados y tarjetas de explicación más claras.",
+      "Agregar explicaciones a nivel platillo y scoring con señales de eventos.",
+      "Expandir el modelo de recomendación con presets guardados y señales de eventos.",
     ],
     resumeBullet: "SAVR: plataforma full-stack de recomendaciones contextuales con FastAPI, React, TypeScript, SQL y flujos explicables.",
   },

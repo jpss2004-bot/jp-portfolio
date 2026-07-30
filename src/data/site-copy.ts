@@ -459,16 +459,16 @@ export const trackRecord: Record<Locale, { label: string; title: string; detail:
  */
 export const stats: Record<Locale, { figure: string; detail: string }[]> = {
   en: [
-    { figure: "Real client", detail: "CheckWise is production software built for LegalShelf, not a course project." },
+    { figure: "~20,000", detail: "compliance documents processed through CheckWise in production." },
+    { figure: "3 clients", detail: "real companies using it, with 15+ vendors submitting recurring evidence." },
     { figure: "Explainable", detail: "Every AI report and every triage score shows the reasoning behind it." },
     { figure: "EN / ES", detail: "Designed, built, and documented in both languages, across Canada and Mexico." },
-    { figure: "Shipped", detail: "Live apps you can open right now, with the source on GitHub." },
   ],
   es: [
-    { figure: "Cliente real", detail: "CheckWise es software en producción para LegalShelf, no un proyecto de clase." },
+    { figure: "~20,000", detail: "documentos de cumplimiento procesados en CheckWise en producción." },
+    { figure: "3 clientes", detail: "empresas reales usándolo, con 15+ proveedores enviando evidencia recurrente." },
     { figure: "Explicable", detail: "Cada reporte con IA y cada puntaje de triage muestra el razonamiento detrás." },
     { figure: "EN / ES", detail: "Diseñado, construido y documentado en ambos idiomas, entre Canadá y México." },
-    { figure: "Desplegado", detail: "Apps en vivo que puedes abrir ahora, con el código en GitHub." },
   ],
 };
 
@@ -476,12 +476,12 @@ export const stats: Record<Locale, { figure: string; detail: string }[]> = {
 export const caseFigure: Record<string, Record<Locale, { figure: string; detail: string }>> = {
   checkwise: {
     en: {
-      figure: "In production",
-      detail: "Built for LegalShelf as a real client, handling recurring REPSE evidence across four institutions.",
+      figure: "~20,000 docs",
+      detail: "processed in production for 3 real client companies and 15+ vendors.",
     },
     es: {
-      figure: "En producción",
-      detail: "Construido para LegalShelf como cliente real, con evidencia REPSE recurrente de cuatro instituciones.",
+      figure: "~20,000 docs",
+      detail: "procesados en producción para 3 empresas cliente reales y 15+ proveedores.",
     },
   },
   savr: {
