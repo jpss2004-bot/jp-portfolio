@@ -459,31 +459,49 @@ export const trackRecord: Record<Locale, { label: string; title: string; detail:
  */
 export const stats: Record<Locale, { figure: string; detail: string }[]> = {
   en: [
-    { figure: "320+", detail: "backend tests behind CheckWise, including a dedicated AI-safety suite." },
-    { figure: "~20", detail: "admin, client, and provider surfaces held to one locked design system." },
-    { figure: "54", detail: "seeded venues behind SAVR's explainable recommendation engine." },
-    { figure: "6", detail: "projects documented end to end: problem, tradeoffs, evidence, and limits." },
+    { figure: "Real client", detail: "CheckWise is production software built for LegalShelf, not a course project." },
+    { figure: "Explainable", detail: "Every AI report and every triage score shows the reasoning behind it." },
+    { figure: "EN / ES", detail: "Designed, built, and documented in both languages, across Canada and Mexico." },
+    { figure: "Shipped", detail: "Live apps you can open right now, with the source on GitHub." },
   ],
   es: [
-    { figure: "320+", detail: "pruebas backend detrás de CheckWise, con una suite dedicada de seguridad de IA." },
-    { figure: "~20", detail: "superficies de administración, cliente y portal bajo un solo sistema de diseño." },
-    { figure: "54", detail: "lugares cargados detrás del motor de recomendación explicable de SAVR." },
-    { figure: "6", detail: "proyectos documentados de principio a fin: problema, tradeoffs, evidencia y límites." },
+    { figure: "Cliente real", detail: "CheckWise es software en producción para LegalShelf, no un proyecto de clase." },
+    { figure: "Explicable", detail: "Cada reporte con IA y cada puntaje de triage muestra el razonamiento detrás." },
+    { figure: "EN / ES", detail: "Diseñado, construido y documentado en ambos idiomas, entre Canadá y México." },
+    { figure: "Desplegado", detail: "Apps en vivo que puedes abrir ahora, con el código en GitHub." },
   ],
 };
 
 /** The single strongest figure per featured project, for the work rows. */
 export const caseFigure: Record<string, Record<Locale, { figure: string; detail: string }>> = {
   checkwise: {
-    en: { figure: "320+", detail: "backend tests, including an AI-safety suite" },
-    es: { figure: "320+", detail: "pruebas backend, con una suite de seguridad de IA" },
+    en: {
+      figure: "In production",
+      detail: "Built for LegalShelf as a real client, handling recurring REPSE evidence across four institutions.",
+    },
+    es: {
+      figure: "En producción",
+      detail: "Construido para LegalShelf como cliente real, con evidencia REPSE recurrente de cuatro instituciones.",
+    },
   },
   savr: {
-    en: { figure: "54", detail: "seeded venues across three recommendation modes" },
-    es: { figure: "54", detail: "lugares cargados en tres modos de recomendación" },
+    en: {
+      figure: "Explainable",
+      detail: "Three input modes, and every recommendation states why that venue fits the night you described.",
+    },
+    es: {
+      figure: "Explicable",
+      detail: "Tres modos de entrada, y cada recomendación explica por qué ese lugar encaja con tu noche.",
+    },
   },
   "er-triage-queue-manager": {
-    en: { figure: "ESI v4", detail: "acuity scoring, with the reasoning shown for every level" },
-    es: { figure: "ESI v4", detail: "escala de agudeza, mostrando el razonamiento de cada nivel" },
+    en: {
+      figure: "ESI v4",
+      detail: "The real emergency-department acuity standard, with the clinical reasoning shown for every level.",
+    },
+    es: {
+      figure: "ESI v4",
+      detail: "El estándar real de agudeza en urgencias, mostrando el razonamiento clínico de cada nivel.",
+    },
   },
 };

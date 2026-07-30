@@ -55,7 +55,7 @@
   --gutter: clamp(1.25rem, 4vw, 4rem);
   --measure: 1560px;
   --measure-text: 1180px;
-  --section-y: clamp(5rem, 11vw, 10rem);
+  --section-y: clamp(3.25rem, 5.5vw, 5.75rem);
   --stack-1: 0.5rem;
   --stack-2: 0.75rem;
   --stack-3: 1rem;
@@ -357,9 +357,14 @@ button {
   max-width: calc(var(--measure-text) + var(--gutter) * 2);
 }
 
+/*
+ * No rule between sections. Hairlines everywhere made the page read as a
+ * stack of separate documents; spacing and the background grid carry the
+ * rhythm instead. Rules are kept only inside data lists, where they separate
+ * comparable rows.
+ */
 .section {
   padding-block: var(--section-y);
-  border-top: 1px solid var(--rule);
 }
 
 .section-flush {
@@ -368,16 +373,25 @@ button {
 
 /* Centred section head — the big title carries it, with no label above. */
 .head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--stack-4);
-  text-align: center;
-  margin-bottom: clamp(3rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--stack-4) clamp(2rem, 5vw, 5rem);
+  align-items: end;
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+  padding-bottom: var(--stack-4);
+  border-bottom: 1px solid var(--rule);
 }
 
 .head .lede {
-  max-width: 54ch;
+  max-width: 46ch;
+  padding-bottom: 0.35rem;
+}
+
+@media (max-width: 860px) {
+  .head {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
 }
 
 .stack {
@@ -675,7 +689,7 @@ button {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding-block: clamp(4.5rem, 11vw, 9rem) clamp(3rem, 6vw, 5rem);
+  padding-block: clamp(3.5rem, 8vw, 6.5rem) clamp(2rem, 4vw, 3.5rem);
 }
 
 .hero-headline {
@@ -829,7 +843,7 @@ button {
 .cases {
   display: flex;
   flex-direction: column;
-  gap: clamp(4.5rem, 9vw, 8rem);
+  gap: clamp(3rem, 5vw, 5.5rem);
 }
 
 .case-row {
@@ -948,7 +962,7 @@ button {
 /* Compact index for the rest — an editorial list, not more cards. */
 .index-list {
   border-top: 1px solid var(--rule);
-  margin-top: clamp(4rem, 8vw, 7rem);
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
 }
 
 .index-row {
@@ -1232,7 +1246,7 @@ a.index-row:hover .index-arrow {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding-block: clamp(5rem, 11vw, 9rem);
+  padding-block: clamp(4rem, 7vw, 6.5rem);
 }
 
 .contact-email {
@@ -1676,11 +1690,13 @@ a.index-row:hover .index-arrow {
 }
 
 .stat .figure-number {
-  font-size: clamp(2.75rem, 5.6vw, 5.5rem);
+  font-size: clamp(1.5rem, 2.3vw, 2.125rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .stat p {
-  margin-top: var(--stack-3);
+  margin-top: var(--stack-2);
   font-size: var(--step-small);
   color: var(--fg-2);
   max-width: 28ch;
@@ -1696,7 +1712,9 @@ a.index-row:hover .index-arrow {
   /* Colour restated: the generic `.case-metric p` rule below outranks
      `.figure-number` on its own. */
   color: var(--accent);
-  font-size: clamp(2.5rem, 4.4vw, 4.25rem);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .case-metric p {
@@ -1781,4 +1799,29 @@ a.index-row:hover .index-arrow {
   align-items: center;
   justify-content: space-between;
   gap: var(--stack-3);
+}
+
+
+/*
+ * Project hover reveals a second real capture from the same project. It adds
+ * evidence without adding scroll, and it is progressive: touch and keyboard
+ * users get the first image, and the case study carries the full gallery.
+ */
+.case-media img + img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 450ms var(--ease);
+}
+
+.case-media-link:hover img + img {
+  opacity: 1;
+}
+
+.case-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--stack-3) var(--stack-5);
+  margin-top: var(--stack-4);
 }
