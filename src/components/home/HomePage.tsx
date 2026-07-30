@@ -73,7 +73,20 @@ export function HomePage({ locale }: { locale: Locale }) {
               </a>
             </div>
 
-            <dl className="facts" data-reveal="fade" style={{ "--i": 5 } as CSSProperties}>
+            <div className="hero-portrait" data-reveal="fade" style={{ "--i": 5 } as CSSProperties}>
+              <Image
+                src="/jp-samano-cutout.png"
+                alt={`${profile.fullName}, ${locale === "es" ? "retrato" : "portrait"}`}
+                width={740}
+                height={880}
+                sizes="(max-width: 700px) 220px, 380px"
+                quality={88}
+                loading="eager"
+                fetchPriority="high"
+              />
+            </div>
+
+            <dl className="facts" data-reveal="fade" style={{ "--i": 6 } as CSSProperties}>
               <div>
                 <dt>{t.factBased}</dt>
                 <dd>{t.factBasedValue}</dd>
@@ -243,24 +256,12 @@ export function HomePage({ locale }: { locale: Locale }) {
               </h2>
             </div>
 
+            {/*
+             * No second portrait here. The cut-out figure carries the hero, and
+             * running the same face twice on one page read as filler rather
+             * than as evidence.
+             */}
             <div className="profile" data-reveal="fade">
-              <div>
-                <div className="portrait">
-                  <Image
-                    src="/jp-samano.png"
-                    alt={`${profile.fullName}, ${locale === "es" ? "retrato" : "portrait"}`}
-                    width={674}
-                    height={900}
-                    sizes="(max-width: 860px) 240px, 320px"
-                    quality={82}
-                  />
-                </div>
-                <p className="portrait-caption">
-                  <strong>{profile.fullName}</strong>
-                  <span className="label">{t.wordmarkRole}</span>
-                </p>
-              </div>
-
               <div>
                 <div className="profile-copy lede">
                   {t.profileBody.map((paragraph) => (

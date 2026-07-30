@@ -707,11 +707,42 @@ button {
   margin-top: clamp(2rem, 3.5vw, 3rem);
 }
 
+/*
+ * Cut-out portrait closing the hero. It stands on the same hairline that opens
+ * the facts rail, with a soft contact shadow so it reads as placed on the page
+ * rather than pasted onto it. The copy block above stays intact — the figure
+ * gets its own moment instead of splitting the headline from its lede.
+ */
+.hero-portrait {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+}
+
+.hero-portrait::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: clamp(14rem, 32vw, 30rem);
+  height: 2.25rem;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse 50% 50% at 50% 100%, rgb(19 20 24 / 0.16), transparent 70%);
+}
+
+.hero-portrait img {
+  position: relative;
+  width: auto;
+  height: clamp(13rem, 27vw, 23rem);
+}
+
 .facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   width: 100%;
-  margin-top: clamp(4rem, 8vw, 7rem);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
   border-top: 1px solid var(--rule);
   text-align: left;
 }
@@ -1113,9 +1144,7 @@ a.index-row:hover .index-arrow {
 
 .profile {
   display: grid;
-  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .portrait {
