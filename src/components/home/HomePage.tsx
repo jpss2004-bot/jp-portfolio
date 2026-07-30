@@ -4,11 +4,19 @@ import type { CSSProperties } from "react";
 import { caseStudies, getLocalizedValue } from "@/data/case-studies";
 import type { Locale } from "@/data/i18n";
 import { profile } from "@/data/portfolio";
-import { capabilityLayers, getCopy, principles, resumeHref, trackRecord } from "@/data/site-copy";
+import {
+  capabilityLayers,
+  caseFigure,
+  getCopy,
+  principles,
+  resumeHref,
+  stats,
+  trackRecord,
+} from "@/data/site-copy";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FieldBackground } from "@/components/ui/FieldBackground";
-import { Lines } from "@/components/ui/Lines";
+import { Words } from "@/components/ui/Words";
 
 /** Primary evidence image for each featured case, chosen from real captures. */
 const featuredImage: Record<string, string> = {
@@ -120,11 +128,25 @@ export function HomePage({ locale }: { locale: Locale }) {
             </dl>
           </section>
 
+          {/* ---- Evidence at a glance ---------------------------------- */}
+          <section className="wrap section">
+            <dl className="stats">
+              {stats[locale].map((stat) => (
+                <div className="stat" key={stat.figure} data-reveal="fade">
+                  <dt className="figure-number">{stat.figure}</dt>
+                  <dd>
+                    <p>{stat.detail}</p>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
           {/* ---- Selected work ----------------------------------------- */}
           <section id="work" className="wrap section">
             <div className="head">
-              <h2 className="h2" data-reveal="lines">
-                <Lines lines={t.workHeadingLines} />
+              <h2 className="h2" data-reveal="words">
+                <Words text={t.workHeading} />
               </h2>
               <p className="lede" data-reveal="fade" style={{ "--i": 2 } as CSSProperties}>
                 {t.workLede}
@@ -137,10 +159,10 @@ export function HomePage({ locale }: { locale: Locale }) {
                 const tagline = getLocalizedValue(project.tagline, locale);
                 const role = getLocalizedValue(project.role, locale);
                 const href = `/${locale}/projects/${project.slug}`;
-                const proof = project.proofs[0];
+                const figure = caseFigure[project.slug]?.[locale];
 
                 return (
-                  <article className="case-row" key={project.slug} data-reveal="fade">
+                  <article className="case-row" key={project.slug} data-reveal="wipe">
                     <Link href={href} className="case-media-link" tabIndex={-1} aria-hidden="true">
                       <div className="case-media">
                         <Image
@@ -178,15 +200,14 @@ export function HomePage({ locale }: { locale: Locale }) {
                           <dt>{t.workStack}</dt>
                           <dd>{project.tech.slice(0, 4).join(" · ")}</dd>
                         </div>
-                        {proof ? (
-                          <div>
-                            <dt>{t.workProof}</dt>
-                            <dd>
-                              {proof.value} {getLocalizedValue(proof.label, locale).toLowerCase()}
-                            </dd>
-                          </div>
-                        ) : null}
                       </dl>
+
+                      {figure ? (
+                        <div className="case-metric">
+                          <p className="figure-number">{figure.figure}</p>
+                          <p>{figure.detail}</p>
+                        </div>
+                      ) : null}
 
                       <p className="case-cta">
                         <Link href={href} className="link">
@@ -236,8 +257,8 @@ export function HomePage({ locale }: { locale: Locale }) {
           {/* ---- Capabilities ------------------------------------------ */}
           <section id="capabilities" className="wrap section">
             <div className="head">
-              <h2 className="h2" data-reveal="lines">
-                <Lines lines={t.capabilitiesHeadingLines} />
+              <h2 className="h2" data-reveal="words">
+                <Words text={t.capabilitiesHeading} />
               </h2>
               <p className="lede" data-reveal="fade" style={{ "--i": 1 } as CSSProperties}>
                 {t.capabilitiesLede}
@@ -269,8 +290,8 @@ export function HomePage({ locale }: { locale: Locale }) {
           {/* ---- Profile ------------------------------------------------ */}
           <section id="profile" className="wrap section">
             <div className="head">
-              <h2 className="h2" data-reveal="lines">
-                <Lines lines={t.profileHeadingLines} />
+              <h2 className="h2" data-reveal="words">
+                <Words text={t.profileHeading} />
               </h2>
             </div>
 
@@ -324,8 +345,8 @@ export function HomePage({ locale }: { locale: Locale }) {
           {/* ---- Contact (the one dark band) ---------------------------- */}
           <div className="band-ink">
             <section id="contact" className="wrap contact">
-              <h2 className="h2" data-reveal="lines">
-                <Lines lines={t.contactHeadingLines} />
+              <h2 className="h2" data-reveal="words">
+                <Words text={t.contactHeading} />
               </h2>
               <p className="lede" data-reveal="fade" style={{ "--i": 2 } as CSSProperties}>
                 {t.contactLede}

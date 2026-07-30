@@ -147,8 +147,7 @@ const en: Copy = {
   profileHeading: "Software engineering first, cybersecurity as a technical edge.",
   profileHeadingLines: ["Software engineering first,", "cybersecurity as a technical edge."],
   profileBody: [
-    "I'm a Computer Science student at Acadia University, working toward roles in software engineering, cybersecurity, and technical product development.",
-    "My projects sit where systems, security, and usability meet: APIs, data models, authentication, recommendation logic, dashboards, and deployable web apps. I work in English and Spanish, across Canada and Mexico.",
+    "Computer Science at Acadia University, working toward software engineering, cybersecurity, and technical product roles. My projects sit where systems, security, and usability meet — APIs, data models, auth, recommendation logic, dashboards. I work in English and Spanish, across Canada and Mexico.",
   ],
   trackRecord: "Track record",
   resumeEn: "Résumé — English (PDF)",
@@ -246,8 +245,7 @@ const es: Copy = {
   profileHeading: "Ingeniería de software primero, ciberseguridad como ventaja técnica.",
   profileHeadingLines: ["Ingeniería de software primero,", "ciberseguridad como ventaja técnica."],
   profileBody: [
-    "Soy estudiante de Ciencias de la Computación en Acadia University, avanzando hacia roles en ingeniería de software, ciberseguridad y desarrollo técnico de producto.",
-    "Mis proyectos conectan sistemas, seguridad y usabilidad: APIs, modelos de datos, autenticación, lógica de recomendación, dashboards y aplicaciones web desplegables. Trabajo en inglés y español, entre Canadá y México.",
+    "Ciencias de la Computación en Acadia University, avanzando hacia roles en ingeniería de software, ciberseguridad y producto técnico. Mis proyectos conectan sistemas, seguridad y usabilidad: APIs, modelos de datos, autenticación, lógica de recomendación, dashboards. Trabajo en inglés y español, entre Canadá y México.",
   ],
   trackRecord: "Trayectoria",
   resumeEn: "CV — Inglés (PDF)",
@@ -442,4 +440,39 @@ export const trackRecord: Record<Locale, { label: string; title: string; detail:
       detail: "Ingeniería de software, estructuras de datos, matemáticas discretas, sistemas, ciberseguridad e IHC.",
     },
   ],
+};
+
+/**
+ * The four figures worth leading with. Every one is taken from documented
+ * project facts — nothing here is rounded up or invented.
+ */
+export const stats: Record<Locale, { figure: string; detail: string }[]> = {
+  en: [
+    { figure: "320+", detail: "backend tests behind CheckWise, including a dedicated AI-safety suite." },
+    { figure: "~20", detail: "admin, client, and provider surfaces held to one locked design system." },
+    { figure: "54", detail: "seeded venues behind SAVR's explainable recommendation engine." },
+    { figure: "6", detail: "projects documented end to end — problem, tradeoffs, evidence, and limits." },
+  ],
+  es: [
+    { figure: "320+", detail: "pruebas backend detrás de CheckWise, con una suite dedicada de seguridad de IA." },
+    { figure: "~20", detail: "superficies de administración, cliente y portal bajo un solo sistema de diseño." },
+    { figure: "54", detail: "lugares cargados detrás del motor de recomendación explicable de SAVR." },
+    { figure: "6", detail: "proyectos documentados de principio a fin: problema, tradeoffs, evidencia y límites." },
+  ],
+};
+
+/** The single strongest figure per featured project, for the work rows. */
+export const caseFigure: Record<string, Record<Locale, { figure: string; detail: string }>> = {
+  checkwise: {
+    en: { figure: "320+", detail: "backend tests, including an AI-safety suite" },
+    es: { figure: "320+", detail: "pruebas backend, con una suite de seguridad de IA" },
+  },
+  savr: {
+    en: { figure: "54", detail: "seeded venues across three recommendation modes" },
+    es: { figure: "54", detail: "lugares cargados en tres modos de recomendación" },
+  },
+  "er-triage-queue-manager": {
+    en: { figure: "ESI v4", detail: "acuity scoring, with the reasoning shown for every level" },
+    es: { figure: "ESI v4", detail: "escala de agudeza, mostrando el razonamiento de cada nivel" },
+  },
 };

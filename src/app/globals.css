@@ -1579,3 +1579,163 @@ a.index-row:hover .index-arrow {
     display: none;
   }
 }
+
+/* ==========================================================================
+   Emphasis + heavier reveals
+
+   Evidence that can be read at a glance: the strongest number from each
+   project is set in display type instead of buried in a spec row, and the
+   reveals below are staggered per word and per image so scrolling has weight.
+   All of it is still CSS-only and still degrades to the final visible state.
+   ========================================================================== */
+
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.word-in {
+  display: inline-block;
+}
+
+@keyframes word-up {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes wipe {
+  from {
+    clip-path: inset(0 0 100% 0);
+    transform: scale(1.05);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal="words"] {
+      view-timeline-name: --reveal-words;
+      view-timeline-axis: block;
+    }
+
+    [data-reveal="words"] .word-in {
+      animation: word-up linear both;
+      animation-timeline: --reveal-words;
+      animation-range: entry calc(4% + var(--i, 0) * 3.2%) cover calc(17% + var(--i, 0) * 3.2%);
+    }
+
+    [data-reveal="wipe"] {
+      view-timeline-name: --reveal-wipe;
+      view-timeline-axis: block;
+    }
+
+    [data-reveal="wipe"] .case-media,
+    [data-reveal="wipe"] .figure-media {
+      animation: wipe linear both;
+      animation-timeline: --reveal-wipe;
+      animation-range: entry 2% cover 28%;
+    }
+  }
+}
+
+/* Pull-figures — the number does the talking. */
+.figure-number {
+  font-family: var(--font-stack-display);
+  font-weight: 800;
+  font-variation-settings: "wght" 820, "wdth" 100;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  color: var(--accent);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--rule);
+}
+
+.stat {
+  padding: var(--stack-5) clamp(1rem, 2vw, 2.5rem) var(--stack-5) 0;
+  border-right: 1px solid var(--rule);
+}
+
+.stat:last-child {
+  border-right: 0;
+}
+
+.stat + .stat {
+  padding-left: clamp(1rem, 2vw, 2.5rem);
+}
+
+.stat .figure-number {
+  font-size: clamp(2.75rem, 5.6vw, 5.5rem);
+}
+
+.stat p {
+  margin-top: var(--stack-3);
+  font-size: var(--step-small);
+  color: var(--fg-2);
+  max-width: 28ch;
+}
+
+.case-metric {
+  margin-top: var(--stack-4);
+  padding-top: var(--stack-4);
+  border-top: 1px solid var(--rule);
+}
+
+.case-metric .figure-number {
+  /* Colour restated: the generic `.case-metric p` rule below outranks
+     `.figure-number` on its own. */
+  color: var(--accent);
+  font-size: clamp(2.5rem, 4.4vw, 4.25rem);
+}
+
+.case-metric p {
+  margin-top: var(--stack-2);
+  font-size: var(--step-small);
+  color: var(--fg-2);
+}
+
+@media (max-width: 1080px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stat:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .stat:nth-child(odd) {
+    padding-left: 0;
+  }
+
+  .stat:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--rule);
+  }
+}
+
+@media (max-width: 560px) {
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stat,
+  .stat + .stat {
+    padding: var(--stack-4) 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .stat:last-child {
+    border-bottom: 0;
+  }
+}
