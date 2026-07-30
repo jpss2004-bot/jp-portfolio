@@ -17,6 +17,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FieldBackground } from "@/components/ui/FieldBackground";
 import { Words } from "@/components/ui/Words";
+import { Glyph } from "@/components/ui/Glyph";
 
 /** Primary evidence image for each featured case, chosen from real captures. */
 const featuredImage: Record<string, string> = {
@@ -268,15 +269,31 @@ export function HomePage({ locale }: { locale: Locale }) {
             <div className="cols" data-reveal="fade">
               {capabilityLayers[locale].map((layer, index) => (
                 <div className="col" key={layer.name}>
-                  <span className="col-num">{String(index + 1).padStart(2, "0")}</span>
+                  <div className="col-head">
+                    <span className="col-num">{String(index + 1).padStart(2, "0")}</span>
+                    <Glyph name={layer.glyph} />
+                  </div>
                   <h3 className="col-name">{layer.name}</h3>
                   <p>{layer.detail}</p>
-                  <p className="col-tools">{layer.tools}</p>
+                  <ul className="marks">
+                    {layer.marks.map((mark) => (
+                      <li key={mark.slug}>
+                        <span
+                          className="mark"
+                          style={{ "--icon": `url(/icons/${mark.slug}.svg)` } as CSSProperties}
+                        />
+                        <span className="sr-only">{mark.label}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               ))}
             </div>
 
-            <div className="cols cols-2" style={{ marginTop: "var(--stack-7)" }} data-reveal="fade">
+            <h3 className="h3" style={{ marginTop: "var(--stack-7)" }} data-reveal="fade">
+              {t.howIWork}
+            </h3>
+            <div className="cols cols-2" style={{ marginTop: "var(--stack-5)" }} data-reveal="fade">
               {principles[locale].map((principle, index) => (
                 <div className="col" key={principle.title}>
                   <span className="col-num">{String(index + 1).padStart(2, "0")}</span>

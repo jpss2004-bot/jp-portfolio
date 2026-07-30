@@ -128,11 +128,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {t.backToWork}
           </Link>
 
-          <p className="label label-accent" style={{ marginTop: "var(--stack-5)" }}>
-            {t.caseStudyLabel} — {String(position + 1).padStart(2, "0")}
-          </p>
-
-          <h1 className="case-hero-title" data-reveal="fade">
+          <h1 className="case-hero-title" data-reveal="fade" style={{ marginTop: "var(--stack-5)" }}>
             {title}
           </h1>
           <p className="lede case-hero-tagline">{summary}</p>
