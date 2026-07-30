@@ -319,7 +319,7 @@ const projectDecisionLibrary: Record<string, Decision[]> = {
     {
       title: localized("Model REPSE cycles instead of a flat checklist", "Modelar los ciclos REPSE en vez de una lista fija"),
       tradeoff: localized(
-        "A flat document checklist would have shipped sooner, but it breaks as soon as an institution's cadence differs — REPSE evidence arrives monthly, bimonthly, four-monthly, and annually depending on the institution.",
+        "A flat document checklist would have shipped sooner, but it breaks as soon as an institution's cadence differs: REPSE evidence arrives monthly, bimonthly, four-monthly, and annually depending on the institution.",
         "Una lista fija de documentos habría salido antes, pero se rompe en cuanto la cadencia de una institución cambia: la evidencia REPSE llega mensual, bimestral, cuatrimestral y anualmente según la institución."
       ),
       outcome: localized(
@@ -624,7 +624,7 @@ export const caseStudies: ProjectCaseStudy[] = legacyProjects.map(toCaseStudy).m
             "Modos de recomendación de SAVR: Build Your Night, Describe Your Night, Surprise Me"
           ),
           caption: localized(
-            "Three recommendation flows — structured Build Your Night, natural-language Describe Your Night, and Surprise Me.",
+            "Three recommendation flows: structured Build Your Night, natural-language Describe Your Night, and Surprise Me.",
             "Tres flujos de recomendación: Build Your Night estructurado, Describe Your Night en lenguaje natural y Surprise Me."
           ),
         },

@@ -140,18 +140,18 @@ const en: Copy = {
   capabilitiesLabel: "Capabilities",
   capabilitiesHeading: "What I work across.",
   capabilitiesHeadingLines: ["What I work across."],
-  capabilitiesLede: "Four layers of the same system — this is where I'm useful on a team.",
+  capabilitiesLede: "Four layers of the same system: this is where I'm useful on a team.",
   howIWork: "How I work",
 
   profileLabel: "Profile",
   profileHeading: "Software engineering first, cybersecurity as a technical edge.",
   profileHeadingLines: ["Software engineering first,", "cybersecurity as a technical edge."],
   profileBody: [
-    "Computer Science at Acadia University, working toward software engineering, cybersecurity, and technical product roles. My projects sit where systems, security, and usability meet — APIs, data models, auth, recommendation logic, dashboards. I work in English and Spanish, across Canada and Mexico.",
+    "Computer Science at Acadia University, working toward software engineering, cybersecurity, and technical product roles. My projects sit where systems, security, and usability meet: APIs, data models, auth, recommendation logic, dashboards. I work in English and Spanish, across Canada and Mexico.",
   ],
   trackRecord: "Track record",
-  resumeEn: "Résumé — English (PDF)",
-  resumeEs: "Résumé — Spanish (PDF)",
+  resumeEn: "Résumé: English (PDF)",
+  resumeEs: "Résumé: Spanish (PDF)",
 
   contactLabel: "Contact",
   contactHeading: "Open to internships, junior technical roles, and project collaborations.",
@@ -187,7 +187,7 @@ const en: Copy = {
   getInTouch: "Ask for a walkthrough",
   prevCase: "Previous",
   nextCase: "Next",
-  conceptNote: "Concept documentation — no implementation yet.",
+  conceptNote: "Concept documentation: no implementation yet.",
   noInterfaceYet:
     "This project is a documented systems-design study. There is no built interface to show, so nothing here is presented as a screenshot.",
 
@@ -248,8 +248,8 @@ const es: Copy = {
     "Ciencias de la Computación en Acadia University, avanzando hacia roles en ingeniería de software, ciberseguridad y producto técnico. Mis proyectos conectan sistemas, seguridad y usabilidad: APIs, modelos de datos, autenticación, lógica de recomendación, dashboards. Trabajo en inglés y español, entre Canadá y México.",
   ],
   trackRecord: "Trayectoria",
-  resumeEn: "CV — Inglés (PDF)",
-  resumeEs: "CV — Español (PDF)",
+  resumeEn: "CV: Inglés (PDF)",
+  resumeEs: "CV: Español (PDF)",
 
   contactLabel: "Contacto",
   contactHeading: "Abierto a internships, roles técnicos junior y colaboraciones de proyecto.",
@@ -285,7 +285,7 @@ const es: Copy = {
   getInTouch: "Pedir un walkthrough",
   prevCase: "Anterior",
   nextCase: "Siguiente",
-  conceptNote: "Documentación de concepto — todavía sin implementación.",
+  conceptNote: "Documentación de concepto: todavía sin implementación.",
   noInterfaceYet:
     "Este proyecto es un estudio documentado de diseño de sistemas. No hay una interfaz construida que mostrar, así que nada aquí se presenta como captura de pantalla.",
 
@@ -307,49 +307,60 @@ export function resumeHref(locale: Locale) {
 }
 
 /** Capability layers — replaces the four tag-stuffed "stack cards". */
-export const capabilityLayers: Record<Locale, { name: string; detail: string; tools: string }[]> = {
+export const capabilityLayers: Record<
+  Locale,
+  { name: string; glyph: string; detail: string; marks: { slug: string; label: string }[] }[]
+> = {
   en: [
     {
       name: "Interface",
+      glyph: "interface",
       detail: "Product surfaces, responsive UI, and interaction design that reflects the real workflow.",
-      tools: "React · Next.js · TypeScript · Tailwind CSS",
+      marks: [{ slug: "react", label: "React" }, { slug: "nextdotjs", label: "Next.js" }, { slug: "typescript", label: "TypeScript" }, { slug: "tailwindcss", label: "Tailwind CSS" }],
     },
     {
       name: "Application",
+      glyph: "application",
       detail: "Routes, server logic, authentication, validation, and feature implementation.",
-      tools: "Python · FastAPI · Flask · REST APIs · JWT",
+      marks: [{ slug: "python", label: "Python" }, { slug: "fastapi", label: "FastAPI" }, { slug: "flask", label: "Flask" }],
     },
     {
       name: "Data",
+      glyph: "data",
       detail: "Persistence, schemas, seed data, state transitions, and domain modelling.",
-      tools: "PostgreSQL · SQLite · SQLAlchemy · Alembic",
+      marks: [{ slug: "postgresql", label: "PostgreSQL" }, { slug: "sqlite", label: "SQLite" }, { slug: "sqlalchemy", label: "SQLAlchemy" }],
     },
     {
       name: "Delivery",
+      glyph: "delivery",
       detail: "Version control, deployment, tests, documentation, and the case study that explains it.",
-      tools: "GitHub · Vercel · Render · Pytest",
+      marks: [{ slug: "github", label: "GitHub" }, { slug: "vercel", label: "Vercel" }, { slug: "render", label: "Render" }],
     },
   ],
   es: [
     {
       name: "Interfaz",
+      glyph: "interface",
       detail: "Superficies de producto, UI responsiva y diseño de interacción que refleja el flujo real.",
-      tools: "React · Next.js · TypeScript · Tailwind CSS",
+      marks: [{ slug: "react", label: "React" }, { slug: "nextdotjs", label: "Next.js" }, { slug: "typescript", label: "TypeScript" }, { slug: "tailwindcss", label: "Tailwind CSS" }],
     },
     {
       name: "Aplicación",
+      glyph: "application",
       detail: "Rutas, lógica de servidor, autenticación, validación e implementación de funciones.",
-      tools: "Python · FastAPI · Flask · REST APIs · JWT",
+      marks: [{ slug: "python", label: "Python" }, { slug: "fastapi", label: "FastAPI" }, { slug: "flask", label: "Flask" }],
     },
     {
       name: "Datos",
+      glyph: "data",
       detail: "Persistencia, esquemas, datos semilla, transiciones de estado y modelado de dominio.",
-      tools: "PostgreSQL · SQLite · SQLAlchemy · Alembic",
+      marks: [{ slug: "postgresql", label: "PostgreSQL" }, { slug: "sqlite", label: "SQLite" }, { slug: "sqlalchemy", label: "SQLAlchemy" }],
     },
     {
       name: "Entrega",
+      glyph: "delivery",
       detail: "Control de versiones, despliegue, pruebas, documentación y el caso de estudio que lo explica.",
-      tools: "GitHub · Vercel · Render · Pytest",
+      marks: [{ slug: "github", label: "GitHub" }, { slug: "vercel", label: "Vercel" }, { slug: "render", label: "Render" }],
     },
   ],
 };
@@ -371,7 +382,7 @@ export const principles: Record<Locale, { title: string; detail: string }[]> = {
     },
     {
       title: "Show the evidence.",
-      detail: "Code, screenshots, architecture, and honest limits — something concrete to inspect.",
+      detail: "Code, screenshots, architecture, and honest limits: something concrete to inspect.",
     },
   ],
   es: [
@@ -451,7 +462,7 @@ export const stats: Record<Locale, { figure: string; detail: string }[]> = {
     { figure: "320+", detail: "backend tests behind CheckWise, including a dedicated AI-safety suite." },
     { figure: "~20", detail: "admin, client, and provider surfaces held to one locked design system." },
     { figure: "54", detail: "seeded venues behind SAVR's explainable recommendation engine." },
-    { figure: "6", detail: "projects documented end to end — problem, tradeoffs, evidence, and limits." },
+    { figure: "6", detail: "projects documented end to end: problem, tradeoffs, evidence, and limits." },
   ],
   es: [
     { figure: "320+", detail: "pruebas backend detrás de CheckWise, con una suite dedicada de seguridad de IA." },
