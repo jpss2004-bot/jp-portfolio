@@ -20,10 +20,19 @@ import { Words } from "@/components/ui/Words";
 import { Glyph } from "@/components/ui/Glyph";
 
 /** Primary evidence image for each featured case, chosen from real captures. */
-const featuredImage: Record<string, string> = {
-  checkwise: "/projects/checkwise/checkwise-review-queue.png",
-  savr: "/projects/savr/savr-recommendations-results.png",
-  "er-triage-queue-manager": "/projects/er-triage-queue-manager/shot-dashboard.png",
+const featuredImage: Record<string, [string, string]> = {
+  checkwise: [
+    "/projects/checkwise/checkwise-review-queue.png",
+    "/projects/checkwise/checkwise-client-risk.png",
+  ],
+  savr: [
+    "/projects/savr/savr-recommendations-results.png",
+    "/projects/savr/savr-restaurants.png",
+  ],
+  "er-triage-queue-manager": [
+    "/projects/er-triage-queue-manager/shot-dashboard.png",
+    "/projects/er-triage-queue-manager/shot-triage-form.png",
+  ],
 };
 
 export function HomePage({ locale }: { locale: Locale }) {
@@ -161,21 +170,25 @@ export function HomePage({ locale }: { locale: Locale }) {
                 const role = getLocalizedValue(project.role, locale);
                 const href = `/${locale}/projects/${project.slug}`;
                 const figure = caseFigure[project.slug]?.[locale];
+                const live = project.links.find((link) => link.kind === "live");
 
                 return (
                   <article className="case-row" key={project.slug} data-reveal="wipe">
                     <Link href={href} className="case-media-link" tabIndex={-1} aria-hidden="true">
                       <div className="case-media">
-                        <Image
-                          src={featuredImage[project.slug]}
-                          alt=""
-                          width={2880}
-                          height={1800}
-                          sizes="(max-width: 900px) 100vw, 60vw"
-                          quality={82}
-                          loading={index === 0 ? "eager" : "lazy"}
-                          fetchPriority={index === 0 ? "high" : undefined}
-                        />
+                        {featuredImage[project.slug].map((src, shot) => (
+                          <Image
+                            key={src}
+                            src={src}
+                            alt=""
+                            width={2880}
+                            height={1800}
+                            sizes="(max-width: 900px) 100vw, 60vw"
+                            quality={82}
+                            loading={index === 0 && shot === 0 ? "eager" : "lazy"}
+                            fetchPriority={index === 0 && shot === 0 ? "high" : undefined}
+                          />
+                        ))}
                       </div>
                     </Link>
 
@@ -210,14 +223,22 @@ export function HomePage({ locale }: { locale: Locale }) {
                         </div>
                       ) : null}
 
-                      <p className="case-cta">
+                      <div className="case-links">
                         <Link href={href} className="link">
                           {t.readCase}
                           <span className="arrow" aria-hidden="true">
                             →
                           </span>
                         </Link>
-                      </p>
+                        {live ? (
+                          <a className="link" href={live.href} target="_blank" rel="noreferrer">
+                            {t.liveApp}
+                            <span className="arrow" aria-hidden="true">
+                              ↗
+                            </span>
+                          </a>
+                        ) : null}
+                      </div>
                     </div>
                   </article>
                 );
