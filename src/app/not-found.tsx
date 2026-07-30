@@ -1,24 +1,29 @@
 import Link from "next/link";
+import { getCopy } from "@/data/site-copy";
 
 export default function NotFound() {
+  const t = getCopy("en");
+
   return (
-    <main className="notfound-page">
-      <section className="shell notfound-inner">
-        <div className="notfound-orb" aria-hidden="true">
-          <div className="notfound-orb-ring" />
-          <span>JP</span>
-        </div>
-        <p className="notfound-code">404 / signal lost</p>
-        <h1 className="notfound-title">This route isn&apos;t on the atlas.</h1>
-        <p className="notfound-copy">
-          The page you are looking for drifted off the Signal Atlas. Let&apos;s route you
-          back to a known node.
-        </p>
-        <div className="notfound-actions">
-          <Link href="/" className="button button-primary">Return to the atlas</Link>
-          <Link href="/en#work" className="button button-soft">View selected work</Link>
-        </div>
-      </section>
+    <main className="wrap notfound">
+      <p className="label label-accent">{t.notFoundLabel}</p>
+      <h1 className="display" style={{ marginTop: "var(--stack-4)" }}>
+        {t.notFoundHeading}
+      </h1>
+      <p className="lede" style={{ marginTop: "var(--stack-4)" }}>
+        {t.notFoundBody}
+      </p>
+      <div className="hero-actions">
+        <Link className="btn btn-primary" href="/en">
+          {t.notFoundHome}
+        </Link>
+        <Link className="link" href="/en#work">
+          {t.notFoundWork}
+          <span className="arrow" aria-hidden="true">
+            →
+          </span>
+        </Link>
+      </div>
     </main>
   );
 }

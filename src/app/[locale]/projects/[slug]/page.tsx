@@ -5,115 +5,16 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { caseStudies, getCaseStudy, getLocalizedValue } from "@/data/case-studies";
 import { isLocale, locales, type Locale } from "@/data/i18n";
-
-const labels = {
-  en: {
-    back: "Back to portfolio",
-    requestWalkthrough: "Request walkthrough",
-    featured: "Featured",
-    projectDossier: "Project dossier",
-    recruiterRead: "Recruiter quick read",
-    role: "Role",
-    status: "Status",
-    year: "Year",
-    primaryProof: "Primary proof",
-    stack: "Stack",
-    projectLinks: "Project links",
-    noPublicDemo: "Walkthrough available on request",
-    problemEyebrow: "Problem",
-    problemTitle: "What this project solves",
-    solutionEyebrow: "Solution",
-    solutionTitle: "How I approached it",
-    architectureEyebrow: "Architecture",
-    architectureTitle: "System structure",
-    decisionsEyebrow: "Decisions",
-    decisionsTitle: "Tradeoffs and outcomes",
-    tradeoff: "Tradeoff",
-    outcome: "Outcome",
-    resultsEyebrow: "Proof",
-    resultsTitle: "Evidence and impact",
-    nextEyebrow: "Roadmap",
-    nextTitle: "Next iteration",
-    snapshot: "Snapshot",
-    whyItMatters: "Why it matters",
-    resumeBullet: "Resume-ready bullet",
-  },
-  es: {
-    back: "Volver al portafolio",
-    requestWalkthrough: "Solicitar walkthrough",
-    featured: "Destacado",
-    projectDossier: "Dossier del proyecto",
-    recruiterRead: "Lectura r\u00e1pida para reclutadores",
-    role: "Rol",
-    status: "Estado",
-    year: "A\u00f1o",
-    primaryProof: "Evidencia principal",
-    stack: "Stack",
-    projectLinks: "Enlaces del proyecto",
-    noPublicDemo: "Walkthrough disponible bajo solicitud",
-    problemEyebrow: "Problema",
-    problemTitle: "Qu\u00e9 resuelve este proyecto",
-    solutionEyebrow: "Soluci\u00f3n",
-    solutionTitle: "C\u00f3mo lo abord\u00e9",
-    architectureEyebrow: "Arquitectura",
-    architectureTitle: "Estructura del sistema",
-    decisionsEyebrow: "Decisiones",
-    decisionsTitle: "Tradeoffs y resultados",
-    tradeoff: "Tradeoff",
-    outcome: "Resultado",
-    resultsEyebrow: "Evidencia",
-    resultsTitle: "Evidencia e impacto",
-    nextEyebrow: "Roadmap",
-    nextTitle: "Siguiente iteraci\u00f3n",
-    snapshot: "Resumen",
-    whyItMatters: "Por qu\u00e9 importa",
-    resumeBullet: "Bullet listo para CV",
-  },
-} as const;
+import { profile } from "@/data/portfolio";
+import { getCopy, resumeHref } from "@/data/site-copy";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { ConceptPlate } from "@/components/ui/ConceptPlate";
+import { FieldBackground } from "@/components/ui/FieldBackground";
 
 type ProjectPageProps = {
-  params: Promise<{
-    locale: string;
-    slug: string;
-  }>;
+  params: Promise<{ locale: string; slug: string }>;
 };
-
-function Badge({ children, strong = false }: { children: ReactNode; strong?: boolean }) {
-  return <span className={strong ? "tag tag-strong" : "tag"}>{children}</span>;
-}
-
-function CaseBlock({
-  eyebrow,
-  title,
-  children,
-  variant = "default",
-}: {
-  eyebrow: string;
-  title: string;
-  children: ReactNode;
-  variant?: "default" | "proof" | "roadmap";
-}) {
-  return (
-    <section className={`case-polish-block case-polish-block-${variant}`}>
-      <div className="case-polish-block-heading">
-        <p className="eyebrow">{eyebrow}</p>
-        <h2>{title}</h2>
-      </div>
-      <div>{children}</div>
-    </section>
-  );
-}
-
-function getLinkRank(kind: string) {
-  if (kind === "live") return 0;
-  if (kind === "repo") return 1;
-  if (kind === "video") return 2;
-  return 3;
-}
-
-function isUsableProofImage(src: string) {
-  return Boolean(src && !src.endsWith("/hero.png"));
-}
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => caseStudies.map((project) => ({ locale, slug: project.slug })));
@@ -121,23 +22,14 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-
-  if (!isLocale(locale)) {
-    return {};
-  }
+  if (!isLocale(locale)) return {};
 
   const project = getCaseStudy(slug);
-
-  if (!project) {
-    return {};
-  }
-
-  const title = getLocalizedValue(project.title, locale);
-  const description = getLocalizedValue(project.summary, locale);
+  if (!project) return {};
 
   return {
-    title,
-    description,
+    title: getLocalizedValue(project.title, locale),
+    description: getLocalizedValue(project.summary, locale),
     alternates: {
       canonical: `/${locale}/projects/${project.slug}`,
       languages: {
@@ -148,248 +40,343 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   };
 }
 
-export default async function LocaleProjectPage({ params }: ProjectPageProps) {
-  const { locale: localeParam, slug } = await params;
+/**
+ * A body block. The heading carries it on its own — the small eyebrow label
+ * that used to sit above every title has been dropped so the big type reads
+ * as the hierarchy rather than competing with a caption.
+ */
+function Block({ heading, children }: { heading: string; children: ReactNode }) {
+  return (
+    <section className="section">
+      <div className="wrap wrap-text">
+        <h2 className="h2" data-reveal="fade">
+          {heading}
+        </h2>
+        <div style={{ marginTop: "var(--stack-5)" }} data-reveal="fade">
+          {children}
+        </div>
+      </div>
+    </section>
+  );
+}
 
-  if (!isLocale(localeParam)) {
-    notFound();
-  }
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { locale: localeParam, slug } = await params;
+  if (!isLocale(localeParam)) notFound();
 
   const locale: Locale = localeParam;
-  const t = labels[locale];
+  const t = getCopy(locale);
   const project = getCaseStudy(slug);
-
-  if (!project) {
-    notFound();
-  }
+  if (!project) notFound();
 
   const title = getLocalizedValue(project.title, locale);
+  /*
+   * The hero leads with `summary`, not `tagline`: the tagline is the index
+   * entry on the homepage, and running both here restated the same sentence
+   * twice within one screen.
+   */
   const summary = getLocalizedValue(project.summary, locale);
-  const tagline = getLocalizedValue(project.tagline, locale);
   const role = getLocalizedValue(project.role, locale);
   const challenge = getLocalizedValue(project.challenge, locale);
   const approach = getLocalizedValue(project.approach, locale);
   const architecture = getLocalizedValue(project.architecture, locale);
   const results = getLocalizedValue(project.results, locale);
   const nextSteps = getLocalizedValue(project.nextSteps, locale);
-  const status = getLocalizedValue(project.statusLabel, locale);
-  const resumeBullet = getLocalizedValue(project.resumeBullet, locale);
-  const sortedLinks = [...project.links].sort((a, b) => getLinkRank(a.kind) - getLinkRank(b.kind));
-  const primaryLink = sortedLinks[0];
-  const visual = project.gallery[0];
-  const visualSrc = visual?.src ?? project.heroImage;
-  const visualAlt = visual ? getLocalizedValue(visual.alt, locale) : `${title} proof visual`;
-  const hasRealProofImage = isUsableProofImage(visualSrc);
-  const firstMetric = project.proofs[0];
+  /*
+   * Concept projects carry the legacy "Case Study" status, which reads as a
+   * deliverable rather than a maturity level. Say "Concept" so the status
+   * column can't imply something was built.
+   */
+  const status =
+    project.kind === "concept"
+      ? locale === "es"
+        ? "Concepto"
+        : "Concept"
+      : getLocalizedValue(project.statusLabel, locale);
+  const type = getLocalizedValue(project.type, locale);
+
+  const liveLink = project.links.find((link) => link.kind === "live");
+  const repoLink = project.links.find((link) => link.kind === "repo");
+
+  const position = caseStudies.findIndex((entry) => entry.slug === project.slug);
+  const previous = position > 0 ? caseStudies[position - 1] : null;
+  const next = position < caseStudies.length - 1 ? caseStudies[position + 1] : null;
+
+  const navItems = [
+    { href: `/${locale}#work`, label: t.nav.work },
+    { href: `/${locale}#capabilities`, label: t.nav.capabilities },
+    { href: `/${locale}#profile`, label: t.nav.profile },
+    { href: `/${locale}#contact`, label: t.nav.contact },
+  ];
+
+  const lead = project.gallery[0];
 
   return (
-    <main id="main-content" className="portfolio-page case-study-page-polish instr-page">
-      <div className="instr-grid-bg" aria-hidden="true" />
+    <div lang={locale}>
+      <a href="#main" className="skip-link">
+        {t.skipToContent}
+      </a>
+      <FieldBackground />
 
-      <section className="shell case-polish-hero">
-        <div className="case-polish-topbar">
-          <Link href={`/${locale}`} className="button button-soft">
-            {t.back}
+      <div className="page">
+      <Header locale={locale} navItems={navItems} projectSlug={project.slug} />
+
+      <main id="main">
+        <section className="wrap case-hero">
+          <Link href={`/${locale}#work`} className="back-link">
+            <span aria-hidden="true">←</span>
+            {t.backToWork}
           </Link>
-          <div className="case-polish-topbar-meta">
-            <span>{t.projectDossier}</span>
-            <strong>SIGNAL-ATLAS.CASE</strong>
+
+          <p className="label label-accent" style={{ marginTop: "var(--stack-5)" }}>
+            {t.caseStudyLabel} — {String(position + 1).padStart(2, "0")}
+          </p>
+
+          <h1 className="case-hero-title" data-reveal="fade">
+            {title}
+          </h1>
+          <p className="lede case-hero-tagline">{summary}</p>
+
+          <dl className="case-facts">
+            <div>
+              <dt>{t.caseRole}</dt>
+              <dd>{role}</dd>
+            </div>
+            <div>
+              <dt>{t.caseType}</dt>
+              <dd>{type}</dd>
+            </div>
+            <div>
+              <dt>{t.caseStatus}</dt>
+              <dd>{status}</dd>
+            </div>
+            <div>
+              <dt>{t.caseYear}</dt>
+              <dd>{project.year}</dd>
+            </div>
+          </dl>
+
+          {/*
+           * Strongest available evidence leads: a running app, else the
+           * source, else an invitation to ask. Concept projects have neither,
+           * so they only offer the contact route.
+           */}
+          <div className="case-actions">
+            {liveLink ? (
+              <a className="btn btn-primary" href={liveLink.href} target="_blank" rel="noreferrer">
+                {t.liveApp}
+              </a>
+            ) : repoLink ? (
+              <a className="btn btn-primary" href={repoLink.href} target="_blank" rel="noreferrer">
+                {t.sourceCode}
+              </a>
+            ) : (
+              <Link className="btn btn-primary" href={`/${locale}#contact`}>
+                {t.getInTouch}
+              </Link>
+            )}
+
+            {liveLink && repoLink ? (
+              <a className="link" href={repoLink.href} target="_blank" rel="noreferrer">
+                {t.sourceCode}
+                <span className="arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            ) : null}
+
+            {liveLink || repoLink ? (
+              <Link className="link" href={`/${locale}#contact`}>
+                {t.getInTouch}
+                <span className="arrow" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            ) : null}
           </div>
-        </div>
+        </section>
 
-        <div className="case-polish-hero-grid">
-          <div className="case-polish-hero-copy">
-            <div className="project-badges">
-              <Badge>{status}</Badge>
-              <Badge>{project.year}</Badge>
-              {project.featured ? <Badge strong>{t.featured}</Badge> : null}
-            </div>
-
-            <h1>{title}</h1>
-            <p className="case-polish-tagline">{tagline}</p>
-            <p className="case-polish-summary">{summary}</p>
-
-            <div className="hero-actions case-polish-actions">
-              {primaryLink ? (
-                <a
-                  href={primaryLink.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={primaryLink.kind === "live" ? "button button-primary" : "button button-soft"}
-                >
-                  {getLocalizedValue(primaryLink.label, locale)}
-                </a>
-              ) : (
-                <Link href={`/${locale}#contact`} className="button button-primary">
-                  {t.requestWalkthrough}
-                </Link>
-              )}
-
-              {sortedLinks.slice(primaryLink ? 1 : 0).map((link) => (
-                <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className="button button-soft">
-                  {getLocalizedValue(link.label, locale)}
-                </a>
-              ))}
-
-              {primaryLink ? (
-                <Link href={`/${locale}#contact`} className="button button-ghost">
-                  {t.requestWalkthrough}
-                </Link>
-              ) : null}
-            </div>
-          </div>
-
-          <aside className="case-polish-snapshot" aria-label={t.snapshot}>
-            <div className="console-topline">
-              <div className="window-dots"><span /><span /><span /></div>
-              <p>{t.recruiterRead}</p>
-            </div>
-
-            <dl className="case-polish-facts">
-              <div>
-                <dt>{t.role}</dt>
-                <dd>{role}</dd>
+        {/* Lead visual: a real capture, or an explicit concept plate. */}
+        <div className="wrap" style={{ paddingBottom: "var(--section-y)" }}>
+          {lead ? (
+            <figure className="figure">
+              <div className="figure-media">
+                <Image
+                  src={lead.src}
+                  alt={getLocalizedValue(lead.alt, locale)}
+                  width={2880}
+                  height={1800}
+                  sizes="(max-width: 1400px) 100vw, 1400px"
+                  quality={82}
+                  loading="eager"
+                  fetchPriority="high"
+                />
               </div>
-              <div>
-                <dt>{t.status}</dt>
-                <dd>{status}</dd>
-              </div>
-              <div>
-                <dt>{t.year}</dt>
-                <dd>{project.year}</dd>
-              </div>
-              <div>
-                <dt>{t.primaryProof}</dt>
-                <dd>{firstMetric ? `${firstMetric.value} / ${getLocalizedValue(firstMetric.label, locale)}` : t.noPublicDemo}</dd>
-              </div>
-            </dl>
-
-            <div className="case-polish-mini-stack">
-              <p>{t.stack}</p>
-              <div>{project.tech.slice(0, 8).map((tool) => <span key={tool}>{tool}</span>)}</div>
-            </div>
-          </aside>
-        </div>
-
-        <div className="case-polish-proof-visual">
-          {hasRealProofImage ? (
-            <Image
-              src={visualSrc}
-              alt={visualAlt}
-              fill
-              priority={project.featured}
-              sizes="(max-width: 900px) 100vw, 1120px"
-              className="case-polish-proof-image"
-            />
+              {lead.caption ? <figcaption>{getLocalizedValue(lead.caption, locale)}</figcaption> : null}
+            </figure>
           ) : (
-            <div className="case-polish-generated-proof" aria-label={visualAlt}>
-              <span>{title}</span>
-              <strong>{t.projectDossier}</strong>
-              <p>{tagline}</p>
-            </div>
+            <ConceptPlate
+              title={title}
+              nodes={getLocalizedValue(project.conceptNodes, locale)}
+              locale={locale}
+            />
           )}
         </div>
-      </section>
 
-      <section className="shell case-polish-layout">
-        <div className="case-polish-main">
-          <CaseBlock eyebrow={t.problemEyebrow} title={t.problemTitle}>
-            <p className="case-polish-lede">{challenge}</p>
-          </CaseBlock>
+        <Block heading={t.problemHeading}>
+          <div className="prose lede">
+            <p>{challenge}</p>
+          </div>
+        </Block>
 
-          <CaseBlock eyebrow={t.solutionEyebrow} title={t.solutionTitle}>
-            <p className="case-polish-lede">{approach}</p>
-          </CaseBlock>
+        <Block heading={t.approachHeading}>
+          <div className="prose lede">
+            <p>{approach}</p>
+          </div>
+        </Block>
 
-          <CaseBlock eyebrow={t.architectureEyebrow} title={t.architectureTitle}>
-            <div className="case-polish-list-grid">
-              {architecture.map((item, index) => (
-                <article key={item}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <p>{item}</p>
-                </article>
-              ))}
-            </div>
-          </CaseBlock>
+        <Block heading={t.architectureHeading}>
+          <ol className="bullets">
+            {architecture.map((item, index) => (
+              <li key={item}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="tools" style={{ marginTop: "var(--stack-4)" }}>
+            {t.stack}: {project.tech.join(" · ")}
+          </p>
+        </Block>
 
-          <CaseBlock eyebrow={t.decisionsEyebrow} title={t.decisionsTitle}>
-            <div className="case-polish-decisions">
-              {project.decisions.map((decision, index) => {
-                const decisionTitle = getLocalizedValue(decision.title, locale);
-                return (
-                  <article key={decisionTitle}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
+        {project.decisions.length > 0 ? (
+          <Block heading={t.decisionsHeading}>
+            <div>
+              {project.decisions.map((decision) => (
+                <article className="decision" key={getLocalizedValue(decision.title, locale)}>
+                  <h3 className="h3">{getLocalizedValue(decision.title, locale)}</h3>
+                  <div className="decision-body">
                     <div>
-                      <h3>{decisionTitle}</h3>
-                      <div className="case-polish-decision-copy">
-                        <p><strong>{t.tradeoff}:</strong> {getLocalizedValue(decision.tradeoff, locale)}</p>
-                        <p><strong>{t.outcome}:</strong> {getLocalizedValue(decision.outcome, locale)}</p>
-                      </div>
+                      <p className="label">{t.tradeoff}</p>
+                      <p className="small">{getLocalizedValue(decision.tradeoff, locale)}</p>
                     </div>
-                  </article>
-                );
-              })}
-            </div>
-          </CaseBlock>
-
-          <CaseBlock eyebrow={t.resultsEyebrow} title={t.resultsTitle} variant="proof">
-            <div className="case-polish-proof-grid">
-              {results.map((item, index) => (
-                <article key={item}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <p>{item}</p>
+                    <div>
+                      <p className="label label-accent">{t.outcome}</p>
+                      <p className="small">{getLocalizedValue(decision.outcome, locale)}</p>
+                    </div>
+                  </div>
                 </article>
               ))}
             </div>
-          </CaseBlock>
+          </Block>
+        ) : null}
 
-          <CaseBlock eyebrow={t.nextEyebrow} title={t.nextTitle} variant="roadmap">
-            <div className="case-polish-roadmap">
-              {nextSteps.map((item, index) => (
-                <article key={item}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <p>{item}</p>
-                </article>
+        {/* Evidence: every remaining real capture, at a size you can read. */}
+        {project.gallery.length > 1 ? (
+          <section className="section">
+            <div className="wrap head">
+              <h2 className="h2" data-reveal="fade">
+                {t.evidenceHeading}
+              </h2>
+            </div>
+            <div className="wrap gallery">
+              {project.gallery.slice(1).map((item) => (
+                <figure className="figure" key={item.src}>
+                  <div className="figure-media">
+                    <Image
+                      src={item.src}
+                      alt={getLocalizedValue(item.alt, locale)}
+                      width={2880}
+                      height={1800}
+                      sizes="(max-width: 1400px) 100vw, 1400px"
+                      quality={82}
+                      loading="lazy"
+                    />
+                  </div>
+                  {item.caption ? <figcaption>{getLocalizedValue(item.caption, locale)}</figcaption> : null}
+                </figure>
               ))}
             </div>
-          </CaseBlock>
+          </section>
+        ) : null}
+
+        {project.kind === "concept" ? (
+          <Block heading={t.evidenceHeading}>
+            <p className="body">{t.noInterfaceYet}</p>
+          </Block>
+        ) : null}
+
+        <Block heading={t.resultsHeading}>
+          <ul className="bullets">
+            {results.map((item, index) => (
+              <li key={item}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </Block>
+
+        <Block heading={t.nextStepsHeading}>
+          <ul className="bullets">
+            {nextSteps.map((item, index) => (
+              <li key={item}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </Block>
+
+        <nav className="wrap case-nav" aria-label={t.caseStudyLabel}>
+          {previous ? (
+            <Link href={`/${locale}/projects/${previous.slug}`}>
+              <span className="label">← {t.prevCase}</span>
+              <strong>{getLocalizedValue(previous.title, locale)}</strong>
+            </Link>
+          ) : null}
+          {next ? (
+            <Link href={`/${locale}/projects/${next.slug}`} className="is-next">
+              <span className="label">{t.nextCase} →</span>
+              <strong>{getLocalizedValue(next.title, locale)}</strong>
+            </Link>
+          ) : null}
+        </nav>
+
+        <div className="band-ink">
+          <section className="wrap contact">
+            <h2 className="h2" data-reveal="fade">
+              {t.contactHeading}
+            </h2>
+            <a className="contact-email" href={`mailto:${profile.email}`} data-reveal="fade">
+              {profile.email}
+            </a>
+            <div className="contact-links" data-reveal="fade">
+              <a className="link" href={profile.github} target="_blank" rel="noreferrer">
+                GitHub
+                <span className="arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+              <a className="link" href={profile.linkedin} target="_blank" rel="noreferrer">
+                LinkedIn
+                <span className="arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+              <a className="link" href={resumeHref(locale)} target="_blank" rel="noreferrer">
+                {t.resumePdf}
+                <span className="arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            </div>
+          </section>
+
+          <Footer locale={locale} projectSlug={project.slug} />
         </div>
-
-        <aside className="case-polish-sidebar">
-          <div className="case-polish-sidebar-card">
-            <p className="eyebrow">{t.whyItMatters}</p>
-            <h3>{t.snapshot}</h3>
-            <p>{results[0]}</p>
-          </div>
-
-          <div className="case-polish-sidebar-card">
-            <p className="eyebrow">{t.resumeBullet}</p>
-            <p>{resumeBullet}</p>
-          </div>
-
-          <div className="case-polish-sidebar-card">
-            <p className="eyebrow">{t.stack}</p>
-            <div className="stack-row case-polish-sidebar-stack">
-              {project.tech.map((tool) => <span key={tool}>{tool}</span>)}
-            </div>
-          </div>
-
-          <div className="case-polish-sidebar-card">
-            <p className="eyebrow">{t.projectLinks}</p>
-            <div className="case-polish-sidebar-links">
-              {sortedLinks.length > 0 ? (
-                sortedLinks.map((link) => (
-                  <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
-                    {getLocalizedValue(link.label, locale)}
-                  </a>
-                ))
-              ) : (
-                <Link href={`/${locale}#contact`}>{t.requestWalkthrough}</Link>
-              )}
-            </div>
-          </div>
-        </aside>
-      </section>
-    </main>
+      </main>
+      </div>
+    </div>
   );
 }

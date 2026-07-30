@@ -1,30 +1,47 @@
 import type { Metadata } from "next";
-import { Host_Grotesk, Geist_Mono } from "next/font/google";
+import { Archivo, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/portfolio";
 
-const sans = Host_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-host",
+/**
+ * Three families, three distinct jobs.
+ *
+ * Archivo is loaded as a variable font with its width axis, so display lines
+ * can be set heavy and slightly expanded — that is where the visual force
+ * comes from, rather than from decoration. Geist and Geist Mono are a designed
+ * pair, which keeps body copy and technical labels feeling like one system.
+ */
+const display = Archivo({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-display",
+  display: "swap",
+  axes: ["wdth"],
+});
+
+const sans = Geist({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-sans-var",
   display: "swap",
 });
 
 const mono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono-geist",
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-mono-var",
   display: "swap",
 });
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://jp-portfolio-beta.vercel.app").replace(/\/$/, "");
 
+const description =
+  "Jose Pablo Samano Suarez — Computer Science student at Acadia University building full-stack products and workflow tools. Case studies for CheckWise (REPSE compliance), SAVR (context-aware dining), and an ER triage queue manager, each with architecture, tradeoffs, and evidence.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "JP Samano | Signal Atlas",
-    template: "%s | JP Samano",
+    default: "Jose Pablo Samano Suarez — Software Engineering, Cybersecurity, Product",
+    template: "%s — JP Samano",
   },
-  description:
-    "Jose Pablo Samano Suarez — software engineer across full-stack, cybersecurity, and product. Real systems shipped with proof: SAVR (context-aware dining), CheckWise (REPSE compliance), and ER Triage — each with architecture, live demos, and explainable technical decisions.",
+  description,
   authors: [{ name: profile.name }],
   creator: profile.name,
   alternates: {
@@ -36,11 +53,10 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    title: "Jose Pablo Samano Suarez — Software Engineering · Cybersecurity · Product",
-    description:
-      "Software engineer across full-stack, cybersecurity, and product. Real systems shipped with proof — SAVR, CheckWise, ER Triage — with architecture, live demos, and explainable decisions.",
+    title: "Jose Pablo Samano Suarez — Software Engineering, Cybersecurity, Product",
+    description,
     url: siteUrl,
-    siteName: "JP Samano Signal Atlas",
+    siteName: profile.fullName,
     locale: "en_CA",
     alternateLocale: ["es_MX"],
     images: [
@@ -48,15 +64,14 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Jose Pablo Samano Suarez — Software Engineering, Cybersecurity, and Product portfolio",
+        alt: "Jose Pablo Samano Suarez — software engineering, cybersecurity, and product portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jose Pablo Samano Suarez — Software · Cybersecurity · Product",
-    description:
-      "Real systems shipped with proof — SAVR, CheckWise, ER Triage — with architecture, live demos, and explainable technical decisions.",
+    title: "Jose Pablo Samano Suarez — Software Engineering, Cybersecurity, Product",
+    description,
     images: ["/og.png"],
   },
 };
@@ -67,13 +82,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${sans.variable} ${mono.variable}`}>
-      <body>
-        <a href="#main-content" className="skip-link">
-          Skip to content
-        </a>
-        {children}
-      </body>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+    >
+      <body>{children}</body>
     </html>
   );
 }

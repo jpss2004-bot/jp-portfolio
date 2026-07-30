@@ -1,11 +1,9 @@
 import { notFound } from "next/navigation";
-import { SignalAtlasHomeClient } from "@/components/home/SignalAtlasHomeClient";
+import { HomePage } from "@/components/home/HomePage";
 import { isLocale, locales } from "@/data/i18n";
 
 type LocalePageProps = {
-  params: Promise<{
-    locale: string;
-  }>;
+  params: Promise<{ locale: string }>;
 };
 
 export function generateStaticParams() {
@@ -19,5 +17,5 @@ export default async function LocaleHomePage({ params }: LocalePageProps) {
     notFound();
   }
 
-  return <SignalAtlasHomeClient initialLocale={locale} />;
+  return <HomePage locale={locale} />;
 }
