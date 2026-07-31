@@ -410,13 +410,13 @@ export const trackRecord: Record<Locale, { label: string; title: string; detail:
   en: [
     {
       label: "Now",
-      title: "CheckWise for LegalShelf",
-      detail: "Building a REPSE-compliance SaaS: FastAPI backend, Next.js frontend, AI-assisted reports centre.",
+      title: "CheckWise in production for LegalShelf",
+      detail: "REPSE-compliance SaaS in daily use: 3 client companies, 15+ vendors, close to 20,000 documents processed.",
     },
     {
       label: "2026",
-      title: "SAVR and deployed web apps",
-      detail: "Context-aware recommendation systems and practical web apps taken from concept to implementation.",
+      title: "Data pipelines and SAVR shipped",
+      detail: "Database cleanup and metadata-extraction pipelines, plus taking SAVR from prototype to a deployed app.",
     },
     {
       label: "2025",
@@ -432,13 +432,13 @@ export const trackRecord: Record<Locale, { label: string; title: string; detail:
   es: [
     {
       label: "Ahora",
-      title: "CheckWise para LegalShelf",
-      detail: "SaaS de cumplimiento REPSE: backend en FastAPI, frontend en Next.js y centro de reportes con IA.",
+      title: "CheckWise en producción para LegalShelf",
+      detail: "SaaS de cumplimiento REPSE en uso diario: 3 empresas cliente, 15+ proveedores y cerca de 20,000 documentos procesados.",
     },
     {
       label: "2026",
-      title: "SAVR y aplicaciones web desplegadas",
-      detail: "Sistemas de recomendación contextuales y apps web prácticas llevadas de concepto a implementación.",
+      title: "Pipelines de datos y SAVR desplegado",
+      detail: "Limpieza de bases de datos y pipelines de extracción de metadatos, más llevar SAVR de prototipo a app desplegada.",
     },
     {
       label: "2025",
@@ -460,15 +460,15 @@ export const trackRecord: Record<Locale, { label: string; title: string; detail:
 export const stats: Record<Locale, { figure: string; detail: string }[]> = {
   en: [
     { figure: "~20,000", detail: "compliance documents processed through CheckWise in production." },
-    { figure: "3 clients", detail: "real companies using it, with 15+ vendors submitting recurring evidence." },
-    { figure: "Explainable", detail: "Every AI report and every triage score shows the reasoning behind it." },
-    { figure: "EN / ES", detail: "Designed, built, and documented in both languages, across Canada and Mexico." },
+    { figure: "3 clients", detail: "real companies on the platform, with 15+ vendors onboarded." },
+    { figure: "3 live apps", detail: "CheckWise, SAVR, and Family Phrase Game, all deployed and openable." },
+    { figure: "EN / ES", detail: "designed, built, and documented in both languages, across Canada and Mexico." },
   ],
   es: [
     { figure: "~20,000", detail: "documentos de cumplimiento procesados en CheckWise en producción." },
-    { figure: "3 clientes", detail: "empresas reales usándolo, con 15+ proveedores enviando evidencia recurrente." },
-    { figure: "Explicable", detail: "Cada reporte con IA y cada puntaje de triage muestra el razonamiento detrás." },
-    { figure: "EN / ES", detail: "Diseñado, construido y documentado en ambos idiomas, entre Canadá y México." },
+    { figure: "3 clientes", detail: "empresas reales en la plataforma, con 15+ proveedores dados de alta." },
+    { figure: "3 apps en vivo", detail: "CheckWise, SAVR y Family Phrase Game, desplegadas y abiertas al público." },
+    { figure: "EN / ES", detail: "diseñado, construido y documentado en ambos idiomas, entre Canadá y México." },
   ],
 };
 
@@ -476,21 +476,21 @@ export const stats: Record<Locale, { figure: string; detail: string }[]> = {
 export const caseFigure: Record<string, Record<Locale, { figure: string; detail: string }>> = {
   checkwise: {
     en: {
-      figure: "~20,000 docs",
-      detail: "processed in production for 3 real client companies and 15+ vendors.",
+      figure: "~20,000 documents",
+      detail: "processed in production for 3 client companies, with 15+ vendors onboarded.",
     },
     es: {
-      figure: "~20,000 docs",
-      detail: "procesados en producción para 3 empresas cliente reales y 15+ proveedores.",
+      figure: "~20,000 documentos",
+      detail: "procesados en producción para 3 empresas cliente, con 15+ proveedores dados de alta.",
     },
   },
   savr: {
     en: {
-      figure: "Explainable",
+      figure: "Deployed",
       detail: "Three input modes, and every recommendation states why that venue fits the night you described.",
     },
     es: {
-      figure: "Explicable",
+      figure: "Desplegado",
       detail: "Tres modos de entrada, y cada recomendación explica por qué ese lugar encaja con tu noche.",
     },
   },
