@@ -126,8 +126,8 @@ const en: Copy = {
   factStatusValue: "Open to internships and junior technical roles",
 
   workLabel: "Selected work",
-  workHeading: "Three systems, documented end to end.",
-  workHeadingLines: ["Three systems,", "documented end to end."],
+  workHeading: "Four systems, documented end to end.",
+  workHeadingLines: ["Four systems,", "documented end to end."],
   workLede:
     "Each one started with a real problem, uses a stack I chose deliberately, and comes with evidence you can inspect.",
   workRole: "Role",
@@ -224,8 +224,8 @@ const es: Copy = {
   factStatusValue: "Abierto a internships y roles técnicos junior",
 
   workLabel: "Proyectos seleccionados",
-  workHeading: "Tres sistemas, documentados de principio a fin.",
-  workHeadingLines: ["Tres sistemas, documentados", "de principio a fin."],
+  workHeading: "Cuatro sistemas, documentados de principio a fin.",
+  workHeadingLines: ["Cuatro sistemas, documentados", "de principio a fin."],
   workLede:
     "Cada uno partió de un problema real, usa un stack elegido a propósito y viene con evidencia que puedes revisar.",
   workRole: "Rol",
@@ -492,6 +492,16 @@ export const caseFigure: Record<string, Record<Locale, { figure: string; detail:
     es: {
       figure: "Desplegado",
       detail: "Tres modos de entrada, y cada recomendación explica por qué ese lugar encaja con tu noche.",
+    },
+  },
+  verifaid: {
+    en: {
+      figure: "In production",
+      detail: "Document verification running for LegalShelf, the second system I have shipped for that client.",
+    },
+    es: {
+      figure: "En producción",
+      detail: "Verificación de documentos en marcha para LegalShelf, el segundo sistema que he entregado a ese cliente.",
     },
   },
   "er-triage-queue-manager": {

@@ -168,9 +168,9 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
   },
   verifaid: {
     title: "Verifaid - Verificación de Documentos",
-    tagline: "Sistema de verificación de documentos construido para LegalShelf.",
+    tagline: "Sistema de verificación de documentos en producción para LegalShelf.",
     role: "Ingeniería full-stack",
-    summary: "Sistema de verificación de documentos construido para LegalShelf, el mismo cliente detrás de CheckWise.",
+    summary: "Sistema de verificación de documentos en producción para LegalShelf, el mismo cliente detrás de CheckWise.",
     challenge: "",
     approach: "",
     architecture: [],
@@ -577,7 +577,7 @@ function toCaseStudy(project: Project, index: number): ProjectCaseStudy {
 
   return {
     slug: project.slug,
-    featured: index < 3,
+    featured: index < 4,
     kind: conceptNodes ? "concept" : "built",
     conceptNodes: conceptNodes ?? localized<string[]>([], []),
     status: getStatus(project.status),
