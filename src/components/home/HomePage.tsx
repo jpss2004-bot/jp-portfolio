@@ -171,12 +171,14 @@ export function HomePage({ locale }: { locale: Locale }) {
                 const href = `/${locale}/projects/${project.slug}`;
                 const figure = caseFigure[project.slug]?.[locale];
                 const live = project.links.find((link) => link.kind === "live");
+                const shots = featuredImage[project.slug];
 
                 return (
                   <article className="case-row" key={project.slug} data-reveal="wipe">
                     <Link href={href} className="case-media-link" tabIndex={-1} aria-hidden="true">
+                      {shots ? (
                       <div className="case-media">
-                        {featuredImage[project.slug].map((src, shot) => (
+                        {shots.map((src, shot) => (
                           <Image
                             key={src}
                             src={src}
@@ -190,6 +192,17 @@ export function HomePage({ locale }: { locale: Locale }) {
                           />
                         ))}
                       </div>
+                      ) : (
+                        <div className="case-plate">
+                          <p className="case-plate-title">{project.shortName}</p>
+                          <p className="case-plate-foot">
+                            <span className="index-status">
+                              {getLocalizedValue(project.statusLabel, locale)}
+                            </span>
+                            <span className="index-status">{project.year}</span>
+                          </p>
+                        </div>
+                      )}
                     </Link>
 
                     <div>
@@ -210,10 +223,12 @@ export function HomePage({ locale }: { locale: Locale }) {
                           <dt>{t.workRole}</dt>
                           <dd>{role.split(",")[0]}</dd>
                         </div>
-                        <div>
-                          <dt>{t.workStack}</dt>
-                          <dd>{project.tech.slice(0, 4).join(" · ")}</dd>
-                        </div>
+                        {project.tech.length > 0 ? (
+                          <div>
+                            <dt>{t.workStack}</dt>
+                            <dd>{project.tech.slice(0, 4).join(" · ")}</dd>
+                          </div>
+                        ) : null}
                       </dl>
 
                       {figure ? (

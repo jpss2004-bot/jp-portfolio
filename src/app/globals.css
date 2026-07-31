@@ -1825,3 +1825,44 @@ a.index-row:hover .index-arrow {
   gap: var(--stack-3) var(--stack-5);
   margin-top: var(--stack-4);
 }
+
+/*
+ * Featured project with no captures yet. Same footprint as a screenshot so the
+ * alternating rhythm holds, but typographic and stating only facts: it is not
+ * a mockup, and it is not the concept plate, which would claim nothing was
+ * built. Replace with real captures as soon as they exist.
+ */
+.case-plate {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--stack-5);
+  aspect-ratio: 16 / 10;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-media);
+  background-color: var(--paper-2);
+  background-image: linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+  background-position: -1px -1px;
+}
+
+.case-plate-title {
+  font-family: var(--font-stack-display);
+  font-size: clamp(1.75rem, 3.2vw, 3rem);
+  font-weight: 800;
+  font-variation-settings: "wght" 800, "wdth" 100;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  max-width: 14ch;
+}
+
+.case-plate-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--stack-3);
+  padding-top: var(--stack-3);
+  border-top: 1px solid var(--rule);
+}

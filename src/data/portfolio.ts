@@ -276,12 +276,12 @@ export const projects: Project[] = [
     name: "Verifaid - Document Verification",
     shortName: "Verifaid",
     type: "Document verification system",
-    status: "In Progress",
+    status: "Live",
     year: "2026",
     role: "Full-stack engineering",
-    oneLiner: "A document verification system built for LegalShelf.",
+    oneLiner: "A document verification system in production for LegalShelf.",
     summary:
-      "A document verification system built for LegalShelf, the same client behind CheckWise.",
+      "A document verification system in production for LegalShelf, the same client behind CheckWise.",
     /*
      * Deliberately minimal. Everything above is a stated fact; the detail
      * arrays stay empty until the real problem, architecture, and outcomes are
