@@ -72,6 +72,7 @@
   /* --- Motion ----------------------------------------------------------- */
   --dur: 160ms;
   --dur-reveal: 900ms;
+  --dur-name: 1500ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -283,6 +284,32 @@ button {
   }
 }
 
+/*
+ * The name's own entrance. It travels further than a normal reveal and is
+ * stretched vertically at the start, so the line reads as decelerating into
+ * place rather than sliding. Transform only, so it stays on the compositor at
+ * display sizes where a blur or opacity fade would cost a repaint per frame.
+ */
+@keyframes name-rise {
+  from {
+    transform: translateY(116%) scaleY(1.22);
+  }
+  to {
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes portrait-settle {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -305,13 +332,20 @@ button {
  */
 @media (prefers-reduced-motion: no-preference) {
   .name-line-in {
-    animation: line-up var(--dur-reveal) var(--ease-out) backwards;
-    animation-delay: calc(var(--i, 0) * 110ms);
+    transform-origin: 50% 100%;
+    animation: name-rise var(--dur-name) var(--ease-out) backwards;
+    animation-delay: calc(240ms + var(--i, 0) * 260ms);
+  }
+
+  /* The portrait settles in only once both lines have landed. */
+  .name-portrait {
+    animation: portrait-settle 1100ms var(--ease-out) backwards;
+    animation-delay: 1000ms;
   }
 
   .hero [data-reveal="fade"] {
-    animation: fade-up 700ms var(--ease-out) backwards;
-    animation-delay: calc(var(--i, 0) * 70ms);
+    animation: fade-up 900ms var(--ease-out) backwards;
+    animation-delay: calc(1250ms + var(--i, 0) * 130ms);
   }
 }
 
