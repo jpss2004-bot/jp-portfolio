@@ -230,6 +230,16 @@ def build():
     add_heading(doc, "EXPERIENCE")
     add_role(
         doc,
+        "Software Developer, LegalShelf",
+        "Mexico City / Remote | 2026-Present",
+        [
+            "Builds and maintains two systems in production and daily use: CheckWise, a REPSE compliance platform, and Verifaid, a document verification system.",
+            "CheckWise serves 3 client companies and 15+ vendors, with close to 20,000 compliance documents processed to date. Built the FastAPI backend and Next.js 15 / React 19 frontend covering evidence intake, reviewer adjudication, and portfolio-wide risk views with JWT auth and role-based access.",
+            "Modeled REPSE obligations as institution x cycle (SAT, IMSS, INFONAVIT, STPS; monthly through annual) so the operating calendar and expediente gates derive from the data model, and shipped an AI-assisted reports centre guarded by an AI-safety suite inside 320+ backend tests.",
+        ],
+    )
+    add_role(
+        doc,
         "Cybolt Academy Participant, Cybolt",
         "Mexico City | May-Sep 2025",
         [
@@ -250,29 +260,11 @@ def build():
         "Data Processor, Legal Shelf",
         "Mexico City | May-Aug 2023",
         [
-            "Digitized and organized legal documents with structured metadata under strict confidentiality practices; returned in 2026 to build LegalShelf's document systems.",
+            "Digitized and organized legal documents with structured metadata under strict confidentiality and data-protection practices.",
         ],
     )
 
     add_heading(doc, "SELECTED PROJECTS")
-    add_role(
-        doc,
-        "Developer, CheckWise - REPSE Compliance Platform (client: LegalShelf)",
-        "Mexico City / Remote | 2026-Present",
-        [
-            "In production and in daily use: 3 client companies, 15+ vendors onboarded, and close to 20,000 compliance documents processed to date.",
-            "Built a FastAPI backend and Next.js 15 / React 19 frontend covering vendor evidence intake, reviewer adjudication, and portfolio-wide client risk views with JWT auth and role-based access.",
-            "Modeled REPSE obligations as institution x cycle (SAT, IMSS, INFONAVIT, STPS; monthly through annual) so the operating calendar and expediente gates derive from the data model, and shipped an AI-assisted reports centre guarded by an AI-safety suite inside 320+ backend tests.",
-        ],
-    )
-    add_role(
-        doc,
-        "Developer, Verifaid - Document Verification (client: LegalShelf)",
-        "Mexico City / Remote | 2026-Present",
-        [
-            "Document verification system in production for LegalShelf, the second system delivered for that client.",
-        ],
-    )
     add_role(
         doc,
         "Developer, Data Pipelines - Database Cleanup and Metadata Extraction",

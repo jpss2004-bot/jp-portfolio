@@ -62,6 +62,15 @@ ROLE_SECTIONS = [
         "EXPERIENCIA",
         [
             (
+                "Desarrollador de Software, LegalShelf",
+                "Ciudad de México / Remoto | 2026-Presente",
+                [
+                    "Construye y mantiene dos sistemas en producción y uso diario: CheckWise, plataforma de cumplimiento REPSE, y Verifaid, sistema de verificación de documentos.",
+                    "CheckWise atiende a 3 empresas cliente y 15+ proveedores, con cerca de 20,000 documentos de cumplimiento procesados a la fecha. Construyó el backend en FastAPI y el frontend en Next.js 15 / React 19 con recepción de evidencia, dictamen del revisor y vistas de riesgo del portafolio, con autenticación JWT y control de acceso por rol.",
+                    "Modeló las obligaciones REPSE como institución x ciclo (SAT, IMSS, INFONAVIT, STPS; mensual a anual) para que el calendario operativo y las compuertas de expediente se deriven del modelo de datos, y entregó un centro de reportes con IA protegido por una suite de seguridad dentro de 320+ pruebas backend.",
+                ],
+            ),
+            (
                 "Participante de Cybolt Academy, Cybolt",
                 "Ciudad de México | May-Sep 2025",
                 [
@@ -80,7 +89,7 @@ ROLE_SECTIONS = [
                 "Procesador de Datos, Legal Shelf",
                 "Ciudad de México | May-Ago 2023",
                 [
-                    "Digitalizó y organizó documentos legales con metadatos estructurados bajo estrictas prácticas de confidencialidad; regresó en 2026 para construir los sistemas documentales de LegalShelf.",
+                    "Digitalizó y organizó documentos legales con metadatos estructurados bajo estrictas prácticas de confidencialidad y protección de datos.",
                 ],
             ),
         ],
@@ -88,22 +97,6 @@ ROLE_SECTIONS = [
     (
         "PROYECTOS SELECCIONADOS",
         [
-            (
-                "Desarrollador, CheckWise - Plataforma de Cumplimiento REPSE (cliente: LegalShelf)",
-                "Ciudad de México / Remoto | 2026-Presente",
-                [
-                    "En producción y uso diario: 3 empresas cliente, 15+ proveedores dados de alta y cerca de 20,000 documentos de cumplimiento procesados a la fecha.",
-                    "Construyó un backend en FastAPI y un frontend en Next.js 15 / React 19 con recepción de evidencia, dictamen del revisor y vistas de riesgo del portafolio, con autenticación JWT y control de acceso por rol.",
-                    "Modeló las obligaciones REPSE como institución x ciclo (SAT, IMSS, INFONAVIT, STPS; mensual a anual) para que el calendario operativo y las compuertas de expediente se deriven del modelo de datos, y entregó un centro de reportes con IA protegido por una suite de seguridad dentro de 320+ pruebas backend.",
-                ],
-            ),
-            (
-                "Desarrollador, Verifaid - Verificación de Documentos (cliente: LegalShelf)",
-                "Ciudad de México / Remoto | 2026-Presente",
-                [
-                    "Sistema de verificación de documentos en producción para LegalShelf, el segundo sistema entregado para ese cliente.",
-                ],
-            ),
             (
                 "Desarrollador, Pipelines de Datos - Limpieza de Bases y Extracción de Metadatos",
                 "2026",
