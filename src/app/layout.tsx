@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { profile } from "@/data/portfolio";
 
 /**
@@ -76,6 +77,37 @@ export const metadata: Metadata = {
   },
 };
 
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.fullName,
+  alternateName: profile.name,
+  url: siteUrl,
+  image: `${siteUrl}/og.png`,
+  email: `mailto:${profile.email}`,
+  jobTitle: "Software Engineer",
+  description,
+  knowsLanguage: ["en", "es"],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Acadia University",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Wolfville",
+      addressRegion: "NS",
+      addressCountry: "CA",
+    },
+  },
+  knowsAbout: [
+    "Software engineering",
+    "Full-stack development",
+    "Cybersecurity",
+    "Regulatory compliance systems",
+    "Data modeling",
+  ],
+  sameAs: [profile.github, profile.linkedin],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -87,7 +119,20 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${display.variable} ${sans.variable} ${mono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {/*
+         * Person schema so search engines can connect the name, the site, and
+         * the profiles to one entity. Rendered as a plain script tag rather
+         * than through a component: it is static JSON, and React never needs
+         * to hydrate or re-render it.
+         */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

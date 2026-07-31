@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Geist+Mono:wght@400;500&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #0b0c0f;
+    background-image:
+      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size: 88px 88px;
+    color: #f5f4f2;
+    font-family: Geist, system-ui, sans-serif;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 62px 68px;
+  }
+  .top { display: flex; align-items: center; gap: 14px; }
+  .top svg { display: block; }
+  .top span {
+    font-family: "Geist Mono", monospace; font-size: 15px; letter-spacing: .18em;
+    text-transform: uppercase; color: #7c7e86;
+  }
+  .name {
+    font-family: Archivo, sans-serif; font-weight: 800;
+    font-variation-settings: "wght" 820, "wdth" 104;
+    font-size: 104px; line-height: .86; letter-spacing: -.045em;
+    text-transform: uppercase; color: #e8734f;
+  }
+  .name em { display: block; font-style: normal; font-variation-settings: "wght" 820, "wdth" 118; }
+  .sub { margin-top: 26px; font-size: 25px; line-height: 1.35; color: #a8aab2; max-width: 24ch; }
+  .foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+  .stats { display: flex; gap: 48px; }
+  .stat b {
+    display: block; font-family: Archivo, sans-serif; font-weight: 800;
+    font-variation-settings: "wght" 800, "wdth" 100;
+    font-size: 34px; letter-spacing: -.03em; color: #e8734f; line-height: 1;
+  }
+  .stat span {
+    display: block; margin-top: 8px; font-family: "Geist Mono", monospace;
+    font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #7c7e86;
+  }
+  .portrait {
+    width: 178px; height: 232px; border-radius: 999px; overflow: hidden;
+    background: #16181d; flex: none;
+  }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; transform: scale(1.3); }
+</style>
+</head>
+<body>
+  <div class="top">
+    <svg width="27" height="28" viewBox="0 0 57 60" fill="none">
+      <g stroke="#f5f4f2" stroke-width="7" stroke-linecap="butt">
+        <path d="M28 8 V42"/><path d="M28 42 a10 10 0 0 1 -20 0"/>
+        <path d="M24.5 8 H38 a11 11 0 0 1 0 22 H28"/>
+      </g>
+      <rect x="37.5" y="48.5" width="7" height="7" fill="#e8734f"/>
+    </svg>
+    <span>Software · Security · Product</span>
+  </div>
+
+  <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:48px;">
+    <div>
+      <h1 class="name"><em>Jose Pablo</em>Samano Suarez</h1>
+      <p class="sub">I build systems that turn messy workflows into clear, reliable tools.</p>
+    </div>
+    <div class="portrait"><img src="jp.jpg" alt=""></div>
+  </div>
+
+  <div class="foot">
+    <div class="stats">
+      <div class="stat"><b>~20,000</b><span>Documents processed</span></div>
+      <div class="stat"><b>3 clients</b><span>In production</span></div>
+      <div class="stat"><b>3 live apps</b><span>Deployed</span></div>
+    </div>
+    <div class="stat" style="text-align:right"><span style="color:#a8aab2">jpsamanosuarez.com</span></div>
+  </div>
+</body>
+</html>

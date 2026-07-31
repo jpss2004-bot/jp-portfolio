@@ -123,7 +123,7 @@ const en: Copy = {
   factFocus: "Focus",
   factFocusValue: "Full-stack · Cybersecurity · Product",
   factStatus: "Status",
-  factStatusValue: "Open to internships and junior technical roles",
+  factStatusValue: "Internships now, full-time from May 2027",
 
   workLabel: "Selected work",
   workHeading: "Four systems, documented end to end.",
@@ -221,7 +221,7 @@ const es: Copy = {
   factFocus: "Enfoque",
   factFocusValue: "Full-stack · Ciberseguridad · Producto",
   factStatus: "Disponibilidad",
-  factStatusValue: "Abierto a internships y roles técnicos junior",
+  factStatusValue: "Prácticas ahora, tiempo completo desde mayo 2027",
 
   workLabel: "Proyectos seleccionados",
   workHeading: "Cuatro sistemas, documentados de principio a fin.",
