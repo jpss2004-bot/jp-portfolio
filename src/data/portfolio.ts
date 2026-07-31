@@ -272,6 +272,36 @@ export const projects: Project[] = [
     links: [{ label: "GitHub", href: "https://github.com/jpss2004-bot/ER-Triage-System" }],
   },
   {
+    slug: "verifaid",
+    name: "Verifaid - Document Verification",
+    shortName: "Verifaid",
+    type: "Document verification system",
+    status: "In Progress",
+    year: "2026",
+    role: "Full-stack engineering",
+    oneLiner: "A document verification system built for LegalShelf.",
+    summary:
+      "A document verification system built for LegalShelf, the same client behind CheckWise.",
+    /*
+     * Deliberately minimal. Everything above is a stated fact; the detail
+     * arrays stay empty until the real problem, architecture, and outcomes are
+     * confirmed, and the case-study page skips any block with no content. An
+     * invented case study is worse than a short one on a page a recruiter may
+     * ask you to walk through.
+     */
+    problem: "",
+    solution: "",
+    impact: "",
+    proof: [],
+    stack: [],
+    features: [],
+    architecture: [],
+    challenges: [],
+    next: [],
+    metrics: [],
+    links: [],
+  },
+  {
     slug: "family-phrase-game",
     name: "Family Phrase Game",
     shortName: "Phrase Game",
