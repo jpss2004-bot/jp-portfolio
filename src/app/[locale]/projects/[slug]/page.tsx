@@ -192,7 +192,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </section>
 
-        {/* Lead visual: a real capture, or an explicit concept plate. */}
+        {/*
+          * Lead visual: a real capture, or an explicit concept plate. A built
+          * project that simply has no captures yet gets neither — showing the
+          * concept plate there would claim nothing was implemented, which for
+          * real client work is worse than showing no image at all.
+          */}
         <div className="wrap" style={{ paddingBottom: "var(--section-y)" }}>
           {lead ? (
             <figure className="figure">
@@ -210,28 +215,38 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
               {lead.caption ? <figcaption>{getLocalizedValue(lead.caption, locale)}</figcaption> : null}
             </figure>
-          ) : (
+          ) : project.kind === "concept" ? (
             <ConceptPlate
               title={title}
               nodes={getLocalizedValue(project.conceptNodes, locale)}
               locale={locale}
             />
-          )}
+          ) : null}
         </div>
 
-        <Block heading={t.problemHeading}>
-          <div className="prose lede">
-            <p>{challenge}</p>
-          </div>
-        </Block>
+        {/*
+          * Blocks render only when there is something to say. A project added
+          * before its case study is written shows what is known and nothing
+          * else, rather than empty headings.
+          */}
+        {challenge ? (
+          <Block heading={t.problemHeading}>
+            <div className="prose lede">
+              <p>{challenge}</p>
+            </div>
+          </Block>
+        ) : null}
 
-        <Block heading={t.approachHeading}>
-          <div className="prose lede">
-            <p>{approach}</p>
-          </div>
-        </Block>
+        {approach ? (
+          <Block heading={t.approachHeading}>
+            <div className="prose lede">
+              <p>{approach}</p>
+            </div>
+          </Block>
+        ) : null}
 
-        <Block heading={t.architectureHeading}>
+        {architecture.length > 0 ? (
+          <Block heading={t.architectureHeading}>
           <ol className="bullets">
             {architecture.map((item, index) => (
               <li key={item}>
@@ -240,10 +255,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </li>
             ))}
           </ol>
-          <p className="tools" style={{ marginTop: "var(--stack-4)" }}>
-            {t.stack}: {project.tech.join(" · ")}
-          </p>
-        </Block>
+          {project.tech.length > 0 ? (
+            <p className="tools" style={{ marginTop: "var(--stack-4)" }}>
+              {t.stack}: {project.tech.join(" · ")}
+            </p>
+          ) : null}
+          </Block>
+        ) : null}
 
         {project.decisions.length > 0 ? (
           <Block heading={t.decisionsHeading}>
@@ -302,18 +320,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </Block>
         ) : null}
 
-        <Block heading={t.resultsHeading}>
+        {results.filter(Boolean).length > 0 ? (
+          <Block heading={t.resultsHeading}>
           <ul className="bullets">
-            {results.map((item, index) => (
+            {results.filter(Boolean).map((item, index) => (
               <li key={item}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <span>{item}</span>
               </li>
             ))}
           </ul>
-        </Block>
+          </Block>
+        ) : null}
 
-        <Block heading={t.nextStepsHeading}>
+        {nextSteps.length > 0 ? (
+          <Block heading={t.nextStepsHeading}>
           <ul className="bullets">
             {nextSteps.map((item, index) => (
               <li key={item}>
@@ -322,7 +343,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </li>
             ))}
           </ul>
-        </Block>
+          </Block>
+        ) : null}
 
         <nav className="wrap case-nav" aria-label={t.caseStudyLabel}>
           {previous ? (

@@ -166,6 +166,18 @@ const spanishBySlug: Record<string, SpanishProjectCopy> = {
     ],
     resumeBullet: "ER Triage: prototipo de cola y estado de pacientes para flujos clínicos con Python, NiceGUI y SQLite.",
   },
+  verifaid: {
+    title: "Verifaid - Verificación de Documentos",
+    tagline: "Sistema de verificación de documentos construido para LegalShelf.",
+    role: "Ingeniería full-stack",
+    summary: "Sistema de verificación de documentos construido para LegalShelf, el mismo cliente detrás de CheckWise.",
+    challenge: "",
+    approach: "",
+    architecture: [],
+    results: [],
+    nextSteps: [],
+    resumeBullet: "Verifaid: sistema de verificación de documentos para LegalShelf.",
+  },
   "family-phrase-game": {
     title: "Family Phrase Game",
     tagline: "Aplicación Flask desplegada que convierte frases familiares en un juego grupal.",
@@ -549,6 +561,7 @@ const typeEs: Record<string, string> = {
   "Full-stack product": "Producto full-stack",
   "Workflow system": "Sistema de flujo de trabajo",
   "Deployed web app": "App web desplegada",
+  "Document verification system": "Sistema de verificación de documentos",
   "AI systems concept": "Concepto de sistemas con IA",
   "Cybersecurity product": "Producto de ciberseguridad",
 };
