@@ -236,6 +236,7 @@ def build():
             "Builds and maintains two systems in production and daily use: CheckWise, a REPSE compliance platform, and Verifaid, a document verification system.",
             "CheckWise serves 3 client companies and 15+ vendors, with close to 20,000 compliance documents processed to date. Built the FastAPI backend and Next.js 15 / React 19 frontend covering evidence intake, reviewer adjudication, and portfolio-wide risk views with JWT auth and role-based access.",
             "Modeled REPSE obligations as institution x cycle (SAT, IMSS, INFONAVIT, STPS; monthly through annual) so the operating calendar and expediente gates derive from the data model, and shipped an AI-assisted reports centre guarded by an AI-safety suite inside 320+ backend tests.",
+            "Built database cleanup and metadata-extraction pipelines that make large document sets consistent, queryable, and reliable to process downstream.",
         ],
     )
     add_role(
@@ -265,14 +266,6 @@ def build():
     )
 
     add_heading(doc, "SELECTED PROJECTS")
-    add_role(
-        doc,
-        "Developer, Data Pipelines - Database Cleanup and Metadata Extraction",
-        "2026",
-        [
-            "Built database cleanup and metadata-extraction pipelines to make large document sets consistent, queryable, and reliable to process downstream.",
-        ],
-    )
     add_role(
         doc,
         "Founder / Developer, SAVR - Context-Aware Dining Recommendation Platform",
