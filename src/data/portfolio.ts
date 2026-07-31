@@ -122,7 +122,7 @@ export const projects: Project[] = [
     proof: [
       "In production with 3 client companies and 15+ vendors",
       "Close to 20,000 compliance documents processed",
-      "Reports flagship: AI planner + streaming generator + embedded copilot",
+      "In production for 3 real client companies with 15+ vendors onboarded",
       "320+ backend tests including an AI-safety suite",
       "Role-aware reviewer queue with JWT auth and RBAC",
       "REPSE calendar (institution x month) and expediente gates",
@@ -177,7 +177,7 @@ export const projects: Project[] = [
     solution:
       "SAVR treats the dining decision like a context-aware recommendation problem. Users can describe their night, build their night through guided choices, or use a surprise flow to receive explainable recommendations.",
     impact:
-      "My most complete project: a full-stack build spanning product direction, a FastAPI backend, a React and TypeScript frontend, onboarding, and explainable recommendation logic.",
+      "Deployed and openable: a full-stack build spanning product direction, a FastAPI backend, a React and TypeScript frontend, onboarding, and explainable recommendation logic.",
     proof: [
       "FastAPI backend route structure",
       "React and TypeScript frontend architecture",
@@ -208,11 +208,12 @@ export const projects: Project[] = [
       "Expand the recommendation model with saved presets and event signals.",
     ],
     metrics: [
-      { label: "Core modes", value: "3" },
+      { label: "Status", value: "Deployed" },
       { label: "Architecture", value: "Full-stack" },
       { label: "Focus", value: "Recs" },
     ],
     links: [
+      { label: "Live App", href: "https://context-aware-dining-platform-1.vercel.app" },
       { label: "GitHub", href: "https://github.com/jpss2004-bot/context-aware-dining-platform-1" },
     ],
   },
