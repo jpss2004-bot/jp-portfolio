@@ -23,7 +23,7 @@ def set_cell_text(cell, text, bold=False, color=INK):
     run = paragraph.add_run(text)
     run.bold = bold
     run.font.name = "Calibri"
-    run.font.size = Pt(8.7)
+    run.font.size = Pt(8.3)
     run.font.color.rgb = color
 
 
@@ -114,7 +114,7 @@ def add_role(doc, title, meta, bullets):
         b = doc.add_paragraph(style="List Bullet")
         b.paragraph_format.left_indent = Inches(0.18)
         b.paragraph_format.first_line_indent = Inches(-0.18)
-        b.paragraph_format.space_after = Pt(1.6)
+        b.paragraph_format.space_after = Pt(1.2)
         b.paragraph_format.line_spacing = 1.03
         run = b.add_run(bullet)
         run.font.size = Pt(8.6)
@@ -124,9 +124,9 @@ def add_role(doc, title, meta, bullets):
 def set_document_styles(doc):
     normal = doc.styles["Normal"]
     normal.font.name = "Calibri"
-    normal.font.size = Pt(8.7)
+    normal.font.size = Pt(8.3)
     normal.font.color.rgb = INK
-    normal.paragraph_format.space_after = Pt(2.2)
+    normal.paragraph_format.space_after = Pt(1.8)
     normal.paragraph_format.line_spacing = 1.04
 
     styles = doc.styles
@@ -137,7 +137,7 @@ def set_document_styles(doc):
     heading.font.color.rgb = BLUE
     heading.font.bold = True
     heading.paragraph_format.space_before = Pt(5.5)
-    heading.paragraph_format.space_after = Pt(2.3)
+    heading.paragraph_format.space_after = Pt(1.9)
 
     role = styles.add_style("RoleTitle", 1)
     role.font.name = "Calibri"
@@ -151,7 +151,7 @@ def set_document_styles(doc):
         style.font.size = Pt(8.6)
         style.paragraph_format.left_indent = Inches(0.18)
         style.paragraph_format.first_line_indent = Inches(-0.18)
-        style.paragraph_format.space_after = Pt(1.6)
+        style.paragraph_format.space_after = Pt(1.2)
         style.paragraph_format.line_spacing = 1.03
 
 
@@ -204,10 +204,11 @@ def build():
     p = doc.add_paragraph()
     p.paragraph_format.space_after = Pt(3)
     p.add_run(
-        "Computer Science student at Acadia University focused on software engineering, full-stack development, "
-        "cybersecurity, incident response, and practical product systems. Builds tools that connect technical logic, "
-        "user workflows, data models, and clear evidence. Open to software engineering internships, cybersecurity-adjacent "
-        "technical roles, and practical product collaborations."
+        "Computer Science student at Acadia University who ships production software for a paying client. Built and "
+        "maintains two systems in daily use at LegalShelf: CheckWise, a REPSE compliance platform serving 3 client "
+        "companies and 15+ vendors with close to 20,000 documents processed, and Verifaid, a document verification "
+        "system. Works across full-stack engineering, domain modeling, and cybersecurity. Open to software engineering "
+        "internships and junior technical roles."
     )
 
     add_heading(doc, "EDUCATION")
@@ -216,7 +217,7 @@ def build():
         "Bachelor of Science, Computer Science, Acadia University",
         "Wolfville, NS | Expected May 2027",
         [
-            "Coursework and project focus: software engineering, data structures, databases, cybersecurity, systems analysis, human-machine interaction, cloud/security fundamentals, and secure application design.",
+            "Focus: software engineering, data structures, databases, cybersecurity, systems analysis, human-machine interaction, and secure application design.",
         ],
     )
     add_role(
@@ -233,8 +234,7 @@ def build():
         "Mexico City | May-Sep 2025",
         [
             "Completed hands-on workshops on MITRE ATT&CK, ICS/OT security, cyber kill chain, incident response, and defensive blue-team operations.",
-            "Analyzed adversary TTPs and ransomware behavior to connect attack patterns with detection, containment, investigation, and decision-making.",
-            "Built STAR-based incident-response interview cases, translating technical scenarios into clear, evidence-oriented narratives.",
+            "Analyzed adversary TTPs and ransomware behavior to connect attack patterns with detection, containment, and investigation, and built STAR-based incident-response interview cases.",
         ],
     )
     add_role(
@@ -242,8 +242,7 @@ def build():
         "Production Operator, Michelin",
         "Waterville, NS | May-Sep 2024",
         [
-            "Operated and monitored rubber-processing equipment in a high-pressure industrial environment while maintaining quality, safety, and consistency standards.",
-            "Identified and communicated production delays or equipment issues to reduce workflow interruptions and support plant continuity.",
+            "Operated and monitored rubber-processing equipment in a high-pressure industrial environment, flagging delays and equipment issues to protect plant continuity.",
         ],
     )
     add_role(
@@ -251,20 +250,52 @@ def build():
         "Data Processor, Legal Shelf",
         "Mexico City | May-Aug 2023",
         [
-            "Digitized, archived, and organized legal documents with structured metadata, improving retrieval, traceability, and file administration.",
-            "Handled sensitive information under strict confidentiality and data-protection practices during legal document processing.",
+            "Digitized and organized legal documents with structured metadata under strict confidentiality practices; returned in 2026 to build LegalShelf's document systems.",
         ],
     )
 
-    add_heading(doc, "PROJECTS AND LEADERSHIP")
+    add_heading(doc, "SELECTED PROJECTS")
+    add_role(
+        doc,
+        "Developer, CheckWise - REPSE Compliance Platform (client: LegalShelf)",
+        "Mexico City / Remote | 2026-Present",
+        [
+            "In production and in daily use: 3 client companies, 15+ vendors onboarded, and close to 20,000 compliance documents processed to date.",
+            "Built a FastAPI backend and Next.js 15 / React 19 frontend covering vendor evidence intake, reviewer adjudication, and portfolio-wide client risk views with JWT auth and role-based access.",
+            "Modeled REPSE obligations as institution x cycle (SAT, IMSS, INFONAVIT, STPS; monthly through annual) so the operating calendar and expediente gates derive from the data model, and shipped an AI-assisted reports centre guarded by an AI-safety suite inside 320+ backend tests.",
+        ],
+    )
+    add_role(
+        doc,
+        "Developer, Verifaid - Document Verification (client: LegalShelf)",
+        "Mexico City / Remote | 2026-Present",
+        [
+            "Document verification system in production for LegalShelf, the second system delivered for that client.",
+        ],
+    )
+    add_role(
+        doc,
+        "Developer, Data Pipelines - Database Cleanup and Metadata Extraction",
+        "2026",
+        [
+            "Built database cleanup and metadata-extraction pipelines to make large document sets consistent, queryable, and reliable to process downstream.",
+        ],
+    )
     add_role(
         doc,
         "Founder / Developer, SAVR - Context-Aware Dining Recommendation Platform",
         "Wolfville, NS | 2025-Present",
         [
-            "Building a full-stack recommendation platform with FastAPI, React, TypeScript, and SQL that ranks restaurants using preferences, budget, social context, and user intent.",
-            "Designed Describe Your Night, Build Your Night, and Surprise Me flows that connect structured inputs with prioritized, explainable recommendation cards.",
-            "Implemented backend and frontend improvements across authentication, restaurant data, recommendation APIs, onboarding, presets, and result components.",
+            "Deployed full-stack recommendation platform (FastAPI, React, TypeScript, SQL) that ranks venues using preferences, budget, social context, and user intent, and states why each result fits.",
+            "Designed Describe Your Night, Build Your Night, and Surprise Me flows connecting structured inputs to prioritized, explainable recommendation cards. Live at context-aware-dining-platform-1.vercel.app.",
+        ],
+    )
+    add_role(
+        doc,
+        "System Designer, ER Triage & Queue Manager",
+        "2025",
+        [
+            "Modeled an emergency-room queue workflow around intake, vitals, ESI v4 acuity scoring, patient state, status history, and dashboard visibility using Python, NiceGUI, and SQLite, showing the clinical reasoning behind every assigned level.",
         ],
     )
     add_role(
@@ -275,24 +306,17 @@ def build():
             "Built and deployed a Flask web app that turns family-submitted phrases into a playable party game with phrase loading, scoring, and a simple live interface.",
         ],
     )
-    add_role(
-        doc,
-        "System Designer, ER Triage & Queue Manager",
-        "2025",
-        [
-            "Modeled an emergency-room queue workflow around intake, vitals, priority scoring, patient state, status history, and dashboard visibility using Python, NiceGUI, and SQLite.",
-        ],
-    )
 
     add_heading(doc, "TECHNICAL SKILLS")
-    table = doc.add_table(rows=4, cols=2)
+    table = doc.add_table(rows=5, cols=2)
     table.autofit = False
     set_table_borders(table)
     rows = [
-        ("Software", "Python, Java, JavaScript/TypeScript, C, C#, SQL, React, Next.js, FastAPI, Flask, REST APIs, Git"),
-        ("Data & Delivery", "PostgreSQL, SQLite, SQLAlchemy, data modeling, validation, testing, Vercel, Render, documentation"),
+        ("Software", "Python, Java, JavaScript/TypeScript, C, C#, SQL, React, Next.js, FastAPI, Flask, REST APIs, JWT auth, Git"),
+        ("Data & Delivery", "PostgreSQL, SQLite, SQLAlchemy, Alembic, data modeling, metadata extraction, validation, testing, Vercel, Render"),
         ("Cybersecurity", "Incident response, threat analysis, MITRE ATT&CK, cyber kill chain, SOC fundamentals, ICS/OT security, authentication, access control"),
         ("Languages", "Spanish native, English C2, French A2"),
+        ("Training", "CompTIA Security+ and CySA+ coursework, COMP 601 Cybersecurity Fundamentals, MITRE ATT&CK & Incident Response Workshop"),
     ]
     for row, (label, value) in zip(table.rows, rows):
         set_cell_width(row.cells[0], Inches(1.28))
@@ -302,17 +326,6 @@ def build():
         set_cell_shading(row.cells[0], "E8EEF5")
         set_cell_text(row.cells[0], label, bold=True, color=BLUE)
         set_cell_text(row.cells[1], value)
-
-    add_heading(doc, "ADDITIONAL TRAINING")
-    add_role(
-        doc,
-        "Security and professional development",
-        "",
-        [
-            "CompTIA Security+ coursework, CompTIA CySA+ coursework, COMP 601 Cybersecurity Fundamentals, MITRE ATT&CK & Incident Response Workshop.",
-            "Ongoing practice in defensive security, incident-response interviews, technical documentation, adversary-behavior analysis, and SOC fundamentals.",
-        ],
-    )
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     doc.save(OUT)

@@ -31,12 +31,12 @@ CONTACT = (
 )
 
 PROFILE = (
-    "Estudiante de Ciencias de la Computación en Acadia University enfocado en "
-    "ingeniería de software, desarrollo full-stack, ciberseguridad, respuesta a "
-    "incidentes y sistemas de producto prácticos. Construye herramientas que conectan "
-    "la lógica técnica, los flujos de usuario, los modelos de datos y la evidencia "
-    "clara. Abierto a prácticas en ingeniería de software, roles técnicos vinculados a "
-    "ciberseguridad y colaboraciones de producto."
+    "Estudiante de Ciencias de la Computación en Acadia University que entrega software "
+    "en producción para un cliente real. Construyó y mantiene dos sistemas en uso diario "
+    "en LegalShelf: CheckWise, plataforma de cumplimiento REPSE que atiende a 3 empresas "
+    "cliente y 15+ proveedores con cerca de 20,000 documentos procesados, y Verifaid, un "
+    "sistema de verificación de documentos. Trabaja en ingeniería full-stack, modelado de "
+    "dominio y ciberseguridad. Abierto a prácticas y roles técnicos junior."
 )
 
 # Each section: (HEADING, [ (title, meta, [bullets]) , ... ])
@@ -48,7 +48,7 @@ ROLE_SECTIONS = [
                 "Bachelor of Science, Computer Science, Acadia University",
                 "Wolfville, NS | Esperado Mayo 2027",
                 [
-                    "Enfoque de cursos y proyectos: ingeniería de software, estructuras de datos, bases de datos, ciberseguridad, análisis de sistemas, interacción humano-máquina, fundamentos de nube/seguridad y diseño de aplicaciones seguras.",
+                    "Enfoque: ingeniería de software, estructuras de datos, bases de datos, ciberseguridad, análisis de sistemas, interacción humano-máquina y diseño de aplicaciones seguras.",
                 ],
             ),
             (
@@ -66,52 +66,71 @@ ROLE_SECTIONS = [
                 "Ciudad de México | May-Sep 2025",
                 [
                     "Completó talleres prácticos sobre MITRE ATT&CK, seguridad ICS/OT, cyber kill chain, respuesta a incidentes y operaciones defensivas de blue team.",
-                    "Analizó TTPs adversarias y comportamiento de ransomware para conectar patrones de ataque con detección, contención, investigación y toma de decisiones.",
-                    "Construyó casos de entrevista de respuesta a incidentes basados en STAR, traduciendo escenarios técnicos en narrativas claras y orientadas a la evidencia.",
+                    "Analizó TTPs adversarias y comportamiento de ransomware para conectar patrones de ataque con detección, contención e investigación, y construyó casos de entrevista basados en STAR.",
                 ],
             ),
             (
                 "Operador de Producción, Michelin",
                 "Waterville, NS | May-Sep 2024",
                 [
-                    "Operó y monitoreó equipo de procesamiento de hule en un entorno industrial de alta presión, manteniendo estándares de calidad, seguridad y consistencia.",
-                    "Identificó y comunicó retrasos de producción o fallas de equipo para reducir interrupciones del flujo de trabajo y apoyar la continuidad de la planta.",
+                    "Operó y monitoreó equipo de procesamiento de hule en un entorno industrial de alta presión, señalando retrasos y fallas de equipo para proteger la continuidad de la planta.",
                 ],
             ),
             (
                 "Procesador de Datos, Legal Shelf",
                 "Ciudad de México | May-Ago 2023",
                 [
-                    "Digitalizó, archivó y organizó documentos legales con metadatos estructurados, mejorando la recuperación, la trazabilidad y la administración de archivos.",
-                    "Manejó información sensible bajo estrictas prácticas de confidencialidad y protección de datos durante el procesamiento de documentos legales.",
+                    "Digitalizó y organizó documentos legales con metadatos estructurados bajo estrictas prácticas de confidencialidad; regresó en 2026 para construir los sistemas documentales de LegalShelf.",
                 ],
             ),
         ],
     ),
     (
-        "PROYECTOS Y LIDERAZGO",
+        "PROYECTOS SELECCIONADOS",
         [
+            (
+                "Desarrollador, CheckWise - Plataforma de Cumplimiento REPSE (cliente: LegalShelf)",
+                "Ciudad de México / Remoto | 2026-Presente",
+                [
+                    "En producción y uso diario: 3 empresas cliente, 15+ proveedores dados de alta y cerca de 20,000 documentos de cumplimiento procesados a la fecha.",
+                    "Construyó un backend en FastAPI y un frontend en Next.js 15 / React 19 con recepción de evidencia, dictamen del revisor y vistas de riesgo del portafolio, con autenticación JWT y control de acceso por rol.",
+                    "Modeló las obligaciones REPSE como institución x ciclo (SAT, IMSS, INFONAVIT, STPS; mensual a anual) para que el calendario operativo y las compuertas de expediente se deriven del modelo de datos, y entregó un centro de reportes con IA protegido por una suite de seguridad dentro de 320+ pruebas backend.",
+                ],
+            ),
+            (
+                "Desarrollador, Verifaid - Verificación de Documentos (cliente: LegalShelf)",
+                "Ciudad de México / Remoto | 2026-Presente",
+                [
+                    "Sistema de verificación de documentos en producción para LegalShelf, el segundo sistema entregado para ese cliente.",
+                ],
+            ),
+            (
+                "Desarrollador, Pipelines de Datos - Limpieza de Bases y Extracción de Metadatos",
+                "2026",
+                [
+                    "Construyó pipelines de limpieza de bases de datos y extracción de metadatos para volver grandes conjuntos documentales consistentes, consultables y confiables de procesar.",
+                ],
+            ),
             (
                 "Fundador / Desarrollador, SAVR - Plataforma de Recomendación Gastronómica Contextual",
                 "Wolfville, NS | 2025-Presente",
                 [
-                    "Construyendo una plataforma full-stack de recomendación con FastAPI, React, TypeScript y SQL que clasifica restaurantes según preferencias, presupuesto, contexto social e intención del usuario.",
-                    "Diseñó los flujos Describe Your Night, Build Your Night y Surprise Me que conectan entradas estructuradas con tarjetas de recomendación priorizadas y explicables.",
-                    "Implementó mejoras de backend y frontend en autenticación, datos de restaurantes, APIs de recomendación, onboarding, presets y componentes de resultados.",
-                ],
-            ),
-            (
-                "Desarrollador, Family Phrase Game",
-                "2026",
-                [
-                    "Construyó y desplegó una aplicación web en Flask que convierte frases enviadas por la familia en un juego de fiesta jugable, con carga de frases, puntuación y una interfaz en vivo sencilla.",
+                    "Plataforma full-stack desplegada (FastAPI, React, TypeScript, SQL) que clasifica lugares según preferencias, presupuesto, contexto social e intención, y explica por qué encaja cada resultado.",
+                    "Diseñó los flujos Describe Your Night, Build Your Night y Surprise Me. En vivo en context-aware-dining-platform-1.vercel.app.",
                 ],
             ),
             (
                 "Diseñador de Sistema, ER Triage & Queue Manager",
                 "2025",
                 [
-                    "Modeló un flujo de cola de sala de emergencias en torno a admisión, signos vitales, puntuación de prioridad, estado del paciente, historial de estados y visibilidad en dashboard usando Python, NiceGUI y SQLite.",
+                    "Modeló un flujo de cola de urgencias en torno a admisión, signos vitales, agudeza ESI v4, estado del paciente e historial usando Python, NiceGUI y SQLite, mostrando el razonamiento clínico de cada nivel asignado.",
+                ],
+            ),
+            (
+                "Desarrollador, Family Phrase Game",
+                "2026",
+                [
+                    "Construyó y desplegó una aplicación web en Flask que convierte frases familiares en un juego de fiesta jugable, con carga de frases, puntuación e interfaz en vivo.",
                 ],
             ),
         ],
@@ -120,7 +139,7 @@ ROLE_SECTIONS = [
 
 SKILLS = [
     ("Software", "Python, Java, JavaScript/TypeScript, C, C#, SQL, React, Next.js, FastAPI, Flask, REST APIs, Git"),
-    ("Datos y Entrega", "PostgreSQL, SQLite, SQLAlchemy, modelado de datos, validación, pruebas, Vercel, Render, documentación"),
+    ("Datos y Entrega", "PostgreSQL, SQLite, SQLAlchemy, Alembic, modelado de datos, extracción de metadatos, validación, pruebas, Vercel, Render"),
     ("Ciberseguridad", "Respuesta a incidentes, análisis de amenazas, MITRE ATT&CK, cyber kill chain, fundamentos de SOC, seguridad ICS/OT, autenticación, control de acceso"),
     ("Idiomas", "Español nativo, Inglés C2, Francés A2"),
 ]
@@ -167,16 +186,16 @@ def build_pdf():
     contact_style = ParagraphStyle("contact", fontName="Helvetica", fontSize=8, leading=9.6,
                                    alignment=TA_CENTER, textColor=muted, spaceAfter=2.5)
     heading_style = ParagraphStyle("heading", fontName="Helvetica-Bold", fontSize=9.8,
-                                   leading=11, textColor=blue, spaceBefore=3.4, spaceAfter=0.8)
-    body_style = ParagraphStyle("body", fontName="Helvetica", fontSize=8.5, leading=10.2,
+                                   leading=11, textColor=blue, spaceBefore=2.6, spaceAfter=0.6)
+    body_style = ParagraphStyle("body", fontName="Helvetica", fontSize=8.1, leading=9.5,
                                 textColor=ink, spaceAfter=2)
-    role_style = ParagraphStyle("role", fontName="Helvetica", fontSize=8.7, leading=10.3,
+    role_style = ParagraphStyle("role", fontName="Helvetica", fontSize=8.3, leading=9.7,
                                 textColor=ink, spaceBefore=1.6, spaceAfter=0.6)
-    bullet_style = ParagraphStyle("bullet", fontName="Helvetica", fontSize=8.4, leading=9.8,
+    bullet_style = ParagraphStyle("bullet", fontName="Helvetica", fontSize=8.0, leading=9.2,
                                   textColor=ink, spaceAfter=0.8)
-    skill_label = ParagraphStyle("sl", fontName="Helvetica-Bold", fontSize=8.4, leading=10,
+    skill_label = ParagraphStyle("sl", fontName="Helvetica-Bold", fontSize=8.0, leading=9.4,
                                  textColor=blue)
-    skill_value = ParagraphStyle("sv", fontName="Helvetica", fontSize=8.4, leading=10,
+    skill_value = ParagraphStyle("sv", fontName="Helvetica", fontSize=8.0, leading=9.4,
                                  textColor=ink)
 
     def esc(text):
