@@ -410,13 +410,13 @@ export const trackRecord: Record<Locale, { label: string; title: string; detail:
   en: [
     {
       label: "Now",
-      title: "CheckWise in production for LegalShelf",
-      detail: "REPSE-compliance SaaS in daily use: 3 client companies, 15+ vendors, close to 20,000 documents processed.",
+      title: "Software developer at LegalShelf",
+      detail: "Two systems in production and daily use: CheckWise, a REPSE-compliance SaaS serving 3 client companies and 15+ vendors with close to 20,000 documents processed, and Verifaid, document verification.",
     },
     {
       label: "2026",
-      title: "Data pipelines and SAVR shipped",
-      detail: "Database cleanup and metadata-extraction pipelines, plus taking SAVR from prototype to a deployed app.",
+      title: "Data pipelines for LegalShelf, and SAVR shipped",
+      detail: "Built database cleanup and metadata-extraction pipelines for LegalShelf, and took SAVR from prototype to a deployed app.",
     },
     {
       label: "2025",
@@ -432,13 +432,13 @@ export const trackRecord: Record<Locale, { label: string; title: string; detail:
   es: [
     {
       label: "Ahora",
-      title: "CheckWise en producción para LegalShelf",
-      detail: "SaaS de cumplimiento REPSE en uso diario: 3 empresas cliente, 15+ proveedores y cerca de 20,000 documentos procesados.",
+      title: "Desarrollador de software en LegalShelf",
+      detail: "Dos sistemas en producción y uso diario: CheckWise, SaaS de cumplimiento REPSE con 3 empresas cliente y 15+ proveedores y cerca de 20,000 documentos procesados, y Verifaid, verificación de documentos.",
     },
     {
       label: "2026",
-      title: "Pipelines de datos y SAVR desplegado",
-      detail: "Limpieza de bases de datos y pipelines de extracción de metadatos, más llevar SAVR de prototipo a app desplegada.",
+      title: "Pipelines de datos para LegalShelf, y SAVR desplegado",
+      detail: "Construí pipelines de limpieza de bases de datos y extracción de metadatos para LegalShelf, y llevé SAVR de prototipo a app desplegada.",
     },
     {
       label: "2025",
