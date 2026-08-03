@@ -20,19 +20,55 @@ import { Words } from "@/components/ui/Words";
 import { Glyph } from "@/components/ui/Glyph";
 
 /** Primary evidence image for each featured case, chosen from real captures. */
-const featuredImage: Record<string, [string, string]> = {
-  checkwise: [
-    "/projects/checkwise/checkwise-review-queue.png",
-    "/projects/checkwise/checkwise-client-risk.png",
-  ],
-  savr: [
-    "/projects/savr/savr-recommendations-results.png",
-    "/projects/savr/savr-restaurants.png",
-  ],
-  "er-triage-queue-manager": [
-    "/projects/er-triage-queue-manager/shot-dashboard.png",
-    "/projects/er-triage-queue-manager/shot-triage-form.png",
-  ],
+const featuredImage: Record<string, Array<{ src: string; alt: { en: string; es: string } }>> = {
+    checkwise: [
+      {
+              src: "/projects/checkwise/checkwise-review-queue.png",
+              alt: {
+                        en: "CheckWise review queue showing pending REPSE compliance documents",
+                        es: "Cola de revision de CheckWise con documentos de cumplimiento REPSE pendientes",
+              },
+      },
+      {
+              src: "/projects/checkwise/checkwise-client-risk.png",
+              alt: {
+                        en: "CheckWise client risk dashboard with compliance risk scoring",
+                        es: "Panel de riesgo de clientes de CheckWise con puntuacion de riesgo de cumplimiento",
+              },
+      },
+        ],
+    savr: [
+      {
+              src: "/projects/savr/savr-recommendations-results.png",
+              alt: {
+                        en: "SAVR dining recommendation results screen",
+                        es: "Pantalla de resultados de recomendaciones de SAVR",
+              },
+      },
+      {
+              src: "/projects/savr/savr-restaurants.png",
+              alt: {
+                        en: "SAVR restaurant browsing screen with contextual filters",
+                        es: "Pantalla de exploracion de restaurantes de SAVR con filtros contextuales",
+              },
+      },
+        ],
+    "er-triage-queue-manager": [
+      {
+              src: "/projects/er-triage-queue-manager/shot-dashboard.png",
+              alt: {
+                        en: "ER triage queue manager dashboard showing the patient queue",
+                        es: "Panel del gestor de cola de triaje de urgencias con la cola de pacientes",
+              },
+      },
+      {
+              src: "/projects/er-triage-queue-manager/shot-triage-form.png",
+              alt: {
+                        en: "ER triage queue manager patient intake and triage form",
+                        es: "Formulario de ingreso y triaje de pacientes del gestor de cola de urgencias",
+              },
+      },
+        ],
 };
 
 export function HomePage({ locale }: { locale: Locale }) {
@@ -178,18 +214,18 @@ export function HomePage({ locale }: { locale: Locale }) {
                     <Link href={href} className="case-media-link" tabIndex={-1} aria-hidden="true">
                       {shots ? (
                       <div className="case-media">
-                        {shots.map((src, shot) => (
+                        {shots.map((shot, shotIndex) => (
                           <Image
-                            key={src}
-                            src={src}
-                            alt=""
-                            width={2880}
-                            height={1800}
-                            sizes="(max-width: 900px) 100vw, 60vw"
-                            quality={82}
-                            loading={index === 0 && shot === 0 ? "eager" : "lazy"}
-                            fetchPriority={index === 0 && shot === 0 ? "high" : undefined}
-                          />
+                                key={shot.src}
+                                src={shot.src}
+                                alt={shot.alt[locale]}
+                                width={2880}
+                                height={1800}
+                                sizes="(max-width: 900px) 100vw, 60vw"
+                                quality={82}
+                                loading={index === 0 && shotIndex === 0 ? "eager" : "lazy"}
+                                fetchPriority={index === 0 && shotIndex === 0 ? "high" : undefined}
+                              />
                         ))}
                       </div>
                       ) : (
