@@ -37,6 +37,26 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
         es: `/es/projects/${project.slug}`,
       },
     },
+    openGraph: {
+      title: getLocalizedValue(project.title, locale),
+      description: getLocalizedValue(project.summary, locale),
+      url: `/${locale}/projects/${project.slug}`,
+      type: "article",
+      images: project.gallery[0]
+      ? [
+        {
+          url: project.gallery[0].src,
+          alt: getLocalizedValue(project.gallery[0].alt, locale),
+        },
+        ]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: getLocalizedValue(project.title, locale),
+      description: getLocalizedValue(project.summary, locale),
+      images: project.gallery[0] ? [project.gallery[0].src] : undefined,
+    },
   };
 }
 
