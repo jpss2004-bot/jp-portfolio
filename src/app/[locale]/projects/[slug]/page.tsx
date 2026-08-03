@@ -42,6 +42,9 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
       description: getLocalizedValue(project.summary, locale),
       url: `/${locale}/projects/${project.slug}`,
       type: "article",
+      siteName: profile.fullName,
+      locale: locale === "es" ? "es_MX" : "en_CA",
+      alternateLocale: locale === "es" ? ["en_CA"] : ["es_MX"],
       images: project.gallery[0]
       ? [
         {
