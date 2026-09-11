@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   experimental: { globalNotFound: true },
   async redirects() {
     return [
+      // The old Vercel address sends everyone to the real domain.
+      { source: "/:path*", has: [{ type: "host", value: "jp-portfolio-beta.vercel.app" }], destination: "https://jpsamanosuarez.com/:path*", permanent: true },
       { source: "/", destination: "/en", permanent: false },
       ...retired.map((slug) => ({ source: `/:locale(en|es)/projects/${slug}`, destination: "/:locale#explorations", permanent: true })),
       { source: "/projects/:slug", destination: "/en/projects/:slug", permanent: true },

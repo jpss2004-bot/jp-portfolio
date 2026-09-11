@@ -480,6 +480,11 @@ export const shipped: Shipped[] = [
     line: { en: "Turns payment-terminal coordinates into audited addresses with official INEGI codes, from a 157,000-row catalog.", es: "Convierte coordenadas de terminales de pago en direcciones auditadas con claves oficiales del INEGI, a partir de un catálogo de 157,000 filas." },
   },
   {
+    name: "Red 360+1", year: "2026", status: "delivered",
+    kind: { en: "Website · freelance", es: "Sitio web · freelance" },
+    line: { en: "A 19-page bilingual redesign of a civil-society organization's institutional site, shipped in August after 34 tagged releases.", es: "Rediseño bilingüe de 19 páginas del sitio institucional de una organización de la sociedad civil, publicado en agosto tras 34 versiones etiquetadas." },
+  },
+  {
     name: "AI in legal practice", year: "2026", status: "delivered",
     kind: { en: "Talk · landing page", es: "Plática · landing page" },
     line: { en: "A 35-minute talk and site on using AI tools with legal judgment, for a Mexico City law firm.", es: "Una plática de 35 minutos y un sitio sobre el uso de IA con criterio jurídico, para un despacho de la Ciudad de México." },
