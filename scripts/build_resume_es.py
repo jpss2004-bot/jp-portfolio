@@ -20,10 +20,10 @@ BLUE = (31, 77, 120)
 INK = (18, 32, 51)
 MUTED = (85, 95, 110)
 
-NAME = "JOSE PABLO SAMANO SUAREZ"
+NAME = "JOSÉ PABLO SÁMANO SUÁREZ"
 SUBTITLE = (
-    "Estudiante de Ciencias de la Computación | Ingeniería de Software | "
-    "Ciberseguridad | Sistemas de Producto Full-Stack"
+    "Estudiante de Ciencias de la Computación | Desarrollador de Software | "
+    "Sistemas Full-Stack y de IA Documental"
 )
 CONTACT = (
     "Wolfville, NS / Ciudad de México | jpss2004@icloud.com | 6195978559 | "
@@ -31,12 +31,12 @@ CONTACT = (
 )
 
 PROFILE = (
-    "Estudiante de Ciencias de la Computación en Acadia University que entrega software "
-    "en producción para un cliente real. Construyó y mantiene dos sistemas en uso diario "
-    "en LegalShelf: CheckWise, plataforma de cumplimiento REPSE que atiende a 3 empresas "
-    "cliente y 15+ proveedores con cerca de 20,000 documentos procesados, y Verifaid, un "
-    "sistema de verificación de documentos. Trabaja en ingeniería full-stack, modelado de "
-    "dominio y ciberseguridad. Abierto a prácticas y roles técnicos junior."
+    "Estudiante de Ciencias de la Computación en Acadia University (generación mayo 2027) y "
+    "desarrollador de software en LegalShelf. Desarrollador principal de CheckWise, plataforma "
+    "de cumplimiento REPSE en producción desde mayo de 2026, y de Verifaid, un producto de "
+    "verificación legal en piloto controlado. Construye con agentes de IA detrás de compuertas "
+    "estrictas de revisión y pruebas. Disponible para prácticas desde ahora y para tiempo "
+    "completo desde mayo de 2027."
 )
 
 # Each section: (HEADING, [ (title, meta, [bullets]) , ... ])
@@ -63,12 +63,12 @@ ROLE_SECTIONS = [
         [
             (
                 "Desarrollador de Software, LegalShelf",
-                "Ciudad de México / Remoto | 2026-Presente",
+                "Ciudad de México / Remoto | Mayo 2026-Presente",
                 [
-                    "Construye y mantiene dos sistemas en producción y uso diario: CheckWise, plataforma de cumplimiento REPSE, y Verifaid, sistema de verificación de documentos.",
-                    "CheckWise atiende a 3 empresas cliente y 15+ proveedores, con cerca de 20,000 documentos de cumplimiento procesados a la fecha. Construyó el backend en FastAPI y el frontend en Next.js 15 / React 19 con recepción de evidencia, dictamen del revisor y vistas de riesgo del portafolio, con autenticación JWT y control de acceso por rol.",
-                    "Modeló las obligaciones REPSE como institución x ciclo (SAT, IMSS, INFONAVIT, STPS; mensual a anual) para que el calendario operativo y las compuertas de expediente se deriven del modelo de datos, y entregó un centro de reportes con IA protegido por una suite de seguridad dentro de 320+ pruebas backend.",
-                    "Construyó pipelines de limpieza de bases de datos y extracción de metadatos que vuelven grandes conjuntos documentales consistentes, consultables y confiables de procesar.",
+                    "Desarrollador principal de CheckWise, plataforma de cumplimiento REPSE en producción desde mayo de 2026: backend en FastAPI y PostgreSQL, frontend en Next.js 16 / React 19, portales de proveedor, cliente y revisor, y prevalidación documental asistida por IA donde una persona toma cada decisión. 2,454 commits y 667 pull requests fusionados a septiembre de 2026.",
+                    "Modeló las obligaciones REPSE como institución x ciclo (SAT, IMSS, INFONAVIT, STPS; mensual a anual) para que el calendario, los recordatorios y las vistas de riesgo salgan de un solo modelo de datos. Cada versión está protegida por 5,199 pruebas de backend, 2,542 de frontend y 71 end-to-end.",
+                    "Construyó Verifaid, que lee poderes notariales y cita la página exacta de quién puede firmar y con qué límites: de un repositorio vacío a un piloto controlado en seis semanas, con seguridad a nivel de fila y aprobación de dos personas.",
+                    "Construyó pipelines con Claude visión y la Batch API que extrajeron metadatos de 13,288 documentos legales y verificaron por hash 903 registros notariales; reconstruyó legalshelf.mx en Astro. Dirige agentes de Claude Code en worktrees aislados detrás de compuertas de CI.",
                 ],
             ),
             (
@@ -247,7 +247,7 @@ def build_pdf():
         str(PDF_OUT), pagesize=letter,
         leftMargin=0.52 * inch, rightMargin=0.52 * inch,
         topMargin=0.42 * inch, bottomMargin=0.42 * inch,
-        title="Jose Pablo Samano - CV", author="Jose Pablo Samano Suarez",
+        title="José Pablo Sámano Suárez - CV", author="José Pablo Sámano Suárez",
     )
     frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="main")
     doc.addPageTemplates([PageTemplate(id="main", frames=[frame])])
