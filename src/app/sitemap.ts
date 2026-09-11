@@ -1,26 +1,17 @@
 import type { MetadataRoute } from "next";
-import { caseStudies } from "@/data/case-studies";
+import { allCaseSlugs } from "@/data/content";
 import { locales } from "@/data/i18n";
+import { siteUrl } from "@/lib/site";
 
-function getBaseUrl() {
-  return (process.env.NEXT_PUBLIC_SITE_URL ?? "https://jp-portfolio-beta.vercel.app").replace(/\/$/, "");
-}
+const updated = new Date("2026-09-11");
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = getBaseUrl();
-  const lastModified = new Date();
-
+  const pair = (path: string) => ({
+    languages: Object.fromEntries(locales.map((l) => [l, `${siteUrl}/${l}${path}`])),
+  });
   return [
-    { url: baseUrl, lastModified },
-    ...locales.map((locale) => ({
-      url: `${baseUrl}/${locale}`,
-      lastModified,
-    })),
-    ...locales.flatMap((locale) =>
-      caseStudies.map((project) => ({
-        url: `${baseUrl}/${locale}/projects/${project.slug}`,
-        lastModified,
-      })),
-    ),
+    ...locales.map((l) => ({ url: `${siteUrl}/${l}`, lastModified: updated, alternates: pair("") })),
+    ...locales.flatMap((l) => allCaseSlugs.map((slug) => ({ url: `${siteUrl}/${l}/projects/${slug}`, lastModified: updated, alternates: pair(`/projects/${slug}`) }))),
+    { url: `${siteUrl}/summer-2026`, lastModified: updated },
   ];
 }

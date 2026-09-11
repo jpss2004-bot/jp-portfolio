@@ -2,7 +2,7 @@
 
 Production portfolio for JP Samano, built as a bilingual software systems portfolio around the **Signal Atlas** direction: routes, nodes, proof, and technical decisions.
 
-Live site: https://jp-portfolio-beta.vercel.app  
+Live site: https://jpsamanosuarez.com  
 Repository: https://github.com/jpss2004-bot/jp-portfolio
 
 ## Purpose
@@ -84,7 +84,7 @@ keyboard tab order
 Set this environment variable in Vercel for Production and Preview:
 
 ```text
-NEXT_PUBLIC_SITE_URL=https://jp-portfolio-beta.vercel.app
+NEXT_PUBLIC_SITE_URL=https://jpsamanosuarez.com
 ```
 
 The app uses this value for metadata, sitemap, robots, and canonical URL generation.
