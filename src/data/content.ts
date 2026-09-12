@@ -113,7 +113,7 @@ export const featured: Project[] = [
     visuals: {
       primary: { kind: "video", src: "/projects/checkwise/loops/review-decision.mp4", poster: "/projects/checkwise/loops/review-decision.webp", width: 1280, height: 672, alt: { en: "CheckWise in use: the client acceptance inbox, then a document with its automatic reading", es: "CheckWise en uso: la bandeja de aceptación del cliente y un documento con su lectura automática" }, caption: { en: "Recorded from the real app with demo data.", es: "Grabado en la app real con datos de demostración." } },
       secondary: { kind: "image", src: "/projects/checkwise/client-dashboard.webp", width: 1600, height: 900, alt: { en: "CheckWise client dashboard", es: "Panel del cliente en CheckWise" }, caption: { en: "Recorded from the real app with demo data.", es: "Grabado en la app real con datos de demostración." } },
-      tile: { kind: "video", src: "/projects/checkwise/loops/provider-upload.mp4", poster: "/projects/checkwise/loops/provider-upload.webp", width: 1280, height: 672, alt: { en: "CheckWise provider dashboard and guided upload", es: "Panel del proveedor y carga guiada en CheckWise" } },
+      tile: { kind: "video", src: "/projects/checkwise/loops/provider-upload-tile.mp4", poster: "/projects/checkwise/loops/provider-upload-tile.webp", width: 800, height: 420, alt: { en: "CheckWise provider dashboard and guided upload", es: "Panel del proveedor y carga guiada en CheckWise" } },
     },
     links: [visit("https://checkwise.com.mx")],
     stack: ["Python", "FastAPI", "PostgreSQL", "Next.js 16", "React 19", "TypeScript", "Claude API", "Google Document AI", "Render", "Vercel", "Playwright"],

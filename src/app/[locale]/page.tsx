@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Archivo } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -48,6 +49,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+/* The display face sets only the name, so only the home page loads it. */
+const display = Archivo({ subsets: ["latin"], variable: "--font-display", display: "swap", axes: ["wdth"] });
+
 /* Bento spans, in order, on a twelve-column grid: two, then three, then four across. */
 const span = [6, 6, 4, 4, 4, 3, 3, 3, 3];
 
@@ -64,7 +68,7 @@ export default async function Home({ params }: Props) {
 
       <main id="main">
         {/* Hero ------------------------------------------------------------ */}
-        <section className="hero">
+        <section className={`hero ${display.variable}`}>
           <NameReveal locale={locale} />
           <div className="hero-copy">
             <p className="identity">{t.identity}</p>

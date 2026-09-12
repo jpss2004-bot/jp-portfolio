@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Archivo, JetBrains_Mono, Schibsted_Grotesk } from "next/font/google";
+import { JetBrains_Mono, Schibsted_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 import { isLocale, locales } from "@/data/i18n";
@@ -11,8 +11,8 @@ import { siteUrl } from "@/lib/site";
  * Archivo only sets the name in the hero reveal. Schibsted Grotesk carries
  * everything else; JetBrains Mono is reserved for dates and figures.
  */
-const display = Archivo({ subsets: ["latin", "latin-ext"], variable: "--font-display", display: "swap", axes: ["wdth"] });
-const sans = Schibsted_Grotesk({ subsets: ["latin", "latin-ext"], variable: "--font-sans", display: "swap" });
+/* `subsets` only controls preloading; the other ranges still load on demand. */
+const sans = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap", weight: ["400", "500"] });
 
 export function generateStaticParams() {
@@ -57,7 +57,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   return (
-    <html lang={locale} className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+    <html lang={locale} className={`${sans.variable} ${mono.variable}`}>
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
         {children}
