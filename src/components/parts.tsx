@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Locale } from "@/data/i18n";
-import { pick, profile, statusLabel, summer, type Media, type Status } from "@/data/content";
+import { pick, profile, statusLabel, summer, type Media, type Status, type Visual } from "@/data/content";
+import { Loop } from "@/components/Loop";
 import { ui } from "@/data/ui";
 
 /* ---------------------------------------------------------------------- */
@@ -49,9 +50,9 @@ export function Header({ locale, altHref, home = false }: { locale: Locale; altH
   );
 }
 
-export function Footer({ locale }: { locale: Locale }) {
+export function Footer({ locale, wide = false }: { locale: Locale; wide?: boolean }) {
   return (
-    <footer className="footer col">
+    <footer className={`footer ${wide ? "frame" : "col"}`}>
       <p>© 2026 {profile.name}</p>
       <p className="muted">{ui[locale].footer}</p>
     </footer>
@@ -197,6 +198,20 @@ export function SummerStrip({ locale }: { locale: Locale }) {
         <text x={w} y={h + 17} textAnchor="end" className="tick">{fmt(data.length - 1)}</text>
       </svg>
       <figcaption className="sr-only">{ui[locale].summer.chartLabel}</figcaption>
+    </figure>
+  );
+}
+
+/* A still or a loop, framed the same way. */
+export function VisualFrame({ visual, locale, sizes = "(max-width: 900px) 100vw, 760px", priority = false, className = "" }: { visual: Visual; locale: Locale; sizes?: string; priority?: boolean; className?: string }) {
+  return (
+    <figure className={`shot ${className}`}>
+      {visual.kind === "video" ? (
+        <Loop src={visual.src} poster={visual.poster} label={pick(visual.alt, locale)} className="shot-media" />
+      ) : (
+        <Image className="shot-media" src={visual.src} alt={pick(visual.alt, locale)} width={visual.width} height={visual.height} sizes={sizes} quality={85} priority={priority} />
+      )}
+      {visual.caption ? <figcaption>{pick(visual.caption, locale)}</figcaption> : null}
     </figure>
   );
 }
