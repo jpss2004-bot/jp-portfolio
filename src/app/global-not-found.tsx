@@ -3,7 +3,7 @@ import { Schibsted_Grotesk } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
-const sans = Schibsted_Grotesk({ subsets: ["latin", "latin-ext"], variable: "--font-sans", display: "swap" });
+const sans = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 export const metadata: Metadata = { title: "Not found · José Pablo Sámano Suárez", robots: { index: false } };
 

@@ -1,6 +1,17 @@
+<!doctype html>
+<html lang="en">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>José Pablo Sámano Suárez · Summer 2026</title>
 <meta name="description" content="Everything José Pablo Sámano Suárez built in summer 2026: production software at LegalShelf, freelance websites and personal apps.">
+<link rel="canonical" href="https://jpsamanosuarez.com/summer-2026">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:title" content="José Pablo Sámano Suárez · Summer 2026">
+<meta property="og:description" content="Everything José Pablo Sámano Suárez built in summer 2026: production software at LegalShelf, freelance websites and personal apps.">
+<meta property="og:url" content="https://jpsamanosuarez.com/summer-2026">
+<meta property="og:image" content="https://jpsamanosuarez.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap">
@@ -10,7 +21,7 @@
   --ink:oklch(0.21 0.02 268); --ink-2:oklch(0.43 0.018 268); --muted:oklch(0.53 0.014 268);
   --rule:oklch(0.88 0.008 268); --hair:oklch(0.92 0.006 268);
   --cobalt:#2447c9; --on-cobalt:oklch(0.985 0.01 268); --on-cobalt-2:oklch(0.86 0.05 268); --cobalt-line:oklch(0.62 0.16 268 / .55);
-  --g-ls:#2447c9; --g-free:#e0692f; --g-per:#14a06f;
+  --g-ls:#2447c9; --g-free:#e0692f; --g-per:#14a06f; --live-ink:#0b7a52;
   --link:#2447c9; --frame:oklch(0.21 0.02 268 / .14);
   --shadow:0 1px 1px oklch(0.21 0.02 268 / .05), 0 24px 48px -28px oklch(0.25 0.08 268 / .45);
   --ease:cubic-bezier(.16,1,.3,1);
@@ -22,7 +33,7 @@
     --ink:oklch(0.95 0.006 268); --ink-2:oklch(0.8 0.012 268); --muted:oklch(0.67 0.014 268);
     --rule:oklch(0.3 0.018 268); --hair:oklch(0.25 0.016 268);
     --cobalt:#1f3db0; --on-cobalt:oklch(0.97 0.01 268); --on-cobalt-2:oklch(0.84 0.05 268); --cobalt-line:oklch(0.6 0.15 268 / .5);
-    --g-ls:#5f7ff0; --g-free:#d9733a; --g-per:#1da877;
+    --g-ls:#5f7ff0; --g-free:#d9733a; --g-per:#1da877; --live-ink:#1da877;
     --link:#8ea6f7; --frame:oklch(0.95 0.006 268 / .14);
     --shadow:0 1px 1px oklch(0 0 0 / .3), 0 24px 48px -26px oklch(0 0 0 / .7);
     color-scheme:dark;
@@ -33,7 +44,7 @@
   --ink:oklch(0.95 0.006 268); --ink-2:oklch(0.8 0.012 268); --muted:oklch(0.67 0.014 268);
   --rule:oklch(0.3 0.018 268); --hair:oklch(0.25 0.016 268);
   --cobalt:#1f3db0; --on-cobalt:oklch(0.97 0.01 268); --on-cobalt-2:oklch(0.84 0.05 268); --cobalt-line:oklch(0.6 0.15 268 / .5);
-  --g-ls:#5f7ff0; --g-free:#d9733a; --g-per:#1da877;
+  --g-ls:#5f7ff0; --g-free:#d9733a; --g-per:#1da877; --live-ink:#1da877;
   --link:#8ea6f7; --frame:oklch(0.95 0.006 268 / .14);
   --shadow:0 1px 1px oklch(0 0 0 / .3), 0 24px 48px -26px oklch(0 0 0 / .7);
   color-scheme:dark;
@@ -201,7 +212,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .log .grp .num{font-size:13px;color:var(--muted);font-weight:500}
 .entry h3{font-size:clamp(28px,2.8vw,40px);line-height:1;letter-spacing:-.035em;font-weight:680;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
 .entry.compact h3{font-size:21px;letter-spacing:-.02em}
-.entry h3 .live{font:500 12px "Geist Mono",monospace;letter-spacing:0;color:var(--g-per);display:inline-flex;align-items:center;gap:6px}
+.entry h3 .live{font:500 12px "Geist Mono",monospace;letter-spacing:0;color:var(--live-ink);display:inline-flex;align-items:center;gap:6px}
 .entry h3 .live::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px color-mix(in oklch,currentColor 22%,transparent)}
 .entry .tag{color:var(--ink-2);max-width:56ch}
 .entry .facts{display:flex;flex-wrap:wrap;gap:6px 18px;font:500 13px "Geist Mono",monospace;color:var(--ink-2)}
@@ -322,7 +333,7 @@ footer .fine{grid-column:9/13;font-size:14px;color:var(--on-cobalt-2);align-self
   </div>
 </header>
 
-<div class="bar">
+<div class="bar" role="region" aria-label="Summer 2026">
   <div class="shell">
     <span class="who">José Pablo Sámano Suárez</span>
     <nav id="barNav" aria-label="Sections"></nav>
@@ -628,3 +639,5 @@ document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",
 let rz; new ResizeObserver(()=>{clearTimeout(rz); rz=setTimeout(()=>{weekly(); $("#tl").style.setProperty("--lw",(innerWidth<700?140:210)+"px"); scrub();},90);}).observe(document.body);
 all();
 </script>
+
+</html>
