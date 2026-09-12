@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
 import { allCaseSlugs, asOf, caseOrder, getProject, pick, profile } from "@/data/content";
 import { ui } from "@/data/ui";
-import { Footer, Header, ProjectMedia, StatusTag } from "@/components/parts";
+import { Diagram, Footer, Header, ProjectMedia, StatusTag, VisualFrame } from "@/components/parts";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -80,7 +80,11 @@ export default async function CasePage({ params }: Props) {
           </dl>
         </div>
 
-        {project.media ? (
+        {project.visuals ? (
+          <div className="wide case-media">
+            <VisualFrame visual={project.visuals.primary} locale={locale} priority sizes="(max-width: 900px) 100vw, 1040px" />
+          </div>
+        ) : project.media ? (
           <div className="wide case-media">
             <ProjectMedia media={project.media} locale={locale} priority />
           </div>
@@ -103,6 +107,11 @@ export default async function CasePage({ params }: Props) {
                 <h2 className="h2">{t.case.problem}</h2>
                 <p className="prose">{pick(c.problem, locale)}</p>
               </section>
+              {project.diagram ? (
+                <section className="case-sec case-diagram">
+                  <Diagram kind={project.diagram} locale={locale} />
+                </section>
+              ) : null}
               <section className="case-sec">
                 <h2 className="h2">{t.case.constraints}</h2>
                 <List items={pick(c.constraints, locale)} />
@@ -118,6 +127,11 @@ export default async function CasePage({ params }: Props) {
                   ))}
                 </ol>
               </section>
+              {project.visuals?.secondary && project.visuals.secondary.kind === "image" && project.visuals.secondary.src.startsWith("/art/") ? (
+                <div className="case-sec">
+                  <VisualFrame visual={project.visuals.secondary} locale={locale} sizes="(max-width: 900px) 100vw, 700px" />
+                </div>
+              ) : null}
               {c.built ? (
                 <section className="case-sec">
                   <h2 className="h2">{t.case.built}</h2>

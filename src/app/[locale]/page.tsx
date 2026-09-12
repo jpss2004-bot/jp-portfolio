@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
 import { asOf, explorations, featured, method, pick, profile, shipped, summer } from "@/data/content";
 import { ui } from "@/data/ui";
-import { Footer, Header, NameReveal, ProjectMedia, StatusTag, SummerStrip } from "@/components/parts";
+import { Footer, Header, NameReveal, ProjectMedia, StatusTag, SummerStrip, VisualFrame } from "@/components/parts";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -47,6 +48,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+/* Bento spans, in order, on a twelve-column grid: two, then three, then four across. */
+const span = [6, 6, 4, 4, 4, 3, 3, 3, 3];
+
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
@@ -74,17 +78,32 @@ export default async function Home({ params }: Props) {
           </div>
         </section>
 
-        {/* Selected work --------------------------------------------------- */}
+        {/* Reel: the four systems at a glance ------------------------------ */}
+        <nav className="reel" aria-label={t.work.heading}>
+          {featured.map((project) =>
+            project.visuals?.tile ? (
+              <Link key={project.slug} className="reel-tile" href={`#${project.slug}`}>
+                <VisualFrame visual={project.visuals.tile} locale={locale} sizes="(max-width: 700px) 80vw, 320px" />
+                <span className="reel-cap">
+                  <b>{pick(project.title, locale)}</b>
+                  <StatusTag status={project.status} locale={locale} />
+                </span>
+              </Link>
+            ) : null,
+          )}
+        </nav>
+
+        {/* Selected work: one stage per system ---------------------------- */}
         <section id="work" className="section" aria-labelledby="work-h">
-          <div className="col section-head">
+          <div className="frame section-head">
             <h2 id="work-h" className="h2">{t.work.heading}</h2>
             <p className="muted">{t.work.lede}</p>
           </div>
 
-          <ol className="work">
+          <ol className="stages">
             {featured.map((project, i) => (
-              <li key={project.slug} className="work-item">
-                <div className="col work-head">
+              <li key={project.slug} id={project.slug} className={`stage${i % 2 ? " stage-flip" : ""}`}>
+                <div className="stage-text">
                   <div className="work-title">
                     <h3 className="h3">
                       <Link href={p(`/projects/${project.slug}`)}>{pick(project.title, locale)}</Link>
@@ -96,15 +115,6 @@ export default async function Home({ params }: Props) {
                     <span>{pick(project.role, locale)}</span>
                   </p>
                   <p className="work-line">{pick(project.oneLiner, locale)}</p>
-                </div>
-
-                {project.media ? (
-                  <Link className="wide work-media" href={p(`/projects/${project.slug}`)} tabIndex={-1} aria-hidden="true">
-                    <ProjectMedia media={project.media} locale={locale} priority={i === 0} />
-                  </Link>
-                ) : null}
-
-                <div className="col work-foot">
                   <dl className="facts">
                     {project.facts.map((f) => (
                       <div key={f.value + pick(f.label, locale)}>
@@ -121,63 +131,110 @@ export default async function Home({ params }: Props) {
                     {project.links.length === 0 ? <span className="muted small">{t.work.private}</span> : null}
                   </p>
                 </div>
+
+                <div className="stage-media">
+                  {project.visuals ? (
+                    <>
+                      <VisualFrame visual={project.visuals.primary} locale={locale} priority={i === 0} className="stage-primary" />
+                      {project.visuals.secondary ? (
+                        <VisualFrame visual={project.visuals.secondary} locale={locale} className="stage-secondary" sizes="(max-width: 900px) 90vw, 520px" />
+                      ) : null}
+                    </>
+                  ) : project.media ? (
+                    <ProjectMedia media={project.media} locale={locale} priority={i === 0} />
+                  ) : null}
+                </div>
               </li>
             ))}
           </ol>
-          <p className="col muted small asof">{pick(asOf, locale).replace(/^./, (c) => c.toUpperCase())}.</p>
+          <p className="frame muted small asof">{pick(asOf, locale).replace(/^./, (c) => c.toUpperCase())}.</p>
         </section>
 
         {/* How I build ----------------------------------------------------- */}
         <section id="build" className="section" aria-labelledby="build-h">
-          <div className="col">
-            <h2 id="build-h" className="h2">{t.build.heading}</h2>
-            <p className="lead">{t.build.lede}</p>
-            <ol className="steps">
-              {method.map((step, i) => (
-                <li key={step.title.en}>
-                  <span className="mono step-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h3 className="h4">{pick(step.title, locale)}</h3>
-                    <p className="muted">{pick(step.body, locale)}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-            <p className="note">{t.build.figures}</p>
+          <div className="split">
+            <div>
+              <h2 id="build-h" className="h2">{t.build.heading}</h2>
+              <p className="lead">{t.build.lede}</p>
+              <ol className="steps">
+                {method.map((step, i) => (
+                  <li key={step.title.en}>
+                    <span className="mono step-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                    <div>
+                      <h3 className="h4">{pick(step.title, locale)}</h3>
+                      <p className="muted">{pick(step.body, locale)}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <p className="note">{t.build.figures}</p>
+            </div>
+            <figure className="shot split-art">
+              <Image
+                className="shot-media"
+                src="/art/build-bp.webp"
+                width={1600}
+                height={893}
+                sizes="(max-width: 900px) 100vw, 560px"
+                quality={85}
+                alt={locale === "es" ? "Dibujo del sistema: escritorios aislados, una sola compuerta y producción" : "Line drawing of the system: isolated desks, one checkpoint, then production"}
+              />
+              <figcaption>{locale === "es" ? "Sesiones aisladas, una memoria compartida, una sola compuerta hacia producción." : "Isolated sessions, one shared memory, a single gate into production."}</figcaption>
+            </figure>
           </div>
         </section>
 
         {/* Summer 2026 ----------------------------------------------------- */}
         <section id="summer" className="section" aria-labelledby="summer-h">
-          <div className="col">
-            <h2 id="summer-h" className="h2">{t.summer.heading}</h2>
-            <p className="muted">{t.summer.lede}</p>
+          <div className="frame summer">
+            <div className="summer-head">
+              <h2 id="summer-h" className="h2">{t.summer.heading}</h2>
+              <p className="muted">{t.summer.lede}</p>
+            </div>
             <SummerStrip locale={locale} />
-            <p className="summer-facts">
-              {summer.facts.map((f) => (
-                <span key={f.value}><b className="mono">{f.value}</b> {pick(f.label, locale)}</span>
-              ))}
-            </p>
-            <p><a className="link" href={summer.href}>{t.summer.report} →</a></p>
+            <div className="summer-foot">
+              <p className="summer-facts">
+                {summer.facts.map((f) => (
+                  <span key={f.value}><b>{f.value}</b> {pick(f.label, locale)}</span>
+                ))}
+              </p>
+              <a className="btn btn-strong" href={summer.href}>{t.summer.report} →</a>
+            </div>
           </div>
         </section>
 
-        {/* Also shipped ---------------------------------------------------- */}
+        {/* Also shipped: bento --------------------------------------------- */}
         <section className="section" aria-labelledby="shipped-h">
-          <div className="col">
-            <h2 id="shipped-h" className="h2">{t.shipped.heading}</h2>
-            <ul className="shipped">
-              {shipped.map((s) => (
-                <li key={s.name}>
-                  <div className="shipped-main">
-                    <span className="shipped-name">
-                      {s.slug ? <Link href={p(`/projects/${s.slug}`)}>{s.name}</Link> : s.href ? <a href={s.href} target="_blank" rel="noreferrer">{s.name} ↗</a> : s.name}
+          <div className="frame">
+            <h2 id="shipped-h" className="h2 bento-h">{t.shipped.heading}</h2>
+            <ul className="bento">
+              {shipped.map((s, i) => {
+                const href = s.slug ? p(`/projects/${s.slug}`) : s.href;
+                const external = !s.slug && !!s.href;
+                const body = (
+                  <>
+                    {s.image ? (
+                      <span className="bento-img">
+                        <Image src={s.image.src} alt={pick(s.image.alt, locale)} width={s.image.width} height={s.image.height} sizes="(max-width: 700px) 100vw, 480px" quality={75} />
+                      </span>
+                    ) : null}
+                    <span className="bento-text">
+                      <span className="bento-name">{s.name}{external ? " ↗" : ""}</span>
+                      <span className="bento-meta mono">{s.year} · {pick(s.kind, locale)}</span>
+                      <span className="bento-line">{pick(s.line, locale)}</span>
                     </span>
-                    <span className="shipped-line muted">{pick(s.line, locale)}</span>
-                  </div>
-                  <span className="shipped-meta mono">{s.year} · {pick(s.kind, locale)}</span>
-                </li>
-              ))}
+                  </>
+                );
+                return (
+                  <li key={s.name} className={`bento-card span-${span[i] ?? 4}`}>
+                    {href ? (
+                      <a href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>{body}</a>
+                    ) : (
+                      <div>{body}</div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
             <p id="explorations" className="muted small">{pick(explorations, locale)}</p>
           </div>
@@ -185,11 +242,13 @@ export default async function Home({ params }: Props) {
 
         {/* About ----------------------------------------------------------- */}
         <section id="about" className="section" aria-labelledby="about-h">
-          <div className="col">
-            <h2 id="about-h" className="h2">{t.about.heading}</h2>
-            {t.about.body.map((para) => (
-              <p key={para.slice(0, 20)} className="prose">{para}</p>
-            ))}
+          <div className="split about-split">
+            <div>
+              <h2 id="about-h" className="h2">{t.about.heading}</h2>
+              {t.about.body.map((para) => (
+                <p key={para.slice(0, 20)} className="prose">{para}</p>
+              ))}
+            </div>
             <dl className="about-facts">
               {t.about.facts.map((f) => (
                 <div key={f.label}>
@@ -203,7 +262,7 @@ export default async function Home({ params }: Props) {
 
         {/* Contact --------------------------------------------------------- */}
         <section id="contact" className="section" aria-labelledby="contact-h">
-          <div className="col">
+          <div className="frame contact">
             <h2 id="contact-h" className="h2">{t.contact.heading}</h2>
             <p className="prose">{t.contact.body}</p>
             <p className="contact-mail"><a href={`mailto:${profile.email}`}>{profile.email}</a></p>
@@ -216,7 +275,7 @@ export default async function Home({ params }: Props) {
         </section>
       </main>
 
-      <Footer locale={locale} />
+      <Footer locale={locale} wide />
     </>
   );
 }

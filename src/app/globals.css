@@ -21,6 +21,7 @@
   --gutter: clamp(1.25rem, 5vw, 2.5rem);
   --col: 44rem;
   --wide: 68rem;
+  --frame: 82rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
@@ -160,6 +161,13 @@ p {
   padding-inline: var(--gutter);
 }
 
+.frame {
+  width: 100%;
+  max-width: var(--frame);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
 .col-inline {
   width: 100%;
   max-width: calc(var(--col) - 2 * var(--gutter));
@@ -251,7 +259,7 @@ p {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  max-width: var(--wide);
+  max-width: var(--frame);
   margin-inline: auto;
   padding-inline: var(--gutter);
   height: 3.5rem;
@@ -351,7 +359,7 @@ p {
   column-gap: 0.16em;
   justify-content: center;
   margin-inline: auto;
-  max-width: 82rem;
+  max-width: var(--frame);
   font-family: var(--font-display), "Arial Black", system-ui, sans-serif;
   font-weight: 800;
   font-stretch: 112%;
@@ -1082,5 +1090,376 @@ a:hover .shot {
   .name-portrait,
   .hero-copy {
     animation: none !important;
+  }
+}
+
+/* ================================================================ visual */
+
+.shot-media {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+video.shot-media {
+  aspect-ratio: auto;
+  background: var(--surface);
+}
+
+.shot figcaption {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  padding: 0.65rem 0.9rem 0.75rem;
+  border-top: 1px solid var(--hair);
+  background: var(--surface);
+}
+
+/* Reel: four tiles under the hero, the first visual read of the page. */
+.reel {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.6vw, 1.25rem);
+  max-width: var(--frame);
+  margin: clamp(2.5rem, 6vw, 4.5rem) auto 0;
+  padding-inline: var(--gutter);
+}
+
+.reel-tile {
+  display: grid;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.reel-tile .shot {
+  aspect-ratio: 4 / 3;
+}
+
+.reel-tile .shot-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 700ms var(--ease);
+}
+
+.reel-tile:hover .shot-media {
+  transform: scale(1.035);
+}
+
+.reel-cap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem 0.6rem;
+  font-size: 0.9375rem;
+}
+
+.reel-cap b {
+  font-weight: 620;
+}
+
+@media (max-width: 900px) {
+  .reel {
+    grid-template-columns: repeat(4, minmax(15rem, 1fr));
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+  }
+  .reel-tile {
+    scroll-snap-align: start;
+  }
+}
+
+/* Stages: text and media side by side, alternating, using the full width. */
+.stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+  max-width: var(--frame);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.stage + .stage {
+  margin-top: clamp(5rem, 11vw, 9rem);
+}
+
+.stage-text {
+  display: grid;
+  gap: 0.9rem;
+  position: sticky;
+  top: 5.5rem;
+}
+
+.stage-text .facts {
+  margin-top: 0.4rem;
+}
+
+.stage-flip .stage-text {
+  order: 2;
+}
+
+.stage-media {
+  display: grid;
+  position: relative;
+}
+
+.stage-secondary {
+  width: 66%;
+  margin-top: -14%;
+  margin-left: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.stage-flip .stage-secondary {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+@media (max-width: 900px) {
+  .stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .stage-text {
+    position: static;
+  }
+  .stage-flip .stage-text {
+    order: 0;
+  }
+  .stage-secondary {
+    width: 80%;
+    margin-top: -10%;
+  }
+}
+
+/* How I build: text beside the system drawing. */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+  max-width: var(--frame);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.split-art {
+  position: sticky;
+  top: 5.5rem;
+}
+
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .split-art {
+    position: static;
+  }
+}
+
+/* Summer: the strip gets the full width. */
+.summer {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.summer-head {
+  max-width: 40rem;
+}
+
+.summer .strip {
+  margin: 1.5rem 0 1.25rem;
+}
+
+.summer-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.summer .summer-facts {
+  margin: 0;
+  gap: 0.4rem 2.25rem;
+}
+
+.summer .summer-facts b {
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  margin-right: 0.3rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.btn-strong {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+}
+
+.btn-strong:hover {
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
+  color: var(--bg);
+}
+
+/* Bento: varied spans on a six-column grid. */
+.bento-h {
+  margin-bottom: 1.5rem;
+}
+
+.bento {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.6vw, 1.25rem);
+}
+
+.bento-card {
+  grid-column: span 4;
+}
+
+.bento-card.span-6 {
+  grid-column: span 6;
+}
+
+.bento-card.span-3 {
+  grid-column: span 3;
+}
+
+.bento-card > a,
+.bento-card > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  transition: transform 500ms var(--ease), box-shadow 500ms var(--ease);
+}
+
+.bento-card > a:hover {
+  transform: translateY(-3px);
+}
+
+.bento-card > a:active {
+  transform: translateY(-1px);
+}
+
+.bento-img {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--hair);
+  background: var(--bg);
+}
+
+.bento-card.span-6 .bento-img {
+  aspect-ratio: 16 / 8;
+}
+
+.bento-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 700ms var(--ease);
+}
+
+.bento-card > a:hover .bento-img img {
+  transform: scale(1.04);
+}
+
+.bento-text {
+  display: grid;
+  align-content: start;
+  gap: 0.25rem;
+  padding: 0.95rem 1.05rem 1.1rem;
+}
+
+.bento-name {
+  font-weight: 640;
+  letter-spacing: -0.01em;
+}
+
+.bento-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.bento-line {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+@media (max-width: 1000px) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .bento-card,
+  .bento-card.span-6,
+  .bento-card.span-3 {
+    grid-column: span 1;
+  }
+  .bento-card.span-6 .bento-img {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media (max-width: 600px) {
+  .bento {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* When a secondary overlaps the primary, the secondary carries the caption. */
+.stage-media:has(.stage-secondary) .stage-primary figcaption {
+  display: none;
+}
+
+.about-split .about-facts {
+  margin-top: 0.4rem;
+}
+
+.contact > * {
+  max-width: var(--col);
+}
+
+/* The pipeline drawing breaks out of the reading column so its labels stay legible. */
+.case-diagram {
+  --bleed: min(calc(var(--wide) - 2 * var(--gutter)), calc(100vw - 2 * var(--gutter)));
+  width: var(--bleed);
+  margin-left: calc(50% - var(--bleed) / 2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reel-tile .shot-media,
+  .bento-img img,
+  .bento-card > a {
+    transition: none;
+  }
+  .reel-tile:hover .shot-media,
+  .bento-card > a:hover,
+  .bento-card > a:hover .bento-img img {
+    transform: none;
   }
 }
