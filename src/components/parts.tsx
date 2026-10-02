@@ -116,7 +116,8 @@ export function StatusTag({ status, locale }: { status: Status; locale: Locale }
 export function ProjectMedia({ media, locale, priority = false }: { media: Media; locale: Locale; priority?: boolean }) {
   if (media.type === "image") {
     return (
-      <figure className="shot">
+      <figure className="shot media-frame media-interface">
+        <div className="media-canvas">
         <Image
           src={media.src}
           alt={pick(media.alt, locale)}
@@ -126,6 +127,7 @@ export function ProjectMedia({ media, locale, priority = false }: { media: Media
           quality={85}
           priority={priority}
         />
+        </div>
       </figure>
     );
   }
@@ -203,14 +205,23 @@ export function SummerStrip({ locale }: { locale: Locale }) {
 }
 
 /* A still or a loop, framed the same way. */
+export function mediaPresentation(src: string) {
+  // The /art directory also contains genuine interface captures (bob, red360).
+  return /\/(?:[^/]+-3d|[^/]+-bp|[^/]+-loop)\.(?:webp|mp4)$/.test(src) || src === "/art/build-bp.webp"
+    ? "media-illustration"
+    : "media-interface";
+}
+
 export function VisualFrame({ visual, locale, sizes = "(max-width: 900px) 100vw, 760px", priority = false, className = "" }: { visual: Visual; locale: Locale; sizes?: string; priority?: boolean; className?: string }) {
   return (
-    <figure className={`shot ${className}`}>
+    <figure className={`shot media-frame ${mediaPresentation(visual.src)} ${className}`}>
+      <div className="media-canvas">
       {visual.kind === "video" ? (
         <Loop src={visual.src} poster={visual.poster} label={pick(visual.alt, locale)} className="shot-media" />
       ) : (
         <Image className="shot-media" src={visual.src} alt={pick(visual.alt, locale)} width={visual.width} height={visual.height} sizes={sizes} quality={85} priority={priority} />
       )}
+      </div>
       {visual.caption ? <figcaption>{pick(visual.caption, locale)}</figcaption> : null}
     </figure>
   );

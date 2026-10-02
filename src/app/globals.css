@@ -1126,6 +1126,57 @@ video.shot-media {
   background: var(--surface);
 }
 
+/* One quiet presentation for product captures and conceptual artwork.
+ * Interface colors stay intact; artwork gives up some saturation and contrast.
+ */
+.media-frame {
+  --media-inset: clamp(0.6rem, 1.4vw, 1rem);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  box-shadow: none;
+}
+
+.media-canvas {
+  display: grid;
+  place-items: center;
+  margin: var(--media-inset);
+  overflow: hidden;
+  border-radius: 5px;
+  background: #e4e7eb;
+}
+
+.media-canvas > img,
+.media-canvas > video {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+.media-illustration .media-canvas > img,
+.media-illustration .media-canvas > video {
+  filter: saturate(0.55) contrast(0.92);
+}
+
+.reel-tile .media-canvas,
+.bento-img .media-canvas {
+  height: calc(100% - var(--media-inset) * 2);
+}
+
+.reel-tile .media-canvas > img,
+.reel-tile .media-canvas > video,
+.bento-img .media-canvas > img {
+  height: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .media-illustration .media-canvas > img,
+  .media-illustration .media-canvas > video {
+    filter: saturate(0.55) contrast(0.92) brightness(0.88);
+  }
+}
+
 /* Reel: four tiles under the hero, the first visual read of the page. */
 .reel {
   display: grid;
@@ -1143,14 +1194,14 @@ video.shot-media {
 }
 
 .reel-tile .shot {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
 }
 
 .reel-tile .shot-media {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: contain;
+  object-position: center;
   transition: transform 700ms var(--ease);
 }
 
@@ -1391,8 +1442,8 @@ video.shot-media {
 .bento-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: contain;
+  object-position: center;
   transition: transform 700ms var(--ease);
 }
 

@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
 import { asOf, explorations, featured, method, pick, profile, shipped, summer } from "@/data/content";
 import { ui } from "@/data/ui";
-import { Footer, Header, NameReveal, ProjectMedia, StatusTag, SummerStrip, VisualFrame } from "@/components/parts";
+import { Footer, Header, NameReveal, ProjectMedia, StatusTag, SummerStrip, VisualFrame, mediaPresentation } from "@/components/parts";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -173,7 +173,8 @@ export default async function Home({ params }: Props) {
               </ol>
               <p className="note">{t.build.figures}</p>
             </div>
-            <figure className="shot split-art">
+            <figure className="shot media-frame media-illustration split-art">
+              <div className="media-canvas">
               <Image
                 className="shot-media"
                 src="/art/build-bp.webp"
@@ -183,6 +184,7 @@ export default async function Home({ params }: Props) {
                 quality={85}
                 alt={locale === "es" ? "Dibujo del sistema: escritorios aislados, una sola compuerta y producción" : "Line drawing of the system: isolated desks, one checkpoint, then production"}
               />
+              </div>
               <figcaption>{locale === "es" ? "Sesiones aisladas, una memoria compartida, una sola compuerta hacia producción." : "Isolated sessions, one shared memory, a single gate into production."}</figcaption>
             </figure>
           </div>
@@ -218,8 +220,10 @@ export default async function Home({ params }: Props) {
                 const body = (
                   <>
                     {s.image ? (
-                      <span className="bento-img">
+                      <span className={`bento-img media-frame ${mediaPresentation(s.image.src)}`}>
+                        <span className="media-canvas">
                         <Image src={s.image.src} alt={pick(s.image.alt, locale)} width={s.image.width} height={s.image.height} sizes="(max-width: 700px) 100vw, 480px" quality={75} />
+                        </span>
                       </span>
                     ) : null}
                     <span className="bento-text">

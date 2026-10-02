@@ -1,48 +1,51 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><title>José Pablo Sámano Suárez · CV</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;800&display=block"><link rel="stylesheet" href="resume.css"></head><body>
-<h1>JOSE PABLO SAMANO SUAREZ</h1>
-<div class="sub">Estudiante de Ciencias de la Computación · Ingeniería de Software · Ciberseguridad · Sistemas de Producto Full-Stack</div>
-<div class="contact"><span>Wolfville, NS / Ciudad de México</span><span>jpss2004@icloud.com</span><span>linkedin.com/in/jose-pablo-samano-suarez</span><span>github.com/jpss2004-bot</span><span>jpsamanosuarez.com</span></div>
-<div class="auth">Permiso de estudio canadiense, elegible para co-op · Ciudadano mexicano · Disponibilidad: flexible</div>
+<link rel="stylesheet" href="resume.css"></head><body>
+<header>
+<h1>JOSÉ PABLO SÁMANO SUÁREZ</h1>
+<div class="sub">Ciencias de la Computación · Ingeniería de Software · Investigación en IA e IoT · Ciberseguridad</div>
+<div class="contact"><span>Wolfville, NS / Ciudad de México</span><span><a href="mailto:jpss2004@icloud.com">jpss2004@icloud.com</a></span><span><a href="https://jpsamanosuarez.com">jpsamanosuarez.com</a></span></div>
+<div class="contact"><span><a href="https://www.linkedin.com/in/jose-pablo-samano-suarez/">LinkedIn: jose-pablo-samano-suarez</a></span><span><a href="https://github.com/jpss2004-bot">GitHub: jpss2004-bot</a></span></div>
+<div class="auth">Permiso de estudio canadiense · Elegible para co-op · Ciudadano mexicano</div>
+</header>
 
-<h2>Perfil</h2>
-<p>Estudiante de Ciencias de la Computación en Acadia University y único desarrollador de tres sistemas en uso real: <b>CheckWise</b>, plataforma de cumplimiento REPSE que revisa ~50 documentos al día para 7 empresas cliente; <b>Verifaid</b>, que determina si una firma puede proceder legalmente, con más de 50 operaciones resueltas; y <b>SAVR</b>, una plataforma de recomendaciones en línea.</p>
+<section><h2>Experiencia</h2>
+<div class="item"><div class="row"><b>Asistente de Investigación — Acadia University</b><span>sep 2026–Presente</span></div>
+<div class="meta">Acadia AIoT Research Hub (AARH) · Wolfville, NS</div>
+<ul><li>Colaboro en investigación aplicada de IA e IoT mediante experimentación, pruebas y validación de sistemas conectados, con enfoque en seguridad, privacidad y rendimiento.</li></ul></div>
+<div class="item"><div class="row"><b>Desarrollador de Software — LegalShelf</b><span>2026–Presente</span></div>
+<div class="meta">Ciudad de México / Remoto</div>
+<ul><li>Lidero el desarrollo de CheckWise y Verifaid: modelos de datos, APIs, procesos de IA, control de acceso, interfaces y despliegue. Traduzco necesidades de abogados, equipos de operaciones y clientes en software funcional.</li></ul></div>
+</section>
 
-<h2>Proyectos principales</h2>
+<section><h2>Proyectos destacados</h2>
 <div class="item"><div class="row"><b>CheckWise — Plataforma de Cumplimiento REPSE</b><span>LegalShelf · 2026–Presente</span></div>
-<div class="meta">7 clientes, 15+ proveedores, ~20,000 documentos | Python, FastAPI, TypeScript, React 19, Next.js 15, PostgreSQL, SQLAlchemy, Alembic, pytest</div>
-<ul><li>Construí el backend en FastAPI y el frontend en Next.js 15 / React 19 para la recepción de evidencia, el dictamen del revisor y las vistas de riesgo de todo el portafolio, con autenticación JWT y control de acceso por rol.</li>
-<li>Modelé las obligaciones REPSE como institución × ciclo (SAT, IMSS, INFONAVIT, STPS) para que el calendario operativo y las compuertas del expediente se deriven del modelo de datos.</li>
-<li>Entregué un centro de reportes asistido por IA, protegido por una suite de seguridad de IA dentro de más de 320 pruebas de backend. Hoy los revisores resuelven ~50 documentos al día, en cerca de un minuto cada uno.</li></ul></div>
+<div class="meta">Python · FastAPI · PostgreSQL · TypeScript · Next.js 16 · React 19</div>
+<ul><li>Construí una plataforma utilizada por <b>7 empresas cliente y más de 15 proveedores</b>, con cerca de <b>20,000 documentos procesados</b> para obligaciones de SAT, IMSS, INFONAVIT y STPS.</li>
+<li>Automaticé el análisis documental, la validación de facturas ante el SAT y reglas de aceptación/rechazo configurables; los revisores resuelven unos <b>50 documentos al día en cerca de un minuto cada uno</b>.</li>
+<li>Entregué portales para proveedores, clientes y revisores, tableros de riesgo, flujos de reportes y una academia integrada con <b>33 lecciones filmadas</b>.</li>
+<li>Reforcé los controles de revisión para usar evidencia vigente y bloquear discrepancias pendientes; validación con <b>9,941 pruebas de backend y 4,773 de frontend</b> en septiembre de 2026.</li></ul></div>
 <div class="item"><div class="row"><b>Verifaid — Verificación de Facultades de Firma</b><span>LegalShelf · 2026–Presente</span></div>
-<div class="meta">SaaS, más de 50 operaciones para un cliente de pago | Python, FastAPI, SQL, extracción asistida por LLM, consulta de registros</div>
-<ul><li>Automatiza una revisión legal manual para flujos fintech y de operaciones: extrae datos de documentos corporativos y poderes, los cruza con registros públicos y señala discrepancias conforme a la ley mexicana.</li>
-<li>Entrega una decisión, no un reporte: si la firma puede proceder, por qué no puede y quién tiene las facultades para firmar.</li></ul></div>
-<div class="item"><div class="row"><b>SAVR — Plataforma de Recomendaciones Gastronómicas Contextuales</b><span>Fundador · 2025–Presente</span></div>
-<div class="meta">10 usuarios activos | Python, FastAPI, TypeScript, React, SQL, Vercel | context-aware-dining-platform-1.vercel.app</div>
-<ul><li>Ordena lugares según preferencias, presupuesto, contexto social e intención, y explica por qué encaja cada resultado, mediante los flujos Describe Your Night, Build Your Night y Surprise Me.</li>
-<li>Mantiene una base de datos actualizada con IA de ~50 restaurantes a menos de 50 km de Wolfville, NS, con 10 usuarios activos.</li></ul></div>
+<div class="meta">Python · FastAPI · SQL · Extracción con LLM · Consulta de registros públicos</div>
+<ul><li>Construí un proceso que lee documentos corporativos y poderes, los cruza con registros públicos e identifica quién puede firmar y con qué límites, citando la página de origen.</li>
+<li>Entregué <b>más de 50 operaciones para un cliente de pago</b>, con justificación trazable de cada revisión y aprobación obligatoria de una segunda persona.</li></ul></div>
+<div class="item"><div class="row"><b>SAVR — Recomendaciones Gastronómicas</b><span>Fundador · 2025–Presente</span></div>
+<div class="meta">Python · FastAPI · React · TypeScript · SQL</div>
+<ul><li>Desarrollé una app con <b>10 usuarios activos</b> y unos <b>50 restaurantes</b> cerca de Wolfville; ordena opciones según preferencias, presupuesto, contexto social e intención, y explica cada recomendación.</li></ul></div>
+</section>
 
-<h2>Experiencia</h2>
-<div class="item"><div class="row"><b>Desarrollador de Software, LegalShelf</b><span>Ciudad de México / Remoto · 2026–Presente</span></div>
-<p>Único desarrollador de ambos sistemas en producción (modelo de datos, API, funciones de IA, control de acceso e interfaz), trabajando directamente con el área de cumplimiento del negocio.</p></div>
-<div class="item"><div class="row"><b>Participante de Cybolt Academy, Cybolt</b><span>Ciudad de México · may–sep 2025</span></div>
-<ul><li>Talleres prácticos sobre MITRE ATT&amp;CK, seguridad ICS/OT, cyber kill chain y respuesta a incidentes; aplico el mismo enfoque de modelado de amenazas a los pipelines de documentos y al control de acceso en LegalShelf.</li></ul></div>
-<div class="item"><div class="row"><b>Procesador de Datos, LegalShelf</b><span>Ciudad de México · may–ago 2023</span></div>
-<p>Digitalicé y organicé documentos legales con metadatos estructurados: el trabajo manual que hoy automatizan los sistemas.</p></div>
+<section><h2>Educación y formación</h2>
+<div class="item"><div class="row"><b>Ciencias de la Computación — Acadia University</b><span>Egreso previsto: mayo 2027</span></div>
+<p>Licenciatura (B.Sc.): ingeniería de software, bases de datos, sistemas, arquitectura y ciberseguridad.</p></div>
+<div class="item"><div class="row"><b>Trinity College School</b><span>Port Hope, ON · 2023</span></div></div>
+<div class="item"><div class="row"><b>Cybolt Academy — Formación en Ciberseguridad</b><span>may–sep 2025</span></div>
+<p>Talleres de MITRE ATT&amp;CK, seguridad ICS/OT, cyber kill chain y respuesta a incidentes. Cursos adicionales: CompTIA Security+ y CySA+; COMP 601 Fundamentos de Ciberseguridad.</p></div>
+</section>
 
-<h2>Educación</h2>
-<div class="item"><div class="row"><b>Licenciatura en Ciencias de la Computación, Acadia University</b><span>Wolfville, NS · Egreso esperado mayo 2027</span></div>
-<p>Cursos de ingeniería de software, bases de datos, análisis de sistemas, ciberseguridad y diseño de aplicaciones seguras. Trinity College School, Port Hope, ON, 2023.</p></div>
-
-<h2>Habilidades e idiomas</h2>
+<section><h2>Habilidades e idiomas</h2>
 <div class="skills">
-<div><b>Software</b>Python, Java, JavaScript/TypeScript, C, C#, SQL, React, Next.js, FastAPI, Flask, APIs REST, Git</div>
-<div><b>Datos y entrega</b>PostgreSQL, SQLite, SQLAlchemy, Alembic, modelado de datos, extracción de metadatos, pruebas, Vercel, Render</div>
-<div><b>Seguridad</b>Autenticación JWT, control de acceso por rol, modelado de amenazas de pipelines de documentos, respuesta a incidentes, MITRE ATT&amp;CK, seguridad ICS/OT</div>
-<div><b>Formación</b>Cursos de CompTIA Security+ y CySA+, COMP 601 Fundamentos de Ciberseguridad</div>
-<div><b>Idiomas</b>Español nativo, inglés C2, francés A2</div></div>
-
-<h2>Proyectos adicionales</h2>
-<p><b>ER Triage &amp; Queue Manager</b> (2025) Flujo de fila de urgencias con clasificación de agudeza ESI v4 y tablero de visibilidad; Python, NiceGUI, SQLite. <b>Family Phrase Game</b> (2026) Juego de fiesta publicado en Flask.</p>
+<div><b>Desarrollo</b>Python, Java, TypeScript/JavaScript, C, C#, SQL, React, Next.js, FastAPI, Flask, APIs REST</div>
+<div><b>Datos y entrega</b>PostgreSQL, SQLite, SQLAlchemy, Alembic, Git, pytest, Playwright, Vercel, Render</div>
+<div><b>Seguridad</b>Autenticación JWT, control de acceso por rol, modelado de amenazas, validación documental</div>
+<div><b>Idiomas</b>Español nativo · Inglés C2 · Francés A2</div></div>
+</section>
 </body></html>

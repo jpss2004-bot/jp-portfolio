@@ -155,8 +155,10 @@ export default async function CasePage({ params }: Props) {
           <section className="wide case-sec gallery" aria-label={t.case.gallery}>
             <h2 className="h2 col-inline">{t.case.gallery}</h2>
             {c.gallery.map((g) => (
-              <figure key={g.src} className="shot">
+              <figure key={g.src} className="shot media-frame media-interface">
+                <div className="media-canvas">
                 <Image src={g.src} alt={pick(g.alt, locale)} width={g.width} height={g.height} sizes="(max-width: 900px) 100vw, 1040px" quality={85} />
+                </div>
                 <figcaption>{pick(g.caption, locale)}</figcaption>
               </figure>
             ))}
