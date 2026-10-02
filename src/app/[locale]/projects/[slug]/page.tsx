@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
 import { allCaseSlugs, asOf, caseOrder, getProject, pick, profile } from "@/data/content";
 import { ui } from "@/data/ui";
-import { Diagram, Footer, Header, ProjectMedia, StatusTag, VisualFrame } from "@/components/parts";
+import { Footer, Header, ProjectMedia, StatusTag, VisualFrame } from "@/components/parts";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -65,7 +65,7 @@ export default async function CasePage({ params }: Props) {
     <>
       <a href="#main" className="skip-link">{t.skip}</a>
       <Header locale={locale} altHref={`/projects/${slug}`} />
-      <main id="main" className="case">
+      <main id="main" className="case" tabIndex={-1}>
         <div className="col">
           <p className="back"><Link className="link" href={`${base}#work`}>← {t.case.back}</Link></p>
           <div className="case-title">
@@ -82,7 +82,7 @@ export default async function CasePage({ params }: Props) {
 
         {project.visuals ? (
           <div className="wide case-media">
-            <VisualFrame visual={project.visuals.primary} locale={locale} priority sizes="(max-width: 900px) 100vw, 1040px" />
+            <VisualFrame visual={project.visuals.primary} locale={locale} detailed sizes="(max-width: 900px) 100vw, 1040px" />
           </div>
         ) : project.media ? (
           <div className="wide case-media">
@@ -107,11 +107,6 @@ export default async function CasePage({ params }: Props) {
                 <h2 className="h2">{t.case.problem}</h2>
                 <p className="prose">{pick(c.problem, locale)}</p>
               </section>
-              {project.diagram ? (
-                <section className="case-sec case-diagram">
-                  <Diagram kind={project.diagram} locale={locale} />
-                </section>
-              ) : null}
               <section className="case-sec">
                 <h2 className="h2">{t.case.constraints}</h2>
                 <List items={pick(c.constraints, locale)} />
@@ -127,10 +122,11 @@ export default async function CasePage({ params }: Props) {
                   ))}
                 </ol>
               </section>
-              {project.visuals?.secondary && project.visuals.secondary.kind === "image" && project.visuals.secondary.src.startsWith("/art/") ? (
-                <div className="case-sec">
+              {project.visuals?.secondary ? (
+                <section className="case-sec">
+                  <h2 className="h2">{locale === "es" ? "Recorrido del producto" : "Product walkthrough"}</h2>
                   <VisualFrame visual={project.visuals.secondary} locale={locale} sizes="(max-width: 900px) 100vw, 700px" />
-                </div>
+                </section>
               ) : null}
               {c.built ? (
                 <section className="case-sec">
@@ -157,9 +153,9 @@ export default async function CasePage({ params }: Props) {
             {c.gallery.map((g) => (
               <figure key={g.src} className="shot media-frame media-interface">
                 <div className="media-canvas">
-                <Image src={g.src} alt={pick(g.alt, locale)} width={g.width} height={g.height} sizes="(max-width: 900px) 100vw, 1040px" quality={85} />
+                <a className="media-open" href={g.src} target="_blank" rel="noreferrer" aria-label={`${locale === "es" ? "Abrir imagen completa" : "Open full-size image"}: ${pick(g.alt, locale)}`}><Image src={g.src} alt={pick(g.alt, locale)} width={g.width} height={g.height} sizes="(max-width: 900px) 100vw, 1040px" quality={85} /></a>
                 </div>
-                <figcaption>{pick(g.caption, locale)}</figcaption>
+                <figcaption><span>{pick(g.caption, locale)}</span><a href={g.src} target="_blank" rel="noreferrer">{locale === "es" ? "Abrir imagen completa" : "Open full-size image"}</a></figcaption>
               </figure>
             ))}
           </section>

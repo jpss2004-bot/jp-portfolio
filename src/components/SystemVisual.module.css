@@ -1,0 +1,27 @@
+.figure { margin: 0; }
+.sheet { padding: clamp(1.1rem, 3vw, 2.25rem); }
+.title { font-size: clamp(1.1rem, 1.7vw, 1.4rem); font-weight: 620; line-height: 1.3; margin-bottom: 1.5rem; max-width: 32ch; }
+.flow { display: grid; gap: 0; font-size: 0.875rem; line-height: 1.5; }
+.flow strong { display: block; color: var(--ink); font-weight: 620; }
+.flow p { color: var(--ink-2); }
+.node, .output { position: relative; padding: 0.85rem 1rem; border-left: 2px solid var(--rule); }
+.node + .node, .output { margin-top: 0.9rem; }
+.node + .node::before, .output::before { content: ""; position: absolute; top: -0.9rem; left: -2px; height: 0.9rem; border-left: 2px solid var(--rule); }
+.evidence { margin: 0.9rem 0; padding: 0.85rem 1rem; background: var(--bg); border: 1px solid var(--rule); border-radius: 5px; }
+.evidence > p, .readers > p { font-size: 0.8125rem; margin-bottom: 0.5rem; }
+.evidence ul { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin: 0; padding: 0; list-style: none; color: var(--ink); font-weight: 550; }
+.evidence li::before { content: "+"; margin-right: 0.4rem; color: var(--muted); }
+.gate { border-color: var(--accent); background: color-mix(in oklch, var(--accent) 5%, var(--surface)); }
+.gate::before { border-color: var(--accent); }
+.hold { margin: 0.75rem 0 0 1rem; font-size: 0.8125rem; }
+.readers { margin: 0.9rem 0; padding-left: 1rem; }
+.branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--rule); border-radius: 5px; overflow: hidden; background: var(--bg); }
+.branches > div { padding: 0.75rem; }
+.branches > div + div { border-left: 1px solid var(--rule); }
+.output { border-left-color: var(--ink); }
+.stages { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; border-top: 1px solid var(--rule); padding: 1rem 0 0 1.25rem; margin: 1.5rem 0 0; font-size: 0.8125rem; color: var(--ink-2); }
+.stages li { padding-left: 0.1rem; }
+@media (max-width: 420px) {
+  .branches { grid-template-columns: minmax(0, 1fr); }
+  .branches > div + div { border-left: 0; border-top: 1px solid var(--rule); }
+}

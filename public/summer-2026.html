@@ -12,47 +12,34 @@
 <meta property="og:url" content="https://jpsamanosuarez.com/summer-2026">
 <meta property="og:image" content="https://jpsamanosuarez.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap">
 <style>
 :root{
-  --paper:oklch(0.975 0.004 268); --raise:oklch(0.993 0.002 268); --sunk:oklch(0.945 0.006 268);
-  --ink:oklch(0.21 0.02 268); --ink-2:oklch(0.43 0.018 268); --muted:oklch(0.53 0.014 268);
-  --rule:oklch(0.88 0.008 268); --hair:oklch(0.92 0.006 268);
-  --cobalt:#2447c9; --on-cobalt:oklch(0.985 0.01 268); --on-cobalt-2:oklch(0.86 0.05 268); --cobalt-line:oklch(0.62 0.16 268 / .55);
+  --paper:oklch(0.982 0.002 250); --raise:oklch(0.995 0.001 250); --sunk:oklch(0.945 0.003 262);
+  --ink:oklch(0.2 0.012 262); --ink-2:oklch(0.4 0.012 262); --muted:oklch(0.5 0.01 262);
+  --rule:oklch(0.89 0.005 262); --hair:oklch(0.935 0.003 262);
+  --cobalt:oklch(0.5 0.15 36); --on-cobalt:var(--paper); --on-cobalt-2:var(--muted); --cobalt-line:var(--rule);
   --g-ls:#2447c9; --g-free:#e0692f; --g-per:#14a06f; --live-ink:#0b7a52;
-  --link:#2447c9; --frame:oklch(0.21 0.02 268 / .14);
-  --shadow:0 1px 1px oklch(0.21 0.02 268 / .05), 0 24px 48px -28px oklch(0.25 0.08 268 / .45);
-  --ease:cubic-bezier(.16,1,.3,1);
-  color-scheme:light;
+  --link:oklch(0.5 0.15 36); --frame:var(--rule); --shadow:none;
+  --ease:cubic-bezier(.22,1,.36,1); color-scheme:light;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:oklch(0.17 0.014 268); --raise:oklch(0.205 0.016 268); --sunk:oklch(0.15 0.012 268);
-    --ink:oklch(0.95 0.006 268); --ink-2:oklch(0.8 0.012 268); --muted:oklch(0.67 0.014 268);
-    --rule:oklch(0.3 0.018 268); --hair:oklch(0.25 0.016 268);
-    --cobalt:#1f3db0; --on-cobalt:oklch(0.97 0.01 268); --on-cobalt-2:oklch(0.84 0.05 268); --cobalt-line:oklch(0.6 0.15 268 / .5);
-    --g-ls:#5f7ff0; --g-free:#d9733a; --g-per:#1da877; --live-ink:#1da877;
-    --link:#8ea6f7; --frame:oklch(0.95 0.006 268 / .14);
-    --shadow:0 1px 1px oklch(0 0 0 / .3), 0 24px 48px -26px oklch(0 0 0 / .7);
-    color-scheme:dark;
-  }
-}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:oklch(0.17 0.008 262); --raise:oklch(0.205 0.009 262); --sunk:oklch(0.15 0.008 262);
+  --ink:oklch(0.95 0.004 262); --ink-2:oklch(0.8 0.008 262); --muted:oklch(0.68 0.01 262);
+  --rule:oklch(0.31 0.01 262); --hair:oklch(0.255 0.009 262);
+  --cobalt:oklch(0.78 0.12 42); --g-ls:#5f7ff0; --g-free:#d9733a; --g-per:#1da877; --live-ink:#1da877;
+  --link:oklch(0.78 0.12 42); color-scheme:dark;
+}}
 :root[data-theme="dark"]{
-  --paper:oklch(0.17 0.014 268); --raise:oklch(0.205 0.016 268); --sunk:oklch(0.15 0.012 268);
-  --ink:oklch(0.95 0.006 268); --ink-2:oklch(0.8 0.012 268); --muted:oklch(0.67 0.014 268);
-  --rule:oklch(0.3 0.018 268); --hair:oklch(0.25 0.016 268);
-  --cobalt:#1f3db0; --on-cobalt:oklch(0.97 0.01 268); --on-cobalt-2:oklch(0.84 0.05 268); --cobalt-line:oklch(0.6 0.15 268 / .5);
-  --g-ls:#5f7ff0; --g-free:#d9733a; --g-per:#1da877; --live-ink:#1da877;
-  --link:#8ea6f7; --frame:oklch(0.95 0.006 268 / .14);
-  --shadow:0 1px 1px oklch(0 0 0 / .3), 0 24px 48px -26px oklch(0 0 0 / .7);
-  color-scheme:dark;
+  --paper:oklch(0.17 0.008 262); --raise:oklch(0.205 0.009 262); --sunk:oklch(0.15 0.008 262);
+  --ink:oklch(0.95 0.004 262); --ink-2:oklch(0.8 0.008 262); --muted:oklch(0.68 0.01 262);
+  --rule:oklch(0.31 0.01 262); --hair:oklch(0.255 0.009 262);
+  --cobalt:oklch(0.78 0.12 42); --g-ls:#5f7ff0; --g-free:#d9733a; --g-per:#1da877; --live-ink:#1da877;
+  --link:oklch(0.78 0.12 42); color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-padding-top:72px;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 "Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-feature-settings:"ss01","cv11";-webkit-font-smoothing:antialiased}
-.num,.mono{font-family:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums;font-feature-settings:"zero" 0}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 "Schibsted Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-feature-settings:"ss01","cv11";-webkit-font-smoothing:antialiased}
+.num,.mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums;font-feature-settings:"zero" 0}
 h1,h2,h3,h4{margin:0;text-wrap:balance;font-weight:650;letter-spacing:-.02em}
 p{margin:0}
 a{color:var(--link);text-underline-offset:.18em;text-decoration-thickness:1px}
@@ -78,7 +65,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .p-links a{color:var(--on-cobalt);text-decoration:none;border-bottom:1px solid var(--cobalt-line);padding-bottom:1px}
 .p-links a:hover{border-bottom-color:var(--on-cobalt)}
 .lang{display:inline-flex;gap:2px;border:1px solid var(--cobalt-line);border-radius:6px;padding:2px}
-.lang button{font:500 12.5px "Geist Mono",monospace;padding:4px 9px;border-radius:4px;color:var(--on-cobalt-2)}
+.lang button{font:500 12.5px "JetBrains Mono",monospace;padding:4px 9px;border-radius:4px;color:var(--on-cobalt-2)}
 .lang button[aria-pressed="true"]{background:var(--on-cobalt);color:var(--cobalt)}
 .p-main{padding:clamp(40px,7vw,96px) 0 clamp(36px,5vw,64px);align-items:end;row-gap:40px}
 .p-title{grid-column:1/8}
@@ -91,7 +78,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 @media (max-width:820px){.p-shots{height:auto;aspect-ratio:5/4}}
 .p-shot{position:absolute;margin:0;width:78%;border-radius:6px;overflow:hidden;box-shadow:0 30px 60px -30px oklch(0.12 0.08 268 / .8),0 0 0 1px oklch(1 0 0 / .14)}
 .p-shot img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top}
-.p-shot figcaption{position:absolute;left:8px;bottom:8px;font:500 11.5px "Geist Mono",monospace;background:oklch(0.16 0.03 268 / .82);color:var(--on-cobalt);padding:3px 7px;border-radius:4px}
+.p-shot figcaption{position:absolute;left:8px;bottom:8px;font:500 11.5px "JetBrains Mono",monospace;background:oklch(0.16 0.03 268 / .82);color:var(--on-cobalt);padding:3px 7px;border-radius:4px}
 .p-shot.s1{right:0;top:0;z-index:1}
 .p-shot.s2{left:0;top:30%;z-index:2}
 .p-shot.s3{right:6%;bottom:0;z-index:3;width:62%}
@@ -100,7 +87,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .p-index a{display:flex;flex-direction:column;gap:2px;padding:16px 12px 20px 0;color:var(--on-cobalt);text-decoration:none;font-size:15px;font-weight:500;border-right:1px solid var(--cobalt-line)}
 .p-index a:last-child{border-right:0}
 .p-index a+a{padding-left:14px}
-.p-index a .n{font:500 12px "Geist Mono",monospace;color:var(--on-cobalt-2)}
+.p-index a .n{font:500 12px "JetBrains Mono",monospace;color:var(--on-cobalt-2)}
 .p-index a:hover{background:oklch(1 0 0 / .06)}
 @media (prefers-reduced-motion: no-preference){
   .rise{animation:rise 1s var(--ease) both;animation-delay:calc(var(--d,0) * 90ms)}
@@ -124,7 +111,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* ================= sections ================= */
 .sec{padding:clamp(72px,9vw,128px) 0 0}
 .sec-h{align-items:end;margin-bottom:clamp(28px,4vw,48px)}
-.sec-h .n{grid-column:1/3;font:600 clamp(56px,7vw,104px)/.8 "Geist",sans-serif;letter-spacing:-.06em;color:var(--cobalt);font-variant-numeric:tabular-nums}
+.sec-h .n{grid-column:1/3;font:600 clamp(56px,7vw,104px)/.8 "Schibsted Grotesk",sans-serif;letter-spacing:-.06em;color:var(--cobalt);font-variant-numeric:tabular-nums}
 :root[data-theme="dark"] .sec-h .n{color:var(--g-ls)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sec-h .n{color:var(--g-ls)}}
 .sec-h .t{grid-column:3/11}
@@ -161,7 +148,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .tl-axis,.tl-row{display:grid;grid-template-columns:var(--lw) minmax(0,1fr);align-items:center}
 .tl-axis{height:28px;border-bottom:1px solid var(--rule)}
 .tl-axis .ticks{position:relative;height:100%}
-.tl-axis .ticks span{position:absolute;bottom:6px;font:500 12px "Geist Mono",monospace;color:var(--muted);padding-left:6px;border-left:1px solid var(--rule);line-height:1}
+.tl-axis .ticks span{position:absolute;bottom:6px;font:500 12px "JetBrains Mono",monospace;color:var(--muted);padding-left:6px;border-left:1px solid var(--rule);line-height:1}
 .tl-g{padding:16px 0 6px;font-size:13px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;gap:8px}
 .tl-row{height:32px;border-bottom:1px solid var(--hair)}
 .tl-row .lab{text-align:left;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:14px;height:100%;color:var(--ink)}
@@ -191,13 +178,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .fbtn{color:var(--ink-2);padding:4px 0;border-bottom:1.5px solid transparent;display:inline-flex;align-items:center;gap:7px}
 .fbtn:hover{color:var(--ink)}
 .fbtn[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--ink);font-weight:550}
-.fbtn .c{font:500 12px "Geist Mono",monospace;color:var(--muted)}
+.fbtn .c{font:500 12px "JetBrains Mono",monospace;color:var(--muted)}
 .fsep{width:1px;align-self:stretch;background:var(--rule)}
-.count{margin-left:auto;font:500 13px "Geist Mono",monospace;color:var(--muted)}
+.count{margin-left:auto;font:500 13px "JetBrains Mono",monospace;color:var(--muted)}
 .log{list-style:none;margin:0;padding:0}
 .entry{border-bottom:1px solid var(--rule);padding:clamp(26px,3vw,40px) 0;align-items:start;row-gap:18px}
 .entry .when{grid-column:1/3;display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:var(--muted);padding-top:6px}
-.entry .when .d{font:500 13px "Geist Mono",monospace;color:var(--ink-2)}
+.entry .when .d{font:500 13px "JetBrains Mono",monospace;color:var(--ink-2)}
 .entry .when .th{display:inline-flex;align-items:center;gap:8px}
 .entry .txt{grid-column:3/8;display:flex;flex-direction:column;gap:12px}
 .entry.compact{padding:18px 0;row-gap:10px}
@@ -212,10 +199,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .log .grp .num{font-size:13px;color:var(--muted);font-weight:500}
 .entry h3{font-size:clamp(28px,2.8vw,40px);line-height:1;letter-spacing:-.035em;font-weight:680;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
 .entry.compact h3{font-size:21px;letter-spacing:-.02em}
-.entry h3 .live{font:500 12px "Geist Mono",monospace;letter-spacing:0;color:var(--live-ink);display:inline-flex;align-items:center;gap:6px}
+.entry h3 .live{font:500 12px "JetBrains Mono",monospace;letter-spacing:0;color:var(--live-ink);display:inline-flex;align-items:center;gap:6px}
 .entry h3 .live::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px color-mix(in oklch,currentColor 22%,transparent)}
 .entry .tag{color:var(--ink-2);max-width:56ch}
-.entry .facts{display:flex;flex-wrap:wrap;gap:6px 18px;font:500 13px "Geist Mono",monospace;color:var(--ink-2)}
+.entry .facts{display:flex;flex-wrap:wrap;gap:6px 18px;font:500 13px "JetBrains Mono",monospace;color:var(--ink-2)}
 .entry .facts b{color:var(--ink);font-weight:500}
 .entry .more{align-self:flex-start;margin-top:4px;font-size:14.5px;font-weight:550;color:var(--ink);display:inline-flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1.5px solid var(--ink)}
 .entry .more:hover{color:var(--link);border-bottom-color:var(--link)}
@@ -225,7 +212,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .entry .media figure{margin:0;border-radius:6px;overflow:hidden;box-shadow:var(--shadow),0 0 0 1px var(--frame);transition:transform .6s var(--ease)}
 .entry:hover .media figure{transform:translateY(-3px)}
 .entry .media img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
-.entry .media .cap{margin-top:10px;font:500 12.5px "Geist Mono",monospace;color:var(--muted)}
+.entry .media .cap{margin-top:10px;font:500 12.5px "JetBrains Mono",monospace;color:var(--muted)}
 .entry .media .cap a{color:var(--muted)}
 .entry .media svg{display:block;width:100%;height:auto}
 .detail{grid-column:3/13;display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
@@ -241,12 +228,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .detail p{max-width:58ch}
 .detail ol{margin:0;padding:0;list-style:none;counter-reset:b}
 .detail ol li{counter-increment:b;display:grid;grid-template-columns:34px minmax(0,1fr);padding:10px 0;border-top:1px solid var(--hair);max-width:66ch}
-.detail ol li::before{content:counter(b,decimal-leading-zero);font:500 12.5px "Geist Mono",monospace;color:var(--muted);padding-top:4px}
+.detail ol li::before{content:counter(b,decimal-leading-zero);font:500 12.5px "JetBrains Mono",monospace;color:var(--muted);padding-top:4px}
 .metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px}
 .metrics div b{display:block;font-size:24px;font-weight:650;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
 .metrics div span{font-size:13px;color:var(--muted)}
 .stack{display:flex;flex-wrap:wrap;gap:6px}
-.stack span{font:500 12px "Geist Mono",monospace;padding:3px 8px;border:1px solid var(--rule);border-radius:4px;color:var(--ink-2)}
+.stack span{font:500 12px "JetBrains Mono",monospace;padding:3px 8px;border:1px solid var(--rule);border-radius:4px;color:var(--ink-2)}
 .empty{padding:48px 0;color:var(--muted)}
 
 /* evidence */
@@ -259,7 +246,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13.5px;color:var(--ink-2);margin-bottom:10px}
 .legend span{display:inline-flex;gap:8px;align-items:center}
-svg text{font-family:"Geist Mono",monospace;font-size:11.5px;fill:var(--muted)}
+svg text{font-family:"JetBrains Mono",monospace;font-size:11.5px;fill:var(--muted)}
 svg .grid{stroke:var(--hair)} svg .base{stroke:var(--rule)}
 .f-ls{fill:var(--g-ls)} .f-free{fill:var(--g-free)} .f-personal{fill:var(--g-per)}
 .hit{fill:transparent;cursor:crosshair}
@@ -275,14 +262,14 @@ svg .grid{stroke:var(--hair)} svg .base{stroke:var(--rule)}
 .hb .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hb .tr{display:flex;align-items:center;gap:10px;min-width:0}
 .hb .bb{height:10px;border-radius:0 3px 3px 0;min-width:3px}
-.hb .v{font:500 12.5px "Geist Mono",monospace;color:var(--ink-2);white-space:nowrap}
+.hb .v{font:500 12.5px "JetBrains Mono",monospace;color:var(--ink-2);white-space:nowrap}
 details.tbl{margin-top:14px}
 details.tbl summary{cursor:pointer;font-size:13.5px;color:var(--link);width:max-content}
 .tbl-w{overflow:auto;max-height:300px;margin-top:10px}
 table{border-collapse:collapse;width:100%;font-size:13.5px}
 th,td{text-align:left;padding:6px 12px 6px 0;border-bottom:1px solid var(--hair);white-space:nowrap}
 th{font-weight:550;color:var(--muted);position:sticky;top:0;background:var(--paper)}
-td.n,th.n{text-align:right;font-family:"Geist Mono",monospace;font-variant-numeric:tabular-nums}
+td.n,th.n{text-align:right;font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
 
 /* method */
 .m-lead{grid-column:1/8;font-size:clamp(24px,2.4vw,34px);line-height:1.25;letter-spacing:-.025em;font-weight:500}
@@ -293,7 +280,7 @@ td.n,th.n{text-align:right;font-family:"Geist Mono",monospace;font-variant-numer
 @media (max-width:560px){.loop{grid-template-columns:1fr}}
 .loop li{padding:0 18px 0 0;position:relative}
 .loop .node{display:flex;align-items:center;gap:0;margin-bottom:16px}
-.loop .node b{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:500 12.5px "Geist Mono",monospace;background:var(--paper);border:1.5px solid var(--ink);color:var(--ink)}
+.loop .node b{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:500 12.5px "JetBrains Mono",monospace;background:var(--paper);border:1.5px solid var(--ink);color:var(--ink)}
 .loop li:nth-child(4) .node b,.loop li:nth-child(5) .node b{background:var(--cobalt);border-color:var(--cobalt);color:var(--on-cobalt)}
 .loop .node i{flex:1;height:1.5px;background:var(--ink);margin-left:0}
 .loop li:last-child .node i{background:linear-gradient(90deg,var(--ink) 50%,transparent 0) 0 0/8px 1.5px repeat-x}
@@ -311,17 +298,21 @@ footer .big a{color:var(--on-cobalt);text-decoration-color:var(--cobalt-line)}
 footer .fine{grid-column:9/13;font-size:14px;color:var(--on-cobalt-2);align-self:end;display:flex;flex-direction:column;gap:6px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
+<link rel="stylesheet" href="/summer-report.css">
 
-<header class="poster" id="top">
+<a class="report-skip" href="#main" data-i="skip">Skip to content</a>
+<header class="report-header">
   <div class="shell">
-    <div class="p-top">
-      <div class="p-id"><b>José Pablo Sámano Suárez</b><span data-i="role"></span></div>
-      <div class="p-links">
-        <a href="https://jpsamanosuarez.com" target="_blank" rel="noopener" data-i="portfolio"></a>
-        <a href="https://github.com/jpss2004-bot" target="_blank" rel="noopener">GitHub</a>
-        <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button></div>
-      </div>
+    <a class="report-wordmark" href="/en" data-home>JP Sámano</a>
+    <nav class="report-nav" id="portfolioNav" aria-label="Portfolio"></nav>
+    <div class="report-tools">
+      <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button></div>
+      <a class="report-resume" href="/resume/jp-samano-resume-en.pdf" target="_blank" rel="noreferrer" id="reportResume">Résumé</a>
     </div>
+  </div>
+</header>
+<div class="poster" id="top">
+  <div class="shell">
     <div class="g12 p-main">
       <div class="p-title">
         <h1><span class="sr">José Pablo Sámano Suárez, </span><span class="l rise" style="--d:0" data-i="h1a"></span><span class="l l2 rise" style="--d:1">2026</span></h1>
@@ -329,19 +320,17 @@ footer .fine{grid-column:9/13;font-size:14px;color:var(--on-cobalt-2);align-self
       </div>
       <div class="p-shots" id="pShots" aria-hidden="false"></div>
     </div>
-    <nav class="p-index" id="pIndex" aria-label="Contents"></nav>
-  </div>
-</header>
-
-<div class="bar" role="region" aria-label="Summer 2026">
-  <div class="shell">
-    <span class="who">José Pablo Sámano Suárez</span>
-    <nav id="barNav" aria-label="Sections"></nav>
-    <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button></div>
   </div>
 </div>
 
-<main class="shell">
+<div class="bar" role="region" aria-label="Summer 2026">
+  <div class="shell">
+    <span class="who">Summer 2026</span>
+    <nav id="barNav" aria-label="Sections"></nav>
+  </div>
+</div>
+
+<main id="main" class="shell" tabindex="-1">
   <section class="sec letter" id="letter">
     <div class="g12 sec-h"><div class="n">01</div><div class="t"><h2 data-i="s1"></h2></div></div>
     <div class="g12">
@@ -472,7 +461,7 @@ const T={
   footBig:`¿Quieres el detalle detrás de algo de esto? <a href="https://jpsamanosuarez.com" target="_blank" rel="noopener">Mira mi portafolio</a>.`,
   foot1:"Compilado el 11 de septiembre de 2026 a partir de git, GitHub y los archivos de cada proyecto.", foot2:"Nombres de clientes omitidos. Las capturas muestran solo páginas públicas."}
 };
-let lang=(()=>{try{const s=localStorage.getItem("jps-lang");if(s==="en"||s==="es")return s;}catch(e){}return (navigator.language||"en").toLowerCase().startsWith("es")?"es":"en";})();
+let lang=(()=>{const q=new URLSearchParams(location.search).get("lang");if(q==="en"||q==="es")return q;try{const s=localStorage.getItem("jps-lang");if(s==="en"||s==="es")return s;}catch(e){}return (navigator.language||"en").toLowerCase().startsWith("es")?"es":"en";})();
 let mode="abs", fGroup="all", fType="all"; const open=new Set();
 const P=DATA.projects, W=DATA.weeks, NW=W.length, SH=DATA.shots||{};
 const $=s=>document.querySelector(s), t=k=>T[lang][k];
@@ -493,17 +482,22 @@ const host=u=>u?u.replace(/^https?:\/\//,"").replace(/\/$/,""):"";
 
 function statics(){
   document.documentElement.lang=lang;
+  document.querySelector(".bar .who").textContent=lang==="es"?"Verano 2026":"Summer 2026";
+  document.querySelector("[data-home]").href=`/${lang}`;
+  document.querySelector("[data-i=skip]").textContent=lang==="es"?"Ir al contenido":"Skip to content";
+  const nav=lang==="es"?["Trabajo","Cómo construyo","Verano 2026","Sobre mí"]:["Work","How I build","Summer 2026","About"];
+  document.querySelector("#portfolioNav").innerHTML=["work","build","summer","about"].map((id,i)=>`<a href="/${lang}#${id}">${nav[i]}</a>`).join("");
+  document.querySelector("#reportResume").href=`/resume/jp-samano-resume-${lang}.pdf`;
+  document.querySelector("#reportResume").textContent=lang==="es"?"CV":"Résumé";
   document.querySelectorAll("[data-i]").forEach(el=>{const v=t(el.dataset.i); if(typeof v==="string") el.textContent=v;});
   document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===lang)));
   const x={projects:DATA.totals.projects, cw:fmt(byId.checkwise.commits), docs:fmt(DATA.totals.documents)};
   $("#lede").innerHTML=t("lede")(x);
   const ids=["letter","timeline","work","evidence","method"];
-  $("#pIndex").innerHTML=ids.map((id,i)=>`<a href="#${id}"><span class="n">0${i+1}</span>${t("idx")[i]}</a>`).join("");
   $("#barNav").innerHTML=ids.map((id,i)=>`<a href="#${id}">${t("idx")[i]}</a>`).join("");
   $("#letterBody").innerHTML=t("letter")(x).map(p=>`<p>${p}</p>`).join("");
-  $("#mLead").innerHTML=t("mLead"); $("#mFacts").innerHTML=t("mFacts"); $("#footBig").innerHTML=t("footBig");
-  const shots=[["ls-site","legalshelf"],["checkwise","checkwise"],["imjus","red360"]].filter(([id])=>SH[id]);
-  $("#pShots").innerHTML=shots.map(([id],i)=>`<figure class="p-shot s${i+1} drift" style="--d:${i}"><img src="${SH[id]}" alt="${esc(byId[id].name)}, ${host(byId[id].url)}" loading="eager"><figcaption>${host(byId[id].url)}</figcaption></figure>`).join("");
+  $("#mLead").innerHTML=t("mLead"); $("#mFacts").innerHTML=t("mFacts"); $("#footBig").innerHTML=t("footBig"); $("#footBig a").href=`/${lang}`;
+  $("#pShots").innerHTML=`<figure class="p-shot"><img src="/projects/checkwise/client-dashboard.webp" alt="${lang==="es"?"Panel de cumplimiento de CheckWise con datos de demostración":"CheckWise compliance dashboard with demo data"}" width="1600" height="900" loading="eager"><figcaption>${lang==="es"?"CheckWise. App real con datos de demostración.":"CheckWise. Actual application with demo data."}</figcaption></figure>`;
 }
 
 function split(){
@@ -635,7 +629,7 @@ function bars(){
 }
 function method(){ $("#loop").innerHTML=t("loop").map(([h,p],i)=>`<li><div class="node"><b>0${i+1}</b><i></i></div><h3>${h}</h3><p>${p}</p></li>`).join(""); }
 function all(){ statics(); split(); timeline(); filters(); work(); weekly(); bars(); method(); }
-document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{lang=b.dataset.lang; try{localStorage.setItem("jps-lang",lang);}catch(e){} all();}));
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{lang=b.dataset.lang;const url=new URL(location.href);url.searchParams.set("lang",lang);history.replaceState(null,"",url); try{localStorage.setItem("jps-lang",lang);}catch(e){} all();}));
 let rz; new ResizeObserver(()=>{clearTimeout(rz); rz=setTimeout(()=>{weekly(); $("#tl").style.setProperty("--lw",(innerWidth<700?140:210)+"px"); scrub();},90);}).observe(document.body);
 all();
 </script>

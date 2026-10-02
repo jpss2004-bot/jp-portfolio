@@ -43,8 +43,9 @@ export type Media =
   | { type: "image"; src: string; width: number; height: number; alt: L<string> }
   | { type: "diagram"; diagram: "verifaid" | "pipelines" };
 export type Visual =
-  | { kind: "image"; src: string; width: number; height: number; alt: L<string>; caption?: L<string> }
-  | { kind: "video"; src: string; poster: string; width: number; height: number; alt: L<string>; caption?: L<string> };
+  | { kind: "image"; src: string; width: number; height: number; alt: L<string>; caption?: L<string>; focus?: "compliance-verdict" }
+  | { kind: "video"; src: string; poster: string; width: number; height: number; alt: L<string>; caption?: L<string> }
+  | { kind: "system"; system: "verifaid" | "pipelines" };
 export type Decision = { title: L<string>; why: L<string> };
 export type Figure = { src: string; width: number; height: number; alt: L<string>; caption: L<string> };
 export type LinkItem = { href: string; label: L<string> };
@@ -70,7 +71,7 @@ export type Project = {
   facts: Fact[];
   media?: Media;
   /** Large visuals for the home stage and the case hero. */
-  visuals?: { primary: Visual; secondary?: Visual; tile?: Visual };
+  visuals?: { primary: Visual; secondary?: Visual };
   diagram?: "verifaid" | "pipelines";
   links: LinkItem[];
   stack: string[];
@@ -91,8 +92,8 @@ export const featured: Project[] = [
     period: { en: "May – Sep 2026", es: "may – sep 2026" },
     role: { en: "Lead developer, LegalShelf", es: "Desarrollador principal, LegalShelf" },
     oneLiner: {
-      en: "A REPSE compliance platform that proves every service provider is current with SAT, IMSS and INFONAVIT, every month. Used by 7 client companies; reviewers clear about 50 documents a day, at roughly a minute each.",
-      es: "Una plataforma de cumplimiento REPSE que demuestra, cada mes, que cada proveedor está al corriente con SAT, IMSS e INFONAVIT. La usan 7 empresas cliente; los revisores resuelven unos 50 documentos al día, en cerca de un minuto cada uno.",
+      en: "Recurring REPSE compliance for Mexican companies. Providers upload evidence, reviewers decide, and clients see their exposure across SAT, IMSS and INFONAVIT.",
+      es: "Cumplimiento REPSE recurrente para empresas mexicanas. Los proveedores cargan evidencia, los revisores deciden y los clientes ven su exposición ante SAT, IMSS e INFONAVIT.",
     },
     facts: [
       { value: "7", label: { en: "client companies", es: "empresas cliente" } },
@@ -111,9 +112,8 @@ export const featured: Project[] = [
       },
     },
     visuals: {
-      primary: { kind: "video", src: "/projects/checkwise/loops/review-decision.mp4", poster: "/projects/checkwise/loops/review-decision.webp", width: 1280, height: 672, alt: { en: "CheckWise in use: the client acceptance inbox, then a document with its automatic reading", es: "CheckWise en uso: la bandeja de aceptación del cliente y un documento con su lectura automática" }, caption: { en: "Recorded from the real app with demo data.", es: "Grabado en la app real con datos de demostración." } },
-      secondary: { kind: "image", src: "/projects/checkwise/client-dashboard.webp", width: 1600, height: 900, alt: { en: "CheckWise client dashboard", es: "Panel del cliente en CheckWise" }, caption: { en: "Recorded from the real app with demo data.", es: "Grabado en la app real con datos de demostración." } },
-      tile: { kind: "video", src: "/projects/checkwise/loops/provider-upload-tile.mp4", poster: "/projects/checkwise/loops/provider-upload-tile.webp", width: 800, height: 420, alt: { en: "CheckWise provider dashboard and guided upload", es: "Panel del proveedor y carga guiada en CheckWise" } },
+      primary: { kind: "image", src: "/projects/checkwise/client-dashboard.webp", width: 1600, height: 900, focus: "compliance-verdict", alt: { en: "CheckWise client dashboard: compliance across providers and obligations needing attention", es: "Panel del cliente en CheckWise: cumplimiento de proveedores y obligaciones que requieren atención" }, caption: { en: "Client dashboard. Actual application with demo data.", es: "Panel del cliente. App real con datos de demostración." } },
+      secondary: { kind: "video", src: "/projects/checkwise/loops/review-decision.mp4", poster: "/projects/checkwise/loops/review-decision.webp", width: 1280, height: 672, alt: { en: "CheckWise review walkthrough", es: "Recorrido de revisión en CheckWise" }, caption: { en: "8-second review walkthrough. Actual app with demo data; the tutorial spotlight highlights the active control.", es: "Recorrido de revisión de 8 segundos. App real con datos de demostración; el tutorial resalta el control activo." } },
     },
     links: [visit("https://checkwise.com.mx")],
     stack: ["Python", "FastAPI", "PostgreSQL", "Next.js 16", "React 19", "TypeScript", "Claude API", "Google Document AI", "Render", "Vercel", "Playwright"],
@@ -228,19 +228,17 @@ export const featured: Project[] = [
     period: { en: "Jul – Sep 2026", es: "jul – sep 2026" },
     role: { en: "Lead developer, LegalShelf", es: "Desarrollador principal, LegalShelf" },
     oneLiner: {
-      en: "Decides whether a signature can legally proceed: it reads corporate documents and powers of attorney, cross-checks public registries, and says who can sign and within what limits, citing the exact page. 50+ operations cleared for a paying client.",
-      es: "Decide si una firma puede proceder legalmente: lee documentos corporativos y poderes, los cruza con registros públicos y dice quién puede firmar y con qué límites, citando la página exacta. Más de 50 operaciones resueltas para un cliente de pago.",
+      en: "Who can legally sign, and within what limits? Verifaid reads corporate documents and powers of attorney, cites the exact page, and leaves approval to a second reviewer.",
+      es: "¿Quién puede firmar legalmente y con qué límites? Verifaid lee documentos societarios y poderes, cita la página exacta y deja la aprobación a un segundo revisor.",
     },
     facts: [
       { value: "50+", label: { en: "operations cleared", es: "operaciones resueltas" } },
-      { value: "262", label: { en: "commits in six weeks", es: "commits en seis semanas" } },
       { value: "7", label: { en: "pipeline stages", es: "etapas del pipeline" } },
+      { value: "262", label: { en: "commits in six weeks", es: "commits en seis semanas" } },
       { value: "596", label: { en: "automated tests", es: "pruebas automatizadas" } },
     ],
     visuals: {
-      primary: { kind: "video", src: "/art/verifaid-loop.mp4", poster: "/art/verifaid-loop.webp", width: 1280, height: 720, alt: { en: "Illustration: a stamp marks a stack of legal documents as verified", es: "Ilustración: un sello marca como verificado un paquete de documentos legales" } },
-      secondary: { kind: "image", src: "/art/verifaid-bp.webp", width: 1600, height: 893, alt: { en: "Line drawing of the verification path: documents, power of attorney, registry, seal", es: "Dibujo del camino de verificación: documentos, poder, registro, sello" }, caption: { en: "Documents and powers are read, checked against registries, then sealed by a person.", es: "Se leen documentos y poderes, se cruzan con registros y una persona sella la decisión." } },
-      tile: { kind: "image", src: "/art/verifaid-3d.webp", width: 1600, height: 893, alt: { en: "Illustration of documents, a pen and a verification stamp", es: "Ilustración de documentos, una pluma y un sello de verificación" } },
+      primary: { kind: "system", system: "verifaid" },
     },
     diagram: "verifaid",
     links: [],
@@ -324,9 +322,7 @@ export const featured: Project[] = [
       { value: "3 days", label: { en: "first archive, build and run", es: "primer archivo, construcción y corrida" } },
     ],
     visuals: {
-      primary: { kind: "video", src: "/art/pipelines-loop.mp4", poster: "/art/pipelines-loop.webp", width: 1280, height: 720, alt: { en: "Illustration: a sheet leaves an untidy stack and files itself into a folder", es: "Ilustración: una hoja sale de una pila desordenada y se archiva en una carpeta" } },
-      secondary: { kind: "image", src: "/art/pipelines-bp.webp", width: 1600, height: 893, alt: { en: "Line drawing of the pipeline: archive box, scanner, folder rack, verified ledger", es: "Dibujo del pipeline: caja de archivo, escáner, archivero y libro verificado" }, caption: { en: "From an archive box to a verified ledger, copy-only at every step.", es: "De una caja de archivo a un libro verificado, sin mover originales en ningún paso." } },
-      tile: { kind: "image", src: "/art/pipelines-3d.webp", width: 1600, height: 893, alt: { en: "Illustration of a paper stack being filed into folders", es: "Ilustración de una pila de papel archivándose en carpetas" } },
+      primary: { kind: "system", system: "pipelines" },
     },
     diagram: "pipelines",
     links: [],
@@ -402,9 +398,9 @@ export const featured: Project[] = [
       es: "El sitio de marketing de la empresa, reconstruido de Webflow a Astro en 16 días. Publicado en producción en Vercel, listo para el cambio de dominio.",
     },
     facts: [
-      { value: "204", label: { en: "commits in 16 days", es: "commits en 16 días" } },
       { value: "35", label: { en: "legacy URLs preserved", es: "URLs heredadas preservadas" } },
       { value: "40 → 7 ms", label: { en: "total blocking time", es: "tiempo total de bloqueo" } },
+      { value: "204", label: { en: "commits in 16 days", es: "commits en 16 días" } },
     ],
     media: {
       type: "image",
@@ -414,8 +410,7 @@ export const featured: Project[] = [
       alt: { en: "The rebuilt legalshelf.mx home page", es: "La página de inicio reconstruida de legalshelf.mx" },
     },
     visuals: {
-      primary: { kind: "image", src: "/projects/legalshelf-mx/home.webp", width: 1280, height: 800, alt: { en: "The rebuilt legalshelf.mx home page", es: "La página de inicio reconstruida de legalshelf.mx" } },
-      tile: { kind: "image", src: "/projects/legalshelf-mx/home.webp", width: 1280, height: 800, alt: { en: "legalshelf.mx home page", es: "Inicio de legalshelf.mx" } },
+      primary: { kind: "image", src: "/projects/legalshelf-mx/home.webp", width: 1280, height: 800, alt: { en: "The rebuilt legalshelf.mx home page", es: "La página de inicio reconstruida de legalshelf.mx" }, caption: { en: "Marketing site rebuilt in Astro. Actual page capture.", es: "Sitio de marketing reconstruido en Astro. Captura de la página real." } },
     },
     links: [visit("https://legalshelf-gamma.vercel.app", "View the deployment", "Ver el sitio publicado")],
     stack: ["Astro", "Tailwind", "TypeScript", "GSAP", "Vercel"],
@@ -476,52 +471,51 @@ export type Shipped = {
   line: L<string>;
   href?: string;
   status: Status;
-  image?: { src: string; width: number; height: number; alt: L<string> };
 };
 
 export const shipped: Shipped[] = [
   {
-    slug: "savr", name: "SAVR", year: "2026", status: "live", href: "https://context-aware-dining-platform-1.vercel.app", image: { src: "/projects/savr/savr-recommendations-results.png", width: 1440, height: 900, alt: { en: "SAVR ranked recommendations", es: "Recomendaciones de SAVR" } },
+    slug: "savr", name: "SAVR", year: "2026", status: "live", href: "https://context-aware-dining-platform-1.vercel.app",
     kind: { en: "Web app", es: "App web" },
     line: { en: "Context-aware restaurant recommendations that explain why each one fits. 10 active users around Wolfville, NS.", es: "Recomendaciones de restaurantes según el contexto, que explican por qué encaja cada una. 10 usuarios activos en Wolfville, Nueva Escocia." },
   },
   {
-    name: "Band of Brothers", year: "2026", status: "live", href: "https://bandofbrothers-seven.vercel.app", image: { src: "/art/bob.webp", width: 880, height: 550, alt: { en: "Band of Brothers weekly issue", es: "Número semanal de Band of Brothers" } },
+    name: "Band of Brothers", year: "2026", status: "live", href: "https://bandofbrothers-seven.vercel.app",
     kind: { en: "Web app", es: "App web" },
     line: { en: "Draft engine and weekly newsletter for the 12-team fantasy league I run, with an automated Tuesday issue.", es: "Motor de draft y boletín semanal para la liga de fantasy de 12 equipos que administro, con un número automático cada martes." },
   },
   {
-    name: "La Red de Casa", year: "2026", status: "live", href: "https://la-red-de-casa.vercel.app", image: { src: "/art/redcasa-3d.webp", width: 1200, height: 900, alt: { en: "Illustration of a house, a car and keys on a calendar", es: "Ilustración de una casa, un auto y llaves sobre un calendario" } },
+    name: "La Red de Casa", year: "2026", status: "live", href: "https://la-red-de-casa.vercel.app",
     kind: { en: "Web app", es: "App web" },
     line: { en: "A phone-first app that coordinates a family's trips, cars and drivers, with parent approval.", es: "Una app para el celular que coordina los traslados, autos y choferes de una familia, con aprobación de los papás." },
   },
   {
-    name: "Cotejo", year: "2026", status: "delivered", image: { src: "/art/cotejo-3d.webp", width: 1200, height: 900, alt: { en: "Illustration of two sheets compared under a magnifier", es: "Ilustración de dos hojas comparadas con una lupa" } },
+    name: "Cotejo", year: "2026", status: "delivered",
     kind: { en: "macOS app · Swift", es: "App para macOS · Swift" },
     line: { en: "Checks corporate data sheets against the underlying legal PDFs with on-device OCR, and never writes a cell it couldn't verify.", es: "Coteja hojas de datos corporativos contra los PDFs legales con OCR en el dispositivo, y nunca escribe una celda que no pudo verificar." },
   },
   {
-    name: "POS Geocoder", year: "2026", status: "delivered", image: { src: "/art/geocoder-3d.webp", width: 1200, height: 900, alt: { en: "Illustration of a payment terminal on a map with a pin", es: "Ilustración de una terminal de pago sobre un mapa con un pin" } },
+    name: "POS Geocoder", year: "2026", status: "delivered",
     kind: { en: "Desktop app · PySide6", es: "App de escritorio · PySide6" },
     line: { en: "Turns payment-terminal coordinates into audited addresses with official INEGI codes, from a 157,000-row catalog.", es: "Convierte coordenadas de terminales de pago en direcciones auditadas con claves oficiales del INEGI, a partir de un catálogo de 157,000 filas." },
   },
   {
-    name: "Red 360+1", year: "2026", status: "delivered", image: { src: "/art/red360.webp", width: 1200, height: 700, alt: { en: "Red 360+1 home page", es: "Inicio de Red 360+1" } },
+    name: "Red 360+1", year: "2026", status: "delivered",
     kind: { en: "Website · freelance", es: "Sitio web · freelance" },
     line: { en: "A 19-page bilingual redesign of a civil-society organization's institutional site, shipped in August after 34 tagged releases.", es: "Rediseño bilingüe de 19 páginas del sitio institucional de una organización de la sociedad civil, publicado en agosto tras 34 versiones etiquetadas." },
   },
   {
-    name: "AI in legal practice", year: "2026", status: "delivered", image: { src: "/art/talk-3d.webp", width: 1200, height: 900, alt: { en: "Illustration of a lectern and microphone", es: "Ilustración de un atril y un micrófono" } },
+    name: "AI in legal practice", year: "2026", status: "delivered",
     kind: { en: "Talk · landing page", es: "Plática · landing page" },
     line: { en: "A 35-minute talk and site on using AI tools with legal judgment, for a Mexico City law firm.", es: "Una plática de 35 minutos y un sitio sobre el uso de IA con criterio jurídico, para un despacho de la Ciudad de México." },
   },
   {
-    slug: "er-triage-queue-manager", name: "ER Triage & Queue Manager", year: "2025", status: "prototype", image: { src: "/projects/er-triage-queue-manager/shot-dashboard.png", width: 1440, height: 900, alt: { en: "ER triage queue dashboard", es: "Panel de la fila de urgencias" } },
+    slug: "er-triage-queue-manager", name: "ER Triage & Queue Manager", year: "2025", status: "prototype",
     kind: { en: "Coursework · Python", es: "Proyecto académico · Python" },
     line: { en: "An emergency-room queue that ranks patients by ESI v4 acuity and shows the clinical reasoning behind every level.", es: "Una fila de urgencias que ordena pacientes por agudeza ESI v4 y muestra el razonamiento clínico de cada nivel." },
   },
   {
-    slug: "family-phrase-game", name: "Family Phrase Game", year: "2026", status: "live", href: "https://family-phrase-game.onrender.com/", image: { src: "/projects/family-phrase-game/family-phrase-game-main.png", width: 1440, height: 900, alt: { en: "Family Phrase Game screen", es: "Pantalla del juego de frases" } },
+    slug: "family-phrase-game", name: "Family Phrase Game", year: "2026", status: "live", href: "https://family-phrase-game.onrender.com/",
     kind: { en: "Web app · Flask", es: "App web · Flask" },
     line: { en: "A party game built from phrases our family submitted, deployed in time for the event it was made for.", es: "Un juego de fiesta hecho con frases que envió nuestra familia, publicado a tiempo para el evento para el que se hizo." },
   },
@@ -705,7 +699,7 @@ export const method: { title: L<string>; body: L<string> }[] = [
   { title: { en: "Isolate", es: "Aislar" }, body: { en: "Each agent works in its own git worktree, so parallel sessions never overwrite each other.", es: "Cada agente trabaja en su propio worktree de git, para que las sesiones en paralelo nunca choquen." } },
   { title: { en: "Gate", es: "Verificar" }, body: { en: "Nothing merges without tests, type checks, coverage ratchets and CI on self-hosted runners.", es: "Nada se fusiona sin pruebas, revisión de tipos, umbrales de cobertura y CI en runners propios." } },
   { title: { en: "Remember", es: "Recordar" }, body: { en: "A searchable knowledge base of every lesson and trap, recalled automatically at the start of each task.", es: "Una base de conocimiento con cada lección y cada trampa, que se consulta sola al inicio de cada tarea." } },
-  { title: { en: "Automate", es: "Automatizar" }, body: { en: "An autonomous shift every six hours finds, fixes and proves bugs, then asks for merge approval in Slack.", es: "Un turno autónomo cada seis horas encuentra, corrige y prueba errores, y pide aprobación en Slack para fusionar." } },
+  { title: { en: "Automate", es: "Automatizar" }, body: { en: "During summer 2026, a shift every six hours found, fixed and proved bugs, then requested my approval to merge.", es: "Durante el verano de 2026, un turno cada seis horas encontraba, corregía y probaba errores, y pedía mi aprobación para fusionar." } },
   { title: { en: "Ship", es: "Publicar" }, body: { en: "I review and authorize the merge. The main branch deploys to production.", es: "Reviso y autorizo la fusión. La rama principal se publica a producción." } },
 ];
 

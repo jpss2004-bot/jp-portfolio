@@ -175,7 +175,7 @@ p {
 }
 
 .section {
-  padding-top: clamp(4.5rem, 10vw, 8rem);
+  padding-top: clamp(3.5rem, 7vw, 6rem);
 }
 
 .section-head {
@@ -664,94 +664,6 @@ a:hover .shot {
   transform: translateY(-2px);
 }
 
-.diagram {
-  padding: clamp(0.5rem, 2vw, 1.25rem) clamp(0.5rem, 2vw, 1.5rem) 1.25rem;
-}
-
-.diagram svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-
-.diagram figcaption {
-  font-size: 0.875rem;
-  color: var(--muted);
-  text-align: center;
-  padding-inline: 1rem;
-}
-
-.d-line {
-  stroke: var(--rule);
-  stroke-width: 1.5;
-}
-
-.d-node {
-  fill: var(--surface);
-  stroke: var(--accent);
-  stroke-width: 1.75;
-}
-
-.d-node-end {
-  fill: var(--accent);
-}
-
-.d-label {
-  fill: var(--ink);
-  font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: 17px;
-  font-weight: 540;
-}
-
-.d-index {
-  fill: var(--muted);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 12px;
-}
-
-.d-list {
-  display: none;
-}
-
-/* On phones the drawing becomes the ordered list it describes. */
-@media (max-width: 640px) {
-  .diagram svg {
-    display: none;
-  }
-  .d-list {
-    display: grid;
-    gap: 0.1rem;
-    margin: 0.5rem 0 1rem;
-    padding: 0;
-    list-style: none;
-    counter-reset: st;
-  }
-  .d-list li {
-    counter-increment: st;
-    display: grid;
-    grid-template-columns: 2rem minmax(0, 1fr);
-    align-items: center;
-    padding: 0.45rem 0.5rem;
-    border-bottom: 1px solid var(--hair);
-    font-size: 0.9375rem;
-  }
-  .d-list li::before {
-    content: counter(st, decimal-leading-zero);
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-  }
-  .d-list li:last-child {
-    border-bottom: 0;
-    font-weight: 600;
-  }
-  .diagram figcaption {
-    text-align: left;
-    padding-inline: 0.5rem;
-  }
-}
-
 /* ---------------------------------------------------------- how I build */
 
 .steps {
@@ -1126,9 +1038,7 @@ video.shot-media {
   background: var(--surface);
 }
 
-/* One quiet presentation for product captures and conceptual artwork.
- * Interface colors stay intact; artwork gives up some saturation and contrast.
- */
+/* Product screenshots retain their own colors. Explanations inherit the shell. */
 .media-frame {
   --media-inset: clamp(0.6rem, 1.4vw, 1rem);
   background: var(--surface);
@@ -1136,105 +1046,15 @@ video.shot-media {
   box-shadow: none;
 }
 
-.media-canvas {
-  display: grid;
-  place-items: center;
-  margin: var(--media-inset);
-  overflow: hidden;
-  border-radius: 5px;
-  background: #e4e7eb;
-}
+.media-canvas { margin: var(--media-inset); overflow: hidden; border-radius: 5px; background: var(--bg); }
+.media-canvas img, .media-canvas video { display: block; width: 100%; height: auto; object-fit: contain; }
+.media-open { display: block; cursor: zoom-in; }
+.shot figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 1rem; line-height: 1.5; }
+.shot figcaption a { text-underline-offset: 0.2em; white-space: nowrap; }
 
-.media-canvas > img,
-.media-canvas > video {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  object-position: center;
-}
-
-.media-illustration .media-canvas > img,
-.media-illustration .media-canvas > video {
-  filter: saturate(0.55) contrast(0.92);
-}
-
-.reel-tile .media-canvas,
-.bento-img .media-canvas {
-  height: calc(100% - var(--media-inset) * 2);
-}
-
-.reel-tile .media-canvas > img,
-.reel-tile .media-canvas > video,
-.bento-img .media-canvas > img {
-  height: 100%;
-}
-
-@media (prefers-color-scheme: dark) {
-  .media-illustration .media-canvas > img,
-  .media-illustration .media-canvas > video {
-    filter: saturate(0.55) contrast(0.92) brightness(0.88);
-  }
-}
-
-/* Reel: four tiles under the hero, the first visual read of the page. */
-.reel {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.6vw, 1.25rem);
-  max-width: var(--frame);
-  margin: clamp(2.5rem, 6vw, 4.5rem) auto 0;
-  padding-inline: var(--gutter);
-}
-
-.reel-tile {
-  display: grid;
-  gap: 0.6rem;
-  text-decoration: none;
-}
-
-.reel-tile .shot {
-  aspect-ratio: 16 / 10;
-}
-
-.reel-tile .shot-media {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  transition: transform 700ms var(--ease);
-}
-
-.reel-tile:hover .shot-media {
-  transform: scale(1.035);
-}
-
-.reel-cap {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.35rem 0.6rem;
-  font-size: 0.9375rem;
-}
-
-.reel-cap b {
-  font-weight: 620;
-}
-
-@media (max-width: 900px) {
-  .reel {
-    grid-template-columns: repeat(4, minmax(15rem, 1fr));
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--gutter);
-    padding-bottom: 0.5rem;
-    scrollbar-width: none;
-  }
-  .reel-tile {
-    scroll-snap-align: start;
-  }
-}
+.project-index { display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; margin-top: 2rem; justify-content: center; }
+.project-index a { font-size: 0.9375rem; padding-block: 0.5rem; text-decoration-color: var(--rule); text-underline-offset: 0.25em; }
+.project-index a:hover { color: var(--accent-ink); }
 
 /* Stages: text and media side by side, alternating, using the full width. */
 .stages {
@@ -1254,7 +1074,7 @@ video.shot-media {
 }
 
 .stage + .stage {
-  margin-top: clamp(5rem, 11vw, 9rem);
+  margin-top: clamp(4rem, 8vw, 6rem);
 }
 
 .stage-text {
@@ -1268,6 +1088,8 @@ video.shot-media {
   margin-top: 0.4rem;
 }
 
+.stage-flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+
 .stage-flip .stage-text {
   order: 2;
 }
@@ -1277,21 +1099,8 @@ video.shot-media {
   position: relative;
 }
 
-.stage-secondary {
-  width: 66%;
-  margin-top: -14%;
-  margin-left: auto;
-  position: relative;
-  z-index: 1;
-}
-
-.stage-flip .stage-secondary {
-  margin-left: 0;
-  margin-right: auto;
-}
-
 @media (max-width: 900px) {
-  .stage {
+  .stage, .stage-flip {
     grid-template-columns: minmax(0, 1fr);
   }
   .stage-text {
@@ -1299,10 +1108,6 @@ video.shot-media {
   }
   .stage-flip .stage-text {
     order: 0;
-  }
-  .stage-secondary {
-    width: 80%;
-    margin-top: -10%;
   }
 }
 
@@ -1380,125 +1185,6 @@ video.shot-media {
   color: var(--bg);
 }
 
-/* Bento: varied spans on a six-column grid. */
-.bento-h {
-  margin-bottom: 1.5rem;
-}
-
-.bento {
-  list-style: none;
-  margin: 0 0 1.5rem;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.6vw, 1.25rem);
-}
-
-.bento-card {
-  grid-column: span 4;
-}
-
-.bento-card.span-6 {
-  grid-column: span 6;
-}
-
-.bento-card.span-3 {
-  grid-column: span 3;
-}
-
-.bento-card > a,
-.bento-card > div {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 10px;
-  background: var(--surface);
-  box-shadow: var(--shadow);
-  text-decoration: none;
-  transition: transform 500ms var(--ease), box-shadow 500ms var(--ease);
-}
-
-.bento-card > a:hover {
-  transform: translateY(-3px);
-}
-
-.bento-card > a:active {
-  transform: translateY(-1px);
-}
-
-.bento-img {
-  display: block;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border-bottom: 1px solid var(--hair);
-  background: var(--bg);
-}
-
-.bento-card.span-6 .bento-img {
-  aspect-ratio: 16 / 8;
-}
-
-.bento-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  transition: transform 700ms var(--ease);
-}
-
-.bento-card > a:hover .bento-img img {
-  transform: scale(1.04);
-}
-
-.bento-text {
-  display: grid;
-  align-content: start;
-  gap: 0.25rem;
-  padding: 0.95rem 1.05rem 1.1rem;
-}
-
-.bento-name {
-  font-weight: 640;
-  letter-spacing: -0.01em;
-}
-
-.bento-meta {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-.bento-line {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: var(--ink-2);
-}
-
-@media (max-width: 1000px) {
-  .bento {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .bento-card,
-  .bento-card.span-6,
-  .bento-card.span-3 {
-    grid-column: span 1;
-  }
-  .bento-card.span-6 .bento-img {
-    aspect-ratio: 16 / 10;
-  }
-}
-
-@media (max-width: 600px) {
-  .bento {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-/* When a secondary overlaps the primary, the secondary carries the caption. */
-.stage-media:has(.stage-secondary) .stage-primary figcaption {
-  display: none;
-}
-
 .about-split .about-facts {
   margin-top: 0.4rem;
 }
@@ -1507,22 +1193,25 @@ video.shot-media {
   max-width: var(--col);
 }
 
-/* The pipeline drawing breaks out of the reading column so its labels stay legible. */
-.case-diagram {
-  --bleed: min(calc(var(--wide) - 2 * var(--gutter)), calc(100vw - 2 * var(--gutter)));
-  width: var(--bleed);
-  margin-left: calc(50% - var(--bleed) / 2);
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .reel-tile .shot-media,
-  .bento-img img,
-  .bento-card > a {
-    transition: none;
-  }
-  .reel-tile:hover .shot-media,
-  .bento-card > a:hover,
-  .bento-card > a:hover .bento-img img {
-    transform: none;
-  }
+/* Method and experience use prose-sized columns rather than another image wall. */
+.build-content .lead { max-width: 54rem; }
+.build-content .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 2rem; }
+.build-content .steps li { display: block; padding-block: 1.2rem; border-bottom: 0; }
+.build-content .steps p { font-size: 0.9375rem; }
+.build-content .note { max-width: 54rem; font-size: 0.875rem; }
+.experience { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 4rem; margin-top: 1.5rem; }
+.experience article { border-top: 1px solid var(--rule); padding-top: 1.25rem; display: grid; align-content: start; gap: 0.4rem; }
+.experience .muted { margin-top: 0.35rem; max-width: 48ch; }
+.shipped-name { margin: 0; font-size: 1rem; }
+.shipped-line { max-width: 75ch; }
+@media (max-width: 900px) {
+  .build-content .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .project-index { justify-content: flex-start; gap: 0.25rem 1.25rem; }
+  .build-content .steps, .experience { grid-template-columns: minmax(0, 1fr); }
+  /* Focus the real screenshot on its compliance verdict; the link opens the whole screen. */
+  .media-focus-compliance { position: relative; aspect-ratio: 900 / 350; overflow: hidden; }
+  .media-focus-compliance img { position: absolute; width: 177.778%; max-width: none; left: -12.222%; top: -64.571%; }
 }

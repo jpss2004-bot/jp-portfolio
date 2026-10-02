@@ -3,7 +3,8 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Locale } from "@/data/i18n";
 import { pick, profile, statusLabel, summer, type Media, type Status, type Visual } from "@/data/content";
-import { Loop } from "@/components/Loop";
+import { VideoDemo } from "@/components/VideoDemo";
+import { SystemVisual } from "@/components/SystemVisual";
 import { ui } from "@/data/ui";
 
 /* ---------------------------------------------------------------------- */
@@ -118,59 +119,25 @@ export function ProjectMedia({ media, locale, priority = false }: { media: Media
     return (
       <figure className="shot media-frame media-interface">
         <div className="media-canvas">
-        <Image
+        <a className="media-open" href={media.src} target="_blank" rel="noreferrer" aria-label={`${locale === "es" ? "Abrir imagen completa" : "Open full-size image"}: ${pick(media.alt, locale)}`}><Image
           src={media.src}
           alt={pick(media.alt, locale)}
           width={media.width}
           height={media.height}
           sizes="(max-width: 900px) 100vw, 1040px"
           quality={85}
-          priority={priority}
-        />
+          loading={priority ? "eager" : "lazy"}
+        /></a>
         </div>
+        <figcaption><span>{locale === "es" ? "Captura del producto" : "Product capture"}</span><a href={media.src} target="_blank" rel="noreferrer">{locale === "es" ? "Abrir imagen completa" : "Open full-size image"}</a></figcaption>
       </figure>
     );
   }
   return <Diagram kind={media.diagram} locale={locale} />;
 }
 
-/* A flat, honest drawing of the pipeline: stages on a line, the final one filled. */
 export function Diagram({ kind, locale }: { kind: "verifaid" | "pipelines"; locale: Locale }) {
-  const t = ui[locale].diagram;
-  const stages = kind === "verifaid" ? t.verifaid : t.pipelines;
-  const note = kind === "verifaid" ? t.verifaidNote : t.pipelinesNote;
-  const w = 1040;
-  const h = 250;
-  const pad = 70;
-  const step = (w - pad * 2) / (stages.length - 1);
-  return (
-    <figure className="shot diagram">
-      <svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label={`${stages.join(" → ")}. ${note}`}>
-        <line x1={pad} x2={w - pad} y1={120} y2={120} className="d-line" />
-        {stages.map((s, i) => {
-          const x = pad + i * step;
-          const last = i === stages.length - 1;
-          return (
-            <g key={s}>
-              <circle cx={x} cy={120} r={last ? 11 : 7} className={last ? "d-node d-node-end" : "d-node"} />
-              <text x={x} y={i % 2 ? 168 : 86} textAnchor="middle" className="d-label">
-                {s}
-              </text>
-              <text x={x} y={i % 2 ? 186 : 66} textAnchor="middle" className="d-index">
-                {String(i + 1).padStart(2, "0")}
-              </text>
-            </g>
-          );
-        })}
-      </svg>
-      <ol className="d-list" aria-hidden="true">
-        {stages.map((s) => (
-          <li key={s}>{s}</li>
-        ))}
-      </ol>
-      <figcaption>{note}</figcaption>
-    </figure>
-  );
+  return <SystemVisual kind={kind} locale={locale} detailed />;
 }
 
 /* One bar per week of commits. Single series, so no legend; the title names it. */
@@ -204,25 +171,25 @@ export function SummerStrip({ locale }: { locale: Locale }) {
   );
 }
 
-/* A still or a loop, framed the same way. */
-export function mediaPresentation(src: string) {
-  // The /art directory also contains genuine interface captures (bob, red360).
-  return /\/(?:[^/]+-3d|[^/]+-bp|[^/]+-loop)\.(?:webp|mp4)$/.test(src) || src === "/art/build-bp.webp"
-    ? "media-illustration"
-    : "media-interface";
-}
-
-export function VisualFrame({ visual, locale, sizes = "(max-width: 900px) 100vw, 760px", priority = false, className = "" }: { visual: Visual; locale: Locale; sizes?: string; priority?: boolean; className?: string }) {
+/* Product captures and authored explanations share a quiet frame. */
+export function VisualFrame({ visual, locale, sizes = "(max-width: 900px) 100vw, 760px", priority = false, className = "", detailed = false }: { visual: Visual; locale: Locale; sizes?: string; priority?: boolean; className?: string; detailed?: boolean }) {
+  if (visual.kind === "system") return <SystemVisual kind={visual.system} locale={locale} className={className} detailed={detailed} />;
+  const enlarge = locale === "es" ? "Abrir imagen completa" : "Open full-size image";
   return (
-    <figure className={`shot media-frame ${mediaPresentation(visual.src)} ${className}`}>
+    <figure className={`shot media-frame media-interface ${className}`}>
       <div className="media-canvas">
-      {visual.kind === "video" ? (
-        <Loop src={visual.src} poster={visual.poster} label={pick(visual.alt, locale)} className="shot-media" />
-      ) : (
-        <Image className="shot-media" src={visual.src} alt={pick(visual.alt, locale)} width={visual.width} height={visual.height} sizes={sizes} quality={85} priority={priority} />
-      )}
+        {visual.kind === "video" ? (
+          <VideoDemo src={visual.src} poster={visual.poster} label={pick(visual.alt, locale)} width={visual.width} height={visual.height} />
+        ) : (
+          <a className={`media-open${visual.focus ? " media-focus-compliance" : ""}`} href={visual.src} target="_blank" rel="noreferrer" aria-label={`${enlarge}: ${pick(visual.alt, locale)}`}>
+            <Image className="shot-media" src={visual.src} alt={pick(visual.alt, locale)} width={visual.width} height={visual.height} sizes={sizes} quality={85} loading={priority ? "eager" : "lazy"} />
+          </a>
+        )}
       </div>
-      {visual.caption ? <figcaption>{pick(visual.caption, locale)}</figcaption> : null}
+      <figcaption>
+        {visual.caption ? <span>{pick(visual.caption, locale)}</span> : null}
+        {visual.kind === "image" ? <a href={visual.src} target="_blank" rel="noreferrer">{enlarge}</a> : null}
+      </figcaption>
     </figure>
   );
 }

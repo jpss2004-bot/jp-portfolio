@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
 import { asOf, explorations, featured, method, pick, profile, shipped, summer } from "@/data/content";
 import { ui } from "@/data/ui";
-import { Footer, Header, NameReveal, ProjectMedia, StatusTag, SummerStrip, VisualFrame, mediaPresentation } from "@/components/parts";
+import { Footer, Header, NameReveal, ProjectMedia, StatusTag, SummerStrip, VisualFrame } from "@/components/parts";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -18,12 +17,12 @@ const meta: Record<Locale, { title: string; description: string }> = {
   en: {
     title: "José Pablo Sámano Suárez · Software developer",
     description:
-      "Computer Science at Acadia University, graduating 2027. Software developer at LegalShelf, lead developer of CheckWise, a REPSE compliance platform used by seven companies, and Verifaid, which decides whether a signature can legally proceed.",
+      "Software developer at LegalShelf and Research Assistant at Acadia AIoT Research Hub. Computer Science at Acadia University, graduating 2027. Selected work in compliance, document AI and legal systems.",
   },
   es: {
     title: "José Pablo Sámano Suárez · Desarrollador de software",
     description:
-      "Ciencias de la Computación en Acadia University, generación 2027. Desarrollador de software en LegalShelf, a cargo de CheckWise, una plataforma de cumplimiento REPSE que usan siete empresas, y de Verifaid, que decide si una firma puede proceder legalmente.",
+      "Desarrollador de software en LegalShelf y asistente de investigación en Acadia AIoT Research Hub. Ciencias de la Computación en Acadia University, generación 2027. Trabajo en cumplimiento, IA documental y sistemas legales.",
   },
 };
 
@@ -52,9 +51,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /* The display face sets only the name, so only the home page loads it. */
 const display = Archivo({ subsets: ["latin"], variable: "--font-display", display: "swap", axes: ["wdth"] });
 
-/* Bento spans, in order, on a twelve-column grid: two, then three, then four across. */
-const span = [6, 6, 4, 4, 4, 3, 3, 3, 3];
-
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
@@ -66,7 +62,7 @@ export default async function Home({ params }: Props) {
       <a href="#main" className="skip-link">{t.skip}</a>
       <Header locale={locale} altHref="" home />
 
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         {/* Hero ------------------------------------------------------------ */}
         <section className={`hero ${display.variable}`}>
           <NameReveal locale={locale} />
@@ -82,19 +78,10 @@ export default async function Home({ params }: Props) {
           </div>
         </section>
 
-        {/* Reel: the four systems at a glance ------------------------------ */}
-        <nav className="reel" aria-label={t.work.heading}>
-          {featured.map((project) =>
-            project.visuals?.tile ? (
-              <Link key={project.slug} className="reel-tile" href={`#${project.slug}`}>
-                <VisualFrame visual={project.visuals.tile} locale={locale} sizes="(max-width: 700px) 80vw, 320px" />
-                <span className="reel-cap">
-                  <b>{pick(project.title, locale)}</b>
-                  <StatusTag status={project.status} locale={locale} />
-                </span>
-              </Link>
-            ) : null,
-          )}
+        <nav className="project-index frame" aria-label={t.work.heading}>
+          {featured.map((project) => (
+            <a key={project.slug} href={`#${project.slug}`}>{pick(project.title, locale)}</a>
+          ))}
         </nav>
 
         {/* Selected work: one stage per system ---------------------------- */}
@@ -120,7 +107,7 @@ export default async function Home({ params }: Props) {
                   </p>
                   <p className="work-line">{pick(project.oneLiner, locale)}</p>
                   <dl className="facts">
-                    {project.facts.map((f) => (
+                    {project.facts.slice(0, 2).map((f) => (
                       <div key={f.value + pick(f.label, locale)}>
                         <dt>{pick(f.label, locale)}</dt>
                         <dd className="mono">{f.value}</dd>
@@ -138,12 +125,7 @@ export default async function Home({ params }: Props) {
 
                 <div className="stage-media">
                   {project.visuals ? (
-                    <>
-                      <VisualFrame visual={project.visuals.primary} locale={locale} priority={i === 0} className="stage-primary" />
-                      {project.visuals.secondary ? (
-                        <VisualFrame visual={project.visuals.secondary} locale={locale} className="stage-secondary" sizes="(max-width: 900px) 90vw, 520px" />
-                      ) : null}
-                    </>
+                    <VisualFrame visual={project.visuals.primary} locale={locale} className="stage-primary" />
                   ) : project.media ? (
                     <ProjectMedia media={project.media} locale={locale} priority={i === 0} />
                   ) : null}
@@ -154,39 +136,45 @@ export default async function Home({ params }: Props) {
           <p className="frame muted small asof">{pick(asOf, locale).replace(/^./, (c) => c.toUpperCase())}.</p>
         </section>
 
+        <section className="section" aria-labelledby="experience-h">
+          <div className="frame">
+            <h2 id="experience-h" className="h2">{locale === "es" ? "Experiencia actual" : "Current experience"}</h2>
+            <div className="experience">
+              <article>
+                <p className="meta">{locale === "es" ? "sep 2026 – presente" : "Sep 2026 – present"}</p>
+                <h3 className="h4">{locale === "es" ? "Asistente de investigación" : "Research Assistant"}</h3>
+                <p><a className="link" href="https://aarh.acadiau.ca/" target="_blank" rel="noreferrer">Acadia AIoT Research Hub</a></p>
+                <p className="muted">{locale === "es" ? "Investigación aplicada de IA e IoT: experimentación, pruebas y validación de sistemas conectados." : "Applied AI and IoT research: experimentation, testing and validation of connected systems."}</p>
+              </article>
+              <article>
+                <p className="meta">{locale === "es" ? "may 2026 – presente" : "May 2026 – present"}</p>
+                <h3 className="h4">{locale === "es" ? "Desarrollador de software" : "Software Developer"}</h3>
+                <p>LegalShelf</p>
+                <p className="muted">{locale === "es" ? "Desarrollo de CheckWise y Verifaid, además de pipelines de documentos y herramientas internas para operaciones legales." : "Development of CheckWise and Verifaid, plus document pipelines and internal tools for legal operations."}</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
         {/* How I build ----------------------------------------------------- */}
         <section id="build" className="section" aria-labelledby="build-h">
-          <div className="split">
+          <div className="frame build-content">
             <div>
               <h2 id="build-h" className="h2">{t.build.heading}</h2>
               <p className="lead">{t.build.lede}</p>
-              <ol className="steps">
-                {method.map((step, i) => (
+              <ul className="steps">
+                {method.map((step) => (
                   <li key={step.title.en}>
-                    <span className="mono step-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                     <div>
                       <h3 className="h4">{pick(step.title, locale)}</h3>
                       <p className="muted">{pick(step.body, locale)}</p>
                     </div>
                   </li>
                 ))}
-              </ol>
+              </ul>
               <p className="note">{t.build.figures}</p>
             </div>
-            <figure className="shot media-frame media-illustration split-art">
-              <div className="media-canvas">
-              <Image
-                className="shot-media"
-                src="/art/build-bp.webp"
-                width={1600}
-                height={893}
-                sizes="(max-width: 900px) 100vw, 560px"
-                quality={85}
-                alt={locale === "es" ? "Dibujo del sistema: escritorios aislados, una sola compuerta y producción" : "Line drawing of the system: isolated desks, one checkpoint, then production"}
-              />
-              </div>
-              <figcaption>{locale === "es" ? "Sesiones aisladas, una memoria compartida, una sola compuerta hacia producción." : "Isolated sessions, one shared memory, a single gate into production."}</figcaption>
-            </figure>
+
           </div>
         </section>
 
@@ -204,42 +192,28 @@ export default async function Home({ params }: Props) {
                   <span key={f.value}><b>{f.value}</b> {pick(f.label, locale)}</span>
                 ))}
               </p>
-              <a className="btn btn-strong" href={summer.href}>{t.summer.report} →</a>
+              <a className="btn btn-strong" href={`${summer.href}?lang=${locale}`}>{t.summer.report} →</a>
             </div>
           </div>
         </section>
 
-        {/* Also shipped: bento --------------------------------------------- */}
+        {/* Additional work stays compact; its details live in the cases. */}
         <section className="section" aria-labelledby="shipped-h">
           <div className="frame">
-            <h2 id="shipped-h" className="h2 bento-h">{t.shipped.heading}</h2>
-            <ul className="bento">
-              {shipped.map((s, i) => {
+            <h2 id="shipped-h" className="h2">{t.shipped.heading}</h2>
+            <ul className="shipped">
+              {shipped.map((s) => {
                 const href = s.slug ? p(`/projects/${s.slug}`) : s.href;
                 const external = !s.slug && !!s.href;
-                const body = (
-                  <>
-                    {s.image ? (
-                      <span className={`bento-img media-frame ${mediaPresentation(s.image.src)}`}>
-                        <span className="media-canvas">
-                        <Image src={s.image.src} alt={pick(s.image.alt, locale)} width={s.image.width} height={s.image.height} sizes="(max-width: 700px) 100vw, 480px" quality={75} />
-                        </span>
-                      </span>
-                    ) : null}
-                    <span className="bento-text">
-                      <span className="bento-name">{s.name}{external ? " ↗" : ""}</span>
-                      <span className="bento-meta mono">{s.year} · {pick(s.kind, locale)}</span>
-                      <span className="bento-line">{pick(s.line, locale)}</span>
-                    </span>
-                  </>
-                );
                 return (
-                  <li key={s.name} className={`bento-card span-${span[i] ?? 4}`}>
-                    {href ? (
-                      <a href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>{body}</a>
-                    ) : (
-                      <div>{body}</div>
-                    )}
+                  <li key={s.name}>
+                    <div className="shipped-main">
+                      <h3 className="shipped-name">
+                        {href ? <a href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>{s.name}</a> : s.name}
+                      </h3>
+                      <p className="shipped-line muted">{pick(s.line, locale)}</p>
+                    </div>
+                    <span className="shipped-meta">{s.year} · {pick(s.kind, locale)}</span>
                   </li>
                 );
               })}

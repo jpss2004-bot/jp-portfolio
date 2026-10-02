@@ -5,7 +5,7 @@ const en = {
   nav: { work: "Work", build: "How I build", summer: "Summer 2026", about: "About" },
   resume: "Résumé",
   identity:
-    "Computer Science at Acadia University, graduating 2027. Software developer at LegalShelf, where I lead development of CheckWise, a compliance platform used by seven companies in Mexico.",
+    "Software developer at LegalShelf and Research Assistant at Acadia’s AIoT Research Hub. Studying Computer Science at Acadia University, graduating in 2027.",
   availability: "Open to internships and co-op now, full-time from May 2027. Canadian study permit, co-op eligible. Nova Scotia and Mexico City.",
   links: { resume: "Résumé (PDF)", email: "Email", linkedin: "LinkedIn", github: "GitHub" },
   work: {
@@ -18,7 +18,7 @@ const en = {
     heading: "How I build",
     lede: "Most of my 2026 code was written by AI agents under my direction. I treat that as an engineering discipline: I design the system around the agents, and the system decides what reaches production.",
     figures:
-      "On CheckWise, 98% of commits were co-authored with Claude and checked by more than 7,800 automated tests on four self-hosted CI runners.",
+      "Summer 2026 snapshot: 98% of CheckWise commits were co-authored with Claude, with more than 7,800 automated tests and four self-hosted CI runners. Details and dates are in the summer report.",
   },
   summer: {
     heading: "Summer 2026",
@@ -81,7 +81,7 @@ const es: Dict = {
   nav: { work: "Trabajo", build: "Cómo construyo", summer: "Verano 2026", about: "Sobre mí" },
   resume: "CV",
   identity:
-    "Ciencias de la Computación en Acadia University, generación 2027. Desarrollador de software en LegalShelf, donde dirijo el desarrollo de CheckWise, una plataforma de cumplimiento que usan siete empresas en México.",
+    "Desarrollador de software en LegalShelf y asistente de investigación en el AIoT Research Hub de Acadia. Estudio Ciencias de la Computación en Acadia University y me gradúo en 2027.",
   availability: "Disponible para prácticas y co-op desde ahora, tiempo completo desde mayo de 2027. Permiso de estudio canadiense con elegibilidad para co-op. Nueva Escocia y Ciudad de México.",
   links: { resume: "CV (PDF)", email: "Correo", linkedin: "LinkedIn", github: "GitHub" },
   work: {
@@ -94,7 +94,7 @@ const es: Dict = {
     heading: "Cómo construyo",
     lede: "La mayor parte de mi código de 2026 la escribieron agentes de IA bajo mi dirección. Lo trato como una disciplina de ingeniería: diseño el sistema alrededor de los agentes, y el sistema decide qué llega a producción.",
     figures:
-      "En CheckWise, el 98% de los commits fue en coautoría con Claude y pasó por más de 7,800 pruebas automatizadas en cuatro runners de CI propios.",
+      "Corte del verano de 2026: el 98% de los commits de CheckWise fue en coautoría con Claude, con más de 7,800 pruebas automatizadas y cuatro runners de CI propios. El reporte del verano incluye detalles y fechas.",
   },
   summer: {
     heading: "Verano 2026",
