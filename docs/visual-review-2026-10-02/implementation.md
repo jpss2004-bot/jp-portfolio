@@ -44,3 +44,9 @@ Keep local changes reviewable. Deployment follows the user's production authoriz
 - At the sampled viewport, the English homepage changed from 7,760 to 6,768 px on desktop and from 11,736 to 9,480 px on mobile. The additional AARH experience block is included in these totals.
 
 Browser captures and verification.json accompany this document. All browser verification used Chromium; Safari/iOS was not tested.
+
+## Production verification
+
+The first release of this implementation was promoted successfully on 2 October 2026 (source commit 848344a, deployment dpl_AZHFq66qmvBDW5F3HJZryY48kz7F). Eight additional browser views of the live homepages/report passed. Public font/style routes returned 200; both live resume downloads match their local SHA-256 hashes. The live skip link focuses the main landmark.
+
+A final keyboard refinement draws the screenshot link's focus ring inside its clipping frame, so it remains visible. That selector is the only application change in the follow-up release.
