@@ -27,3 +27,13 @@ Reference guidance checked
 - https://developers.google.com/search/docs/appearance/structured-data/profile-page
 - https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
 - Installed Next.js 16.4.2 JSON-LD guide. Existing safe serialization and native script output preserved.
+
+Production release
+- Implementation commit: 4676415. Deployment dpl_AkhgeEeCvhgZqmMx7jyJXscrSdmq built successfully in 30 seconds.
+- Staged URL: https://jp-portfolio-617amnv2z-jpss2004-bots-projects.vercel.app. All 25 staged scripts matched their Google-validated payload hashes before promotion.
+- Promoted successfully to https://jpsamanosuarez.com. All 25 production graph checks pass and their data exactly matches the validated Google code inputs.
+- Journal routes, original PDF/cover bytes, citations, sitemap/feed and missing-route privacy pass. All 25 share-image checks pass.
+- Google's post-release smartphone URL crawl: two valid items (BlogPosting and BreadcrumbList), zero warnings.
+- Live test result: https://search.google.com/test/rich-results/result?id=7ZSbqyUaXoWXSBJiwcIYoA
+- Screenshot and raw result: output/qa/schema-journal/google-live-article.jpg and google-live-article.txt.
+- Bounded Vercel runtime error query returned no error entries. No UI source, hero styles, article text, original assets or dependencies changed.
