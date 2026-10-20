@@ -9,6 +9,8 @@ import { Footer, Header, NameReveal, SummerStrip } from "@/components/parts";
 import { StructuredData } from "@/components/StructuredData";
 import { homeStructuredData } from "@/lib/structured-data";
 
+import { JournalTeaser } from "@/components/journal/JournalTeaser";
+
 import { SelectedWork } from "@/components/work/SelectedWork";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -190,6 +192,8 @@ export default async function Home({ params }: Props) {
             </dl>
           </div>
         </section>
+
+        <JournalTeaser locale={locale} />
 
         {/* Contact --------------------------------------------------------- */}
         <section id="contact" className="section" aria-labelledby="contact-h">

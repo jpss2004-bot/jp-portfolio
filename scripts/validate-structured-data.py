@@ -150,7 +150,7 @@ def main():
             vocab_path.write_bytes(response.read())
     raw = vocab_path.read_text().replace('"schema:', '"https://schema.org/')
     vocabulary = {n["@id"]: n for n in json.loads(raw)["@graph"]}
-    files = sorted(p for p in (ROOT / ".next/server/app").rglob("*.html") if re.match(r"(?:en|es)(?:/|\.html)", str(p.relative_to(ROOT / ".next/server/app"))))
+    files = sorted(p for p in (ROOT / ".next/server/app").rglob("*.html") if re.match(r"(?:en|es)(?:/projects/|\.html)", str(p.relative_to(ROOT / ".next/server/app"))))
     assert len(files) == 22, f"Expected two homepages and twenty project pages, found {len(files)}"
 
     def check(path):

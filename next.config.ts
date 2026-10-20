@@ -4,6 +4,7 @@ const retired = ["adaptive-traffic-ai", "cyber-reporting-assistant"];
 
 const nextConfig: NextConfig = {
   images: { qualities: [75, 85] },
+  outputFileTracingIncludes: { "/journal/assets/**": ["./content/journal/assets/**"] },
   experimental: { globalNotFound: true },
   async redirects() {
     return [

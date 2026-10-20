@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { journalLabels, showJournal } from "@/data/journal";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Locale } from "@/data/i18n";
@@ -11,7 +12,7 @@ import { ui } from "@/data/ui";
 /* Header                                                                   */
 /* ---------------------------------------------------------------------- */
 
-export function Header({ locale, altHref, home = false }: { locale: Locale; altHref: string; home?: boolean }) {
+export function Header({ locale, altHref, home = false, languageHrefs }: { locale: Locale; altHref: string; home?: boolean; languageHrefs?: Partial<Record<Locale, string>> }) {
   const t = ui[locale];
   const base = `/${locale}`;
   const items = [
@@ -19,6 +20,7 @@ export function Header({ locale, altHref, home = false }: { locale: Locale; altH
     { href: `${base}#build`, label: t.nav.build },
     { href: `${base}#summer`, label: t.nav.summer },
     { href: `${base}#about`, label: t.nav.about },
+    ...(showJournal ? [{ href: `${base}/journal`, label: journalLabels[locale].name }] : []),
   ];
   return (
     <header className="topbar">
@@ -35,10 +37,10 @@ export function Header({ locale, altHref, home = false }: { locale: Locale; altH
         </nav>
         <div className="topbar-end">
           <nav className="lang" aria-label={locale === "es" ? "Idioma" : "Language"}>
-            <Link href={`/en${altHref}`} hrefLang="en" aria-current={locale === "en" ? "true" : undefined} lang="en">
+            <Link href={languageHrefs?.en ?? `/en${altHref}`} hrefLang="en" aria-current={locale === "en" ? "true" : undefined} lang="en">
               EN
             </Link>
-            <Link href={`/es${altHref}`} hrefLang="es" aria-current={locale === "es" ? "true" : undefined} lang="es">
+            <Link href={languageHrefs?.es ?? `/es${altHref}`} hrefLang="es" aria-current={locale === "es" ? "true" : undefined} lang="es">
               ES
             </Link>
           </nav>
@@ -55,6 +57,7 @@ export function Footer({ locale, wide = false }: { locale: Locale; wide?: boolea
   return (
     <footer className={`footer ${wide ? "frame" : "col"}`}>
       <p>© 2026 {profile.name}</p>
+      {showJournal ? <p><Link href={`/${locale}/journal`}>{journalLabels[locale].name}</Link></p> : null}
       <p className="muted">{ui[locale].footer}</p>
     </footer>
   );

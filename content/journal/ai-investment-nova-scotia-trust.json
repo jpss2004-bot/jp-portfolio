@@ -1,0 +1,183 @@
+{
+  "slug": "ai-investment-nova-scotia-trust",
+  "status": "published",
+  "kind": "article",
+  "language": "en",
+  "title": "AI investment should earn Nova Scotia's trust",
+  "summary": {
+    "en": "I want Nova Scotia to take a larger role in the computing economy. EverWind’s Point Tupper proposal deserves serious consideration—and clear answers about electricity, water and lasting public benefits.",
+    "es": "Quiero que Nueva Escocia tenga un papel mayor en la economía de la computación. La propuesta de EverWind en Point Tupper merece una evaluación seria y respuestas claras sobre electricidad, agua y beneficios públicos duraderos."
+  },
+  "writtenAt": "2026-10-20",
+  "topics": [
+    "AI infrastructure",
+    "Nova Scotia",
+    "Public accountability"
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Students were among those protesting EverWind's proposed Point Tupper AI data centre the day after its October 16 announcement.[1] As a computer science student working in software development and AI-related research, I want this investment to succeed. I also understand why residents want to know what they would be signing up for."
+    },
+    {
+      "type": "paragraph",
+      "text": "I want Nova Scotia to offer graduates more reasons to build their careers here. Computing infrastructure could support skilled work, give universities new industry partners and create business for local suppliers. Canada also benefits from having more choices about where its computing happens. Those are good reasons to pursue this proposal seriously."
+    },
+    {
+      "type": "paragraph",
+      "text": "EverWind proposes more than $10 billion for a Point Tupper data centre and four wind projects. Anthropic, the US company behind Claude, will lease the initial phase.[2,4] That could bring investment here without giving Canada control over the computing or guaranteeing access for a local research lab. Access and partnerships need their own agreements."
+    },
+    {
+      "type": "paragraph",
+      "text": "The projected employment deserves the same precision. The roughly 2,000 construction positions and 215 permanent operating positions cover the campus and wind portfolio combined.[4] Construction work matters, particularly to the trades and businesses supplying it. A lasting technology economy will also depend on who gets the operating jobs and whether local firms gain work beyond the build."
+    },
+    {
+      "type": "paragraph",
+      "text": "I would welcome additional tax revenue. EverWind has published long-range corporate and municipal tax forecasts, but these are projections.[3] The public needs to see their assumptions and the public costs alongside them. Spending on imported equipment is not local income, and a project's capital budget is not government revenue."
+    },
+    {
+      "type": "paragraph",
+      "text": "Healthcare, housing and education benefit only if governments collect additional revenue, retain a fiscal gain after public costs and choose to allocate it through their budgets. Any municipal receipts also need to be distinguished from provincial funds. Supporters should be able to explain that chain without promising that a private investment announcement will pay for a hospital."
+    },
+    {
+      "type": "heading",
+      "id": "power-supply",
+      "text": "The power supply needs an answer"
+    },
+    {
+      "type": "paragraph",
+      "text": "The strongest immediate objection concerns electricity. The Canadian Press reports that EverWind's wind farms will not be ready when the first phase is expected to open in late 2027. Company officials say a grid study supports the operation.[4] Publishing that study and the conditions of connection would let residents assess the reassurance."
+    },
+    {
+      "type": "paragraph",
+      "text": "Wind capacity describes what turbines can produce under suitable conditions. A facility operating through low-wind periods needs a reliable combination of supply, storage and demand flexibility. The system operator must evaluate that combination alongside existing customers' needs.[5] A proposal to reduce grid demand during stress needs enforceable operating rules, including an explanation of how operations continue and what emissions any backup generation would produce."
+    },
+    {
+      "type": "paragraph",
+      "text": "This is also a question about competing uses of electricity. Homes, electrification and other employers need power. Regulators should establish whether this facility's contribution justifies the capacity it requires and whether its payments cover the costs it causes. British Columbia's January policy announcement offers a useful comparison: it introduced competitive electricity allocation for AI and data centres, weighing economic, community and environmental benefits.[6] Nova Scotia can demand a comparable public explanation without copying another province's rules."
+    },
+    {
+      "type": "figure",
+      "figure": "cooling"
+    },
+    {
+      "type": "paragraph",
+      "text": "Water requires a separate assessment. EverWind proposes a sealed water-glycol loop, primarily cooled by air, with water assistance in hot weather. Current estimates put initial use at about 100,000 litres daily and average full-development use at 500,000.[3] These are design estimates, not binding maximums."
+    },
+    {
+      "type": "paragraph",
+      "text": "A closed loop therefore does not mean zero water consumption. The published design also does not support the claim that cooling fluid would routinely be discharged hot into the lake.[3] Criticism should address the proposed system accurately."
+    },
+    {
+      "type": "paragraph",
+      "text": "The relevant question is how demand adds to other withdrawals from Landrie Lake, particularly during drought. A water-utility proceeding has already addressed drought conservation requirements affecting EverWind; that decision is not a campus-specific water allowance.[7] Residents should receive peak-demand estimates, binding limits and monitoring results that show whether the protections work."
+    },
+    {
+      "type": "heading",
+      "id": "public-benefits",
+      "text": "What would make the deal worth supporting"
+    },
+    {
+      "type": "paragraph",
+      "text": "I began with the hope that a development of this scale would meet the highest standards. The evidence supports a more careful conclusion: EverWind has made commitments, while a complete public account of the campus's binding conditions and independently verified performance remains to be demonstrated."
+    },
+    {
+      "type": "paragraph",
+      "text": "EverWind has endorsed Canada's responsible data centre principles and promises to fund electricity-system costs attributable to its development.[3,8] Signing principles does not itself create an enforceable operating permit. Provincial assessment and activity-approval rules depend on the works and activities involved; approvals for related wind or hydrogen projects cannot establish the campus's status.[9] Federal protections for fish-bearing waters apply separately.[11] Government should publish a consolidated permit register with conditions, monitoring duties and enforcement responsibilities. Provincial inspectors can use orders and prosecution when requirements are breached.[12]"
+    },
+    {
+      "type": "paragraph",
+      "text": "EDC records 2023 financing for EverWind's hydrogen, ammonia and associated wind development.[10] That does not establish a grant to this data centre. Calling the campus privately financed leaves questions about tax arrangements and public infrastructure costs. EverWind should disclose campus financing and ownership. Government should distinguish loans from subsidies and require financial security if operations cease before infrastructure costs are recovered."
+    },
+    {
+      "type": "paragraph",
+      "text": "Local participation should be measurable. I would look for procurement and hiring targets with annual results, paid student placements, and research agreements specifying access and cost. Indigenous ownership negotiations are promising, but completed agreements and the consultation owed to affected rights holders must be assessed on their own terms. The Canadian Press reported that a Membertou-led consortium's campus equity stake was still being negotiated.[4]"
+    },
+    {
+      "type": "paragraph",
+      "text": "The public debate also deserves more care. Student participation in protests establishes neither a generational consensus nor hostility to technology. Concern about climate, affordability or corporate influence can coexist with curiosity about AI. Anxiety about the work AI may displace is understandable, even for people training to build software. My support for this facility does not require agreement with every use of the systems it will run."
+    },
+    {
+      "type": "paragraph",
+      "text": "Government should release technical studies and financial terms while residents can still influence decisions. An independent assessment of net public benefits should test realistic alternatives and explain who bears the risks. Annual reporting should cover actual taxes and public costs, electricity and water use, emissions and noise, and delivery of local commitments."
+    },
+    {
+      "type": "paragraph",
+      "text": "I support moving this proposal forward. I want Nova Scotia to take a larger role in the computing economy, and I would be disappointed to see a worthwhile opportunity lost. I would also expect our government to reject terms that leave residents carrying costs the developer should bear. The case for building becomes convincing when the agreements show how Nova Scotians will benefit."
+    }
+  ],
+  "references": [
+    {
+      "id": "1",
+      "url": "https://dalgazette.com/news/over-100-people-protest-against-ai-data-centre-at-legislature/",
+      "label": "Dalhousie Gazette, protest reporting, Oct. 18, 2026"
+    },
+    {
+      "id": "2",
+      "url": "https://www.investing.com/news/stock-market-news/anthropic-signs-lease-for-first-canadian-data-center-4954967",
+      "label": "Reuters, Anthropic lease confirmation, Oct. 16, 2026"
+    },
+    {
+      "id": "3",
+      "url": "https://everwindfuels.com/2026/10/everwind-announces-10-billion-investment-in-point-tupper-data-centre-campus-and-renewable-energy-portfolio-across-nova-scotia/",
+      "label": "EverWind, project announcement and design estimates, Oct. 16, 2026"
+    },
+    {
+      "id": "4",
+      "url": "https://nationalnewswatch.com/2026/10/16/everwind-says-10b-ai-data-centre-proposal-largest-private-investment-in-n-s-history",
+      "label": "The Canadian Press, project, jobs and power reporting, Oct. 16, 2026"
+    },
+    {
+      "id": "5",
+      "url": "https://www.nspower.ca/docs/default-source/monthly-reports/10-year-system-outlook-report.pdf?sfvrsn=d39bca29_70",
+      "label": "Nova Scotia system operator, Ten-Year System Outlook, June 2026"
+    },
+    {
+      "id": "6",
+      "url": "https://news.gov.bc.ca/releases/2026ECS0005-000095",
+      "label": "B.C. government, competitive electricity allocation, Jan. 30, 2026"
+    },
+    {
+      "id": "7",
+      "url": "https://nserbt.ca/sites/default/files/NSRAB%20Board%20Decision%20-%20Landrie%20Lake%20Water%20Utility%20M12738.pdf",
+      "label": "Nova Scotia Regulatory and Appeals Board, Landrie Lake decision, July 23, 2026"
+    },
+    {
+      "id": "8",
+      "url": "https://ised-isde.canada.ca/site/ised/en/data-centres-powering-canadas-digital-future-responsibly/canadas-responsible-data-centre-development-principles",
+      "label": "ISED, Canada's Responsible Data Centre Development Principles, Sept. 2026"
+    },
+    {
+      "id": "9",
+      "url": "https://novascotia.ca/just/regulations/regs/envassmt.htm",
+      "label": "Nova Scotia, Environmental Assessment Regulations, current text"
+    },
+    {
+      "id": "10",
+      "url": "https://www.edc.ca/en/about-us/corporate/disclosure/reporting-transactions/canada-account.html",
+      "label": "EDC, Canada Account disclosure, EverWind transaction signed Dec. 8, 2023"
+    },
+    {
+      "id": "11",
+      "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/acts-regulations/fisheries-act-registry.html",
+      "label": "Environment and Climate Change Canada, Fisheries Act Registry, July 16, 2026"
+    },
+    {
+      "id": "12",
+      "url": "https://novascotia.ca/nse/resources/environment.act.compliance.asp",
+      "label": "Nova Scotia, compliance and enforcement under the Environment Act"
+    },
+    {
+      "id": "9b",
+      "url": "https://novascotia.ca/just/regulations/regs/envactiv.htm",
+      "label": "Nova Scotia, Activities Designation Regulations, current text"
+    }
+  ],
+  "pdf": "content/journal/assets/ai-investment-nova-scotia-trust.pdf",
+  "cover": "content/journal/assets/ai-investment-nova-scotia-trust.png",
+  "publishedAt": "2026-10-20",
+  "externalPublication": {
+    "label": "Also on LinkedIn",
+    "url": "https://www.linkedin.com/feed/update/urn:li:activity:7518338341054881792/"
+  }
+}

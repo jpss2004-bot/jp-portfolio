@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { journalLabels, showJournal } from "@/data/journal";
 import { pick, primaryProjects, supportingProjects, statusLabel } from "@/data/content";
 import { workStories } from "@/data/work";
 import type { Locale } from "@/data/i18n";
@@ -14,7 +15,7 @@ export function SelectedWork({ locale }: { locale: Locale }) {
       <nav className={styles.workNav} aria-label={es ? "Proyectos y contacto" : "Projects and contact"}>
         <span>{es ? "Explorar" : "Explore"}</span>
         {primaryProjects.map((project) => <a key={project.slug} href={`#${project.slug}`}>{pick(project.title, locale)}</a>)}
-        <details className={styles.mobileSections}><summary>{es ? "Secciones" : "Sections"}</summary><div><a href="#experience">{es ? "Experiencia" : "Experience"}</a><a href="#build">{es ? "Cómo construyo" : "How I build"}</a><a href="#about">{es ? "Sobre mí" : "About"}</a></div></details>
+        <details className={styles.mobileSections}><summary>{es ? "Secciones" : "Sections"}</summary><div><a href="#experience">{es ? "Experiencia" : "Experience"}</a><a href="#build">{es ? "Cómo construyo" : "How I build"}</a><a href="#about">{es ? "Sobre mí" : "About"}</a>{showJournal ? <Link href={`/${locale}/journal`}>{journalLabels[locale].name}</Link> : null}</div></details>
         <a className={styles.navContact} href="#contact">{es ? "Contacto" : "Contact"} <span aria-hidden="true">↗</span></a>
       </nav>
       <div className={styles.introduction}>

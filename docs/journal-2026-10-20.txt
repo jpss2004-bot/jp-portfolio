@@ -1,0 +1,34 @@
+Journal — 20 October 2026
+
+The owner requested a section for articles, thoughts and resources and chose drafting with Codex in this repository. They confirmed the AI-investment article had been published by them on LinkedIn and should be treated as published.
+
+Structure
+- /en/journal and /es/journal: localized indexes.
+- /en/journal/ai-investment-nova-scotia-trust: original English article. Spanish index identifies English content and uses a Spanish summary; language switching leads to the Spanish Journal rather than inventing a translation.
+- Header link, mobile Sections-menu link, footer link and below-hero homepage teaser.
+- Existing homepage hero JSX, NameReveal and global CSS unchanged.
+
+First article
+- AI investment should earn Nova Scotia's trust, published 20 October 2026.
+- Original English paragraphs and all 13 source links preserved. PDF downloaded from the Journal is byte-identical to the owner's source.
+- Capacity and cooling figures adapted to accessible responsive web components. Capacity controls compare initial 95 MW and proposed full 420 MW, with qualifications and original source. Reduced-motion transition disabled.
+- LinkedIn post verified in Dia, on Jose Pablo Samano Suarez's own profile activity, matching the article title and three-page attachment.
+- LinkedIn: https://www.linkedin.com/feed/update/urn:li:activity:7518338341054881792/
+
+Publishing workflow
+- Typed JSON content supports articles, notes and resources. No CMS/database dependency.
+- npm run journal:new scaffolds and registers a draft, refuses overwrites and supports --dry-run.
+- Published entries enter sitemap and RSS. Drafts appear only in development/explicit preview mode, are noindex and are excluded from public feed/sitemap. Download routes also gate drafts.
+- Entry validation rejects unsafe resource/publication URLs, invalid asset paths, unresolved citations, duplicate IDs/slugs and published entries without dates.
+- Publishing instructions: content/journal/README.txt.
+
+Design
+- Existing sans-serif headings, Georgia reading body, restrained teal/blue diagrams, wide index feature and approximately 65-character reading column.
+- Sticky contents, source anchors and reading progress. No decorative eyebrow labels or pill grids.
+
+Validation so far
+- Build, TypeScript, lint and diff checks pass.
+- All 22 existing home/project structured-data checks pass.
+- New Journal checks: both indexes, article metadata, sitemap/RSS inclusion, citations, PDF/cover bytes, canonical language behavior and missing routes.
+- Browser: 320px/390px without overflow, Spanish index and English routing, capacity selection, source navigation, light/dark and reduced motion.
+- Shared hero source, NameReveal, global styles and original article source/PDF preservation checked.

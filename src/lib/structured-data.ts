@@ -10,7 +10,7 @@ const projectId = (slug: string) => `${siteUrl}/#project-${slug}`;
 const projectUrl = (slug: string, locale: Locale) => `${siteUrl}/${locale}/projects/${slug}`;
 
 /** Shared identities keep the two translations connected without duplicating people. */
-function identityGraph(locale: Locale) {
+export function identityGraph(locale: Locale) {
   return [
     {
       "@type": "Person",

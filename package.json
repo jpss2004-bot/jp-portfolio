@@ -6,7 +6,8 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "journal:new": "node scripts/new-journal-entry.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
