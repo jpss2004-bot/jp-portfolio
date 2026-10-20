@@ -30,3 +30,10 @@ Production verification
 - Local 320px, light/dark and reduced-motion checks passed. All four hero PNG comparisons still match the original exactly.
 - The checked production runtime-log window returned no errors. Browser console review returned no errors or warnings.
 - Receipt, hero comparisons and final live diagram screenshot are in output/qa.
+
+Final caption cleanup
+- Release 1a2d020 removes the decorative motion-toolbar caption, leaving only the right-aligned pause control.
+- Promoted deployment dpl_8myRGGQokhJa6DMw3JfNGJnJ2z4h to the custom domain; remote build output completed in 19 seconds.
+- Build, TypeScript, lint and diff checks passed. Five staged and five custom-domain route checks confirmed the caption is absent in both languages.
+- Final live browser confirmed muted looping playback (readyState 4), diagram selection and no browser errors/warnings. The bounded runtime error-log query returned no entries.
+- Saved the final live diagram preview and restored the normal viewport.
