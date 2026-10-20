@@ -3,9 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
-import { allCaseSlugs, asOf, caseOrder, getProject, pick, profile } from "@/data/content";
+import { allCaseSlugs, caseOrder, getProject, pick, profile, statusLabel } from "@/data/content";
 import { ui } from "@/data/ui";
-import { Footer, Header, ProjectMedia, StatusTag, VisualFrame } from "@/components/parts";
+import { Footer, Header, ProjectMedia, VisualFrame } from "@/components/parts";
+
+import { SystemExplorer } from "@/components/work/SystemExplorer";
+import { workStories } from "@/data/work";
+import workStyles from "@/components/work/Work.module.css";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -70,19 +74,18 @@ export default async function CasePage({ params }: Props) {
           <p className="back"><Link className="link" href={`${base}#work`}>← {t.case.back}</Link></p>
           <div className="case-title">
             <h1 className="h1">{pick(project.title, locale)}</h1>
-            <StatusTag status={project.status} locale={locale} />
           </div>
           <p className="lead">{pick(project.oneLiner, locale)}</p>
           <dl className="case-meta">
             <div><dt>{t.role}</dt><dd>{pick(project.role, locale)}</dd></div>
             <div><dt>{t.period}</dt><dd className="mono">{pick(project.period, locale)}</dd></div>
-            <div><dt>{t.status}</dt><dd><StatusTag status={project.status} locale={locale} /></dd></div>
+            <div><dt>{t.status}</dt><dd>{pick(statusLabel[project.status], locale)}</dd></div>
           </dl>
         </div>
 
         {project.visuals ? (
           <div className="wide case-media">
-            <VisualFrame visual={project.visuals.primary} locale={locale} detailed sizes="(max-width: 900px) 100vw, 1040px" />
+            <VisualFrame visual={project.visuals.primary} locale={locale} detailed priority sizes="(max-width: 900px) 100vw, 1040px" />
           </div>
         ) : project.media ? (
           <div className="wide case-media">
@@ -99,7 +102,8 @@ export default async function CasePage({ params }: Props) {
               </div>
             ))}
           </dl>
-          <p className="muted small">{t.case.asOf} {pick(asOf, locale)}.</p>
+          <p className="muted small">{project.metricNote ? pick(project.metricNote, locale) : (locale === "es" ? "Cifras históricas al 11 de septiembre de 2026." : "Historical figures as of 11 September 2026.")}</p>
+          {workStories[slug] ? <section className={workStyles.caseSystem} aria-label={locale === "es" ? "Arquitectura del sistema" : "System architecture"}><h2>{locale === "es" ? "Cómo se conecta el sistema" : "How the system connects"}</h2><SystemExplorer headingLevel="h3" steps={workStories[slug].steps} locale={locale} name={pick(project.title, locale)} /></section> : null}
 
           {c ? (
             <>
@@ -164,7 +168,7 @@ export default async function CasePage({ params }: Props) {
         <div className="col">
           <section className="case-sec">
             <h2 className="h2">{t.stackLabel}</h2>
-            <p className="stack">{project.stack.map((s) => <span key={s}>{s}</span>)}</p>
+            <p className="prose">{project.stack.join(" · ")}</p>
           </section>
           {project.links.length ? (
             <section className="case-sec">
@@ -176,6 +180,8 @@ export default async function CasePage({ params }: Props) {
               </p>
             </section>
           ) : null}
+
+          {c?.next?.en.length ? <section className="case-sec"><h2 className="h2">{locale === "es" ? "En desarrollo" : "In progress"}</h2><List items={pick(c.next, locale)} /></section> : null}
 
           <nav className="pager" aria-label={locale === "es" ? "Más proyectos" : "More projects"}>
             {prev ? <Link className="link" href={`${base}/projects/${prev.slug}`}>← {pick(prev.title, locale)}</Link> : <span />}

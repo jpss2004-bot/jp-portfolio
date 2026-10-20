@@ -1,4 +1,6 @@
 import type { Locale } from "./i18n";
+import { neyvu } from "./neyvu";
+import { additionalCases } from "./additional-cases";
 
 /**
  * Single source of truth for the portfolio.
@@ -10,7 +12,7 @@ import type { Locale } from "./i18n";
 export type L<T> = { en: T; es: T };
 export const pick = <T,>(value: L<T>, locale: Locale): T => value[locale] ?? value.en;
 
-export const asOf: L<string> = { en: "as of 11 September 2026", es: "al 11 de septiembre de 2026" };
+export const asOf: L<string> = { en: "reviewed 20 October 2026", es: "revisado el 20 de octubre de 2026" };
 
 export const profile = {
   name: "José Pablo Sámano Suárez",
@@ -69,6 +71,7 @@ export type Project = {
   role: L<string>;
   oneLiner: L<string>;
   facts: Fact[];
+  metricNote?: L<string>;
   media?: Media;
   /** Large visuals for the home stage and the case hero. */
   visuals?: { primary: Visual; secondary?: Visual };
@@ -89,7 +92,7 @@ export const featured: Project[] = [
     slug: "checkwise",
     title: { en: "CheckWise", es: "CheckWise" },
     status: "production",
-    period: { en: "May – Sep 2026", es: "may – sep 2026" },
+    period: { en: "May 2026 – present", es: "may 2026 – presente" },
     role: { en: "Lead developer, LegalShelf", es: "Desarrollador principal, LegalShelf" },
     oneLiner: {
       en: "Recurring REPSE compliance for Mexican companies. Providers upload evidence, reviewers decide, and clients see their exposure across SAT, IMSS and INFONAVIT.",
@@ -98,9 +101,10 @@ export const featured: Project[] = [
     facts: [
       { value: "7", label: { en: "client companies", es: "empresas cliente" } },
       { value: "~20,000", label: { en: "documents processed", es: "documentos procesados" } },
-      { value: "2,454", label: { en: "commits to production", es: "commits a producción" } },
-      { value: "7,800+", label: { en: "automated tests", es: "pruebas automatizadas" } },
+      { value: "14,714", label: { en: "backend + frontend tests · Sep 2026", es: "pruebas backend + frontend · sep 2026" } },
+      { value: "6", label: { en: "product surfaces", es: "superficies del producto" } },
     ],
+    metricNote: { en: "Customer and document figures: 11 September 2026. Test total: September 2026. Product narrative reviewed 20 October.", es: "Cifras de clientes y documentos: 11 de septiembre de 2026. Pruebas: septiembre de 2026. Relato del producto revisado el 20 de octubre." },
     media: {
       type: "image",
       src: "/projects/checkwise/client-dashboard.webp",
@@ -126,14 +130,14 @@ export const featured: Project[] = [
         en: [
           "Three audiences with different jobs: providers who upload, LegalShelf reviewers who decide, and client companies who read risk.",
           "Providers are often non-technical accountants working in Spanish, many on a phone.",
-          "Legal accuracy: automation can flag a document but must never approve or reject one on its own.",
-          "A small team shipping straight to production, with no staging environment.",
+          "Critical review decisions require authorized human review. Objective checks and client-configured rules have an explicit, auditable scope.",
+          "A small team responsible for production operation, migration review and controlled releases.",
         ],
         es: [
           "Tres públicos con trabajos distintos: proveedores que cargan, revisores de LegalShelf que deciden y empresas cliente que leen el riesgo.",
           "Los proveedores suelen ser contadores no técnicos que trabajan en español, muchos desde el celular.",
-          "Precisión legal: la automatización puede señalar un documento, pero nunca aprobarlo ni rechazarlo por sí sola.",
-          "Un equipo pequeño que publica directo a producción, sin ambiente intermedio.",
+          "Las decisiones críticas requieren revisión humana autorizada. Las verificaciones objetivas y reglas configuradas por el cliente tienen un alcance explícito y auditable.",
+          "Un equipo pequeño responsable de la operación, revisión de migraciones y liberaciones controladas.",
         ],
       },
       decisions: [
@@ -145,10 +149,10 @@ export const featured: Project[] = [
           },
         },
         {
-          title: { en: "The AI advises; a person decides", es: "La IA sugiere; una persona decide" },
+          title: { en: "Explicit rules, traceable review", es: "Reglas explícitas, revisión trazable" },
           why: {
-            en: "Every upload gets an automatic prevalidation: one plain verdict, the fields it read, and where on the page it read them. The decision stays with a reviewer, and every decision records who made it and why.",
-            es: "Cada carga recibe una prevalidación automática: un veredicto claro, los datos que leyó y en qué parte de la página los leyó. La decisión queda en manos de un revisor, y cada decisión registra quién la tomó y por qué.",
+            en: "Every upload gets an automatic prevalidation: one plain verdict, the fields it read, and where on the page it read them. Critical decisions stay with an authorized reviewer; configured acceptance/rejection rules are separate from the model reading, and transitions retain their audit trail.",
+            es: "Cada carga recibe una prevalidación automática: un veredicto claro, los datos que leyó y en qué parte de la página los leyó. Las decisiones críticas quedan en manos de un revisor autorizado; las reglas configuradas de aceptación y rechazo son distintas de la lectura del modelo, y las transiciones conservan su historial.",
           },
         },
         {
@@ -161,44 +165,42 @@ export const featured: Project[] = [
         {
           title: { en: "Ship with agents, behind gates", es: "Publicar con agentes, detrás de compuertas" },
           why: {
-            en: "To move at this pace without a staging tier, every change passes type checks, coverage ratchets and CI before it can merge. The agents write most of the code; the gates and the review decide what reaches production.",
-            es: "Para avanzar a este ritmo sin ambiente intermedio, cada cambio pasa revisión de tipos, umbrales de cobertura y CI antes de fusionarse. Los agentes escriben la mayor parte del código; las compuertas y la revisión deciden qué llega a producción.",
+            en: "I define the architecture and change constraints before using coding agents. Type checks, relevant tests, coverage requirements and review establish what is ready for a controlled release.",
+            es: "Defino arquitectura y restricciones antes de usar agentes de programación. Revisión de tipos, pruebas pertinentes, cobertura y revisión determinan qué está listo para una liberación controlada.",
           },
         },
       ],
       built: {
         en: [
-          "Most of the code was written by Claude Code agents under my direction: 98% of commits are co-authored with Claude.",
-          "Each agent works in its own git worktree, so parallel sessions never overwrite each other.",
-          "A searchable knowledge base (\"the vault\") holds every lesson and trap, and is recalled automatically at the start of each task.",
-          "An autonomous shift runs every six hours to find, fix and prove bugs, then asks for merge approval in Slack.",
-          "Nothing merges without tests, type checks and CI on four self-hosted runners. I review and authorize what ships.",
+          "Owned the obligation model, backend APIs, review interfaces and delivery across provider, client and reviewer surfaces.",
+          "Connected institutions, cycles, periods and contracts so calendars and review state share the same domain model.",
+          "Built document reading and review workflows with an explicit separation between model suggestions, configured rules and authorized human decisions.",
+          "Direct AI coding agents in isolated worktrees, define the constraints and test gates, and review the changes before release.",
         ],
         es: [
-          "La mayor parte del código la escribieron agentes de Claude Code bajo mi dirección: el 98% de los commits es en coautoría con Claude.",
-          "Cada agente trabaja en su propio worktree de git, para que las sesiones en paralelo nunca choquen.",
-          "Una base de conocimiento consultable (\"el vault\") guarda cada lección y cada trampa, y se consulta sola al inicio de cada tarea.",
-          "Un turno autónomo corre cada seis horas para encontrar, corregir y probar errores, y pide aprobación en Slack para fusionar.",
-          "Nada se fusiona sin pruebas, revisión de tipos y CI en cuatro runners propios. Yo reviso y autorizo lo que se publica.",
+          "Me hice cargo del modelo de obligaciones, APIs, interfaces de revisión y entrega para proveedores, clientes y revisores.",
+          "Conecté instituciones, ciclos, periodos y contratos para que calendarios y estados compartan el modelo de dominio.",
+          "Construí flujos documentales separando sugerencias del modelo, reglas configuradas y decisiones humanas autorizadas.",
+          "Dirijo agentes de programación en worktrees aislados, defino restricciones y verificaciones, y reviso los cambios antes de liberarlos.",
         ],
       },
       outcome: {
-        en: "CheckWise serves 7 client companies and more than 15 vendors, with about 20,000 documents processed; reviewers now clear around 50 documents a day at roughly a minute each. It has six surfaces: a provider portal, a client portal, a reviewer console, a public site, an in-app academy with 33 filmed lessons, and a reporting suite. Uploads get live SAT invoice-folio checks and AI-generated-document detection, and clients can set their own auto-accept and auto-reject rules.",
-        es: "CheckWise atiende a 7 empresas cliente y más de 15 proveedores, con cerca de 20,000 documentos procesados; los revisores resuelven unos 50 documentos al día en cerca de un minuto cada uno. Tiene seis superficies: portal de proveedores, portal de clientes, consola de revisión, sitio público, una academia integrada con 33 lecciones filmadas y un módulo de reportes. Las cargas pasan por verificación en vivo de folios CFDI ante el SAT y detección de documentos generados por IA, y los clientes pueden definir sus propias reglas de aceptación y rechazo automático.",
+        en: "The September 2026 snapshot recorded 7 client companies, 15+ vendors and about 20,000 documents processed, with reviewers clearing around 50 documents a day at roughly a minute each. The October 19 release added contract-based provider workflows, contract calendars and lead tools. It has six surfaces: a provider portal, a client portal, a reviewer console, a public site, an in-app academy with 33 filmed lessons, and a reporting suite. Uploads get live SAT invoice-folio checks and AI-generated-document detection, and clients can set their own auto-accept and auto-reject rules.",
+        es: "El corte de septiembre de 2026 registró 7 empresas cliente, más de 15 proveedores y cerca de 20,000 documentos procesados; los revisores resolvían unos 50 documentos diarios en cerca de un minuto cada uno. La liberación del 19 de octubre añadió flujos por contrato para proveedores, calendarios por contrato y herramientas de prospectos. Tiene seis superficies: portal de proveedores, portal de clientes, consola de revisión, sitio público, una academia integrada con 33 lecciones filmadas y un módulo de reportes. Las cargas pasan por verificación en vivo de folios CFDI ante el SAT y detección de documentos generados por IA, y los clientes pueden definir sus propias reglas de aceptación y rechazo automático.",
       },
       evidence: {
         en: [
           "7 client companies, 15+ vendors and about 20,000 documents processed in production.",
           "2,454 commits on the main branch between 12 May and 11 September 2026.",
           "667 merged pull requests between June and September.",
-          "5,199 backend, 2,542 frontend and 71 end-to-end tests at the last full verified run (29 August).",
+          "9,941 backend and 4,773 frontend tests in the September 2026 verification snapshot; this is a dated baseline, not a live counter.",
           "Live at checkwise.com.mx. The source is private; I'm happy to walk through it.",
         ],
         es: [
           "7 empresas cliente, más de 15 proveedores y cerca de 20,000 documentos procesados en producción.",
           "2,454 commits en la rama principal entre el 12 de mayo y el 11 de septiembre de 2026.",
           "667 pull requests fusionados entre junio y septiembre.",
-          "5,199 pruebas de backend, 2,542 de frontend y 71 end-to-end en la última corrida completa verificada (29 de agosto).",
+          "9,941 pruebas de backend y 4,773 de frontend en el corte de verificación de septiembre de 2026; es una referencia fechada, no un contador en vivo.",
           "En línea en checkwise.com.mx. El código es privado; con gusto lo muestro en una llamada.",
         ],
       },
@@ -221,11 +223,13 @@ export const featured: Project[] = [
       ],
     },
   },
+  neyvu,
   {
     slug: "verifaid",
     title: { en: "Verifaid", es: "Verifaid" },
     status: "pilot",
-    period: { en: "Jul – Sep 2026", es: "jul – sep 2026" },
+    period: { en: "Jul 2026 – present", es: "jul 2026 – presente" },
+    metricNote: { en: "Pilot figures and test baseline: 11 September 2026. Implementation reviewed through 14 September; status reviewed 20 October.", es: "Cifras del piloto y referencia de pruebas: 11 de septiembre de 2026. Implementación revisada hasta el 14 de septiembre; estado revisado el 20 de octubre." },
     role: { en: "Lead developer, LegalShelf", es: "Desarrollador principal, LegalShelf" },
     oneLiner: {
       en: "Who can legally sign, and within what limits? Verifaid reads corporate documents and powers of attorney, cites the exact page, and leaves approval to a second reviewer.",
@@ -286,8 +290,8 @@ export const featured: Project[] = [
         },
       ],
       outcome: {
-        en: "Verifaid returns a decision, not a report: whether signing can proceed, why it cannot, and who holds the authority to sign. It has cleared more than 50 operations for a paying client. In six weeks the platform went from an empty repository to a controlled pilot: a seven-stage pipeline, a citation viewer, traceable human approval where every review keeps its rationale, and a second person required to approve. Dictamen signing and the path to real client documents are the next milestones.",
-        es: "Verifaid entrega una decisión, no un reporte: si la firma puede proceder, por qué no y quién tiene las facultades para firmar. Ha resuelto más de 50 operaciones para un cliente de pago. En seis semanas la plataforma pasó de un repositorio vacío a un piloto controlado: un pipeline de siete etapas, un visor de citas y una aprobación humana trazable donde cada revisión conserva su justificación y requiere una segunda persona. La firma del dictamen y el paso a documentos reales de clientes son los siguientes hitos.",
+        en: "Verifaid returns a decision, not a report: whether signing can proceed, why it cannot, and who holds the authority to sign. It has cleared more than 50 operations for a paying client. In six weeks the platform went from an empty repository to a controlled pilot: a seven-stage pipeline, a citation viewer, traceable human approval where every review keeps its rationale, and a second person required to approve. Subsequent implementation added approved-opinion PDF issuance with a responsible reviewer, version and fingerprint, plus recovery of failed document readings. PDF issuance is distinct from an electronic-signing rollout; the real-data and signing gates remain explicit.",
+        es: "Verifaid entrega una decisión, no un reporte: si la firma puede proceder, por qué no y quién tiene las facultades para firmar. Ha resuelto más de 50 operaciones para un cliente de pago. En seis semanas la plataforma pasó de un repositorio vacío a un piloto controlado: un pipeline de siete etapas, un visor de citas y una aprobación humana trazable donde cada revisión conserva su justificación y requiere una segunda persona. La implementación posterior añadió emisión de dictámenes aprobados en PDF con responsable, versión y huella, además de recuperación de lecturas fallidas. Emitir un PDF es distinto de liberar firma electrónica; las compuertas de datos reales y firma siguen explícitas.",
       },
       evidence: {
         en: [
@@ -391,17 +395,18 @@ export const featured: Project[] = [
     slug: "legalshelf-mx",
     title: { en: "legalshelf.mx", es: "legalshelf.mx" },
     status: "deployed",
-    period: { en: "Aug – Sep 2026", es: "ago – sep 2026" },
+    period: { en: "Aug – Oct 2026", es: "ago – oct 2026" },
     role: { en: "Developer, LegalShelf", es: "Desarrollador, LegalShelf" },
     oneLiner: {
-      en: "The company's marketing site, rebuilt from Webflow in Astro in 16 days. Deployed to production on Vercel, ready for the domain switch.",
-      es: "El sitio de marketing de la empresa, reconstruido de Webflow a Astro en 16 días. Publicado en producción en Vercel, listo para el cambio de dominio.",
+      en: "A bilingual rebuild of the company’s site in Astro, followed by a broader visual, interaction and structured-data update. Published on the Vercel feedback deployment; the domain transition is separate.",
+      es: "Reconstrucción bilingüe del sitio de la empresa en Astro, seguida de una actualización visual, de interacción y datos estructurados. Publicada en Vercel para revisión; el cambio de dominio es un paso independiente.",
     },
     facts: [
       { value: "35", label: { en: "legacy URLs preserved", es: "URLs heredadas preservadas" } },
-      { value: "40 → 7 ms", label: { en: "total blocking time", es: "tiempo total de bloqueo" } },
-      { value: "204", label: { en: "commits in 16 days", es: "commits en 16 días" } },
+      { value: "87", label: { en: "routes in the October 18 build", es: "rutas en el build del 18 de octubre" } },
+      { value: "EN / ES", label: { en: "shared bilingual architecture", es: "arquitectura bilingüe compartida" } },
     ],
+    metricNote: { en: "Legacy URL baseline: September 2026. Bilingual route/build verification: 18 October 2026.", es: "Referencia de URLs heredadas: septiembre de 2026. Verificación de rutas y build bilingüe: 18 de octubre de 2026." },
     media: {
       type: "image",
       src: "/projects/legalshelf-mx/home.webp",
@@ -435,7 +440,7 @@ export const featured: Project[] = [
         {
           title: { en: "Astro, static by default", es: "Astro, estático por defecto" },
           why: {
-            en: "A marketing site doesn't need a client framework on every page. Static output with islands kept blocking time at 7 ms.",
+            en: "A marketing site doesn't need a client framework on every page. Static output with islands keeps interactive behavior localized; the October update adds bilingual pages without shipping a translation service to the browser.",
             es: "Un sitio de marketing no necesita un framework de cliente en cada página. La salida estática con islas dejó el tiempo de bloqueo en 7 ms.",
           },
         },
@@ -448,8 +453,8 @@ export const featured: Project[] = [
         },
       ],
       outcome: {
-        en: "A 12-section home page built from the positioning document, plus platform, guided tour, industries, resources, blog, case studies and glossary pages. Deployed on Vercel; pointing the domain at it is the remaining step.",
-        es: "Un home de 12 secciones construido desde el documento de posicionamiento, además de páginas de plataforma, recorrido guiado, industrias, recursos, blog, casos y glosario. Publicado en Vercel; apuntar el dominio es el paso que falta.",
+        en: "A 12-section home page built from the positioning document, plus platform, guided tour, industries, resources, blog, case studies and glossary pages. The October 17–18 update extended the site in Spanish and English, with visual, motion, privacy-control and structured-data checks. Published to the Vercel feedback alias; the domain transition remains a separate step. I am also working on broader LegalShelf platform enhancements and AI modules, which remain work in progress.",
+        es: "Un home de 12 secciones construido desde el documento de posicionamiento, además de páginas de plataforma, recorrido guiado, industrias, recursos, blog, casos y glosario. La actualización del 17–18 de octubre amplió el sitio en español e inglés, con verificaciones visuales, de movimiento, privacidad y datos estructurados. Publicado en el alias de Vercel para revisión; el cambio de dominio sigue separado. También trabajo en mejoras de la plataforma LegalShelf y módulos de IA, aún en desarrollo.",
       },
       evidence: {
         en: ["204 commits between 26 August and 10 September 2026.", "13 redirect rules covering 35 legacy URLs."],
@@ -480,12 +485,12 @@ export const shipped: Shipped[] = [
     line: { en: "Context-aware restaurant recommendations that explain why each one fits. 10 active users around Wolfville, NS.", es: "Recomendaciones de restaurantes según el contexto, que explican por qué encaja cada una. 10 usuarios activos en Wolfville, Nueva Escocia." },
   },
   {
-    name: "Band of Brothers", year: "2026", status: "live", href: "https://bandofbrothers-seven.vercel.app",
+    slug: "band-of-brothers", name: "Band of Brothers", year: "2026", status: "live", href: "https://bandofbrothers-seven.vercel.app",
     kind: { en: "Web app", es: "App web" },
     line: { en: "Draft engine and weekly newsletter for the 12-team fantasy league I run, with an automated Tuesday issue.", es: "Motor de draft y boletín semanal para la liga de fantasy de 12 equipos que administro, con un número automático cada martes." },
   },
   {
-    name: "La Red de Casa", year: "2026", status: "live", href: "https://la-red-de-casa.vercel.app",
+    slug: "la-red-de-casa", name: "La Red de Casa", year: "2026", status: "live", href: "https://la-red-de-casa.vercel.app",
     kind: { en: "Web app", es: "App web" },
     line: { en: "A phone-first app that coordinates a family's trips, cars and drivers, with parent approval.", es: "Una app para el celular que coordina los traslados, autos y choferes de una familia, con aprobación de los papás." },
   },
@@ -523,6 +528,7 @@ export const shipped: Shipped[] = [
 
 /* Case studies for shipped projects that have one. Ported from the previous site. */
 export const shippedCases: Project[] = [
+  ...additionalCases,
   {
     slug: "savr",
     title: { en: "SAVR", es: "SAVR" },
@@ -697,16 +703,19 @@ export const summer = {
 export const method: { title: L<string>; body: L<string> }[] = [
   { title: { en: "Direct", es: "Dirigir" }, body: { en: "I scope the change, write the brief and fix the constraints before any code exists.", es: "Defino el alcance, escribo el encargo y fijo las restricciones antes de que exista código." } },
   { title: { en: "Isolate", es: "Aislar" }, body: { en: "Each agent works in its own git worktree, so parallel sessions never overwrite each other.", es: "Cada agente trabaja en su propio worktree de git, para que las sesiones en paralelo nunca choquen." } },
-  { title: { en: "Gate", es: "Verificar" }, body: { en: "Nothing merges without tests, type checks, coverage ratchets and CI on self-hosted runners.", es: "Nada se fusiona sin pruebas, revisión de tipos, umbrales de cobertura y CI en runners propios." } },
+  { title: { en: "Gate", es: "Verificar" }, body: { en: "I define the relevant tests, type checks and coverage requirements, then inspect the results for the change being released.", es: "Defino las pruebas, revisión de tipos y cobertura pertinentes, y reviso los resultados del cambio que se va a liberar." } },
   { title: { en: "Remember", es: "Recordar" }, body: { en: "A searchable knowledge base of every lesson and trap, recalled automatically at the start of each task.", es: "Una base de conocimiento con cada lección y cada trampa, que se consulta sola al inicio de cada tarea." } },
   { title: { en: "Automate", es: "Automatizar" }, body: { en: "During summer 2026, a shift every six hours found, fixed and proved bugs, then requested my approval to merge.", es: "Durante el verano de 2026, un turno cada seis horas encontraba, corregía y probaba errores, y pedía mi aprobación para fusionar." } },
   { title: { en: "Ship", es: "Publicar" }, body: { en: "I review and authorize the merge. The main branch deploys to production.", es: "Reviso y autorizo la fusión. La rama principal se publica a producción." } },
 ];
+
+export const primaryProjects = ["checkwise", "neyvu", "verifaid"].map((slug) => featured.find((p) => p.slug === slug)!);
+export const supportingProjects = featured.filter((p) => !primaryProjects.includes(p));
 
 export const allCaseSlugs = [...featured, ...shippedCases].map((p) => p.slug);
 export function getProject(slug: string): Project | undefined {
   return [...featured, ...shippedCases].find((p) => p.slug === slug);
 }
 export function caseOrder(): Project[] {
-  return [...featured, ...shippedCases];
+  return [...primaryProjects, ...supportingProjects, ...shippedCases];
 }

@@ -481,7 +481,7 @@ const range=p=>p.start===p.end?fd(p.start):`${fd(p.start)} – ${fd(p.end)}`;
 const host=u=>u?u.replace(/^https?:\/\//,"").replace(/\/$/,""):"";
 
 function statics(){
-  document.documentElement.lang=lang;
+  document.documentElement.lang=lang;document.title = lang === 'es' ? 'José Pablo Sámano Suárez · Verano 2026' : 'José Pablo Sámano Suárez · Summer 2026';
   document.querySelector(".bar .who").textContent=lang==="es"?"Verano 2026":"Summer 2026";
   document.querySelector("[data-home]").href=`/${lang}`;
   document.querySelector("[data-i=skip]").textContent=lang==="es"?"Ir al contenido":"Skip to content";

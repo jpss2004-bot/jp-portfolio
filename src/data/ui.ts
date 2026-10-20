@@ -10,13 +10,13 @@ const en = {
   links: { resume: "Résumé (PDF)", email: "Email", linkedin: "LinkedIn", github: "GitHub" },
   work: {
     heading: "Selected work",
-    lede: "Four systems from summer 2026, each with the problem, the decisions and the evidence.",
+    lede: "Production software, a working AI pilot, and the engineering decisions behind them.",
     readCase: "Read the case study",
     private: "Private codebase, walkthrough on request",
   },
   build: {
     heading: "How I build",
-    lede: "Most of my 2026 code was written by AI agents under my direction. I treat that as an engineering discipline: I design the system around the agents, and the system decides what reaches production.",
+    lede: "I own the system from the data model to the interface: define the workflow, choose the boundaries, test failure paths, and review what ships. AI agents help me implement; architecture, constraints and release decisions stay with me.",
     figures:
       "Summer 2026 snapshot: 98% of CheckWise commits were co-authored with Claude, with more than 7,800 automated tests and four self-hosted CI runners. Details and dates are in the summer report.",
   },
@@ -31,7 +31,8 @@ const en = {
     heading: "About",
     body: [
       "I grew up in Mexico City and study Computer Science at Acadia University in Nova Scotia. I like problems where software has to be exactly right: compliance, legal documents, clinical queues.",
-      "Since May 2026 I have worked as a software developer at LegalShelf, a legal-tech company in Mexico City. I lead development of CheckWise and Verifaid and built the document pipelines and internal tools around them.",
+      "At LegalShelf I lead development of CheckWise and Verifaid, build document pipelines, and work on the platform’s next AI capabilities. At Acadia’s AIoT Research Hub I lead frontend, UX and visual design. Neyvu is my independent course-aware AI product, now onboarding pilot users.",
+      "At Trinity College School, my high school, I captained the football team for two years, earned back-to-back Lineman of the Year awards and received the Leadership Award in my final year.",
     ],
     facts: [
       { label: "Education", value: "B.Sc. Computer Science, Acadia University, 2027" },
@@ -86,13 +87,13 @@ const es: Dict = {
   links: { resume: "CV (PDF)", email: "Correo", linkedin: "LinkedIn", github: "GitHub" },
   work: {
     heading: "Trabajo seleccionado",
-    lede: "Cuatro sistemas del verano de 2026, cada uno con el problema, las decisiones y la evidencia.",
+    lede: "Software en producción, un piloto funcional de IA y las decisiones de ingeniería detrás de cada uno.",
     readCase: "Leer el caso",
     private: "Código privado, lo muestro en una llamada",
   },
   build: {
     heading: "Cómo construyo",
-    lede: "La mayor parte de mi código de 2026 la escribieron agentes de IA bajo mi dirección. Lo trato como una disciplina de ingeniería: diseño el sistema alrededor de los agentes, y el sistema decide qué llega a producción.",
+    lede: "Me hago cargo del sistema, desde el modelo de datos hasta la interfaz: defino el flujo, elijo los límites, pruebo las fallas y reviso lo que se publica. Los agentes de IA me ayudan a implementar; la arquitectura, las restricciones y las decisiones de liberación son mías.",
     figures:
       "Corte del verano de 2026: el 98% de los commits de CheckWise fue en coautoría con Claude, con más de 7,800 pruebas automatizadas y cuatro runners de CI propios. El reporte del verano incluye detalles y fechas.",
   },
@@ -107,7 +108,8 @@ const es: Dict = {
     heading: "Sobre mí",
     body: [
       "Crecí en la Ciudad de México y estudio Ciencias de la Computación en Acadia University, en Nueva Escocia. Me gustan los problemas donde el software tiene que ser exacto: cumplimiento, documentos legales, filas clínicas.",
-      "Desde mayo de 2026 trabajo como desarrollador de software en LegalShelf, una empresa legal-tech de la Ciudad de México. Dirijo el desarrollo de CheckWise y Verifaid y construí los pipelines de documentos y las herramientas internas a su alrededor.",
+      "En LegalShelf dirijo el desarrollo de CheckWise y Verifaid, construyo pipelines documentales y trabajo en las siguientes capacidades de IA de la plataforma. En el AIoT Research Hub de Acadia lidero frontend, UX y diseño visual. Neyvu es mi producto independiente de IA para cursos, ahora incorporando usuarios al piloto.",
+      "En Trinity College School, donde cursé la preparatoria, fui capitán de fútbol americano durante dos años, recibí el premio Lineman of the Year en años consecutivos y el Leadership Award en mi último año.",
     ],
     facts: [
       { label: "Estudios", value: "Licenciatura en Ciencias de la Computación, Acadia University, 2027" },

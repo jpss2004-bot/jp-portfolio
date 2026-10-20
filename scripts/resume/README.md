@@ -4,11 +4,11 @@
 
 Edit the HTML, then run:
 
-    scripts/resume/print.sh
+    python3 scripts/resume/build.py
 
-It prints `public/resume/jp-samano-resume-en.pdf` and `-es.pdf` with headless Chrome. Keep each to one page. The public PDFs deliberately omit the phone number.
+Requires ReportLab and pypdf. The builder prints `public/resume/jp-samano-resume-en.pdf` and `-es.pdf` without a browser or network requests. It fails if either résumé exceeds one Letter page or loses a required project. Public PDFs deliberately omit the phone number.
 
-Both languages use the same locally bundled Libre Franklin fonts and print styles. The contact row wraps inside the Letter page instead of forcing Chrome to shrink each language to a different scale. Fonts live in `fonts/` with their SIL Open Font License, so printing does not depend on a Google Fonts request.
+Both languages share the same classic single-column format: centered identity and contact details, education first for internship recruiting, thin section rules, right-aligned dates and 10.5-point body text. Liberation Serif is embedded from `fonts/` with its SIL Open Font License, ensuring accents and bold/italic weights render consistently. `resume.css` mirrors that layout for the HTML preview. `print.sh` is an optional older Chrome export workflow; the public PDFs use the Python builder.
 
 ## Content refresh — 2 October 2026
 
@@ -18,3 +18,25 @@ Both languages use the same locally bundled Libre Franklin fonts and print style
 - Coursework labeled CompTIA Security+ and CySA+ remains training, not a claim of certification. Public contact details have clickable email, portfolio, LinkedIn, and GitHub links.
 
 After printing, verify both PDFs have one page, matching font sizes, intact accents, and working links. Render and visually inspect both pages; do not rely on page count alone.
+
+## Content refresh — 20 October 2026
+
+- The owner clarified that his Acadia contribution is frontend, UX and visual-design leadership and implementation. This supersedes the generic contribution wording in the October 2 note above; preserve the formal Research Assistant role.
+- Feature CheckWise, Neyvu and Verifaid in both languages. Neyvu is a working pilot onboarding users; do not invent adoption or revenue figures.
+- Keep CheckWise business figures explicitly dated to September and the 9,941/4,773 test baseline dated to September 2026. Describe the October 19 contract work separately.
+- Distinguish implemented Verifaid PDF issuance from electronic signing, and the completed LegalShelf site from platform/AI work still in progress.
+- `build.py` verifies a single Letter page, required project names and required project names. Render both pages and inspect links after editing. The older DOCX files in docs/resume are historical exports, not the maintained sources of the current public PDFs.
+
+## Format research — 20 October 2026
+
+Compared the July 13 (`3ea6e77`), September 11 (`8c4234b`) and October 2 (`214f755`) public PDFs. July used a centered identity and clear section rules; October used a large left-aligned sans-serif header and denser body copy.
+
+The current layout restores the earlier structure while increasing the body text to 10.5 points. References:
+
+- Harvard MCS [technology example](https://careerservices.fas.harvard.edu/resources/harvard-college-resume-example-tech/) and its current [July 2026 PDF](https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2026/07/Harvard-College-CS-Resume-Example.pdf): centered identity, education near the top, simple single column, dates at right, specific contributions.
+- Harvard MCS [bullet-point template](https://careerservices.fas.harvard.edu/resources/bullet-point-resume-template/): conventional headings and concise accomplishment bullets.
+- MIT CAPD [résumé toolkit](https://cdn.uconnectlabs.com/wp-content/uploads/sites/123/2025/01/MIT-CAPDs-Career-Toolkit-Crafting-an-effective-resume.pdf): legible body text and consistent margins.
+
+These are career-center references, not evidence of a universally highest-converting template. No ATS score or interview guarantee is claimed.
+
+The owner confirmed Trinity College School was his high school: football captain for two years, back-to-back Lineman of the Year awards, and the Leadership Award in his final year. Keep these honors in both languages without inventing seasons or additional award names.
