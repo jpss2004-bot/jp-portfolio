@@ -32,3 +32,12 @@ Validation
 Limits
 - Responsive browser testing does not replace a physical iOS Safari test.
 - Messaging platforms may retain previews for previously shared page URLs; new image paths and the updated compatibility image help on their next fetch but cannot rewrite old messages.
+
+Production release
+- Implementation commit a440f51. Staged production deployment dpl_EMMUEssF55QkKWce1oFhtzJAZhpP built successfully in 22 seconds.
+- https://jp-portfolio-j3an2t8gh-jpss2004-bots-projects.vercel.app validated before promotion, then promoted successfully to https://jpsamanosuarez.com.
+- Staged checks: English/Spanish home, CheckWise, Neyvu and article metadata/menu markup; three generated card images; /og.png byte equality.
+- Production: all 25 share metadata/image checks, all 22 existing portfolio schema checks and all three Journal checks passed. New home image bytes equal the updated compatibility OG asset.
+- Browser live: menu navigated from /en to /en/journal and closed; Verifaid component selection updated the explanation; no browser errors/warnings observed.
+- Screenshots: production-menu.jpg, production-architecture.jpg, share-crop-review.jpg.
+- Bounded production runtime error query returned no error entries.
