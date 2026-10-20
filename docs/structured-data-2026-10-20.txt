@@ -1,0 +1,33 @@
+Structured data — 20 October 2026
+
+Scope: both language homepages and every project page (22 localized routes). Preserve the hero and visible design.
+
+Implementation
+- One server-rendered JSON-LD graph per page, using native script tags and escaping less-than characters to prevent script-tag injection.
+- Stable shared IDs for the Person, WebSite and ten project entities across English and Spanish.
+- Homepages: ProfilePage with Person as mainEntity, linked WebSite and mentions of the ten visible portfolio projects.
+- Project pages: WebPage, CreativeWork for the engineering project, and a two-item BreadcrumbList reflecting homepage → case study navigation.
+- Project attribution uses contributor and the existing visible role, rather than claiming sole authorship of employer/team work. The page itself identifies its author.
+- Localized descriptions, role, status and canonical page URLs; technology keywords and actual project images when available. Existing canonical and hreflang metadata retained.
+- Acadia represented as a current affiliation, not completed education. Trinity College School correctly represented as a HighSchool alumnus relationship.
+- No fabricated prices, reviews, publication timestamps or video upload dates. CreativeWork describes engineering work without pretending these portfolio pages are app-store offers.
+
+Validation
+- Next.js 16.4.2 installed JSON-LD guide followed.
+- Build, TypeScript, ESLint and diff checks pass.
+- scripts/validate-structured-data.py checks every rendered page: JSON syntax, one graph per page, unique identities and resolved references, Schema.org vocabulary and property domains, canonical/hreflang URLs, locale, visible role/status/stack and localized breadcrumbs.
+- Serializer adversarial check: closing-script input is escaped; Unicode and JSON round-trip preserved.
+- Schema.org public validator: English/Spanish home and English CheckWise/Spanish Neyvu project graphs return zero errors and warnings.
+- Google Rich Results code test: English ProfilePage detected as one valid item.
+- Hero JSX, component and global styles unchanged. Normalized rendered hero HTML matches current production in both languages; normalization accounts only for generated Next font class hashes and Vercel deployment image query parameters.
+- Pre-release desktop/mobile hero captures retained for post-deployment pixel comparison.
+
+References
+https://developers.google.com/search/docs/appearance/structured-data/profile-page
+https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
+https://developers.google.com/search/docs/appearance/structured-data/sd-policies
+https://schema.org/CreativeWork
+https://schema.org/WebSite
+https://schema.org/version/latest/schemaorg-current-https.jsonld
+
+Rich result appearance and indexing remain Google's decision after recrawling. Search Console submission/recrawl is not part of this release.

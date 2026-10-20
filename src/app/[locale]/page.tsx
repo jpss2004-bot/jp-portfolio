@@ -6,6 +6,9 @@ import { explorations, method, pick, profile, shipped, summer } from "@/data/con
 import { ui } from "@/data/ui";
 import { Footer, Header, NameReveal, SummerStrip } from "@/components/parts";
 
+import { StructuredData } from "@/components/StructuredData";
+import { homeStructuredData } from "@/lib/structured-data";
+
 import { SelectedWork } from "@/components/work/SelectedWork";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -60,6 +63,7 @@ export default async function Home({ params }: Props) {
 
   return (
     <>
+      <StructuredData data={homeStructuredData(locale, meta[locale])} />
       <a href="#main" className="skip-link">{t.skip}</a>
       <Header locale={locale} altHref="" home />
 

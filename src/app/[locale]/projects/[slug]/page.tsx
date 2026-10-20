@@ -7,6 +7,9 @@ import { allCaseSlugs, caseOrder, getProject, pick, profile, statusLabel } from 
 import { ui } from "@/data/ui";
 import { Footer, Header, ProjectMedia, VisualFrame } from "@/components/parts";
 
+import { StructuredData } from "@/components/StructuredData";
+import { projectStructuredData } from "@/lib/structured-data";
+
 import { SystemExplorer } from "@/components/work/SystemExplorer";
 import { architectures } from "@/data/architecture";
 import { WorkMotion } from "@/components/work/WorkMotion";
@@ -71,6 +74,7 @@ export default async function CasePage({ params }: Props) {
 
   return (
     <>
+      <StructuredData data={projectStructuredData(project, locale)} />
       <a href="#main" className="skip-link">{t.skip}</a>
       <Header locale={locale} altHref={`/projects/${slug}`} />
       <WorkMotion locale={locale} showControls={!!architectures[slug]} className={architectures[slug] ? `${workStyles.caseMotion} ${workStyles[slug] ?? ""}` : ""}>

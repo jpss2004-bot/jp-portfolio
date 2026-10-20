@@ -33,33 +33,12 @@ export const viewport: Viewport = {
   ],
 };
 
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: profile.name,
-  alternateName: [profile.plainName, profile.shortName, "JP Samano"],
-  url: siteUrl,
-  image: `${siteUrl}/og.png`,
-  email: `mailto:${profile.email}`,
-  jobTitle: "Software Developer",
-  worksFor: { "@type": "Organization", name: "LegalShelf" },
-  knowsLanguage: ["es", "en"],
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: "Acadia University",
-    address: { "@type": "PostalAddress", addressLocality: "Wolfville", addressRegion: "NS", addressCountry: "CA" },
-  },
-  knowsAbout: ["Software engineering", "Full-stack development", "Regulatory compliance systems", "Document AI", "AI-assisted software development"],
-  sameAs: [profile.github, profile.linkedin],
-};
-
 export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   return (
     <html lang={locale} className={`${sans.variable} ${mono.variable}`}>
       <body>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
         {children}
         <Analytics />
       </body>
