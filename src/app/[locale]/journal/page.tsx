@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareImage } from "@/lib/share";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "@/components/parts";
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const t = journalLabels[locale];
-  return { title: `${t.name} · JP Sámano`, description: t.introduction, alternates: { canonical: `/${locale}/journal`, languages: { en: "/en/journal", es: "/es/journal", "x-default": "/en/journal" }, types: { "application/rss+xml": "/journal/feed.xml" } }, robots: journalPreview ? { index: false, follow: false } : undefined, openGraph: { title: `${t.name} · JP Sámano`, description: t.introduction, url: `/${locale}/journal`, type: "website", images: ["/og.png"] } };
+  return { title: `${t.name} · JP Sámano`, description: t.introduction, alternates: { canonical: `/${locale}/journal`, languages: { en: "/en/journal", es: "/es/journal", "x-default": "/en/journal" }, types: { "application/rss+xml": "/journal/feed.xml" } }, robots: journalPreview ? { index: false, follow: false } : undefined, openGraph: { title: `${t.name} · JP Sámano`, description: t.introduction, url: `/${locale}/journal`, type: "website", images: [shareImage(locale, "journal", `${t.name} · JP Sámano`)] }, twitter: { card: "summary_large_image", title: `${t.name} · JP Sámano`, description: t.introduction, images: [shareImage(locale, "journal", `${t.name} · JP Sámano`)] } };
 }
 export default async function JournalPage({ params }: Props) {
   const { locale } = await params;

@@ -1216,3 +1216,10 @@ video.shot-media {
   .media-focus-compliance { position: relative; aspect-ratio: 900 / 350; overflow: hidden; }
   .media-focus-compliance img { position: absolute; width: 177.778%; max-width: none; left: -12.222%; top: -64.571%; }
 }
+
+/* Standalone navigation targets outside the preserved homepage hero. */
+@media (max-width: 760px) {
+  :is(.contact,.footer,.case,.experience,.shipped-name) a { touch-action: manipulation; -webkit-tap-highlight-color: #258c8b30; }
+  :is(.contact,.footer,.case .back,.case .pager,.experience,.shipped-name) a { min-height: 44px; display: inline-flex; align-items: center; }
+  .pager a { max-width: 48%; overflow-wrap: anywhere; }
+}

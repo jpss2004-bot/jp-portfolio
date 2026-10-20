@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareImage } from "@/lib/share";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "@/components/parts";
@@ -6,6 +7,7 @@ import { StructuredData } from "@/components/StructuredData";
 import { CapacityFigure, CoolingFigure } from "@/components/journal/JournalFigures";
 import { EntryMeta } from "@/components/journal/JournalEntryCard";
 import { ReadingProgress } from "@/components/journal/ReadingProgress";
+import { ArticleContents } from "@/components/journal/ArticleContents";
 import { isLocale } from "@/data/i18n";
 import { getJournalEntry, journalAsset, journalLabels, journalPath, journalPreview, visibleEntries } from "@/data/journal";
 import { profile } from "@/data/content";
@@ -20,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const entry = getJournalEntry(slug);
   if (!isLocale(locale) || !entry || entry.language !== locale) return {};
   const path = journalPath(entry);
-  return { title: `${entry.title} · ${profile.shortName}`, description: entry.summary[locale], alternates: { canonical: path, languages: { [entry.language]: path, "x-default": path } }, robots: journalPreview || entry.status === "draft" ? { index: false, follow: false } : undefined, authors: [{ name: profile.name, url: `/${locale}` }], openGraph: { type: "article", title: entry.title, description: entry.summary[locale], url: path, authors: [profile.name], ...(entry.publishedAt ? { publishedTime: entry.publishedAt, modifiedTime: entry.updatedAt ?? entry.publishedAt } : {}), images: entry.cover ? [journalAsset(entry, "cover")] : ["/og.png"] }, twitter: { card: "summary_large_image", title: entry.title, description: entry.summary[locale], images: entry.cover ? [journalAsset(entry, "cover")] : ["/og.png"] } };
+  return { title: `${entry.title} · ${profile.shortName}`, description: entry.summary[locale], alternates: { canonical: path, languages: { [entry.language]: path, "x-default": path } }, robots: journalPreview || entry.status === "draft" ? { index: false, follow: false } : undefined, authors: [{ name: profile.name, url: `/${locale}` }], openGraph: { type: "article", title: entry.title, description: entry.summary[locale], url: path, authors: [profile.name], ...(entry.publishedAt ? { publishedTime: entry.publishedAt, modifiedTime: entry.updatedAt ?? entry.publishedAt } : {}), images: [shareImage(locale, `article-${entry.slug}`, entry.title)] }, twitter: { card: "summary_large_image", title: entry.title, description: entry.summary[locale], images: [shareImage(locale, `article-${entry.slug}`, entry.title)] } };
 }
 function CitationText({ text }: { text: string }) {
   return text.split(/(\[[\da-z, ]+\])/g).map((part, index) => /^\[[\da-z, ]+\]$/.test(part) ? <sup className={styles.citation} key={index}>{part.slice(1, -1).split(",").map((id, i) => <a key={id} href={`#source-${id.trim()}`} aria-label={`Source ${id.trim()}`}>{i > 0 ? "," : ""}{id.trim()}</a>)}</sup> : part);
@@ -35,7 +37,7 @@ export default async function JournalArticle({ params }: Props) {
     <main className={styles.journal} id="main" tabIndex={-1}>
       <header className={styles.articleHeader}><Link className={styles.back} href={`/${locale}/journal`}>{t.name}</Link>{entry.status === "draft" ? <p className={styles.preview}><strong>{t.draft}.</strong>{t.preview}</p> : null}<h1 lang={entry.language}>{entry.title}</h1><EntryMeta entry={entry} locale={locale} /><p><Link href={`/${locale}#about`}>{profile.name}</Link></p></header>
       <div className={styles.articleLayout}>
-        <nav className={styles.contents} aria-label={t.contents}><strong>{t.contents}</strong><a href="#article-start">{locale === "es" ? "La propuesta" : "The proposal"}</a>{headings.map((heading) => <a key={heading.id} href={`#${heading.id}`}>{heading.text}</a>)}{entry.references.length ? <a href="#sources">{t.sources}</a> : null}{entry.pdf ? <a href={journalAsset(entry, "pdf")}>{t.pdf}</a> : null}</nav>
+        <ArticleContents label={t.contents}><a href="#article-start">{locale === "es" ? "La propuesta" : "The proposal"}</a>{headings.map((heading) => <a key={heading.id} href={`#${heading.id}`}>{heading.text}</a>)}{entry.references.length ? <a href="#sources">{t.sources}</a> : null}{entry.pdf ? <a href={journalAsset(entry, "pdf")}>{t.pdf}</a> : null}</ArticleContents>
         <article className={styles.articleBody} lang={entry.language} data-journal-article id="article-start">
           {entry.slug === "ai-investment-nova-scotia-trust" ? <CapacityFigure locale={locale} /> : null}
           {entry.blocks.map((block, index) => {

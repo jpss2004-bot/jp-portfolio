@@ -52,6 +52,13 @@ export function SystemExplorer({ architecture, locale, name, headingLevel = "h4"
     </div>
     <ul className={styles.networkLegend} aria-label={es ? "Tipos de componente" : "Component types"}>{[["interface",es?"Interfaz":"Interface"],["service",es?"Servicios":"Services"],["data",es?"Datos y evidencia":"Data and evidence"],["human",es?"Revisión humana":"Human review"]].filter(([tone])=>architecture.nodes.some(n=>n.tone===tone)).map(([tone,label])=><li key={tone} className={styles[tone]}><i aria-hidden="true" />{label}</li>)}</ul>
     <div id={id} className={styles.networkDetail} aria-live="polite" aria-atomic="true"><div key={active} className={styles.detailText}><Heading>{node.name[locale]} <span>{technology(node.technology)}</span></Heading><p>{node.detail[locale]}</p></div></div>
+    <nav className={styles.connections} aria-label={es ? "Conexiones del componente seleccionado" : "Selected component connections"}>
+      {architecture.edges.filter(edge => edge.from === node.id || edge.to === node.id).map(edge => {
+        const outgoing = edge.from === node.id;
+        const target = architecture.nodes.findIndex(item => item.id === (outgoing ? edge.to : edge.from));
+        return <button key={`${edge.from}-${edge.to}`} type="button" aria-controls={id} onClick={() => setActive(target)}><span>{edge.label[locale]}</span><strong>{outgoing ? (es ? "Hacia: " : "To: ") : (es ? "Desde: " : "From: ")}{architecture.nodes[target].name[locale]}</strong></button>;
+      })}
+    </nav>
     <p className={styles.diagramLabel}>{es ? "Arquitectura lógica ilustrada. Selecciona un componente; las rutas animadas representan conexiones, no tráfico en vivo." : "Illustrated logical architecture. Select a component; animated paths show connections, not live traffic."}</p>
   </div>;
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareImage } from "@/lib/share";
 import { Archivo } from "next/font/google";
 import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
@@ -48,9 +49,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: profile.name,
       locale: locale === "es" ? "es_MX" : "en_CA",
       alternateLocale: locale === "es" ? ["en_CA"] : ["es_MX"],
-      images: [{ url: "/og.png", width: 1200, height: 630, alt: m.title }],
+      images: [shareImage(locale, "home", m.title)],
     },
-    twitter: { card: "summary_large_image", title: m.title, description: m.description, images: ["/og.png"] },
+    twitter: { card: "summary_large_image", title: m.title, description: m.description, images: [shareImage(locale, "home", m.title)] },
   };
 }
 

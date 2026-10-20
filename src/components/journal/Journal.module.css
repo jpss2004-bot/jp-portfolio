@@ -78,3 +78,20 @@
 @media (max-width: 650px) { .feature { grid-template-columns: 1fr; } .featureCopy h2 { max-width: 19ch; } .entryRow { grid-template-columns: 1fr; gap: .7rem; } .teaser > div { grid-template-columns: 1fr; gap: 1.5rem; } .articleHeader { padding-bottom: 2rem; } .articleHeader h1 { font-size: clamp(2.5rem, 9vw, 3.5rem); } .coolingFlow { grid-template-columns: 1fr; gap: 1rem; } .loopLabel { max-width: 140px; justify-self: center; } .loopLabel svg { transform: rotate(90deg); width: 65px; height: 65px; margin: .4rem auto; display: block; } .heatArrow { justify-self: center; transform: rotate(90deg); } .capacityValue strong { font-size: 5rem; } }
 @media (prefers-reduced-motion: reduce) { .expansionBar { transition: none; } }
 @media print { .contents, .progress, .preview, .phaseControls { display: none; } .journal { padding: 0; } .articleLayout { display: block; } .articleBody > p { font-size: 12pt; line-height: 1.5; } .capacity, .cooling { break-inside: avoid; } }
+.mobileContents { display: none; }
+.journal :is(a,button,summary) { touch-action: manipulation; -webkit-tap-highlight-color: #258c8b30; }
+@media (max-width: 900px) {
+  .contents { display: none; }
+  .mobileContents { display: block; border-block: 1px solid var(--rule); font-size: .95rem; }
+  .mobileContents summary { min-height: 48px; padding-block: 10px; cursor: pointer; }
+  .mobileContents nav { display: grid; padding-bottom: 12px; }
+  .mobileContents nav a { min-height: 44px; padding-block: 9px; color: var(--ink-2); text-underline-offset: .2em; }
+}
+@media (max-width: 650px) {
+  .readLink, .back, .indexFooter a, .articleEnd a { min-height: 44px; display: inline-flex; align-items: center; }
+  .articleEnd { gap: .3rem; }
+  .citation a { min-width: 24px; min-height: 24px; display: inline-flex; justify-content: center; align-items: center; }
+  .sourceList a { display: inline-block; padding-block: 8px; }
+  .phaseControls button { min-width: 88px; }
+}
+@media print { .mobileContents { display: none; } }

@@ -125,15 +125,6 @@
   .detailText, .projectLinks a span, .supporting > a > span, .viewButtons button { animation: none; transition: none; }
 }
 .motionRoot[data-motion="off"] .detailText { animation: none; }
-.mobileSections { display: none; }
-@media (max-width: 700px) {
-  .mobileSections { display: block; position: relative; font-size: 12px; }
-  .mobileSections summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; gap: 6px; }
-  .mobileSections summary::after { content: "⌄"; }
-  .mobileSections > div { position: absolute; top: 44px; right: 0; min-width: 190px; padding: 8px 16px; background: var(--bg); border: 1px solid var(--line); }
-  .mobileSections > div a { display: flex; }
-}
-
 /* Product-specific environments: the original brand colors drive the light. */
 .project, .caseMotion { --stage-one: #09c1b0; --stage-two: #02558a; --stage-three: #61d9dd; --project-accent: #087d79; --plate-bg: #cae9e5; --plate-ink: #013557; }
 .neyvu { --stage-one: #2457cc; --stage-two: #42a4ed; --stage-three: #20b6c2; --project-accent: #426bd8; --plate-bg: #d6e2fa; --plate-ink: #263778; }
@@ -258,3 +249,39 @@ span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-posi
   .networkNode { transition: none; }
   .plate .display { transform: none; }
 }
+
+/* Phone controls stay flat and stationary while the surrounding scene keeps moving. */
+.connections { display: none; }
+.work :is(a,button), .caseMotion :is(a,button) { touch-action: manipulation; -webkit-tap-highlight-color: #258c8b30; }
+@media (max-width: 700px) {
+  .workNav { gap: clamp(8px,3vw,16px); }
+  .workNav a { min-width: 44px; font-size: 13px; }
+  .navContact { margin-left: auto; }
+  .viewButtons button { min-height: 44px; font-size: 13px; }
+  .productSurface :global(figcaption) { font-size: 12px; }
+  .productSurface :global(figcaption a) { min-height: 44px; display: inline-flex; align-items: center; }
+  .networkLegend li { font-size: 11px; }
+  .detailText p { font-size: 15px; }
+  .diagramLabel { font-size: 12px; }
+  .motionRoot[data-motion="on"] .plate .display { transform: none; }
+  .displayBar { flex-wrap: wrap; padding: 8px 12px 0; gap: 8px; }
+  .displayName { flex: 1; font-size: 12px; }
+  .viewButtons { flex-basis: 100%; border-top: 1px solid var(--rule); gap: 12px; }
+  .viewButtons button { flex: 1; padding: 8px 4px; }
+}
+@container system (max-width:480px) {
+  .networkCanvas { height: auto; padding: 20px 0; }
+  .networkPlane, .wiresMobile, .wiresDesktop { display: none; }
+  .networkNodes { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px 12px; }
+  .networkNode, .networkNode:hover, .networkNode[aria-pressed="true"] { position: relative; inset: auto; transform: none; width: 100%; height: 100%; min-height: 108px; padding: 12px 7px; box-shadow: 0 4px 0 -1px color-mix(in srgb,var(--node-color) 12%,var(--bg)); }
+  .networkNode[aria-pressed="true"] { border-width: 2px; padding: 11px 6px; }
+  .networkNode strong { font-size: 13px; overflow-wrap: anywhere; }
+  .networkNode small { font-size: 11px; }
+  .networkDetail { min-height: 0; }
+  .connections { display: grid; border-top: 1px solid var(--rule); margin-bottom: 18px; }
+  .connections button { display: grid; gap: 4px; padding: 12px 2px; min-height: 56px; background: none; color: var(--ink); border: 0; border-bottom: 1px solid var(--rule); text-align: left; font: inherit; cursor: pointer; }
+  .connections button span { font-size: 12px; color: var(--muted); }
+  .connections button strong { font-size: 13px; font-weight: 500; }
+  .connections button:hover { color: var(--project-accent); }
+}
+@media (hover:none), (pointer:coarse) { .motionRoot[data-motion="on"] .plate .display { transform: none; } }

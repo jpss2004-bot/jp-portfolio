@@ -7,6 +7,8 @@ import { pick, profile, statusLabel, summer, type Media, type Status, type Visua
 import { VideoDemo } from "@/components/VideoDemo";
 import { SystemVisual } from "@/components/SystemVisual";
 import { ui } from "@/data/ui";
+import { MobileMenu } from "./MobileMenu";
+import menuStyles from "./MobileMenu.module.css";
 
 /* ---------------------------------------------------------------------- */
 /* Header                                                                   */
@@ -23,7 +25,7 @@ export function Header({ locale, altHref, home = false, languageHrefs }: { local
     ...(showJournal ? [{ href: `${base}/journal`, label: journalLabels[locale].name }] : []),
   ];
   return (
-    <header className="topbar">
+    <header className={`topbar ${menuStyles.header}`}>
       <div className="topbar-in">
         <Link className="wordmark" href={base} aria-current={home ? "page" : undefined}>
           {profile.shortName}
@@ -47,6 +49,13 @@ export function Header({ locale, altHref, home = false, languageHrefs }: { local
           <a className="btn" href={pick(profile.resume, locale)} target="_blank" rel="noreferrer">
             {t.resume}
           </a>
+          <MobileMenu label={locale === "es" ? "Menú" : "Menu"} items={[
+            items[0],
+            { href: `${base}#experience`, label: locale === "es" ? "Experiencia" : "Experience" },
+            ...items.slice(1),
+            { href: `${base}#contact`, label: locale === "es" ? "Contacto" : "Contact" },
+            { href: pick(profile.resume, locale), label: `${t.resume} (PDF)` },
+          ]} />
         </div>
       </div>
     </header>

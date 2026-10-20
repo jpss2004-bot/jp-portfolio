@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareImage } from "@/lib/share";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -43,9 +44,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `/${locale}${path}`,
       siteName: profile.name,
       locale: locale === "es" ? "es_MX" : "en_CA",
-      images: [{ url: project.media?.type === "image" ? project.media.src.replace(/\.webp$/, ".webp") : "/og.png", alt: title }],
+      images: [shareImage(locale, slug, title)],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: [shareImage(locale, slug, title)] },
   };
 }
 

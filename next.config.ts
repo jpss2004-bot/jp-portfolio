@@ -4,7 +4,7 @@ const retired = ["adaptive-traffic-ai", "cyber-reporting-assistant"];
 
 const nextConfig: NextConfig = {
   images: { qualities: [75, 85] },
-  outputFileTracingIncludes: { "/journal/assets/**": ["./content/journal/assets/**"] },
+  outputFileTracingIncludes: { "/journal/assets/**": ["./content/journal/assets/**"], "/share/**": ["./public/fonts/libre-franklin-*.ttf", "./public/jp-samano-dark.jpg", "./public/projects/checkwise/mark-dark.png", "./public/projects/neyvu/mark-dark.svg"] },
   experimental: { globalNotFound: true },
   async redirects() {
     return [
