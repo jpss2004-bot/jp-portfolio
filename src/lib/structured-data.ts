@@ -2,12 +2,15 @@ import { caseOrder, pick, profile, shipped, statusLabel, type Project } from "@/
 import { ui } from "@/data/ui";
 import type { Locale } from "@/data/i18n";
 import { siteUrl } from "@/lib/site";
+import { journalPath, publishedEntries } from "@/data/journal";
 
 const personId = `${siteUrl}/#person`;
 const websiteId = `${siteUrl}/#website`;
 const ref = (id: string) => ({ "@id": id });
 const projectId = (slug: string) => `${siteUrl}/#project-${slug}`;
 const projectUrl = (slug: string, locale: Locale) => `${siteUrl}/${locale}/projects/${slug}`;
+// Owner's profile verified from their published LinkedIn article in Dia.
+const linkedinProfile = "https://www.linkedin.com/in/jose-pablo-samano-suarez-717349291/";
 
 /** Shared identities keep the two translations connected without duplicating people. */
 export function identityGraph(locale: Locale) {
@@ -29,7 +32,7 @@ export function identityGraph(locale: Locale) {
       ],
       alumniOf: { "@type": "HighSchool", name: "Trinity College School" },
       knowsLanguage: ["en", "es"],
-      sameAs: [profile.github, profile.linkedin],
+      sameAs: [profile.github, linkedinProfile],
     },
     {
       "@type": "WebSite",
@@ -47,6 +50,7 @@ export function homeStructuredData(locale: Locale, metadata: { title: string; de
   const url = `${siteUrl}/${locale}`;
   // This order follows the visible featured, supporting and other-work sections.
   const projects = caseOrder();
+  const latestEntry = publishedEntries()[0];
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -61,6 +65,7 @@ export function homeStructuredData(locale: Locale, metadata: { title: string; de
         isPartOf: ref(websiteId),
         mainEntity: ref(personId),
         author: ref(personId),
+        ...(latestEntry ? { relatedLink: [`${siteUrl}/${locale}/journal`, `${siteUrl}${journalPath(latestEntry)}`] } : {}),
         mentions: projects.map((project) => ({
           "@type": "CreativeWork",
           "@id": projectId(project.slug),

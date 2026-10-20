@@ -1,8 +1,9 @@
 import type { JournalEntry } from "@/data/journal";
+import { isPublicationDate } from "./publication-dates";
 
 export function validateJournalEntries(entries: JournalEntry[]): void {
   const slugs = new Set<string>();
-  const validDate = (value: string | undefined) => !!value && /^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(value) && Number.isFinite(Date.parse(value));
+  const validDate = isPublicationDate;
   const validUrl = (value: string) => { try { return ["https:", "http:"].includes(new URL(value).protocol); } catch { return false; } };
   for (const entry of entries) {
     const fail = (message: string): never => { throw new Error(`Journal ${entry.slug}: ${message}`); };

@@ -57,10 +57,10 @@ for entry in entries:
     assert page.lang == entry["language"]
     assert "noindex" not in page.meta.get("robots", "")
     graph = json.loads(page.scripts[0])["@graph"]
-    article = next(n for n in graph if n["@type"] == "Article")
+    article = next(n for n in graph if n["@type"] in ("Article", "BlogPosting"))
     assert article["headline"] == entry["title"]
     assert article["inLanguage"] == entry["language"]
-    assert article["datePublished"] == entry["publishedAt"]
+    assert next(n for n in graph if n["@type"] == "WebPage")["datePublished"] == entry["publishedAt"]
     assert len(article["citation"]) == len(entry["references"])
     assert article["author"]["@id"] == SITE + "/#person"
     assert SITE + route in urls

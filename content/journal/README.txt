@@ -42,3 +42,8 @@ AI investment should earn Nova Scotia's trust was published by the author on
 LinkedIn on 20 October 2026. The website reproduces the English source text,
 13 original linked references, the original PDF and adapted explanatory figures.
 LinkedIn URL was verified in the owner's Dia profile activity.
+
+Publication dates in structured data
+- Keep YYYY-MM-DD when only the day is known. The page, visible date and feed retain it.
+- If an exact publication/update time is known, use YYYY-MM-DDTHH:mm:ssZ or an explicit offset such as -03:00. Only verified timestamps with a zone enter Google's Article datePublished/dateModified fields.
+- Do not add a made-up midnight or update time to silence a validator warning.

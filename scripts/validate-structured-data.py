@@ -72,8 +72,8 @@ def normalized(text):
     return " ".join(text.split())
 
 
-def validate(route, html, vocabulary):
-    page = Page(html)
+def validate_graph(page, vocabulary):
+    route = getattr(page, "route", "graph")
     assert len(page.scripts) == 1, f"{route}: expected one JSON-LD graph"
     data = json.loads(page.scripts[0])
     assert data["@context"] == SCHEMA.rstrip("/")
@@ -102,22 +102,32 @@ def validate(route, html, vocabulary):
             assert definition, f"Unknown property: {prop}"
             domains = {d["@id"] for d in values(definition.get(SCHEMA + "domainIncludes", []))}
             assert not domains or ancestors & domains, f"{types}: invalid property {prop}"
+    return typed
+
+
+def validate(route, html, vocabulary):
+    page = Page(html)
+    page.route = route
+    typed = validate_graph(page, vocabulary)
     person = next(n for n in typed if n["@type"] == "Person")
     assert sum(n["@type"] == "Person" for n in typed) == 1
     assert person["@id"] == SITE + "/#person"
     assert person["alumniOf"]["@type"] == "HighSchool"
     assert person["alumniOf"]["name"] == "Trinity College School"
     locale = route.split("/")[1]
-    webpage = next(n for n in typed if n["@type"] in ("ProfilePage", "WebPage"))
+    assert "https://www.linkedin.com/in/jose-pablo-samano-suarez-717349291/" in person["sameAs"]
+    webpage = next(n for n in typed if n["@type"] in ("ProfilePage", "WebPage", "CollectionPage"))
     assert webpage["url"] == SITE + route
     assert webpage["inLanguage"] == page.lang == locale
     assert webpage["description"] == page.meta["description"]
     assert "noindex" not in page.meta.get("robots", "")
     assert any(l.get("rel") == "canonical" and l.get("href") == webpage["url"] for l in page.links)
-    for language in ("en", "es"):
+    for language in ((locale,) if "/journal/" in route else ("en", "es")):
         alternate = SITE + "/" + language + route[3:]
         assert any(l.get("hreflang") == language and l.get("href") == alternate for l in page.links)
-    if "/projects/" in route:
+    if "/journal" in route:
+        validate_journal(route, page, typed, webpage, person)
+    elif "/projects/" in route:
         work = next(n for n in typed if n["@type"] == "CreativeWork")
         assert work["name"] == normalized(" ".join(page.headings))
         assert work["description"] == webpage["description"]
@@ -134,7 +144,61 @@ def validate(route, html, vocabulary):
         assert len(webpage["mentions"]) == 10
         assert {n["name"] for n in webpage["mentions"]} >= {"CheckWise", "Neyvu", "Verifaid"}
         assert all(n["name"] in " ".join(page.text) for n in webpage["mentions"])
+        published = published_entries()
+        if published:
+            assert SITE + f"/{locale}/journal" in webpage["relatedLink"]
+            assert SITE + f'/{published[0]["language"]}/journal/{published[0]["slug"]}' in webpage["relatedLink"]
     return {"route": route, "valid": True, "typedEntities": len(typed)}
+
+
+
+def published_entries():
+    return [entry for path in (ROOT / "content/journal").glob("*.json") if (entry := json.loads(path.read_text()))["status"] == "published"]
+
+
+def validate_journal(route, page, typed, webpage, person):
+    locale = page.lang
+    blog = next(n for n in typed if n["@type"] == "Blog")
+    assert blog["author"] == blog["publisher"] == {"@id": person["@id"]}
+    crumb = next(n for n in typed if n["@type"] == "BreadcrumbList")
+    expected_urls = [SITE + "/" + locale, SITE + f"/{locale}/journal"]
+    assert webpage["breadcrumb"] == {"@id": crumb["@id"]}
+    assert webpage["about"] == {"@id": blog["@id"]}
+    if route.count("/") == 2:
+        assert webpage["@type"] == "CollectionPage"
+        listing = next(n for n in typed if n["@type"] == "ItemList")
+        assert webpage["mainEntity"] == {"@id": listing["@id"]}
+        entries = published_entries()
+        expected = {SITE + f'/{entry["language"]}/journal/{entry["slug"]}' for entry in entries}
+        assert listing["numberOfItems"] == len(entries)
+        assert {item["url"] for item in listing["itemListElement"]} == expected
+        assert [item["position"] for item in listing["itemListElement"]] == list(range(1, len(entries) + 1))
+    else:
+        entry = next(e for e in published_entries() if e["slug"] == route.split("/")[-1])
+        article = next(n for n in typed if n["@type"] == "BlogPosting")
+        assert article["headline"] == normalized(" ".join(page.headings)) == entry["title"]
+        assert article["inLanguage"] == entry["language"] == locale
+        assert webpage["datePublished"] == entry["publishedAt"]
+        assert article["dateCreated"] == entry["writtenAt"]
+        for key, source in (("datePublished", "publishedAt"), ("dateModified", "updatedAt")):
+            value = entry.get(source, "")
+            zoned = bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})", value))
+            assert article.get(key) == (value if zoned else None), (route, key, article.get(key))
+        assert article["author"] == article["publisher"] == {"@id": person["@id"]}
+        assert article["isPartOf"] == {"@id": blog["@id"]}
+        assert blog["blogPost"] == webpage["mainEntity"] == {"@id": article["@id"]}
+        assert article["mainEntityOfPage"] == {"@id": webpage["@id"]}
+        assert article["isAccessibleForFree"] is True
+        assert {c["url"] for c in article["citation"]} == {r["url"] for r in entry["references"]}
+        image = next(n for n in typed if n["@type"] == "ImageObject")
+        assert article["image"] == webpage["primaryImageOfPage"] == {"@id": image["@id"]}
+        assert image["contentUrl"] == image["url"] == SITE + f'/journal/assets/{entry["slug"]}/cover'
+        assert article["encoding"]["contentUrl"] == SITE + f'/journal/assets/{entry["slug"]}/pdf'
+        assert article["encoding"]["encodingFormat"] == "application/pdf"
+        assert article["sameAs"] == entry["externalPublication"]["url"]
+        expected_urls.append(SITE + route)
+    assert [item["position"] for item in crumb["itemListElement"]] == list(range(1, len(expected_urls) + 1))
+    assert [item["item"] for item in crumb["itemListElement"]] == expected_urls
 
 
 def main():
@@ -150,8 +214,9 @@ def main():
             vocab_path.write_bytes(response.read())
     raw = vocab_path.read_text().replace('"schema:', '"https://schema.org/')
     vocabulary = {n["@id"]: n for n in json.loads(raw)["@graph"]}
-    files = sorted(p for p in (ROOT / ".next/server/app").rglob("*.html") if re.match(r"(?:en|es)(?:/projects/|\.html)", str(p.relative_to(ROOT / ".next/server/app"))))
-    assert len(files) == 22, f"Expected two homepages and twenty project pages, found {len(files)}"
+    files = sorted(p for p in (ROOT / ".next/server/app").rglob("*.html") if re.match(r"(?:en|es)(?:/projects/|/journal(?:/|\.html)|\.html)", str(p.relative_to(ROOT / ".next/server/app"))))
+    expected_count = 22 + (2 + len(published_entries()) if published_entries() else 0)
+    assert len(files) == expected_count, f"Expected {expected_count} localized pages, found {len(files)}"
 
     def check(path):
         route = "/" + str(path.relative_to(ROOT / ".next/server/app"))[:-5]
