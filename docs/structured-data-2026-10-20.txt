@@ -31,3 +31,14 @@ https://schema.org/WebSite
 https://schema.org/version/latest/schemaorg-current-https.jsonld
 
 Rich result appearance and indexing remain Google's decision after recrawling. Search Console submission/recrawl is not part of this release.
+
+Production release
+- Code commit: d3589c7. Deployment: dpl_E2Nk5WJyAPB26ihQ3sryM1Qgwvrs.
+- URL: https://jp-portfolio-82wveoi15-jpss2004-bots-projects.vercel.app; promoted to https://jpsamanosuarez.com.
+- Previous deployment: dpl_8myRGGQokhJa6DMw3JfNGJnJ2z4h. Remote build output completed in 24 seconds.
+- All 22 protected staged routes and all 22 custom-domain routes passed the full HTML/JSON-LD validation script.
+- Google code tests recognized the English profile and Spanish project breadcrumbs as valid. Google also fetched the live Spanish Neyvu URL successfully and detected one valid breadcrumb item.
+- Live Google report: https://search.google.com/test/rich-results/result?id=HC3pITHeRItrBZ3MXixzmg
+- Final browser review returned no errors or warnings. Bounded 15-minute Vercel runtime-error query returned no entries.
+- Hero JSX, shared component, global CSS and normalized server-rendered content remain unchanged. Computed hero geometry matches in both languages at 1440px and 390px. English screenshot bytes match exactly; Spanish screenshot captures differed in capture origin by 57px, so no exact-pixel claim is made for those two captures.
+- Media and viewport emulation reset. Validation receipts and screenshots saved under output/qa/schema.
