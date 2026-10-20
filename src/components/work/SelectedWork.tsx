@@ -2,8 +2,8 @@ import Link from "next/link";
 import { pick, primaryProjects, supportingProjects, statusLabel } from "@/data/content";
 import { workStories } from "@/data/work";
 import type { Locale } from "@/data/i18n";
-import { VisualFrame } from "@/components/parts";
-import { ProductDisplay } from "./SystemExplorer";
+import { ProjectStage } from "./ProjectStage";
+import { ProjectMark } from "./ProjectMark";
 import { WorkMotion } from "./WorkMotion";
 import styles from "./Work.module.css";
 
@@ -25,17 +25,12 @@ export function SelectedWork({ locale }: { locale: Locale }) {
         {primaryProjects.map((project) => {
           const story = workStories[project.slug];
           return (
-            <article key={project.slug} id={project.slug} className={`${styles.project} ${styles[project.slug]}`}>
+            <article key={project.slug} id={project.slug} className={`${styles.project} ${styles[project.slug] ?? ""}`}>
               <header className={styles.projectHead}>
-                <div><h3><Link href={`/${locale}/projects/${project.slug}`}>{pick(project.title, locale)}</Link></h3></div>
+                <div><h3><Link href={`/${locale}/projects/${project.slug}`}><ProjectMark slug={project.slug} /><span>{pick(project.title, locale)}</span></Link></h3></div>
                 <div className={styles.projectMeta}><span className={styles.projectStatus}>{pick(statusLabel[project.status], locale)}</span><span>{pick(project.period, locale)}</span></div>
               </header>
-              <div className={styles.plate} data-work-plate>
-                <div className={styles.plateDepth} aria-hidden="true" />
-                <ProductDisplay steps={story.steps} locale={locale} name={pick(project.title, locale)}>
-                  {project.visuals ? <VisualFrame visual={project.visuals.primary} locale={locale} sizes="(max-width: 760px) 94vw, 1120px" /> : null}
-                </ProductDisplay>
-              </div>
+              <ProjectStage project={project} locale={locale} />
               <div className={styles.projectBottom}>
                 <div className={styles.projectDescription}><h4>{pick(story.headline, locale)}</h4><p>{pick(project.oneLiner, locale)}</p><div className={styles.projectLinks}><Link href={`/${locale}/projects/${project.slug}`}>{es ? "Explorar el caso" : "Explore the case study"} <span aria-hidden="true">↗</span></Link>{project.links.slice(0, 1).map((link) => <a key={link.href} href={project.slug === "neyvu" ? link.href.replace("lang=en", `lang=${locale}`) : link.href} target="_blank" rel="noreferrer">{pick(link.label, locale)} <span aria-hidden="true">↗</span></a>)}</div></div>
                 <dl className={styles.ownership}><div><dt>{es ? "Mi responsabilidad" : "My responsibility"}</dt><dd>{pick(story.ownership, locale)}</dd></div><div><dt>{es ? "Una decisión clave" : "A key decision"}</dt><dd>{pick(story.decision, locale)}</dd></div></dl>

@@ -8,7 +8,11 @@ import { ui } from "@/data/ui";
 import { Footer, Header, ProjectMedia, VisualFrame } from "@/components/parts";
 
 import { SystemExplorer } from "@/components/work/SystemExplorer";
-import { workStories } from "@/data/work";
+import { architectures } from "@/data/architecture";
+import { WorkMotion } from "@/components/work/WorkMotion";
+import { ProjectStage } from "@/components/work/ProjectStage";
+import { ProjectMark } from "@/components/work/ProjectMark";
+import { StageAtmosphere } from "@/components/work/StageAtmosphere";
 import workStyles from "@/components/work/Work.module.css";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -69,10 +73,13 @@ export default async function CasePage({ params }: Props) {
     <>
       <a href="#main" className="skip-link">{t.skip}</a>
       <Header locale={locale} altHref={`/projects/${slug}`} />
+      <WorkMotion locale={locale} showControls={!!architectures[slug]} className={architectures[slug] ? `${workStyles.caseMotion} ${workStyles[slug] ?? ""}` : ""}>
+      {architectures[slug] ? <div className={workStyles.caseBackdrop} data-motion-scene><StageAtmosphere /></div> : null}
       <main id="main" className="case" tabIndex={-1}>
         <div className="col">
           <p className="back"><Link className="link" href={`${base}#work`}>← {t.case.back}</Link></p>
-          <div className="case-title">
+          <div className={`case-title ${workStyles.caseTitle}`}>
+            {architectures[slug] ? <ProjectMark slug={slug} /> : null}
             <h1 className="h1">{pick(project.title, locale)}</h1>
           </div>
           <p className="lead">{pick(project.oneLiner, locale)}</p>
@@ -83,7 +90,7 @@ export default async function CasePage({ params }: Props) {
           </dl>
         </div>
 
-        {project.visuals ? (
+        {architectures[slug] ? <div className={`wide case-media ${workStyles.caseStage}`}><ProjectStage project={project} locale={locale} priority /></div> : project.visuals ? (
           <div className="wide case-media">
             <VisualFrame visual={project.visuals.primary} locale={locale} detailed priority sizes="(max-width: 900px) 100vw, 1040px" />
           </div>
@@ -103,7 +110,7 @@ export default async function CasePage({ params }: Props) {
             ))}
           </dl>
           <p className="muted small">{project.metricNote ? pick(project.metricNote, locale) : (locale === "es" ? "Cifras históricas al 11 de septiembre de 2026." : "Historical figures as of 11 September 2026.")}</p>
-          {workStories[slug] ? <section className={workStyles.caseSystem} aria-label={locale === "es" ? "Arquitectura del sistema" : "System architecture"}><h2>{locale === "es" ? "Cómo se conecta el sistema" : "How the system connects"}</h2><SystemExplorer headingLevel="h3" steps={workStories[slug].steps} locale={locale} name={pick(project.title, locale)} /></section> : null}
+          {architectures[slug] ? <section className={workStyles.caseSystem} aria-label={locale === "es" ? "Arquitectura del sistema" : "System architecture"}><h2>{locale === "es" ? "Cómo se conecta el sistema" : "How the system connects"}</h2><SystemExplorer headingLevel="h3" architecture={architectures[slug]} locale={locale} name={pick(project.title, locale)} /></section> : null}
 
           {c ? (
             <>
@@ -128,8 +135,8 @@ export default async function CasePage({ params }: Props) {
               </section>
               {project.visuals?.secondary ? (
                 <section className="case-sec">
-                  <h2 className="h2">{locale === "es" ? "Recorrido del producto" : "Product walkthrough"}</h2>
-                  <VisualFrame visual={project.visuals.secondary} locale={locale} sizes="(max-width: 900px) 100vw, 700px" />
+                  <h2 className="h2">{slug === "checkwise" ? (locale === "es" ? "Espacio del cliente" : "Client workspace") : (locale === "es" ? "Recorrido del producto" : "Product walkthrough")}</h2>
+                  <VisualFrame visual={slug === "checkwise" ? project.visuals.primary : project.visuals.secondary} locale={locale} sizes="(max-width: 900px) 100vw, 700px" />
                 </section>
               ) : null}
               {c.built ? (
@@ -189,6 +196,7 @@ export default async function CasePage({ params }: Props) {
           </nav>
         </div>
       </main>
+      </WorkMotion>
       <Footer locale={locale} />
     </>
   );
