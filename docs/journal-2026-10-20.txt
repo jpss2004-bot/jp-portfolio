@@ -32,3 +32,16 @@ Validation so far
 - New Journal checks: both indexes, article metadata, sitemap/RSS inclusion, citations, PDF/cover bytes, canonical language behavior and missing routes.
 - Browser: 320px/390px without overflow, Spanish index and English routing, capacity selection, source navigation, light/dark and reduced motion.
 - Shared hero source, NameReveal, global styles and original article source/PDF preservation checked.
+
+Production release
+- Implementation commit: 3184a3b.
+- Deployment dpl_Yb6ffneui84KEbjFt7iSxqKmukWh, promoted successfully to https://jpsamanosuarez.com on 20 October 2026.
+- Deployment URL: https://jp-portfolio-qxtfj6x6v-jpss2004-bots-projects.vercel.app
+- Staged checks passed before promotion: both indexes, article, 13 citations, LinkedIn, original PDF/cover bytes, RSS and sitemap.
+- Production validators passed: all 22 existing portfolio pages and all 3 Journal pages. Sitemap contains 26 URLs; RSS contains the one published article. Missing entries/assets and unsupported Spanish article return 404.
+- Schema.org validator reported zero errors and zero warnings for each of the three Journal graphs.
+- Live browser verified article navigation, capacity selection changing 420 MW to 95 MW, source anchor navigation, and published LinkedIn/PDF links.
+- Homepage hero source and geometry checks passed for both languages at 1440x900 and 390x900 before deployment.
+- Updated sitemap submitted successfully to Search Console under the previously authorized owner account. Google confirmed receipt; discovered-count table still shows the previous 23 while reprocessing. No new individual indexing requests attempted because the earlier daily quota was exhausted.
+- Bounded Vercel error-log query returned no error entries.
+- Local evidence: output/qa/journal/production-validation.json, portfolio-production-validation.json, staged-validation.json, production-release.json, production-journal.jpg, production-article.jpg and search-console-submission.jpg.
