@@ -1,6 +1,6 @@
 Portfolio refresh — 20 October 2026
 
-Implementation is in the attached codex/portfolio-work-redesign worktree, based on 214f755. No production deployment performed.
+Implementation is in the attached codex/portfolio-work-redesign worktree, based on 214f755. Production release d548a6c deployed and promoted on 20 October 2026.
 
 Design research
 - https://brittanychiang.com/ : clear ownership, real project imagery, contextual links and evidence of impact.
@@ -27,3 +27,19 @@ Validation
 - PDFs: English 416 words, Spanish 486 words; one Letter page each; rendered and visually inspected; accents and bold/italic weights preserved, no phone number, seven links each.
 
 Evidence is saved in output/qa. Production preview runs on http://127.0.0.1:3750/en (and /es).
+
+Production release
+- Domain: https://jpsamanosuarez.com
+- Deployment: dpl_5HM7SPyeWfALyt7eLhGmc5fd6SKY
+- URL: https://jp-portfolio-nnkphoe9r-jpss2004-bots-projects.vercel.app
+- Source release: d548a6c (redesign 5e8d748 plus dependency patches).
+- Previous production: dpl_G1HUJenAHTUiDyrgiPd8YVZd2AXE.
+- Next.js 16.4.2, React/React DOM 19.2.9, PostCSS 8.5.31 and sharp 0.35.5; production npm audit reports zero vulnerabilities.
+- Full npm audit still flags five findings in the dev-only ESLint/fast-glob/braces chain. No compatible patch was reported; npm's forced recommendation downgrades eslint-config-next to 14.2.35. This downgrade was not applied. These findings are outside the deployed production dependency set.
+- Post-upgrade lint, TypeScript and production builds passed; four hero PNG comparisons still match the original exactly.
+- Vercel remote build: READY, 38s build duration; promotion succeeded.
+- Staged verification passed for both homepages, Neyvu cases and byte-identical resume PDFs.
+- Live domain: 28 route checks and 56 linked resources passed (84 requests), current content and PDF byte equality confirmed.
+- Live browser: primary project order, architecture selection, Spanish switching, Spanish PDF link, 390px layout and empty error/warning console verified.
+- Runtime error scan returned no entries for this deployment in the checked 15-minute window. Existing drain configuration was not inspected or changed.
+- Deployment receipt and final live screenshot are saved in output/qa.
