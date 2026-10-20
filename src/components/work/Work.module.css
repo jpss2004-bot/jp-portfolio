@@ -7,7 +7,7 @@
 .introduction { display: grid; grid-template-columns: 1fr 360px; gap: 24px 70px; padding: 100px 0 52px; align-items: end; }
 .introduction h2 { margin: 0; font-size: clamp(38px, 5.4vw, 76px); font-weight: 500; letter-spacing: -.055em; line-height: 1.04; }
 .introAside p { font-size: 17px; line-height: 1.6; margin: 0 0 24px; }
-.motionControl { display: flex; justify-content: space-between; gap: 20px; align-items: center; padding-block: 18px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+.motionControl { display: flex; justify-content: flex-end; gap: 20px; align-items: center; padding-block: 18px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 .motionControl button { color: inherit; background: transparent; border: 0; min-height: 44px; padding: 0 8px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font: inherit; }
 .motionControl button:hover { color: var(--fg); }
 .project { --project-accent: #08756e; --plate-bg: #dceae5; --plate-ink: #173e36; padding-top: 70px; scroll-margin-top: 145px; }
@@ -89,7 +89,6 @@
   .introduction { grid-template-columns: 1fr; padding: 64px 0 32px; gap: 24px; }
   .introduction h2 { font-size: clamp(37px, 8vw, 54px); }
   .introAside p { font-size: 15px; margin-bottom: 15px; max-width: 38ch; }
-  .motionControl > span { max-width: 16ch; line-height: 1.5; }
   .project { padding-top: 48px; scroll-margin-top: 85px; }
   .projectHead { align-items: start; margin-bottom: 22px; }
   .projectHead h3 { font-size: clamp(34px, 9vw, 50px); }

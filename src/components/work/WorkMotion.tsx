@@ -58,7 +58,7 @@ export function WorkMotion({ children, locale, className = "", showControls = tr
     return()=>{cancelAnimationFrame(frame);observer.disconnect();window.removeEventListener("scroll",schedule);window.removeEventListener("resize",schedule);root.removeEventListener("pointermove",move);root.removeEventListener("pointerleave",leave);media.removeEventListener("change",preference);document.removeEventListener("visibilitychange",preference);};
   },[paused]);
   return <MotionPause value={paused}><div ref={ref} className={`${styles.motionRoot} ${className}`}>
-    {showControls ? <div className={styles.motionControl}><span>{locale==="es"?"Del producto a la arquitectura":"From the product to the architecture"}</span><button type="button" aria-pressed={paused} onClick={()=>setPaused(value=>!value)}><span aria-hidden="true">{paused?"▶":"Ⅱ"}</span>{locale==="es"?(paused?"Reanudar movimiento":"Pausar movimiento"):(paused?"Resume motion":"Pause motion")}</button></div> : null}
+    {showControls ? <div className={styles.motionControl}><button type="button" aria-pressed={paused} onClick={()=>setPaused(value=>!value)}><span aria-hidden="true">{paused?"▶":"Ⅱ"}</span>{locale==="es"?(paused?"Reanudar movimiento":"Pausar movimiento"):(paused?"Resume motion":"Pause motion")}</button></div> : null}
     {children}
   </div></MotionPause>;
 }
