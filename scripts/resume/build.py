@@ -126,7 +126,7 @@ def build(locale):
     if len(reader.pages) != 1:
         raise RuntimeError(f"{path.name}: expected one page, got {len(reader.pages)}; revise content before delivery")
     text = reader.pages[0].extract_text()
-    for required in ["Neyvu", "CheckWise", "Verifaid", "Acadia", "Trinity"]:
+    for required in ["Neyvu", "CheckWise", "Flaregrain", "Verifaid", "Acadia", "Trinity"]:
         if required not in text:
             raise RuntimeError(f"{path.name}: missing {required}")
     print(f"{path}: one page, {len(text.split())} words")

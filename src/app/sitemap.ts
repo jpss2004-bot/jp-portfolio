@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
   return [
     ...locales.map((l) => ({ url: `${siteUrl}/${l}`, lastModified: updated, alternates: pair("") })),
+    ...locales.map((l) => ({ url: `${siteUrl}/${l}/work`, lastModified: updated, alternates: pair("/work") })),
     ...locales.flatMap((l) => allCaseSlugs.map((slug) => ({ url: `${siteUrl}/${l}/projects/${slug}`, lastModified: updated, alternates: pair(`/projects/${slug}`) }))),
     ...(publishedEntries().length ? [
       ...locales.map((locale) => ({ url: `${siteUrl}/${locale}/journal`, lastModified: updated, alternates: pair("/journal") })),

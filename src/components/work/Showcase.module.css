@@ -72,6 +72,14 @@
 .inset figcaption span { font-family: var(--font-mono), ui-monospace, monospace; color: var(--project-accent); }
 .spread:hover .inset a { transform: translateY(-6px); }
 
+/* Milestones on one line, read left to right. */
+.timeline { list-style: none; margin: clamp(2rem, 4vw, 3rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(1rem, 2vw, 1.75rem); }
+.timeline li { position: relative; display: grid; gap: 0.3rem; align-content: start; padding-top: 1.4rem; border-top: 1px solid color-mix(in srgb, var(--project-accent) 45%, var(--line)); }
+.timeline li i { position: absolute; top: -0.3rem; left: 0; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--project-accent); }
+.timeline li:last-child i { background: var(--project-accent); }
+.timeline b { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; color: var(--project-accent); }
+.timeline span { font-size: 0.875rem; line-height: 1.5; color: var(--ink-2); max-width: 26ch; }
+
 .proof { margin-top: clamp(2rem, 4vw, 3rem); padding-top: 1.5rem; border-top: 1px solid var(--line); }
 .proof dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem clamp(1rem, 2vw, 1.75rem); margin: 0; }
 .proof dl > div { padding-left: 1rem; border-left: 1px solid var(--hair); }
@@ -107,6 +115,28 @@
 .indexOpen { font-size: 0.8125rem; color: var(--accent-ink); }
 .footnote { margin-top: 1.5rem; font-size: 0.875rem; color: var(--muted); max-width: 70ch; }
 
+.allWork { margin-top: 0; }
+.allWork a { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: baseline; gap: 1rem; padding: 1.4rem 0; border-bottom: 1px solid var(--line); text-decoration: none; transition: color 160ms var(--ease), padding 240ms var(--ease); }
+.allWork span { font-size: clamp(1.5rem, 3vw, 2.4rem); font-weight: 500; letter-spacing: -0.04em; line-height: 1.05; }
+.allWork b { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.8125rem; font-weight: 400; color: var(--muted); }
+.allWork i { font-style: normal; font-size: 1.5rem; transition: transform 240ms var(--ease); }
+.allWork a:hover { color: var(--accent-ink); padding-left: 0.5rem; }
+.allWork a:hover i { transform: translateX(6px); }
+
+.filters { display: grid; gap: 0.6rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+.filters > div { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+.filters > div > span { width: 3.25rem; font-size: 0.75rem; color: var(--muted); }
+.filters button { min-height: 2.25rem; padding: 0 0.85rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink-2); font: inherit; font-size: 0.8125rem; cursor: pointer; transition: background-color 160ms var(--ease), color 160ms var(--ease), border-color 160ms var(--ease); }
+.filters button:hover { border-color: var(--ink-2); color: var(--ink); }
+.filters button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.filters > p { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.75rem; color: var(--muted); }
+.indexEmpty { padding: 2rem 0; color: var(--muted); }
+
+.page { width: 100%; max-width: var(--frame); margin-inline: auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter) 0; }
+.pageHead { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: end; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+.pageHead h1 { grid-column: 1 / span 7; margin: 0; font-size: clamp(2.8rem, 8vw, 6.75rem); font-weight: 500; letter-spacing: -0.055em; line-height: 0.95; }
+.pageHead p { grid-column: 9 / -1; font-size: 1.0625rem; line-height: 1.6; color: var(--ink-2); }
+
 /* ------------------------------------------------------------- responsive */
 @media (max-width: 1040px) {
   .intro h2, .introAside { grid-column: 1 / -1; }
@@ -124,7 +154,8 @@
   .indexPanel { display: none; }
   .indexLine { display: block; }
   .indexList li[data-active] > :is(a, div) { padding-left: 0; background: none; }
-  .moreHead h3, .moreHead p { grid-column: 1 / -1; }
+  .moreHead h3, .moreHead p, .pageHead h1, .pageHead p { grid-column: 1 / -1; }
+  .pageHead p { margin-top: 1rem; max-width: 34rem; }
   .moreHead p { margin-top: 0.75rem; }
 }
 
@@ -136,6 +167,7 @@
   .spreadMeta { justify-items: start; text-align: left; margin-top: 0.9rem; grid-auto-flow: column; justify-content: start; gap: 1rem; }
   .story { display: flex; }
   .proof dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.5rem; }
   .proof dl > div:nth-child(odd) { padding-left: 0; border-left: 0; }
   .indexList li > :is(a, div) { grid-template-columns: 2rem minmax(0, 1fr) auto; }
   .indexYear { white-space: normal; }

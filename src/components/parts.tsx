@@ -8,6 +8,7 @@ import { VideoDemo } from "@/components/VideoDemo";
 import { SystemVisual } from "@/components/SystemVisual";
 import { ui } from "@/data/ui";
 import { MobileMenu } from "./MobileMenu";
+import { ThemeToggle } from "./ThemeToggle";
 import menuStyles from "./MobileMenu.module.css";
 
 /* ---------------------------------------------------------------------- */
@@ -45,6 +46,7 @@ export function Header({ locale, altHref, home = false, languageHrefs }: { local
               ES
             </Link>
           </nav>
+          <ThemeToggle label={locale === "es" ? "Cambiar entre tema claro y oscuro" : "Switch between light and dark theme"} />
           <a className="btn" href={pick(profile.resume, locale)} target="_blank" rel="noreferrer">
             {t.resume}
           </a>

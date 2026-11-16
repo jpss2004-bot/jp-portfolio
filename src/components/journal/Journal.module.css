@@ -73,7 +73,25 @@
 .resource a { font-size: 1.2rem; text-underline-offset: .2em; }
 .resource p { margin-top: .5rem; color: var(--ink-2); }
 .empty { max-width: 55ch; font-size: 1.2rem; color: var(--ink-2); }
-@media (prefers-color-scheme: dark) { .capacity, .cooling { background: #183037; color: #e0f1f1; } .figureNote, .loopLabel { color: #adc7cc; } .expansionBar { background: #83b6c9; } .initialBar { background: #35b4ab; } .phaseControls button { color: #adc7cc; } .phaseControls button[aria-pressed="true"] { color: #e0f1f1; } .coolingFlow > div > svg, .loopLabel svg { stroke: #62c8c0; } .heatArrow { color: #62c8c0; } }
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme="light"])) .capacity, :global(:root:not([data-theme="light"])) .cooling { background: #183037; color: #e0f1f1; }
+  :global(:root:not([data-theme="light"])) .figureNote, :global(:root:not([data-theme="light"])) .loopLabel { color: #adc7cc; }
+  :global(:root:not([data-theme="light"])) .expansionBar { background: #83b6c9; }
+  :global(:root:not([data-theme="light"])) .initialBar { background: #35b4ab; }
+  :global(:root:not([data-theme="light"])) .phaseControls button { color: #adc7cc; }
+  :global(:root:not([data-theme="light"])) .phaseControls button[aria-pressed="true"] { color: #e0f1f1; }
+  :global(:root:not([data-theme="light"])) .coolingFlow > div > svg, :global(:root:not([data-theme="light"])) .loopLabel svg { stroke: #62c8c0; }
+  :global(:root:not([data-theme="light"])) .heatArrow { color: #62c8c0; }
+}
+:global(:root[data-theme="dark"]) .capacity, :global(:root[data-theme="dark"]) .cooling { background: #183037; color: #e0f1f1; }
+:global(:root[data-theme="dark"]) .figureNote, :global(:root[data-theme="dark"]) .loopLabel { color: #adc7cc; }
+:global(:root[data-theme="dark"]) .expansionBar { background: #83b6c9; }
+:global(:root[data-theme="dark"]) .initialBar { background: #35b4ab; }
+:global(:root[data-theme="dark"]) .phaseControls button { color: #adc7cc; }
+:global(:root[data-theme="dark"]) .phaseControls button[aria-pressed="true"] { color: #e0f1f1; }
+:global(:root[data-theme="dark"]) .coolingFlow > div > svg, :global(:root[data-theme="dark"]) .loopLabel svg { stroke: #62c8c0; }
+:global(:root[data-theme="dark"]) .heatArrow { color: #62c8c0; }
+
 @media (max-width: 900px) { .feature { gap: 2rem; } .articleLayout { grid-template-columns: minmax(0,1fr); } .contents { position: static; display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; border-bottom: 1px solid var(--rule); padding-bottom: 1.5rem; } .contents strong { width: 100%; } .contents a { max-width: 28ch; } }
 @media (max-width: 650px) { .feature { grid-template-columns: 1fr; } .featureCopy h2 { max-width: 19ch; } .entryRow { grid-template-columns: 1fr; gap: .7rem; } .teaser > div { grid-template-columns: 1fr; gap: 1.5rem; } .articleHeader { padding-bottom: 2rem; } .articleHeader h1 { font-size: clamp(2.5rem, 9vw, 3.5rem); } .coolingFlow { grid-template-columns: 1fr; gap: 1rem; } .loopLabel { max-width: 140px; justify-self: center; } .loopLabel svg { transform: rotate(90deg); width: 65px; height: 65px; margin: .4rem auto; display: block; } .heatArrow { justify-self: center; transform: rotate(90deg); } .capacityValue strong { font-size: 5rem; } }
 @media (prefers-reduced-motion: reduce) { .expansionBar { transition: none; } }

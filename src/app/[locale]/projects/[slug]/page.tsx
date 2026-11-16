@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
-import { allCaseSlugs, caseOrder, getProject, pick, profile, statusLabel } from "@/data/content";
+import { allCaseSlugs, caseOrder, getProject, pick, profile, statusLabel, type Figure } from "@/data/content";
 import { ui } from "@/data/ui";
 import { Footer, Header, ProjectMedia, VisualFrame } from "@/components/parts";
 
@@ -12,6 +12,9 @@ import { StructuredData } from "@/components/StructuredData";
 import { projectStructuredData } from "@/lib/structured-data";
 
 import { SystemExplorer } from "@/components/work/SystemExplorer";
+import { CountUp } from "@/components/CountUp";
+import { Walkthrough } from "@/components/work/Walkthrough";
+import { workStories } from "@/data/work";
 import { ScrollSpyNav } from "@/components/work/ScrollSpyNav";
 import { architectures } from "@/data/architecture";
 import { WorkMotion } from "@/components/work/WorkMotion";
@@ -51,6 +54,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+function Inline({ figure, locale }: { figure: Figure; locale: Locale }) {
+  const open = locale === "es" ? "Abrir imagen completa" : "Open full-size image";
+  return (
+    <figure className="case-inline shot media-frame media-interface" data-reveal="rise">
+      <div className="media-canvas">
+        <a className="media-open" href={figure.src} target="_blank" rel="noreferrer" aria-label={`${open}: ${pick(figure.alt, locale)}`}><Image src={figure.src} alt={pick(figure.alt, locale)} width={figure.width} height={figure.height} sizes="(max-width: 900px) 100vw, 1000px" quality={85} /></a>
+      </div>
+      <figcaption><span>{pick(figure.caption, locale)}</span><a href={figure.src} target="_blank" rel="noreferrer">{open}</a></figcaption>
+    </figure>
+  );
+}
+
 export default async function CasePage({ params }: Props) {
   const { locale: raw, slug } = await params;
   const project = getProject(slug);
@@ -64,18 +79,23 @@ export default async function CasePage({ params }: Props) {
   const next = order[idx + 1];
   const base = `/${locale}`;
   const es = locale === "es";
+  const story = workStories[slug];
+  const walk = story?.walkthrough;
+  const gallery = c?.gallery ?? [];
+  const inline = gallery.length >= 4 ? [gallery[1], gallery[2]] : [];
+  const screens = gallery.filter((g) => !inline.includes(g));
   const sections = [
     ...(architectures[slug] ? [{ id: "system", label: es ? "Sistema" : "System" }] : []),
     ...(c ? [
       { id: "problem", label: t.case.problem },
       { id: "constraints", label: t.case.constraints },
       { id: "decisions", label: t.case.decisions },
-      ...(project.visuals?.secondary ? [{ id: "walkthrough", label: es ? "Recorrido" : "Walkthrough" }] : []),
+      ...(walk || project.visuals?.secondary ? [{ id: "walkthrough", label: es ? "Recorrido" : "Walkthrough" }] : []),
       ...(c.built ? [{ id: "built", label: t.case.built }] : []),
       ...(project.team?.length ? [{ id: "team", label: es ? "Equipo" : "Team" }] : []),
       { id: "outcome", label: t.case.outcome },
       { id: "evidence", label: t.case.evidence },
-      ...(c.gallery?.length ? [{ id: "screens", label: t.case.gallery }] : []),
+      ...(screens.length ? [{ id: "screens", label: t.case.gallery }] : []),
     ] : []),
     { id: "stack", label: t.stackLabel },
     ...(c?.next?.en.length ? [{ id: "next", label: es ? "En desarrollo" : "In progress" }] : []),
@@ -120,7 +140,7 @@ export default async function CasePage({ params }: Props) {
           <dl>
             {project.facts.map((f) => (
               <div key={f.value + pick(f.label, locale)}>
-                <dd>{f.value}</dd>
+                <dd><CountUp value={f.value} /></dd>
                 <dt>{pick(f.label, locale)}</dt>
               </div>
             ))}
@@ -136,15 +156,15 @@ export default async function CasePage({ params }: Props) {
 
             {c ? (
               <>
-                <section id="problem" className="case-sec case-row">
+                <section id="problem" className="case-sec case-row" data-reveal="">
                   <h2 className="case-h2"><span className="mono">{num("problem")}</span>{t.case.problem}</h2>
                   <p className="case-statement">{pick(c.problem, locale)}</p>
                 </section>
-                <section id="constraints" className="case-sec case-row">
+                <section id="constraints" className="case-sec case-row" data-reveal="">
                   <h2 className="case-h2"><span className="mono">{num("constraints")}</span>{t.case.constraints}</h2>
                   <ul className="case-points">{pick(c.constraints, locale).map((item) => <li key={item.slice(0, 40)}>{item}</li>)}</ul>
                 </section>
-                <section id="decisions" className="case-sec case-row">
+                <section id="decisions" className="case-sec case-row" data-reveal="">
                   <h2 className="case-h2"><span className="mono">{num("decisions")}</span>{t.case.decisions}</h2>
                   <ol className="case-decisions">
                     {c.decisions.map((d, i) => (
@@ -156,20 +176,37 @@ export default async function CasePage({ params }: Props) {
                     ))}
                   </ol>
                 </section>
-                {project.visuals?.secondary ? (
-                  <section id="walkthrough" className="case-sec case-row">
-                    <h2 className="case-h2"><span className="mono">{num("walkthrough")}</span>{locale === "es" ? "Recorrido del producto" : "Product walkthrough"}</h2>
+                {inline[0] ? <Inline figure={inline[0]} locale={locale} /> : null}
+                {story?.decision ? (
+                  <blockquote className="case-pull" data-reveal="">
+                    <p>{pick(story.decision, locale)}</p>
+                    <footer>{es ? "La decisión que definió el proyecto" : "The decision that shaped the project"}</footer>
+                  </blockquote>
+                ) : null}
+                {walk ? (
+                  <section id="walkthrough" className="case-sec case-row" data-reveal="">
+                    <h2 className="case-h2"><span className="mono">{num("walkthrough")}</span>{es ? "Recorrido del producto" : "Product walkthrough"}</h2>
+                    <Walkthrough
+                      width={walk.width} height={walk.height} alt={`${pick(project.title, locale)}: ${es ? "recorrido del producto" : "product walkthrough"}`}
+                      scenes={walk.scenes.map((item) => ({ src: item.src, fx: item.fx, fy: item.fy, zoom: item.zoom, text: pick(item.text, locale) }))}
+                      labels={es ? { play: "Reproducir", pause: "Pausar", previous: "Paso anterior", next: "Paso siguiente", step: "Paso", note: "Capturas reales con datos de demostración." } : { play: "Play", pause: "Pause", previous: "Previous step", next: "Next step", step: "Step", note: "Real captures with demo data." }}
+                    />
+                  </section>
+                ) : project.visuals?.secondary ? (
+                  <section id="walkthrough" className="case-sec case-row" data-reveal="">
+                    <h2 className="case-h2"><span className="mono">{num("walkthrough")}</span>{es ? "Recorrido del producto" : "Product walkthrough"}</h2>
                     <VisualFrame visual={project.visuals.secondary} locale={locale} sizes="(max-width: 900px) 100vw, 860px" />
                   </section>
                 ) : null}
                 {c.built ? (
-                  <section id="built" className="case-sec case-row">
+                  <section id="built" className="case-sec case-row" data-reveal="">
                     <h2 className="case-h2"><span className="mono">{num("built")}</span>{t.case.built}</h2>
                     <ul className="case-points">{pick(c.built, locale).map((item) => <li key={item.slice(0, 40)}>{item}</li>)}</ul>
                   </section>
                 ) : null}
+                {inline[1] ? <Inline figure={inline[1]} locale={locale} /> : null}
                 {project.team?.length ? (
-                  <section id="team" className="case-sec case-row">
+                  <section id="team" className="case-sec case-row" data-reveal="">
                     <h2 className="case-h2"><span className="mono">{num("team")}</span>{locale === "es" ? "Equipo" : "Team"}</h2>
                     <dl className="team">
                       {project.team.map((member) => (
@@ -178,22 +215,29 @@ export default async function CasePage({ params }: Props) {
                     </dl>
                   </section>
                 ) : null}
-                <section id="outcome" className="case-sec case-row">
+                <section id="outcome" className="case-sec case-row" data-reveal="">
                   <h2 className="case-h2"><span className="mono">{num("outcome")}</span>{t.case.outcome}</h2>
-                  <p className="case-statement">{pick(c.outcome, locale)}</p>
+                  <div className="case-outcome">
+                    <p className="case-statement">{pick(c.outcome, locale)}</p>
+                    <dl className="case-keys">
+                      {project.facts.slice(0, 2).map((f) => (
+                        <div key={f.value + f.label.en}><dd><CountUp value={f.value} /></dd><dt>{pick(f.label, locale)}</dt></div>
+                      ))}
+                    </dl>
+                  </div>
                 </section>
-                <section id="evidence" className="case-sec case-row">
+                <section id="evidence" className="case-sec case-row" data-reveal="">
                   <h2 className="case-h2"><span className="mono">{num("evidence")}</span>{t.case.evidence}</h2>
                   <ul className="case-points">{pick(c.evidence, locale).map((item) => <li key={item.slice(0, 40)}>{item}</li>)}</ul>
                 </section>
               </>
             ) : null}
 
-            {c?.gallery?.length ? (
-              <section id="screens" className="case-sec case-row" aria-label={t.case.gallery}>
+            {screens.length ? (
+              <section id="screens" className="case-sec case-row" data-reveal="" aria-label={t.case.gallery}>
                 <h2 className="case-h2"><span className="mono">{num("screens")}</span>{t.case.gallery}</h2>
                 <div className="case-gallery">
-                  {c.gallery.map((g) => (
+                  {screens.map((g) => (
                     <figure key={g.src} className="shot media-frame media-interface">
                       <div className="media-canvas">
                       <a className="media-open" href={g.src} target="_blank" rel="noreferrer" aria-label={`${locale === "es" ? "Abrir imagen completa" : "Open full-size image"}: ${pick(g.alt, locale)}`}><Image src={g.src} alt={pick(g.alt, locale)} width={g.width} height={g.height} sizes="(max-width: 900px) 100vw, 860px" quality={85} /></a>
@@ -205,7 +249,7 @@ export default async function CasePage({ params }: Props) {
               </section>
             ) : null}
 
-            <section id="stack" className="case-sec case-row">
+            <section id="stack" className="case-sec case-row" data-reveal="">
               <h2 className="case-h2"><span className="mono">{num("stack")}</span>{t.stackLabel}</h2>
               <ul className="case-stack">{project.stack.map((item) => <li key={item}>{item}</li>)}</ul>
               {project.links.length ? (
@@ -217,7 +261,7 @@ export default async function CasePage({ params }: Props) {
               ) : null}
             </section>
 
-            {c?.next?.en.length ? <section id="next" className="case-sec case-row"><h2 className="case-h2"><span className="mono">{num("next")}</span>{locale === "es" ? "En desarrollo" : "In progress"}</h2><ul className="case-points">{pick(c.next, locale).map((item) => <li key={item.slice(0, 40)}>{item}</li>)}</ul></section> : null}
+            {c?.next?.en.length ? <section id="next" className="case-sec case-row" data-reveal=""><h2 className="case-h2"><span className="mono">{num("next")}</span>{locale === "es" ? "En desarrollo" : "In progress"}</h2><ul className="case-points">{pick(c.next, locale).map((item) => <li key={item.slice(0, 40)}>{item}</li>)}</ul></section> : null}
           </div>
         </div>
 

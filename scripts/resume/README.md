@@ -40,3 +40,8 @@ The current layout restores the earlier structure while increasing the body text
 These are career-center references, not evidence of a universally highest-converting template. No ATS score or interview guarantee is claimed.
 
 The owner confirmed Trinity College School was his high school: football captain for two years, back-to-back Lineman of the Year awards, and the Leadership Award in his final year. Keep these honors in both languages without inventing seasons or additional award names.
+
+## Content refresh — 15 November 2026
+
+- Added Flaregrain (NASA Space Apps Halifax, 14–15 November 2026) as a selected project in both languages: team lead of four, 48-hour build, 24 NASA investigations, cited answers and a rule-based checker. Figures come from the team's submission page and the repository's ENGINEERING.md. No award is claimed.
+- To keep one Letter page, Verifaid is one bullet, the second Neyvu bullet is shorter, and Flaregrain has no separate stack line. `build.py` now also requires "Flaregrain".
