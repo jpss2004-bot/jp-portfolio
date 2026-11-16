@@ -130,7 +130,7 @@ function Cotejo({ view }: { view: number }) {
         <div className={m.panel}>
           <p className={m.kicker}>DISCREPANCIAS · 3</p>
           {issues.map(([cls, sev, what, where], i) => <div key={what} className={`${m.issue} ${m.rise}`} style={at(1300 + i * 450)}><b className={m.cls}>{cls}</b><div><span className={m.tripTitle}>{what}</span><em className={m.cite}>{where}</em></div><span className={m.sev} data-sev={sev}>{sev}</span></div>)}
-          <p className={`${m.foot} ${m.fade}`} style={at(2700)}>Carpetas «No Aplica» separadas de las vacías · Clases A–H</p>
+          <p className={`${m.foot} ${m.fade}`} style={at(2700)}>Carpetas «No Aplica» separadas de las vacías · Clases A–I</p>
         </div>
       </div>
     </div>

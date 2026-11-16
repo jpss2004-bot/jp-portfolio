@@ -17,7 +17,7 @@ export const moreCases: Project[] = [
     },
     facts: [
       { value: "441", label: { en: "PDFs in the first review set", es: "PDFs en el primer conjunto" } },
-      { value: "A–H", label: { en: "issue classes with severity", es: "clases de discrepancia con severidad" } },
+      { value: "A–I", label: { en: "issue classes with severity", es: "clases de discrepancia con severidad" } },
       { value: "42", label: { en: "automated tests", es: "pruebas automatizadas" } },
     ],
     metricNote: { en: "Figures from the project plan and repository, July 2026.", es: "Cifras del plan y del repositorio del proyecto, julio de 2026." },
@@ -29,16 +29,16 @@ export const moreCases: Project[] = [
         es: "Las hojas de datos corporativos resumen los documentos legales de cada empresa, y los analistas las cotejaban a mano contra cientos de PDFs. Muchas páginas son escaneos sin texto, y un error en la hoja se arrastra a cada revisión posterior.",
       },
       constraints: {
-        en: ["Confidential documents stay on the machine; the optional Claude layer is off by default and only ever sees redacted excerpts.", "A correction must never overwrite a value it cannot verify.", "Folders marked “No Aplica” must be told apart from folders that are simply empty."],
-        es: ["Los documentos confidenciales se quedan en la máquina; la capa opcional de Claude está apagada por defecto y solo ve fragmentos anonimizados.", "Una corrección nunca debe sobrescribir un valor que no pueda verificar.", "Las carpetas «No Aplica» deben distinguirse de las que simplemente están vacías."],
+        en: ["Confidential documents stay on the machine; the optional Claude layer needs an API key and sees at most four short excerpts per claim, with emails and phone numbers removed.", "A correction must never overwrite a value it cannot verify.", "Folders marked “No Aplica” must be told apart from folders that are simply empty."],
+        es: ["Los documentos confidenciales se quedan en la máquina; la capa opcional de Claude requiere una clave de API y ve como máximo cuatro fragmentos breves por afirmación, sin correos ni teléfonos.", "Una corrección nunca debe sobrescribir un valor que no pueda verificar.", "Las carpetas «No Aplica» deben distinguirse de las que simplemente están vacías."],
       },
       decisions: [
         { title: { en: "Text layer first, OCR only where needed", es: "Primero la capa de texto, OCR solo donde haga falta" }, why: { en: "Cotejo reads filename metadata, then each PDF's own text, and runs Apple's Vision OCR only on pages without text. Scans are handled on the device, and pages that already have text are never re-read.", es: "Cotejo lee los metadatos del nombre, luego el texto del propio PDF, y usa el OCR de Vision de Apple solo en páginas sin texto. Los escaneos se procesan en el dispositivo y las páginas con texto nunca se vuelven a leer." } },
         { title: { en: "Write a correction only while the evidence still matches", es: "Escribir una corrección solo si la evidencia sigue coincidiendo" }, why: { en: "A correction is applied only if the table matches a full set of column headers and the cell still holds the expected old value. Anything else is skipped with a reason. In its self-test, four proposed corrections gave one applied and three refused.", es: "Una corrección se aplica solo si la tabla coincide con un juego completo de encabezados y la celda conserva el valor esperado. Lo demás se omite con su motivo. En su autoprueba, de cuatro correcciones propuestas se aplicó una y se rechazaron tres." } },
       ],
       built: {
-        en: ["A Swift engine shared by a SwiftUI app and a command-line tool, built with SwiftPM.", "A data-sheet reader for fields, tables and analyst comments, and a comparison engine that sorts mismatches into classes A–H with severity, confidence, file and page.", "Issue-only reports in HTML, Markdown, CSV and JSON, plus an optional corrected data sheet."],
-        es: ["Un motor en Swift compartido por una app SwiftUI y una herramienta de línea de comandos, construido con SwiftPM.", "Un lector de la hoja para campos, tablas y comentarios, y un motor que clasifica las diferencias en clases A–H con severidad, confianza, archivo y página.", "Reportes solo de discrepancias en HTML, Markdown, CSV y JSON, más una hoja corregida opcional."],
+        en: ["A Swift engine shared by a SwiftUI app and a command-line tool, built with SwiftPM.", "A data-sheet reader for fields, tables and analyst comments, and a rules engine that sorts findings into classes A–I with severity, confidence, file and page.", "Issue-only reports in HTML, Markdown, CSV and JSON, plus an optional corrected data sheet."],
+        es: ["Un motor en Swift compartido por una app SwiftUI y una herramienta de línea de comandos, construido con SwiftPM.", "Un lector de la hoja para campos, tablas y comentarios, y un motor de reglas que clasifica los hallazgos en clases A–I con severidad, confianza, archivo y página.", "Reportes solo de discrepancias en HTML, Markdown, CSV y JSON, más una hoja corregida opcional."],
       },
       outcome: {
         en: "Analysts get a report of only what differs, each item pointing to the file and page that proves it. The first review set covered five companies, five data sheets and 441 PDFs.",

@@ -125,7 +125,7 @@ export const featured: Project[] = [
       secondary: { kind: "video", src: "/projects/checkwise/loops/review-decision.mp4", poster: "/projects/checkwise/loops/review-decision.webp", width: 1280, height: 672, alt: { en: "CheckWise review walkthrough", es: "Recorrido de revisión en CheckWise" }, caption: { en: "8-second review walkthrough. Actual app with demo data; the tutorial spotlight highlights the active control.", es: "Recorrido de revisión de 8 segundos. App real con datos de demostración; el tutorial resalta el control activo." } },
     },
     links: [visit("https://checkwise.com.mx")],
-    stack: ["Python", "FastAPI", "PostgreSQL", "Next.js 16", "React 19", "TypeScript", "Claude API", "Google Document AI", "Render", "Vercel", "Playwright"],
+    stack: ["Python", "FastAPI", "PostgreSQL", "Next.js 16", "React 19", "TypeScript", "Claude API", "Tesseract OCR", "Render", "Vercel", "Playwright"],
     caseStudy: {
       problem: {
         en: "Mexico's 2021 outsourcing reform (REPSE) makes a company jointly liable for its service providers' labor and tax obligations. To stay covered, companies must collect and check recurring evidence from every provider: monthly, bimonthly, four-monthly and annual filings across SAT, IMSS, INFONAVIT and the labor ministry. In practice that meant thousands of PDFs, spreadsheets and email threads, and no clear view of exposure.",
@@ -188,8 +188,8 @@ export const featured: Project[] = [
         ],
       },
       outcome: {
-        en: "Reviewers clear around 50 documents a day at roughly a minute each (September 2026). CheckWise now has six surfaces: provider and client portals, a reviewer console, a public site, a 33-lesson academy and reporting. Uploads get live SAT folio checks and AI-generated-document detection, clients set their own auto-accept and auto-reject rules, and the October 19 release added contract-based workflows and calendars.",
-        es: "Los revisores resuelven unos 50 documentos diarios en cerca de un minuto cada uno (septiembre de 2026). CheckWise tiene seis superficies: portales de proveedores y clientes, consola de revisión, sitio público, una academia de 33 lecciones y reportes. Las cargas pasan por verificación en vivo de folios ante el SAT y detección de documentos generados por IA, los clientes definen sus reglas de aceptación y rechazo automático, y la liberación del 19 de octubre añadió flujos y calendarios por contrato.",
+        en: "Reviewers clear around 50 documents a day at roughly a minute each (September 2026). CheckWise now has six surfaces: provider and client portals, a reviewer console, a public site, a 33-lesson academy and reporting. Uploads get live SAT folio checks and AI-generated-document detection, clients can opt in to automatic rejection of invalid documents while approval stays with a reviewer, and the October 19 release added contract-based workflows and calendars.",
+        es: "Los revisores resuelven unos 50 documentos diarios en cerca de un minuto cada uno (septiembre de 2026). CheckWise tiene seis superficies: portales de proveedores y clientes, consola de revisión, sitio público, una academia de 33 lecciones y reportes. Las cargas pasan por verificación en vivo de folios ante el SAT y detección de documentos generados por IA, los clientes pueden activar el rechazo automático de documentos inválidos mientras la aprobación sigue en manos de un revisor, y la liberación del 19 de octubre añadió flujos y calendarios por contrato.",
       },
       evidence: {
         en: [
@@ -241,7 +241,7 @@ export const featured: Project[] = [
       { value: "50+", label: { en: "operations cleared", es: "operaciones resueltas" } },
       { value: "7", label: { en: "pipeline stages", es: "etapas del pipeline" } },
       { value: "262", label: { en: "commits in six weeks", es: "commits en seis semanas" } },
-      { value: "596", label: { en: "automated tests", es: "pruebas automatizadas" } },
+      { value: "978", label: { en: "automated tests", es: "pruebas automatizadas" } },
     ],
     visuals: {
       primary: { kind: "system", system: "verifaid" },
@@ -272,8 +272,8 @@ export const featured: Project[] = [
         {
           title: { en: "Citations before conclusions", es: "Citas antes que conclusiones" },
           why: {
-            en: "Every extracted fact carries its source, and the citation viewer opens the real page with the excerpt highlighted. A cited page is worth more than a confidence score.",
-            es: "Cada dato extraído lleva su fuente, y el visor de citas abre la página real con el fragmento resaltado. Una página citada vale más que un puntaje de confianza.",
+            en: "Every extracted fact carries its source, and the citation viewer opens the real page it came from. A cited page is worth more than a confidence score.",
+            es: "Cada dato extraído lleva su fuente, y el visor de citas abre la página real de donde viene. Una página citada vale más que un puntaje de confianza.",
           },
         },
         {
@@ -299,13 +299,13 @@ export const featured: Project[] = [
         en: [
           "50+ operations cleared for a paying client.",
           "262 commits and 85 merged pull requests between 29 July and 11 September 2026.",
-          "311 API tests (52 of them tenant-isolation tests) and 285 web tests at the last known-good run.",
+          "532 API tests and 446 web tests in the 10 September 2026 review run.",
           "Private codebase under the client's confidentiality terms; a walkthrough is available on request.",
         ],
         es: [
           "Más de 50 operaciones resueltas para un cliente de pago.",
           "262 commits y 85 pull requests fusionados entre el 29 de julio y el 11 de septiembre de 2026.",
-          "311 pruebas de API (52 de aislamiento entre organizaciones) y 285 pruebas web en la última corrida correcta.",
+          "532 pruebas de API y 446 pruebas web en la corrida de revisión del 10 de septiembre de 2026.",
           "Código privado bajo los términos de confidencialidad del cliente; puedo mostrarlo en una llamada.",
         ],
       },
@@ -368,7 +368,7 @@ export const featured: Project[] = [
           },
         },
         {
-          title: { en: "Copy-only, with a hash gate before anything is touched", es: "Solo copiar, con una compuerta de hashes antes de tocar algo" },
+          title: { en: "Copy-only, with every copy checked by hash", es: "Solo copiar, con cada copia verificada por hash" },
           why: {
             en: "The organizer only ever copies, and a verification gate compares every file by hash. For the notarial archive it passed 903 of 903 with zero mismatches.",
             es: "El organizador solo copia, y una compuerta de verificación compara cada archivo por hash. En el archivo notarial pasó 903 de 903 sin ninguna diferencia.",
@@ -455,12 +455,12 @@ export const featured: Project[] = [
         },
       ],
       outcome: {
-        en: "A 12-section home page built from the positioning document, plus platform, guided tour, industries, resources, blog, case studies and glossary pages. The October 17–18 update extended the site in Spanish and English, with visual, motion, privacy-control and structured-data checks. Published to the Vercel feedback alias; the domain transition remains a separate step. I am also working on broader LegalShelf platform enhancements and AI modules, which remain work in progress.",
-        es: "Un home de 12 secciones construido desde el documento de posicionamiento, además de páginas de plataforma, recorrido guiado, industrias, recursos, blog, casos y glosario. La actualización del 17–18 de octubre amplió el sitio en español e inglés, con verificaciones visuales, de movimiento, privacidad y datos estructurados. Publicado en el alias de Vercel para revisión; el cambio de dominio sigue separado. También trabajo en mejoras de la plataforma LegalShelf y módulos de IA, aún en desarrollo.",
+        en: "A home page built from the positioning document, plus platform, industries, resources, blog, case studies and glossary pages; the guided tour was later folded into the platform page. The October 17–18 update extended the site in Spanish and English, with visual, motion, privacy-control and structured-data checks. Published to the Vercel feedback alias; the domain transition remains a separate step. I am also working on broader LegalShelf platform enhancements and AI modules, which remain work in progress.",
+        es: "Un home construido desde el documento de posicionamiento, además de páginas de plataforma, industrias, recursos, blog, casos y glosario; el recorrido guiado después se integró a la página de plataforma. La actualización del 17–18 de octubre amplió el sitio en español e inglés, con verificaciones visuales, de movimiento, privacidad y datos estructurados. Publicado en el alias de Vercel para revisión; el cambio de dominio sigue separado. También trabajo en mejoras de la plataforma LegalShelf y módulos de IA, aún en desarrollo.",
       },
       evidence: {
-        en: ["204 commits between 26 August and 10 September 2026.", "13 redirect rules covering 35 legacy URLs."],
-        es: ["204 commits entre el 26 de agosto y el 10 de septiembre de 2026.", "13 reglas de redirección que cubren 35 URLs heredadas."],
+        en: ["204 commits between 26 August and 10 September 2026.", "13 redirect rules covering 35 legacy URLs, plus one internal redirect."],
+        es: ["204 commits entre el 26 de agosto y el 10 de septiembre de 2026.", "13 reglas de redirección que cubren 35 URLs heredadas, más una redirección interna."],
       },
     },
   },
@@ -489,7 +489,7 @@ export const shipped: Shipped[] = [
   {
     slug: "band-of-brothers", name: "Band of Brothers", year: "2026", status: "live", href: "https://bandofbrothers-seven.vercel.app",
     kind: { en: "Web app", es: "App web" },
-    line: { en: "Draft engine and weekly newsletter for the 12-team fantasy league I run, with an automated Tuesday issue.", es: "Motor de draft y boletín semanal para la liga de fantasy de 12 equipos que administro, con un número automático cada martes." },
+    line: { en: "Draft engine and weekly newsletter for the 12-team fantasy league I run, with each Tuesday issue drafted automatically and reviewed before it goes out.", es: "Motor de draft y boletín semanal para la liga de fantasy de 12 equipos que administro, con un número que se redacta automáticamente cada martes y se revisa antes de publicarlo." },
   },
   {
     slug: "la-red-de-casa", name: "La Red de Casa", year: "2026", status: "live", href: "https://la-red-de-casa.vercel.app",
@@ -544,7 +544,7 @@ export const shippedCases: Project[] = [
     },
     facts: [
       { value: "10", label: { en: "active users", es: "usuarios activos" } },
-      { value: "~50", label: { en: "restaurants near Wolfville, NS", es: "restaurantes cerca de Wolfville" } },
+      { value: "54", label: { en: "restaurants in 10 Annapolis Valley towns", es: "restaurantes en 10 pueblos del valle de Annapolis" } },
       { value: "3", label: { en: "ways to ask", es: "formas de pedir" } },
     ],
     media: { type: "image", src: "/projects/savr/savr-recommendations-results.png", width: 1440, height: 900, alt: { en: "SAVR ranked recommendations", es: "Recomendaciones clasificadas de SAVR" } },
@@ -576,8 +576,8 @@ export const shippedCases: Project[] = [
         },
       ],
       outcome: {
-        en: "A live full-stack app with 10 active users: authentication, onboarding, saved presets, three recommendation flows and an AI-updated database of about 50 restaurants within 30 miles of Wolfville, NS. Relaunched in June 2026.",
-        es: "Una app full-stack en línea con 10 usuarios activos: autenticación, onboarding, presets guardados, tres flujos de recomendación y una base de datos actualizada con IA de unos 50 restaurantes a menos de 50 km de Wolfville. Relanzada en junio de 2026.",
+        en: "A live full-stack app with 10 active users: authentication, onboarding, saved presets, three recommendation flows and a curated database of 54 restaurants across 10 Annapolis Valley towns. Relaunched in June 2026.",
+        es: "Una app full-stack en línea con 10 usuarios activos: autenticación, onboarding, presets guardados, tres flujos de recomendación y una base de datos curada de 54 restaurantes en 10 pueblos del valle de Annapolis. Relanzada en junio de 2026.",
       },
       evidence: {
         en: ["Live app and public source code.", "Screens captured from the running app."],
