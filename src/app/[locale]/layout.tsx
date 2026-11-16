@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
+import Script from "next/script";
+import { RevealObserver } from "@/components/RevealObserver";
 import { JetBrains_Mono, Schibsted_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
@@ -33,34 +35,16 @@ export const viewport: Viewport = {
   ],
 };
 
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: profile.name,
-  alternateName: [profile.plainName, profile.shortName, "JP Samano"],
-  url: siteUrl,
-  image: `${siteUrl}/og.png`,
-  email: `mailto:${profile.email}`,
-  jobTitle: "Software Developer",
-  worksFor: { "@type": "Organization", name: "LegalShelf" },
-  knowsLanguage: ["es", "en"],
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: "Acadia University",
-    address: { "@type": "PostalAddress", addressLocality: "Wolfville", addressRegion: "NS", addressCountry: "CA" },
-  },
-  knowsAbout: ["Software engineering", "Full-stack development", "Regulatory compliance systems", "Document AI", "AI-assisted software development"],
-  sameAs: [profile.github, profile.linkedin],
-};
-
 export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   return (
-    <html lang={locale} className={`${sans.variable} ${mono.variable}`}>
+    <html lang={locale} className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
+        {/* Apply a saved theme before first paint. */}
+        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}document.documentElement.dataset.js=""` }} />
         {children}
+        <RevealObserver />
         <Analytics />
       </body>
     </html>

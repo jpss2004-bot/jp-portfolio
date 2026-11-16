@@ -1,0 +1,62 @@
+Google Search Console — 20 October 2026
+
+Account: jpss2004@gmail.com (explicitly approved by the user).
+Property: https://jpsamanosuarez.com/
+
+Ownership
+- Added Google's downloaded HTML verification file: public/googleec27915b839ae2fa.html.
+- File was validated byte-for-byte on the protected staged deployment and public domain.
+- Google confirmed "Propiedad verificada" using the HTML-file method.
+- Keep this file deployed to retain ownership verification.
+
+Deployment
+- Code commit: 3dd3e4d.
+- Deployment: dpl_FCqmUHbHMFznJnVnyhGrUHaANogy.
+- Immutable URL: https://jp-portfolio-8gaq2qgi6-jpss2004-bots-projects.vercel.app.
+- Previous deployment: dpl_E2Nk5WJyAPB26ihQ3sryM1Qgwvrs.
+- Remote build output: 29 seconds. All 22 localized pages passed post-deployment structured-data validation; bounded runtime-error query returned no entries.
+- Only the verification file changed; hero, styling and application code untouched.
+
+Sitemap
+- Submitted https://jpsamanosuarez.com/sitemap.xml.
+- Google confirmed "Se ha enviado el sitemap correctamente".
+- Sitemap report: Correcto, submitted/read 20 October 2026, 23 URLs discovered.
+- This includes both language homepages, all 20 project routes and the summer report.
+
+Individual indexing requests
+- Each requested URL is inspected before requesting indexing through the normal Search Console UI.
+- A request is counted only after Google's "Se ha solicitado la indexación" confirmation, meaning it has entered the priority crawl queue. This is not a guarantee of indexing.
+- Per-URL results and screenshots: output/qa/search-console/indexing-status.json.
+- Initial observation: /en was already indexed; /es was discovered but not yet indexed.
+
+Final outcome
+- 11 individual indexing requests confirmed by Google.
+- The next request (Spanish LegalShelf) returned "Cuota superada": daily quota exceeded; try again tomorrow. Further individual submissions stopped at that response.
+- Remaining 11 URLs are included in the successfully submitted sitemap and await individual requests after the quota resets.
+- No scheduled retry was created.
+
+Confirmed individual requests
+https://jpsamanosuarez.com/en
+https://jpsamanosuarez.com/es
+https://jpsamanosuarez.com/en/projects/checkwise
+https://jpsamanosuarez.com/es/projects/checkwise
+https://jpsamanosuarez.com/en/projects/neyvu
+https://jpsamanosuarez.com/es/projects/neyvu
+https://jpsamanosuarez.com/en/projects/verifaid
+https://jpsamanosuarez.com/es/projects/verifaid
+https://jpsamanosuarez.com/en/projects/document-pipelines
+https://jpsamanosuarez.com/es/projects/document-pipelines
+https://jpsamanosuarez.com/en/projects/legalshelf-mx
+
+Remaining individual requests
+https://jpsamanosuarez.com/es/projects/legalshelf-mx
+https://jpsamanosuarez.com/en/projects/band-of-brothers
+https://jpsamanosuarez.com/es/projects/band-of-brothers
+https://jpsamanosuarez.com/en/projects/la-red-de-casa
+https://jpsamanosuarez.com/es/projects/la-red-de-casa
+https://jpsamanosuarez.com/en/projects/savr
+https://jpsamanosuarez.com/es/projects/savr
+https://jpsamanosuarez.com/en/projects/er-triage-queue-manager
+https://jpsamanosuarez.com/es/projects/er-triage-queue-manager
+https://jpsamanosuarez.com/en/projects/family-phrase-game
+https://jpsamanosuarez.com/es/projects/family-phrase-game

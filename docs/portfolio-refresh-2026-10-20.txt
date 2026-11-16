@@ -1,0 +1,45 @@
+Portfolio refresh — 20 October 2026
+
+Implementation is in the attached codex/portfolio-work-redesign worktree, based on 214f755. Production release d548a6c deployed and promoted on 20 October 2026.
+
+Design research
+- https://brittanychiang.com/ : clear ownership, real project imagery, contextual links and evidence of impact.
+- https://rauno.me/ : concise identity, interaction craft and intentionally limited navigation.
+- https://www.joshwcomeau.com/ : interactive explanations and motion that demonstrates how a system works.
+These are design references, not a measured ranking of hiring conversion. This portfolio adapts product imagery and interactive explanation to JP's full-stack/backend work. Decorative eyebrow headings and skill/status pills were removed from the new project presentation at the owner's request.
+
+Implemented
+- Primary order: CheckWise, Neyvu, Verifaid; bilingual product and architecture views.
+- Scoped motion: perspective/scale product reveals, animated architecture trace and detail transitions. Pause control and reduced-motion support.
+- Current ownership, product/release state and dates; historical September business and test figures remain dated.
+- Neyvu demo imagery uses fictional course data, no student records.
+- Acadia frontend/UX/visual design leadership and LegalShelf ongoing AI enhancements.
+- Trinity high-school football captaincy (two years), consecutive Lineman of the Year awards and final-year Leadership Award.
+- Both public PDFs rebuilt as one-page resumes, with consistent embedded fonts, working links and selectable text. See scripts/resume/README.md for resume research and generation.
+- Added supporting Band of Brothers and La Red de Casa cases, localized summer document title and current sitemap dates.
+
+Validation
+- npm run lint, TypeScript and optimized production build passed; 29 generated routes.
+- Local HTTP audit: 29 checked routes and 56 linked resources; expected /resume.pdf 308 redirect resolves to the updated English PDF.
+- Browser: desktop and 390/320 px layouts; mobile section menu, product/architecture selection, architecture node selection, pause/reduced-motion preference, scrolling transforms and case-language switching.
+- Hero JSX, global CSS, shared hero/header components and portrait bytes unchanged against 214f755.
+- Before/after rendered hero markup, geometry and PNG hashes match in English/Spanish at 1440 and 390 px with reduced motion to freeze entrance animation.
+- PDFs: English 416 words, Spanish 486 words; one Letter page each; rendered and visually inspected; accents and bold/italic weights preserved, no phone number, seven links each.
+
+Evidence is saved in output/qa. Production preview runs on http://127.0.0.1:3750/en (and /es).
+
+Production release
+- Domain: https://jpsamanosuarez.com
+- Deployment: dpl_5HM7SPyeWfALyt7eLhGmc5fd6SKY
+- URL: https://jp-portfolio-nnkphoe9r-jpss2004-bots-projects.vercel.app
+- Source release: d548a6c (redesign 5e8d748 plus dependency patches).
+- Previous production: dpl_G1HUJenAHTUiDyrgiPd8YVZd2AXE.
+- Next.js 16.4.2, React/React DOM 19.2.9, PostCSS 8.5.31 and sharp 0.35.5; production npm audit reports zero vulnerabilities.
+- Full npm audit still flags five findings in the dev-only ESLint/fast-glob/braces chain. No compatible patch was reported; npm's forced recommendation downgrades eslint-config-next to 14.2.35. This downgrade was not applied. These findings are outside the deployed production dependency set.
+- Post-upgrade lint, TypeScript and production builds passed; four hero PNG comparisons still match the original exactly.
+- Vercel remote build: READY, 38s build duration; promotion succeeded.
+- Staged verification passed for both homepages, Neyvu cases and byte-identical resume PDFs.
+- Live domain: 28 route checks and 56 linked resources passed (84 requests), current content and PDF byte equality confirmed.
+- Live browser: primary project order, architecture selection, Spanish switching, Spanish PDF link, 390px layout and empty error/warning console verified.
+- Runtime error scan returned no entries for this deployment in the checked 15-minute window. Existing drain configuration was not inspected or changed.
+- Deployment receipt and final live screenshot are saved in output/qa.

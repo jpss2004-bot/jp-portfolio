@@ -1,0 +1,43 @@
+Mobile interaction and sharing review — 20 October 2026
+
+Problems verified
+- Main navigation disappeared below 760px. The only additional section menu was inside Selected work, unavailable on other pages.
+- Project view controls were approximately 32–36px high after 3D transforms, with 10px text. The three-column phone architecture squeezed labels into narrow nodes.
+- Homepage OG image used large edge-aligned text and portrait; project OG images used complete screenshots and lacked consistent dimensions. These were vulnerable to centered square crops.
+
+Changes
+- Shared bilingual Menu at phone/tablet widths, with 48px links, preserved language controls, résumé and contact. Native disclosure supports keyboard; outside click, Escape and navigation dismiss it. Short landscape windows scroll within the menu.
+- Primary project shortcuts remain below the hero. Removed the duplicate Sections disclosure.
+- 44px project view controls on their own row, larger screenshot links and text. Phone displays stay flat/stationary while ambient motion remains; desktop motion is preserved.
+- Narrow architecture uses two columns of readable 108px component controls. Selected component's directional connections appear as tappable buttons; desktop diagrams retain their animated wires.
+- Article contents collapse on phones/tablets; larger standalone links and inline citation targets. No new dependencies.
+- Shared generated 1200x630 PNG cards for both homepages, both Journal indexes, all 20 localized project pages and the published English article. Titles, portraits and product marks stay inside the center square crop. Dedicated OG/Twitter metadata includes size, MIME and alt text. Images are prerendered, use local licensed fonts/assets and do not depend on remote image/font services. Original /og.png compatibility asset also updated.
+- No article rewrite, translated article, résumé change or hero modification.
+
+Design intent
+- Retain existing Schibsted interface typography, product colors and dark/light themes. Teal/navy share artwork references the connected systems in the work rather than a screenshot of the page.
+- Preserve the 57px header and hero position; give mobile navigation its own lightweight menu, without extra pill rows or decorative labels.
+
+Validation
+- Build, TypeScript, lint (zero warnings), diff checks passed.
+- All 25 localized pages checked at 320px and 390px: no horizontal page overflow; header/menu/language, view and component controls meet 44px targets.
+- Additional 430px, 768px, 1024px and 844x390 landscape checks passed. Landscape menu is internally scrollable and dismisses on outside click.
+- All three primary project Architecture controls work in both languages; phone display transforms are none. Node selection updates pressed state and explanation/connections. Article contents expands and section links navigate correctly. Menu navigation closes it; Escape returns focus to its summary.
+- Light/dark and reduced-motion browser checks passed. Browser warning/error log empty for checked local session.
+- Hero JSX and NameReveal source are byte-identical to previous commit; existing global CSS unchanged (new scoped rules appended). Both locales' hero text and geometry match previous production at 390x844 and 1440x900.
+- 25 share metadata/image checks pass, including absolute images, PNG type/dimensions, alt text, matching OG/Twitter and crawler user-agent responses. Visual crop review: wide, centered square and 88px thumbnail. This is a rendering/metadata test, not a message sent through an actual social application.
+- Existing 22 portfolio schema checks and three Journal checks pass, including original PDF/cover bytes, citations, feed/sitemap and missing-route privacy.
+- Evidence: output/qa/mobile/.
+
+Limits
+- Responsive browser testing does not replace a physical iOS Safari test.
+- Messaging platforms may retain previews for previously shared page URLs; new image paths and the updated compatibility image help on their next fetch but cannot rewrite old messages.
+
+Production release
+- Implementation commit a440f51. Staged production deployment dpl_EMMUEssF55QkKWce1oFhtzJAZhpP built successfully in 22 seconds.
+- https://jp-portfolio-j3an2t8gh-jpss2004-bots-projects.vercel.app validated before promotion, then promoted successfully to https://jpsamanosuarez.com.
+- Staged checks: English/Spanish home, CheckWise, Neyvu and article metadata/menu markup; three generated card images; /og.png byte equality.
+- Production: all 25 share metadata/image checks, all 22 existing portfolio schema checks and all three Journal checks passed. New home image bytes equal the updated compatibility OG asset.
+- Browser live: menu navigated from /en to /en/journal and closed; Verifaid component selection updated the explanation; no browser errors/warnings observed.
+- Screenshots: production-menu.jpg, production-architecture.jpg, share-crop-review.jpg.
+- Bounded production runtime error query returned no error entries.

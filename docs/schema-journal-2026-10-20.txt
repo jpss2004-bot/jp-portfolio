@@ -1,0 +1,39 @@
+Structured-data follow-up audit — 20 October 2026
+
+Scope
+- English and Spanish homepages, all twenty localized project case studies, both Journal indexes and the published English article: 25 pages.
+- Hero and visible page content must remain unchanged.
+
+Findings and fixes
+- Baseline local checks passed, but Google's live Rich Results Test found four non-critical Article warnings: invalid date/time and missing time zone for both datePublished and dateModified. The content supplies a publication day, not a verified time.
+- Keep the known day on the article WebPage and in visible content. Emit Google's optional Article datePublished/dateModified only when the source supplies a real time with an explicit time zone. Never synthesize midnight or an update time. Strict authoring validation rejects impossible calendar dates and timestamps without zones.
+- Use BlogPosting (a subtype of Article) for the Journal entry and link it to its Blog, author, primary image, WebPage, 13 sources, LinkedIn publication and downloadable PDF encoding.
+- Add localized breadcrumbs to both Journal indexes; complete Blog/CollectionPage descriptions and author relationships.
+- Link both homepage profile graphs to the visible Journal and latest published article.
+- Correct the shared Person sameAs to the owner's actual LinkedIn profile verified during the preceding article work in Dia: https://www.linkedin.com/in/jose-pablo-samano-suarez-717349291/. Visible hero links and shared profile content remain untouched.
+- Retain existing CreativeWork project markup and accurate contribution credits. Case studies do not acquire invented offers, review ratings, dates or sole authorship claims.
+
+Validation
+- Expanded the structured-data validator from 22 to all 25 pages. It checks vocabulary/domain compatibility, graph references, localized descriptions/canonicals, actual project attribution/status/stack, Journal relationships/citations/images/PDF and truthful date precision.
+- All 25 exact prerendered JSON-LD scripts submitted individually to Google's Rich Results Test code mode. Every test reports valid items without non-critical issues. Google recognizes ProfilePage on each homepage, BreadcrumbList on case studies and Journal indexes, and BlogPosting plus BreadcrumbList on the article.
+- Result URLs, snapshots and SHA-256 payload hashes: output/qa/schema-journal/google-code-results.json and google-code-*.txt (article and Spanish Journal have descriptive snapshot filenames).
+- Verified every result snapshot contains the exact graph submitted for its page; final-build scripts match those payloads byte for byte.
+- Build, TypeScript, lint, diff, original Journal asset/citation/privacy checks and all 25 share metadata/image checks pass.
+- Date regression cases: known day stays day-only, verified offset/UTC timestamps preserved, no fabricated dateModified, missing-zone and impossible-date rejection.
+- All 25 pages' visible text matches prior production. Hero source/styles remain unedited; rendered markup matches after excluding only generated font class hashes and Vercel deployment query parameters. Browser text, geometry and typography match for both languages at 390x844 and 1440x900.
+
+Reference guidance checked
+- https://developers.google.com/search/docs/appearance/structured-data/article — Article properties are recommended rather than required; use applicable accurate fields and author identity links.
+- https://developers.google.com/search/docs/appearance/structured-data/profile-page
+- https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
+- Installed Next.js 16.4.2 JSON-LD guide. Existing safe serialization and native script output preserved.
+
+Production release
+- Implementation commit: 4676415. Deployment dpl_AkhgeEeCvhgZqmMx7jyJXscrSdmq built successfully in 30 seconds.
+- Staged URL: https://jp-portfolio-617amnv2z-jpss2004-bots-projects.vercel.app. All 25 staged scripts matched their Google-validated payload hashes before promotion.
+- Promoted successfully to https://jpsamanosuarez.com. All 25 production graph checks pass and their data exactly matches the validated Google code inputs.
+- Journal routes, original PDF/cover bytes, citations, sitemap/feed and missing-route privacy pass. All 25 share-image checks pass.
+- Google's post-release smartphone URL crawl: two valid items (BlogPosting and BreadcrumbList), zero warnings.
+- Live test result: https://search.google.com/test/rich-results/result?id=7ZSbqyUaXoWXSBJiwcIYoA
+- Screenshot and raw result: output/qa/schema-journal/google-live-article.jpg and google-live-article.txt.
+- Bounded Vercel runtime error query returned no error entries. No UI source, hero styles, article text, original assets or dependencies changed.

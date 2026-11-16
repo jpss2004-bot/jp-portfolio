@@ -1,0 +1,39 @@
+Motion and diagram pass — 20 October 2026
+
+Requested: continuous animation, deeper layering, living backgrounds, scroll response, more color, real logos and more visual/complex diagrams. Preserve the homepage hero; avoid decorative eyebrow labels and pills.
+
+Design: original CheckWise navy/teal/blue, Neyvu teal/blue/sky and Verifaid ink with violet/blue diagram accents. Existing typography retained. Product frames sit over layered contour/grid environments; component maps use named services and evidence/review boundaries.
+
+Implementation
+- Eight selectable components and ten directed connections per primary product; desktop and compact layouts, technology marks, component-type legend, highlighted incident connections and explanatory details.
+- SVG paths continuously animate information-flow marks. Captions explicitly describe logical architecture, not live telemetry.
+- Muted, inline, looping CheckWise walkthrough from the existing public demo recording. Native controls remain available. The existing client dashboard remains visible farther down its case study.
+- Animated color fields, contour planes and grid backgrounds. Scroll reveals and pointer tilt share one requestAnimationFrame callback, with batched layout reads.
+- Offscreen scenes pause CSS animation. Videos play only when visible and pause offscreen, when the tab is hidden, when globally paused or when reduced motion is requested.
+- Reduced motion disables background/packet animation and automatic playback. Global pause controls remain available.
+- Homepage and primary case studies share the same product-stage and architecture components. Supporting case studies do not show an inactive motion control.
+
+Original brand assets
+- CheckWise: apps/web/public/brand/checkwise-icon.png and checkwise-icon-dark.png from the owner's CheckWise checkout.
+- Neyvu: public/brand/neyvu-symbol.svg and neyvu-symbol-dark.svg from the owner's Neyvu checkout.
+- Verifaid: exact signed-document path from apps/web/src/ui/brand-mark.tsx in the owner's Verifaid checkout. Rendered with currentColor, as in that implementation.
+- Technology marks reuse the existing public/icons SVG assets. Generic document/person/queue glyphs are diagram symbols, not product logos.
+
+Validation: architecture edge endpoints and connectivity checked; build, TypeScript and lint pass. Browser review includes both themes, Spanish and phone layout, node selection, looping playback, global pause and reduced motion. Final hero comparison and release receipt are stored in output/qa.
+
+Production verification
+- Release 2d5bc2d promoted to https://jpsamanosuarez.com.
+- Deployment dpl_A1w4Ws7kUUZbUJPPWp5RetYMZ4rW (previous production: dpl_5HM7SPyeWfALyt7eLhGmc5fd6SKY).
+- All 30 checked routes and 68 linked resources passed, including original logos, technology SVGs, both resume PDFs and the looping MP4.
+- Staged video byte-range delivery returned the expected first 1024 bytes.
+- Live browser confirmed looping muted playback with readyState 4, node selection and highlighted connections, running background/packet animation, Spanish details and no horizontal overflow at 390px.
+- Local 320px, light/dark and reduced-motion checks passed. All four hero PNG comparisons still match the original exactly.
+- The checked production runtime-log window returned no errors. Browser console review returned no errors or warnings.
+- Receipt, hero comparisons and final live diagram screenshot are in output/qa.
+
+Final caption cleanup
+- Release 1a2d020 removes the decorative motion-toolbar caption, leaving only the right-aligned pause control.
+- Promoted deployment dpl_8myRGGQokhJa6DMw3JfNGJnJ2z4h to the custom domain; remote build output completed in 19 seconds.
+- Build, TypeScript, lint and diff checks passed. Five staged and five custom-domain route checks confirmed the caption is absent in both languages.
+- Final live browser confirmed muted looping playback (readyState 4), diagram selection and no browser errors/warnings. The bounded runtime error-log query returned no entries.
+- Saved the final live diagram preview and restored the normal viewport.

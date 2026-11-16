@@ -1,26 +1,31 @@
 import Image from "next/image";
+import { journalLabels, showJournal } from "@/data/journal";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Locale } from "@/data/i18n";
 import { pick, profile, statusLabel, summer, type Media, type Status, type Visual } from "@/data/content";
-import { Loop } from "@/components/Loop";
+import { VideoDemo } from "@/components/VideoDemo";
+import { SystemVisual } from "@/components/SystemVisual";
 import { ui } from "@/data/ui";
+import { MobileMenu } from "./MobileMenu";
+import { ThemeToggle } from "./ThemeToggle";
+import menuStyles from "./MobileMenu.module.css";
 
 /* ---------------------------------------------------------------------- */
 /* Header                                                                   */
 /* ---------------------------------------------------------------------- */
 
-export function Header({ locale, altHref, home = false }: { locale: Locale; altHref: string; home?: boolean }) {
+export function Header({ locale, altHref, home = false, languageHrefs }: { locale: Locale; altHref: string; home?: boolean; languageHrefs?: Partial<Record<Locale, string>> }) {
   const t = ui[locale];
   const base = `/${locale}`;
   const items = [
     { href: `${base}#work`, label: t.nav.work },
-    { href: `${base}#build`, label: t.nav.build },
-    { href: `${base}#summer`, label: t.nav.summer },
+    { href: `${base}#experience`, label: locale === "es" ? "Experiencia" : "Experience" },
     { href: `${base}#about`, label: t.nav.about },
+    ...(showJournal ? [{ href: `${base}/journal`, label: journalLabels[locale].name }] : []),
   ];
   return (
-    <header className="topbar">
+    <header className={`topbar ${menuStyles.header}`}>
       <div className="topbar-in">
         <Link className="wordmark" href={base} aria-current={home ? "page" : undefined}>
           {profile.shortName}
@@ -34,16 +39,22 @@ export function Header({ locale, altHref, home = false }: { locale: Locale; altH
         </nav>
         <div className="topbar-end">
           <nav className="lang" aria-label={locale === "es" ? "Idioma" : "Language"}>
-            <Link href={`/en${altHref}`} hrefLang="en" aria-current={locale === "en" ? "true" : undefined} lang="en">
+            <Link href={languageHrefs?.en ?? `/en${altHref}`} hrefLang="en" aria-current={locale === "en" ? "true" : undefined} lang="en">
               EN
             </Link>
-            <Link href={`/es${altHref}`} hrefLang="es" aria-current={locale === "es" ? "true" : undefined} lang="es">
+            <Link href={languageHrefs?.es ?? `/es${altHref}`} hrefLang="es" aria-current={locale === "es" ? "true" : undefined} lang="es">
               ES
             </Link>
           </nav>
+          <ThemeToggle label={locale === "es" ? "Cambiar entre tema claro y oscuro" : "Switch between light and dark theme"} />
           <a className="btn" href={pick(profile.resume, locale)} target="_blank" rel="noreferrer">
             {t.resume}
           </a>
+          <MobileMenu label={locale === "es" ? "Menú" : "Menu"} items={[
+            ...items,
+            { href: `${base}#contact`, label: locale === "es" ? "Contacto" : "Contact" },
+            { href: pick(profile.resume, locale), label: `${t.resume} (PDF)` },
+          ]} />
         </div>
       </div>
     </header>
@@ -54,6 +65,7 @@ export function Footer({ locale, wide = false }: { locale: Locale; wide?: boolea
   return (
     <footer className={`footer ${wide ? "frame" : "col"}`}>
       <p>© 2026 {profile.name}</p>
+      {showJournal ? <p><Link href={`/${locale}/journal`}>{journalLabels[locale].name}</Link></p> : null}
       <p className="muted">{ui[locale].footer}</p>
     </footer>
   );
@@ -116,59 +128,27 @@ export function StatusTag({ status, locale }: { status: Status; locale: Locale }
 export function ProjectMedia({ media, locale, priority = false }: { media: Media; locale: Locale; priority?: boolean }) {
   if (media.type === "image") {
     return (
-      <figure className="shot">
-        <Image
+      <figure className="shot media-frame media-interface">
+        <div className="media-canvas">
+        <a className="media-open" href={media.src} target="_blank" rel="noreferrer" aria-label={`${locale === "es" ? "Abrir imagen completa" : "Open full-size image"}: ${pick(media.alt, locale)}`}><Image
           src={media.src}
           alt={pick(media.alt, locale)}
           width={media.width}
           height={media.height}
           sizes="(max-width: 900px) 100vw, 1040px"
           quality={85}
-          priority={priority}
-        />
+          loading={priority ? "eager" : "lazy"}
+        /></a>
+        </div>
+        <figcaption><span>{locale === "es" ? "Captura del producto" : "Product capture"}</span><a href={media.src} target="_blank" rel="noreferrer">{locale === "es" ? "Abrir imagen completa" : "Open full-size image"}</a></figcaption>
       </figure>
     );
   }
   return <Diagram kind={media.diagram} locale={locale} />;
 }
 
-/* A flat, honest drawing of the pipeline: stages on a line, the final one filled. */
 export function Diagram({ kind, locale }: { kind: "verifaid" | "pipelines"; locale: Locale }) {
-  const t = ui[locale].diagram;
-  const stages = kind === "verifaid" ? t.verifaid : t.pipelines;
-  const note = kind === "verifaid" ? t.verifaidNote : t.pipelinesNote;
-  const w = 1040;
-  const h = 250;
-  const pad = 70;
-  const step = (w - pad * 2) / (stages.length - 1);
-  return (
-    <figure className="shot diagram">
-      <svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label={`${stages.join(" → ")}. ${note}`}>
-        <line x1={pad} x2={w - pad} y1={120} y2={120} className="d-line" />
-        {stages.map((s, i) => {
-          const x = pad + i * step;
-          const last = i === stages.length - 1;
-          return (
-            <g key={s}>
-              <circle cx={x} cy={120} r={last ? 11 : 7} className={last ? "d-node d-node-end" : "d-node"} />
-              <text x={x} y={i % 2 ? 168 : 86} textAnchor="middle" className="d-label">
-                {s}
-              </text>
-              <text x={x} y={i % 2 ? 186 : 66} textAnchor="middle" className="d-index">
-                {String(i + 1).padStart(2, "0")}
-              </text>
-            </g>
-          );
-        })}
-      </svg>
-      <ol className="d-list" aria-hidden="true">
-        {stages.map((s) => (
-          <li key={s}>{s}</li>
-        ))}
-      </ol>
-      <figcaption>{note}</figcaption>
-    </figure>
-  );
+  return <SystemVisual kind={kind} locale={locale} detailed />;
 }
 
 /* One bar per week of commits. Single series, so no legend; the title names it. */
@@ -202,16 +182,25 @@ export function SummerStrip({ locale }: { locale: Locale }) {
   );
 }
 
-/* A still or a loop, framed the same way. */
-export function VisualFrame({ visual, locale, sizes = "(max-width: 900px) 100vw, 760px", priority = false, className = "" }: { visual: Visual; locale: Locale; sizes?: string; priority?: boolean; className?: string }) {
+/* Product captures and authored explanations share a quiet frame. */
+export function VisualFrame({ visual, locale, sizes = "(max-width: 900px) 100vw, 760px", priority = false, className = "", detailed = false }: { visual: Visual; locale: Locale; sizes?: string; priority?: boolean; className?: string; detailed?: boolean }) {
+  if (visual.kind === "system") return <SystemVisual kind={visual.system} locale={locale} className={className} detailed={detailed} />;
+  const enlarge = locale === "es" ? "Abrir imagen completa" : "Open full-size image";
   return (
-    <figure className={`shot ${className}`}>
-      {visual.kind === "video" ? (
-        <Loop src={visual.src} poster={visual.poster} label={pick(visual.alt, locale)} className="shot-media" />
-      ) : (
-        <Image className="shot-media" src={visual.src} alt={pick(visual.alt, locale)} width={visual.width} height={visual.height} sizes={sizes} quality={85} priority={priority} />
-      )}
-      {visual.caption ? <figcaption>{pick(visual.caption, locale)}</figcaption> : null}
+    <figure className={`shot media-frame media-interface ${className}`}>
+      <div className="media-canvas">
+        {visual.kind === "video" ? (
+          <VideoDemo src={visual.src} poster={visual.poster} label={pick(visual.alt, locale)} width={visual.width} height={visual.height} />
+        ) : (
+          <a className={`media-open${visual.focus ? " media-focus-compliance" : ""}`} href={visual.src} target="_blank" rel="noreferrer" aria-label={`${enlarge}: ${pick(visual.alt, locale)}`}>
+            <Image className="shot-media" src={visual.src} alt={pick(visual.alt, locale)} width={visual.width} height={visual.height} sizes={sizes} quality={85} loading={priority ? "eager" : "lazy"} />
+          </a>
+        )}
+      </div>
+      <figcaption>
+        {visual.caption ? <span>{pick(visual.caption, locale)}</span> : null}
+        {visual.kind === "image" ? <a href={visual.src} target="_blank" rel="noreferrer">{enlarge}</a> : null}
+      </figcaption>
     </figure>
   );
 }

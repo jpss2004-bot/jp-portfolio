@@ -1,0 +1,6 @@
+output/
+docs/
+scripts/
+node_modules/
+.next/
+.git/

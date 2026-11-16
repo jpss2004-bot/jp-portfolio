@@ -1,0 +1,63 @@
+{
+  "slug": "leading-a-48-hour-nasa-build",
+  "status": "published",
+  "kind": "article",
+  "language": "en",
+  "title": "What I learned leading a 48-hour NASA build",
+  "summary": {
+    "en": "At NASA Space Apps Halifax I led a team of four that built Flaregrain, a tool that answers questions about NASA fire experiments with sentences you can check. The most useful thing it did was catch a mistake we had written ourselves.",
+    "es": "En NASA Space Apps Halifax lideré un equipo de cuatro que construyó Flaregrain, una herramienta que responde preguntas sobre experimentos de fuego de la NASA con oraciones que puedes comprobar. Lo más útil que hizo fue detectar un error que habíamos escrito nosotros."
+  },
+  "writtenAt": "2026-11-16",
+  "publishedAt": "2026-11-16",
+  "topics": ["Leadership", "AI", "NASA Space Apps"],
+  "blocks": [
+    { "type": "paragraph", "text": "On the weekend of November 14 and 15 I led a team of four at NASA Space Apps Halifax. We chose the Flame in Freefall challenge, which asks for a dashboard that uses AI to summarize and interpret NASA's microgravity combustion experiments for space fire safety. [1] We called the team Sparkline Foundry and the project Flaregrain. [2]" },
+    { "type": "paragraph", "text": "This is a note on what I would repeat and what I would change. It is about leading a short build more than about the code, although the two turned out to be the same subject." },
+
+    { "type": "heading", "id": "problem", "text": "The problem under the problem" },
+    { "type": "paragraph", "text": "Fire behaves differently without gravity. On Earth, hot gases rise and pull in fresh air, which is why a candle flame is a teardrop. In microgravity that draught is much weaker, and oxygen reaches the flame by diffusion or by whatever air a fan is moving. [3] NASA has years of controlled experiments on this, spread across 24 investigations, about 2,000 table rows and a set of report PDFs. The sources sometimes disagree with each other." },
+    { "type": "paragraph", "text": "A tool that summarizes that evidence has one way to fail badly: it can blur what NASA measured with what a model wrote. A fluent paragraph with a wrong number in it is worse than no paragraph, because someone will trust it. So the real problem was not building a dashboard. It was building something that could be wrong in public and show you exactly where." },
+
+    { "type": "heading", "id": "before", "text": "Most of the weekend happened the week before" },
+    { "type": "paragraph", "text": "I posted on LinkedIn looking for a Python data builder and a teammate with physics or engineering experience, and the team came together from there: Grish Acharya, Nora Forghani, Osman Khurram and me. None of us had built together before." },
+    { "type": "paragraph", "text": "In the week before the event I wrote research briefs, drew architecture maps and built a rehearsal dashboard on sample data. Almost none of that work shipped. The architecture I drew on November 9 was more elaborate than what we submitted. What it bought us was a Saturday morning where four people were choosing between concrete options instead of staring at a blank page." },
+    { "type": "paragraph", "text": "If I had to keep one habit from the whole project, it would be this one. Preparation is not about being right in advance. It is about making the first real decision cheap." },
+
+    { "type": "heading", "id": "handoffs", "text": "Handoffs through records, not conversation" },
+    { "type": "paragraph", "text": "Each of us worked from our own computer with our own AI coding assistant, some with Claude Code and some with Codex. That arrangement fails quietly if the only shared memory is a chat thread, because two agents will happily produce two clean changes that do not fit together." },
+    { "type": "list", "items": [
+      "Every handoff was an issue, a branch and review evidence. Anyone could pick it up on a different computer with a fresh agent session.",
+      "Ownership was explicit. One person owned structure and logic; another owned the look. Markup carried shared class names so the two never edited the same thing.",
+      "A human approved every merge. The assistants wrote most of the code, ran audits and ran browser checks, and commits written that way say so in a co-author line."
+    ] },
+    { "type": "paragraph", "text": "None of this is sophisticated. It is the same discipline I use at work on CheckWise, compressed into two days. The lesson for me was that process does not slow a short build down. With four people and several agents, it is the only thing that lets the pieces meet." },
+
+    { "type": "heading", "id": "checker", "text": "Let the model write, and let rules decide what stays" },
+    { "type": "paragraph", "text": "The answering model is qwen3:4b, a small open model running on a team member's own computer, not a paid service. A small model will get things wrong, so we never asked it to be trusted. It may only use numbered facts from the sources it was handed, and every sentence it writes must cite one. Then a rule-based checker reads each sentence and removes any with a wrong number, a wrong record or no citation. The page tells you how many it removed." },
+    { "type": "paragraph", "text": "Across 139 saved explanations, the checker kept 492 sentences and removed 270. That ratio surprised me the first time I saw it. More than a third of what the model wrote was not good enough to show, and the product was still useful, because what remained could be checked against a NASA page in one click. [4]" },
+    { "type": "quote", "text": "A cited sentence you can verify is worth more than a confident paragraph you cannot." },
+    { "type": "paragraph", "text": "The checker has limits and the site says so. A stress test of 343,758 synthetic sentences found no misses for wrong numbers or wrong records, but it has a known gap for invented details that are not numbers. Only 13 records on the public site were checked by hand against the original report pages. Mars values are assumptions and are labelled as assumptions." },
+
+    { "type": "heading", "id": "mistake", "text": "It caught our own mistake" },
+    { "type": "paragraph", "text": "One of our demonstration questions was: how long did the flame take to go out after airflow was cut? We had written the answer by hand, and our answer said the sources give no elapsed time." },
+    { "type": "paragraph", "text": "On Sunday we sent the same question through the model instead. It came back citing a page of NASA's BASS-II report that we had missed, describing a test where the flow was cut off abruptly and the flame went out within 2 seconds. [5] The checker passed the sentence. We opened the page, read it, and corrected the site that afternoon." },
+    { "type": "paragraph", "text": "I think about that moment more than anything else from the weekend. We built the system to stop a model from misleading people, and the first serious error it exposed was a human one. The design did not care who wrote the claim. It only cared whether the claim pointed at a source." },
+
+    { "type": "heading", "id": "change", "text": "What I would change" },
+    { "type": "list", "items": [
+      "Freeze the interface earlier. We reworked navigation on Sunday morning, which cost time we needed for the pitch.",
+      "Run the user test on Saturday night, not Sunday morning. The findings were good and arrived late.",
+      "Decide the demo question first and build backwards from it. The airflow question ended up carrying the whole story, and we found it by accident."
+    ] },
+    { "type": "paragraph", "text": "We did not win an award. We did submit a live site, a public repository, a 29-second demo and a pitch inside the weekend, and I came away with a clearer idea of how I want to lead: prepare enough that the first decision is cheap, write things down so anyone can continue, and build systems that are honest about where they can be wrong." },
+    { "type": "resource", "title": "Flaregrain case study", "href": "https://jpsamanosuarez.com/en/projects/flaregrain", "description": "The full case study, with the demo, the system map and the figures we measured." }
+  ],
+  "references": [
+    { "id": "1", "label": "NASA Space Apps Challenge 2026, Flame in Freefall", "url": "https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/" },
+    { "id": "2", "label": "Flaregrain, live submission site", "url": "https://flaregrain-submission.vercel.app" },
+    { "id": "3", "label": "NASA, Why NASA is studying flames in space", "url": "https://science.nasa.gov/biological-physical/resources/explainers-infographics/why-nasa-is-studying-flames-in-space/" },
+    { "id": "4", "label": "Flaregrain technical write-up (ENGINEERING.md)", "url": "https://github.com/jpss2004-bot/flaregrain-submission/blob/main/flaregrain/ENGINEERING.md" },
+    { "id": "5", "label": "NASA, BASS-II summary report, NASA/TM-20210011385", "url": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf" }
+  ]
+}

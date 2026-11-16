@@ -1,48 +1,52 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><title>José Pablo Sámano Suárez · Résumé</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;800&display=block"><link rel="stylesheet" href="resume.css"></head><body>
-<h1>JOSE PABLO SAMANO SUAREZ</h1>
-<div class="sub">Computer Science Student · Software Engineering · Cybersecurity · Full-Stack Product Systems</div>
-<div class="contact"><span>Wolfville, NS / Mexico City</span><span>jpss2004@icloud.com</span><span>linkedin.com/in/jose-pablo-samano-suarez</span><span>github.com/jpss2004-bot</span><span>jpsamanosuarez.com</span></div>
-<div class="auth">Canadian study permit, co-op eligible · Mexican citizen · Available: flexible</div>
+<link rel="stylesheet" href="resume.css"></head><body>
+<header>
+<h1>José Pablo Sámano Suárez</h1>
+<div class="contact"><span>Wolfville, NS / Mexico City</span><span><a href="mailto:jpss2004@icloud.com">jpss2004@icloud.com</a></span><span><a href="https://jpsamanosuarez.com">jpsamanosuarez.com</a></span></div>
+<div class="contact"><span><a href="https://www.linkedin.com/in/jose-pablo-samano-suarez/">linkedin.com/in/jose-pablo-samano-suarez</a></span><span><a href="https://github.com/jpss2004-bot">github.com/jpss2004-bot</a></span></div>
+<div class="auth">Canadian study permit · Co-op eligible · Mexican citizen</div>
+</header>
 
-<h2>Profile</h2>
-<p>Computer Science student at Acadia University and sole developer of three systems in real use: <b>CheckWise</b>, a REPSE compliance platform reviewing ~50 documents a day for 7 client companies; <b>Verifaid</b>, which rules on whether a signature can legally proceed, 50+ operations cleared; and <b>SAVR</b>, a live recommendation platform.</p>
+<section><h2>Education &amp; training</h2>
+<div class="item"><div class="row"><b>B.Sc. Computer Science - Acadia University</b><span>Expected May 2027</span></div>
+<p>Relevant study: software engineering, databases, computer architecture and cybersecurity.</p></div>
+<div class="item"><div class="row"><b>Trinity College School</b><span>Port Hope, ON · 2023</span></div>
+<p>High School Diploma. Football captain for two years; back-to-back Lineman of the Year awards; Leadership Award in final year.</p></div>
+<div class="item"><div class="row"><b>Cybolt Academy - Cybersecurity Training</b><span>May-Sep 2025</span></div>
+<p>Practical training in MITRE ATT&amp;CK, ICS/OT security and incident response.</p></div>
+</section>
 
-<h2>Main projects</h2>
-<div class="item"><div class="row"><b>CheckWise — REPSE Compliance Platform</b><span>LegalShelf · 2026–Present</span></div>
-<div class="meta">7 clients, 15+ vendors, ~20,000 documents | Python, FastAPI, TypeScript, React 19, Next.js 15, PostgreSQL, SQLAlchemy, Alembic, pytest</div>
-<ul><li>Built the FastAPI backend and Next.js 15 / React 19 frontend covering evidence intake, reviewer adjudication, and portfolio-wide risk views, with JWT auth and role-based access.</li>
-<li>Modeled REPSE obligations as institution × cycle (SAT, IMSS, INFONAVIT, STPS) so the operating calendar and expediente gates derive from the data model.</li>
-<li>Shipped an AI-assisted reports centre guarded by an AI-safety suite inside 320+ backend tests. Reviewers now clear ~50 documents a day at about a minute each.</li></ul></div>
-<div class="item"><div class="row"><b>Verifaid — Signing-Authority Verification</b><span>LegalShelf · 2026–Present</span></div>
-<div class="meta">SaaS, 50+ operations for a paying client | Python, FastAPI, SQL, LLM-assisted extraction, registry lookups</div>
-<ul><li>Automates a manual legal check for fintech and deal workflows: extracts data from corporate documents and powers of attorney, cross-checks it against public registries, and flags discrepancies under Mexican law.</li>
-<li>Returns a decision, not a report: whether signing can proceed, why it cannot, and who holds the authority to sign.</li></ul></div>
-<div class="item"><div class="row"><b>SAVR — Context-Aware Dining Platform</b><span>Founder · 2025–Present</span></div>
-<div class="meta">10 active users | Python, FastAPI, TypeScript, React, SQL, Vercel | context-aware-dining-platform-1.vercel.app</div>
-<ul><li>Ranks venues on preferences, budget, social context, and intent, and states why each result fits, through Describe Your Night, Build Your Night, and Surprise Me flows.</li>
-<li>Maintains an AI-updated database of ~50 restaurants within 30 miles of Wolfville, NS, serving 10 active users.</li></ul></div>
+<section><h2>Experience</h2>
+<div class="item"><div class="row"><b>Research Assistant - Acadia University</b><span>Sep 2026-Present</span></div>
+<div class="meta">Acadia AIoT Research Hub (AARH) · Wolfville, NS</div>
+<ul><li>Lead frontend development, UX and visual design for the AIoT Research Hub’s research interfaces.</li></ul></div>
+<div class="item"><div class="row"><b>Software Developer - LegalShelf</b><span>2026-Present</span></div>
+<div class="meta">Mexico City / Remote</div>
+<ul><li>Lead development of CheckWise and Verifaid. Redesigned the LegalShelf website; now enhancing the platform with AI modules.</li></ul></div>
+</section>
 
-<h2>Experience</h2>
-<div class="item"><div class="row"><b>Software Developer, LegalShelf</b><span>Mexico City / Remote · 2026–Present</span></div>
-<p>Sole developer of both production systems — data model, API, AI features, access control, interface — working directly with the compliance side of the business.</p></div>
-<div class="item"><div class="row"><b>Cybolt Academy Participant, Cybolt</b><span>Mexico City · May–Sep 2025</span></div>
-<ul><li>Hands-on workshops on MITRE ATT&amp;CK, ICS/OT security, cyber kill chain, and incident response; applies the same threat-modeling approach to the document pipelines and access control at LegalShelf.</li></ul></div>
-<div class="item"><div class="row"><b>Data Processor, LegalShelf</b><span>Mexico City · May–Aug 2023</span></div>
-<p>Digitized and organized legal documents with structured metadata — the manual work the current systems automate.</p></div>
+<section><h2>Selected projects</h2>
+<div class="item"><div class="row"><b><a href="https://jpsamanosuarez.com/en/projects/checkwise">CheckWise - REPSE Compliance Platform</a></b><span>LegalShelf · 2026-Present</span></div>
+<div class="meta">Python · FastAPI · PostgreSQL · TypeScript · Next.js 16 · React 19</div>
+<ul><li>Built a compliance platform used by <b>7 companies and 15+ vendors</b>, processing approximately <b>20,000 documents</b> for SAT, IMSS, INFONAVIT and STPS obligations (September 2026 snapshot).</li>
+<li>Delivered three role-based portals, document analysis, live SAT checks and configurable rules, with authorized human review for critical decisions; reporting and a <b>33-lesson academy</b>.</li>
+<li>Implemented evidence-based review gates; <b>9,941 backend and 4,773 frontend tests</b> passed in September 2026. Added contract workflows and calendars in the October 19 release.</li></ul></div>
+<div class="item"><div class="row"><b><a href="https://jpsamanosuarez.com/en/projects/flaregrain">Flaregrain - NASA Space Apps Challenge</a></b><span>Team lead · Halifax · Nov 2026</span></div>
+<ul><li>Led a <b>team of four</b> to build, in <b>48 hours</b>, a tool that answers questions about NASA microgravity fire experiments across <b>24 investigations</b>; every sentence links to its NASA source page and a rule-based checker removes unsupported ones (Python, Node.js, local open model).</li></ul></div>
+<div class="item"><div class="row"><b><a href="https://schoolvault-beta-web.onrender.com/beta/join?lang=en">Neyvu - Course-Aware AI Assistant</a></b><span>Creator · Sep 2026-Present</span></div>
+<div class="meta">Next.js · TypeScript · PostgreSQL · Python · Local AI · Desktop Companion</div>
+<ul><li>Built a working pilot connecting Moodle materials, course notes and planning to source-linked AI answers; onboarding pilot users.</li>
+<li>Designed tenant-isolated PostgreSQL storage, versioned evidence and leased jobs connecting the web app to local AI.</li></ul></div>
+<div class="item"><div class="row"><b><a href="https://jpsamanosuarez.com/en/projects/verifaid">Verifaid - Signing-Authority Verification</a></b><span>LegalShelf · 2026-Present</span></div>
+<div class="meta">Python · FastAPI · SQL · LLM extraction · Public-registry verification</div>
+<ul><li>Built corporate-document extraction and public-registry checks that identify signing authority and limits, citing source pages; delivered <b>50+ operations for a paying client</b> with second-person approval (September snapshot).</li></ul></div>
+</section>
 
-<h2>Education</h2>
-<div class="item"><div class="row"><b>Bachelor of Science, Computer Science, Acadia University</b><span>Wolfville, NS · Expected May 2027</span></div>
-<p>Coursework in software engineering, databases, systems analysis, cybersecurity, and secure application design. Trinity College School, Port Hope, ON, 2023.</p></div>
-
-<h2>Skills &amp; languages</h2>
+<section><h2>Skills &amp; languages</h2>
 <div class="skills">
-<div><b>Software</b>Python, Java, JavaScript/TypeScript, C, C#, SQL, React, Next.js, FastAPI, Flask, REST APIs, Git</div>
-<div><b>Data &amp; delivery</b>PostgreSQL, SQLite, SQLAlchemy, Alembic, data modeling, metadata extraction, testing, Vercel, Render</div>
-<div><b>Security</b>JWT auth, role-based access control, threat modeling of document pipelines, incident response, MITRE ATT&amp;CK, ICS/OT security</div>
-<div><b>Training</b>CompTIA Security+ and CySA+ coursework, COMP 601 Cybersecurity Fundamentals</div>
-<div><b>Languages</b>Spanish native, English C2, French A2</div></div>
-
-<h2>Additional projects</h2>
-<p><b>ER Triage &amp; Queue Manager</b> (2025) Emergency-room queue workflow with ESI v4 acuity scoring and dashboard visibility; Python, NiceGUI, SQLite. <b>Family Phrase Game</b> (2026) Deployed Flask party game.</p>
+<div><b>Development</b>Python, Java, TypeScript/JavaScript, C, C#, SQL, React, Next.js, FastAPI, Flask, REST APIs</div>
+<div><b>Data &amp; delivery</b>PostgreSQL, SQLite, SQLAlchemy, Alembic, Git, pytest, Playwright, Vercel, Render</div>
+<div><b>Security</b>JWT authentication, role-based access control, threat modeling, document validation</div>
+<div><b>Languages</b>Spanish native · English C2 · French A2</div></div>
+</section>
 </body></html>

@@ -1,0 +1,53 @@
+/* The Flaregrain flame: a pinned scroll sequence and a quiet stage backdrop. */
+.track { position: relative; height: 230vh; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.pin { position: sticky; top: 4.75rem; height: calc(100vh - 6rem); min-height: 28rem; }
+.scene { --ink-on: oklch(0.96 0.01 60); --mute-on: oklch(0.74 0.02 60); position: relative; height: 100%; border-radius: 16px; overflow: hidden; isolation: isolate; color: var(--ink-on);
+  background:
+    radial-gradient(120% 90% at 50% 100%, color-mix(in oklch, oklch(0.32 0.09 45) calc((1 - var(--space)) * 100%), oklch(0.2 0.06 262)) 0%, transparent 60%),
+    oklch(0.13 0.012 262); }
+.canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.backdrop { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.85; pointer-events: none; }
+
+.copy { position: absolute; left: clamp(1.25rem, 4vw, 3.5rem); top: clamp(1.25rem, 4vw, 3.5rem); width: min(26rem, 44%); display: grid; gap: 1.25rem; }
+.kicker { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.75rem; color: var(--mute-on); }
+.states { display: grid; }
+.state { grid-area: 1 / 1; opacity: 0; transform: translateY(0.75rem); transition: opacity 500ms var(--ease), transform 700ms var(--ease); }
+.state[data-on] { opacity: 1; transform: none; }
+.state h4 { margin: 0 0 0.75rem; font-size: clamp(2.2rem, 5vw, 4.25rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.98; }
+.state p { font-size: 1rem; line-height: 1.6; color: var(--mute-on); max-width: 34ch; }
+.switch { display: inline-flex; justify-self: start; padding: 0.2rem; border-radius: 999px; border: 1px solid oklch(1 0 0 / 0.18); }
+.switch button { min-height: 2.75rem; padding: 0 1rem; border: 0; border-radius: 999px; background: transparent; color: var(--mute-on); font: inherit; font-size: 0.8125rem; cursor: pointer; transition: background-color 200ms var(--ease), color 200ms var(--ease); }
+.switch button[aria-pressed="true"] { background: var(--ink-on); color: oklch(0.16 0.012 262); }
+
+.readout { position: absolute; right: clamp(1.25rem, 4vw, 3.5rem); top: clamp(1.25rem, 4vw, 3.5rem); width: min(15rem, 40%); margin: 0; display: grid; }
+.readout > div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid oklch(1 0 0 / 0.14); font-size: 0.8125rem; }
+.readout > div:first-child { border-top: 1px solid oklch(1 0 0 / 0.14); }
+.readout dt { color: var(--mute-on); }
+.readout dd { margin: 0; font-family: var(--font-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; text-align: right; }
+
+.meter { position: absolute; left: clamp(1.25rem, 4vw, 3.5rem); right: clamp(1.25rem, 4vw, 3.5rem); bottom: 3.6rem; height: 1px; background: oklch(1 0 0 / 0.18); }
+.meter i { display: block; height: 100%; transform-origin: left; background: color-mix(in oklch, oklch(0.78 0.14 50) calc((1 - var(--space)) * 100%), oklch(0.75 0.13 255)); box-shadow: 0 0 12px currentColor; }
+.note { position: absolute; left: clamp(1.25rem, 4vw, 3.5rem); bottom: 1.25rem; max-width: 60%; font-size: 0.75rem; color: var(--mute-on); }
+.note a { color: var(--ink-on); text-underline-offset: 0.2em; }
+.hint { position: absolute; right: clamp(1.25rem, 4vw, 3.5rem); bottom: 1.25rem; font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.75rem; color: var(--mute-on); opacity: calc(1 - var(--space) * 3); }
+
+@media (max-width: 760px) {
+  .track { height: 200vh; }
+  .pin { top: 4.25rem; height: calc(100vh - 5rem); }
+  .copy { width: auto; right: 1.25rem; }
+  .state h4 { font-size: 2.2rem; }
+  .state p { font-size: 0.9063rem; }
+  .readout { top: auto; bottom: 5rem; left: 1.25rem; right: 1.25rem; width: auto; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; }
+  .readout > div:nth-child(2) { border-top: 1px solid oklch(1 0 0 / 0.14); }
+  .readout > div { flex-direction: column; gap: 0.1rem; }
+  .readout dd { text-align: left; }
+  .note { max-width: none; right: 1.25rem; }
+  .hint { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track { height: auto; }
+  .pin { position: relative; top: 0; height: 34rem; }
+  .hint { display: none; }
+  .state { transition: none; }
+}
