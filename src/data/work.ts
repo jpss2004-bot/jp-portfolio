@@ -16,6 +16,12 @@ export const workStories: Record<string, WorkStory> = {
       { name: { en: "Trace", es: "Trazabilidad" }, technology: "Audit trail", detail: { en: "The result remains attached to the evidence, period, decision and responsible person, rather than becoming another isolated spreadsheet.", es: "El resultado conserva su evidencia, periodo, decisión y responsable, en lugar de convertirse en otra hoja aislada." } },
     ],
   },
+  flaregrain: {
+    headline: { en: "A NASA answer you can check, built in 48 hours.", es: "Una respuesta de la NASA que puedes comprobar, hecha en 48 horas." },
+    ownership: { en: "Led a team of four: product direction, web interface, AI integration and the pitch.", es: "Lideré un equipo de cuatro: dirección de producto, interfaz web, integración de IA y la presentación." },
+    decision: { en: "Let the model write, and let a rule-based checker remove any sentence its NASA source does not support.", es: "El modelo escribe y un verificador basado en reglas elimina cualquier oración que su fuente de la NASA no respalde." },
+    steps: [],
+  },
   neyvu: {
     headline: { en: "Your courses. Their sources. One place to think.", es: "Tus cursos. Sus fuentes. Un espacio para pensar." },
     ownership: { en: "Product direction, full-stack app, desktop collection, local AI and release checks.", es: "Dirección de producto, app full-stack, recopilación de escritorio, IA local y verificaciones." },

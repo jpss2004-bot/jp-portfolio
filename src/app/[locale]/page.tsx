@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { shareImage } from "@/lib/share";
 import { Archivo } from "next/font/google";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
-import { explorations, method, pick, profile, shipped, summer } from "@/data/content";
+import { pick, profile } from "@/data/content";
 import { ui } from "@/data/ui";
-import { Footer, Header, NameReveal, SummerStrip } from "@/components/parts";
+import { Footer, Header, NameReveal } from "@/components/parts";
 
 import { StructuredData } from "@/components/StructuredData";
 import { homeStructuredData } from "@/lib/structured-data";
@@ -62,7 +63,7 @@ export default async function Home({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = ui[locale];
-  const p = (path: string) => `/${locale}${path}`;
+  const es = locale === "es";
 
   return (
     <>
@@ -88,102 +89,51 @@ export default async function Home({ params }: Props) {
 
         <SelectedWork locale={locale} />
 
-        <section id="experience" className="section" aria-labelledby="experience-h">
-          <div className="frame">
-            <h2 id="experience-h" className="h2">{locale === "es" ? "Experiencia actual" : "Current experience"}</h2>
-            <div className="experience">
-              <article>
-                <p className="meta">{locale === "es" ? "sep 2026 – presente" : "Sep 2026 – present"}</p>
-                <h3 className="h4">{locale === "es" ? "Asistente de investigación" : "Research Assistant"}</h3>
-                <p><a className="link" href="https://aarh.acadiau.ca/" target="_blank" rel="noreferrer">Acadia AIoT Research Hub</a></p>
-                <p className="muted">{locale === "es" ? "Lidero frontend, UX y diseño visual para el hub: diseño y desarrollo las interfaces que presentan su trabajo y sus sistemas." : "I lead frontend, UX and visual design for the hub, designing and developing the interfaces that present its work and systems."}</p>
-              </article>
-              <article>
-                <p className="meta">{locale === "es" ? "may 2026 – presente" : "May 2026 – present"}</p>
-                <h3 className="h4">{locale === "es" ? "Desarrollador de software" : "Software Developer"}</h3>
-                <p>LegalShelf</p>
-                <p className="muted">{locale === "es" ? "Dirijo CheckWise y Verifaid, construí pipelines documentales y rediseñé el sitio de LegalShelf. Ahora trabajo en mejoras de la plataforma y nuevos módulos de IA." : "I lead CheckWise and Verifaid, built document pipelines and redesigned the LegalShelf site. I am now working on platform enhancements and new AI modules."}</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        {/* How I build ----------------------------------------------------- */}
-        <section id="build" className="section" aria-labelledby="build-h">
-          <div className="frame build-content">
-            <div>
-              <h2 id="build-h" className="h2">{t.build.heading}</h2>
-              <p className="lead">{t.build.lede}</p>
-              <ul className="steps">
-                {method.map((step) => (
-                  <li key={step.title.en}>
-                    <div>
-                      <h3 className="h4">{pick(step.title, locale)}</h3>
-                      <p className="muted">{pick(step.body, locale)}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <p className="note">{t.build.figures}</p>
-            </div>
-
-          </div>
-        </section>
-
-        {/* Summer 2026 ----------------------------------------------------- */}
-        <section id="summer" className="section" aria-labelledby="summer-h">
-          <div className="frame summer">
-            <div className="summer-head">
-              <h2 id="summer-h" className="h2">{t.summer.heading}</h2>
-              <p className="muted">{t.summer.lede}</p>
-            </div>
-            <SummerStrip locale={locale} />
-            <div className="summer-foot">
-              <p className="summer-facts">
-                {summer.facts.map((f) => (
-                  <span key={f.value}><b>{f.value}</b> {pick(f.label, locale)}</span>
-                ))}
-              </p>
-              <a className="btn btn-strong" href={`${summer.href}?lang=${locale}`}>{t.summer.report} →</a>
-            </div>
-          </div>
-        </section>
-
-        {/* Additional work stays compact; its details live in the cases. */}
-        <section className="section" aria-labelledby="shipped-h">
-          <div className="frame">
-            <h2 id="shipped-h" className="h2">{t.shipped.heading}</h2>
-            <ul className="shipped">
-              {shipped.map((s) => {
-                const href = s.slug ? p(`/projects/${s.slug}`) : s.href;
-                const external = !s.slug && !!s.href;
-                return (
-                  <li key={s.name}>
-                    <div className="shipped-main">
-                      <h3 className="shipped-name">
-                        {href ? <a href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>{s.name}</a> : s.name}
-                      </h3>
-                      <p className="shipped-line muted">{pick(s.line, locale)}</p>
-                    </div>
-                    <span className="shipped-meta">{s.year} · {pick(s.kind, locale)}</span>
-                  </li>
-                );
-              })}
-            </ul>
-            <p id="explorations" className="muted small">{pick(explorations, locale)}</p>
+        <section id="experience" className="section band" aria-labelledby="experience-h">
+          <div className="frame grid12">
+            <header className="band-head">
+              <p className="band-num mono">02</p>
+              <h2 id="experience-h" className="display-h">{es ? "Experiencia." : "Experience."}</h2>
+              <p className="muted">{es ? "Dos roles en paralelo con la carrera: producto en producción y diseño para investigación." : "Two roles alongside my degree: production software and design for research."}</p>
+            </header>
+            <ol className="timeline">
+              {[
+                { period: es ? "sep 2026 – presente" : "Sep 2026 – present", role: es ? "Asistente de investigación" : "Research Assistant", org: <a className="link" href="https://aarh.acadiau.ca/" target="_blank" rel="noreferrer">Acadia AIoT Research Hub</a>, place: "Wolfville, NS", body: es ? "Lidero frontend, UX y diseño visual para el hub: diseño y desarrollo las interfaces que presentan su trabajo y sus sistemas." : "I lead frontend, UX and visual design for the hub, designing and developing the interfaces that present its work and systems.", tags: ["Frontend", "UX", es ? "Diseño visual" : "Visual design"] },
+                { period: es ? "may 2026 – presente" : "May 2026 – present", role: es ? "Desarrollador de software" : "Software Developer", org: <>LegalShelf</>, place: "", body: es ? "Dirijo CheckWise y Verifaid, construí pipelines documentales y rediseñé el sitio de LegalShelf. Ahora trabajo en mejoras de la plataforma y nuevos módulos de IA." : "I lead CheckWise and Verifaid, built document pipelines and redesigned the LegalShelf site. I now work on platform enhancements and new AI modules.", tags: ["Python · FastAPI", "Next.js", "PostgreSQL", es ? "IA documental" : "Document AI"] },
+                { period: es ? "nov 2026" : "Nov 2026", role: es ? "Líder de equipo, NASA Space Apps" : "Team lead, NASA Space Apps", org: <Link className="link" href={`/${locale}/projects/flaregrain`}>Flaregrain · Sparkline Foundry</Link>, place: "Halifax, NS", body: es ? "Formé y lideré un equipo de cuatro para construir en 48 horas una herramienta que responde preguntas sobre experimentos de fuego de la NASA con citas verificables." : "I formed and led a team of four to build, in 48 hours, a tool that answers questions about NASA fire experiments with checkable citations.", tags: [es ? "Liderazgo" : "Leadership", es ? "Recuperación e IA" : "Retrieval and AI", es ? "Presentación" : "Pitch"] },
+              ].map((item) => (
+                <li key={item.role}>
+                  <p className="timeline-when mono">{item.period}{item.place ? <span>{item.place}</span> : null}</p>
+                  <div className="timeline-what">
+                    <h3>{item.role}</h3>
+                    <p className="timeline-org">{item.org}</p>
+                  </div>
+                  <div className="timeline-how">
+                    <p>{item.body}</p>
+                    <ul>{item.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 
         {/* About ----------------------------------------------------------- */}
-        <section id="about" className="section" aria-labelledby="about-h">
-          <div className="split about-split">
-            <div>
-              <h2 id="about-h" className="h2">{t.about.heading}</h2>
-              {t.about.body.map((para) => (
-                <p key={para.slice(0, 20)} className="prose">{para}</p>
+        <section id="about" className="section band" aria-labelledby="about-h">
+          <div className="frame grid12">
+            <header className="band-head">
+              <p className="band-num mono">03</p>
+              <h2 id="about-h" className="display-h">{es ? "Sobre mí." : "About."}</h2>
+            </header>
+            <div className="about-lede">
+              <p>{t.about.body[0]}</p>
+            </div>
+            <div className="about-body">
+              {t.about.body.slice(1).map((para) => (
+                <p key={para.slice(0, 20)}>{para}</p>
               ))}
             </div>
-            <dl className="about-facts">
+            <dl className="about-facts about-sheet">
               {t.about.facts.map((f) => (
                 <div key={f.label}>
                   <dt>{f.label}</dt>
@@ -197,16 +147,22 @@ export default async function Home({ params }: Props) {
         <JournalTeaser locale={locale} />
 
         {/* Contact --------------------------------------------------------- */}
-        <section id="contact" className="section" aria-labelledby="contact-h">
-          <div className="frame contact">
-            <h2 id="contact-h" className="h2">{t.contact.heading}</h2>
-            <p className="prose">{t.contact.body}</p>
-            <p className="contact-mail"><a href={`mailto:${profile.email}`}>{profile.email}</a></p>
-            <p className="hero-links">
-              <a className="link" href={pick(profile.resume, locale)} target="_blank" rel="noreferrer">{t.links.resume}</a>
-              <a className="link" href={profile.linkedin} target="_blank" rel="noreferrer">{t.links.linkedin}</a>
-              <a className="link" href={profile.github} target="_blank" rel="noreferrer">{t.links.github}</a>
-            </p>
+        <section id="contact" className="section band contact-band" aria-labelledby="contact-h">
+          <div className="frame grid12">
+            <header className="band-head">
+              <p className="band-num mono">04</p>
+              <h2 id="contact-h" className="display-h">{es ? "Contacto." : "Contact."}</h2>
+            </header>
+            <div className="contact-main">
+              <p className="contact-mail"><a href={`mailto:${profile.email}`}>{profile.email}</a></p>
+              <p className="contact-note">{t.contact.body}</p>
+            </div>
+            <ul className="contact-list">
+              <li><a href={pick(profile.resume, locale)} target="_blank" rel="noreferrer"><span>{t.links.resume}</span><i aria-hidden="true">↗</i></a></li>
+              <li><a href={profile.linkedin} target="_blank" rel="noreferrer"><span>{t.links.linkedin}</span><i aria-hidden="true">↗</i></a></li>
+              <li><a href={profile.github} target="_blank" rel="noreferrer"><span>{t.links.github}</span><i aria-hidden="true">↗</i></a></li>
+            </ul>
+            <p className="contact-avail">{t.availability}</p>
           </div>
         </section>
       </main>

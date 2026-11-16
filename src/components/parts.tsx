@@ -19,8 +19,7 @@ export function Header({ locale, altHref, home = false, languageHrefs }: { local
   const base = `/${locale}`;
   const items = [
     { href: `${base}#work`, label: t.nav.work },
-    { href: `${base}#build`, label: t.nav.build },
-    { href: `${base}#summer`, label: t.nav.summer },
+    { href: `${base}#experience`, label: locale === "es" ? "Experiencia" : "Experience" },
     { href: `${base}#about`, label: t.nav.about },
     ...(showJournal ? [{ href: `${base}/journal`, label: journalLabels[locale].name }] : []),
   ];
@@ -50,9 +49,7 @@ export function Header({ locale, altHref, home = false, languageHrefs }: { local
             {t.resume}
           </a>
           <MobileMenu label={locale === "es" ? "Menú" : "Menu"} items={[
-            items[0],
-            { href: `${base}#experience`, label: locale === "es" ? "Experiencia" : "Experience" },
-            ...items.slice(1),
+            ...items,
             { href: `${base}#contact`, label: locale === "es" ? "Contacto" : "Contact" },
             { href: pick(profile.resume, locale), label: `${t.resume} (PDF)` },
           ]} />

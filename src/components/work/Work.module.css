@@ -13,6 +13,7 @@
 .project { --project-accent: #08756e; --plate-bg: #dceae5; --plate-ink: #173e36; padding-top: 70px; scroll-margin-top: 145px; }
 .neyvu { --project-accent: #657cdb; --plate-bg: #dfe6fa; --plate-ink: #263778; }
 .verifaid { --project-accent: #b28c56; --plate-bg: #ece5d7; --plate-ink: #524327; }
+.flaregrain { --project-accent: #c2572b; --plate-bg: #f3e1d6; --plate-ink: #5a2a14; --stage-one: #f0966b; --stage-two: #b4532a; --stage-three: #f6c7a8; }
 .projectHead { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
 .projectHead h3 { font-weight: 500; font-size: clamp(40px, 5vw, 72px); line-height: 1; letter-spacing: -.045em; margin: 0; }
 .projectHead h3 a { text-decoration: none; }
@@ -74,6 +75,7 @@
   .project { --project-accent: #70c7b0; --plate-bg: #13312d; --plate-ink: #a8d4c9; }
   .neyvu { --project-accent: #a3b6fb; --plate-bg: #1c2847; --plate-ink: #c0cefa; }
   .verifaid { --project-accent: #d3b57c; --plate-bg: #332c22; --plate-ink: #dfd1b3; }
+  .flaregrain { --project-accent: #f0966b; --plate-bg: #33211a; --plate-ink: #f0cdb9; }
 }
 @media (max-width: 900px) {
   .introduction { grid-template-columns: 1fr 280px; gap: 24px; }
@@ -129,6 +131,7 @@
 .project, .caseMotion { --stage-one: #09c1b0; --stage-two: #02558a; --stage-three: #61d9dd; --project-accent: #087d79; --plate-bg: #cae9e5; --plate-ink: #013557; }
 .neyvu { --stage-one: #2457cc; --stage-two: #42a4ed; --stage-three: #20b6c2; --project-accent: #426bd8; --plate-bg: #d6e2fa; --plate-ink: #263778; }
 .verifaid { --stage-one: #7862cf; --stage-two: #3b85bd; --stage-three: #b29b72; --project-accent: #7958ba; --plate-bg: #e4ddee; --plate-ink: #463763; }
+.flaregrain { --stage-one: #f0966b; --stage-two: #b4532a; --stage-three: #f6c7a8; --project-accent: #b9532a; --plate-bg: #f3e1d6; --plate-ink: #5a2a14; }
 .motionRoot { position: relative; }
 .projectHead h3 a { display: flex; align-items: center; gap: 22px; }
 .projectMark { display: inline-block; width: 68px; height: 64px; flex: 0 0 auto; object-fit: contain; }
@@ -214,6 +217,7 @@ span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-posi
   .project, .caseMotion { --plate-bg: #0e343f; --plate-ink: #b8f6ee; --project-accent: #63d4c8; }
   .neyvu { --plate-bg: #182c5d; --plate-ink: #c2dbff; --project-accent: #96b5ff; }
   .verifaid { --plate-bg: #302547; --plate-ink: #e2d4fa; --project-accent: #c0a3ef; }
+  .flaregrain { --plate-bg: #33211a; --plate-ink: #f0cdb9; --project-accent: #f0966b; }
   .markLight { display: none; }
   .markDark { display: block; }
   .interface { --node-color: #72a9fa; }

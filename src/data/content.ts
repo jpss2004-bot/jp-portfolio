@@ -1,5 +1,6 @@
 import type { Locale } from "./i18n";
 import { neyvu } from "./neyvu";
+import { flaregrain } from "./flaregrain";
 import { additionalCases } from "./additional-cases";
 
 /**
@@ -29,7 +30,7 @@ export const profile = {
   portrait: "/jp-samano-dark.jpg",
 };
 
-export type Status = "production" | "pilot" | "delivered" | "deployed" | "live" | "prototype";
+export type Status = "production" | "pilot" | "delivered" | "deployed" | "live" | "prototype" | "submitted";
 
 export const statusLabel: Record<Status, L<string>> = {
   production: { en: "In production", es: "En producción" },
@@ -38,6 +39,7 @@ export const statusLabel: Record<Status, L<string>> = {
   deployed: { en: "Deployed", es: "Publicado" },
   live: { en: "Live", es: "En línea" },
   prototype: { en: "Prototype", es: "Prototipo" },
+  submitted: { en: "NASA Space Apps 2026", es: "NASA Space Apps 2026" },
 };
 
 export type Fact = { value: string; label: L<string> };
@@ -78,6 +80,8 @@ export type Project = {
   diagram?: "verifaid" | "pipelines";
   links: LinkItem[];
   stack: string[];
+  /** Named collaborators, for team projects. */
+  team?: { name: string; role: L<string> }[];
   caseStudy?: CaseStudy;
 };
 
@@ -223,6 +227,7 @@ export const featured: Project[] = [
       ],
     },
   },
+  flaregrain,
   neyvu,
   {
     slug: "verifaid",
@@ -709,7 +714,7 @@ export const method: { title: L<string>; body: L<string> }[] = [
   { title: { en: "Ship", es: "Publicar" }, body: { en: "I review and authorize the merge. The main branch deploys to production.", es: "Reviso y autorizo la fusión. La rama principal se publica a producción." } },
 ];
 
-export const primaryProjects = ["checkwise", "neyvu", "verifaid"].map((slug) => featured.find((p) => p.slug === slug)!);
+export const primaryProjects = ["checkwise", "flaregrain", "neyvu"].map((slug) => featured.find((p) => p.slug === slug)!);
 export const supportingProjects = featured.filter((p) => !primaryProjects.includes(p));
 
 export const allCaseSlugs = [...featured, ...shippedCases].map((p) => p.slug);

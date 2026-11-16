@@ -1,0 +1,148 @@
+/*
+ * Homepage work showcase. Composes the existing stage system (plates, product
+ * display, project accents in Work.module.css) into ruled twelve-column spreads.
+ */
+.work { --line: var(--rule); width: 100%; max-width: var(--frame); margin-inline: auto; padding-inline: var(--gutter); }
+
+/* ------------------------------------------------------------ section nav */
+.spy { position: sticky; top: 3.5rem; z-index: 15; display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; margin-top: clamp(2.5rem, 6vw, 4.5rem); border-block: 1px solid var(--line); background: color-mix(in oklch, var(--bg) 92%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.spyLead { font-size: 0.8125rem; color: var(--muted); margin-right: auto; }
+.spy ol { display: flex; gap: clamp(0.75rem, 2vw, 1.75rem); list-style: none; margin: 0; padding: 0; }
+.spy ol a { position: relative; display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; font-size: 0.875rem; color: var(--ink-2); text-decoration: none; transition: color 160ms var(--ease); }
+.spy ol a span { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.6875rem; color: var(--muted); }
+.spy ol a::after { content: ""; position: absolute; inset: auto 0 -1px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 260ms var(--ease); }
+.spy ol a:hover, .spy ol a[aria-current] { color: var(--ink); }
+.spy ol a[aria-current]::after { transform: scaleX(1); }
+.spy ol a[aria-current] span { color: var(--accent-ink); }
+.spyContact { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.75rem; padding-left: 1.5rem; border-left: 1px solid var(--line); font-size: 0.875rem; text-decoration: none; }
+.spyContact:hover { color: var(--accent-ink); }
+
+/* ------------------------------------------------------------------ intro */
+.intro { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: end; padding: clamp(4rem, 9vw, 7rem) 0 clamp(1.5rem, 3vw, 2.5rem); }
+.intro h2 { grid-column: 1 / span 7; margin: 0; font-size: clamp(2.6rem, 6.4vw, 5.5rem); font-weight: 500; letter-spacing: -0.055em; line-height: 0.98; }
+.introNum { grid-column: 1 / -1; font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.8125rem; color: var(--accent-ink); margin-bottom: 0.75rem; }
+.introAside { grid-column: 9 / -1; display: grid; gap: 1.25rem; }
+.introAside > p { font-size: 1.0625rem; line-height: 1.6; color: var(--ink-2); }
+.introIndex { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.introIndex a { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr) auto; align-items: baseline; gap: 0.5rem; min-height: 2.75rem; padding: 0.55rem 0; border-bottom: 1px solid var(--hair); text-decoration: none; font-size: 0.9375rem; transition: padding 220ms var(--ease), color 160ms var(--ease); }
+.introIndex a span { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.75rem; color: var(--muted); }
+.introIndex a b { font-weight: 600; }
+.introIndex a i { font-style: normal; font-size: 0.8125rem; color: var(--muted); }
+.introIndex a:hover { color: var(--accent-ink); padding-left: 0.4rem; }
+
+/* ----------------------------------------------------------------- spread */
+.spread { padding-top: clamp(3rem, 6vw, 5rem); scroll-margin-top: 7.5rem; }
+.spreadHead { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: end; padding-bottom: 1.5rem; margin-bottom: clamp(1.5rem, 3vw, 2.25rem); border-bottom: 1px solid var(--line); }
+.count { grid-column: 1 / span 1; display: flex; align-items: baseline; gap: 0.35rem; font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.8125rem; color: var(--muted); padding-bottom: 0.55rem; white-space: nowrap; }
+.count b { font-weight: 500; color: var(--project-accent); }
+.spreadHead h3 { grid-column: 2 / span 8; margin: 0; font-size: clamp(2.5rem, 5.6vw, 4.75rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.98; }
+.spreadHead h3 a { display: inline-flex; align-items: center; gap: clamp(0.75rem, 1.6vw, 1.4rem); text-decoration: none; transition: color 160ms var(--ease); }
+.spreadHead h3 a:hover { color: var(--project-accent); }
+.spreadMeta { grid-column: 10 / -1; display: grid; justify-items: end; gap: 0.3rem; font-size: 0.8125rem; color: var(--muted); padding-bottom: 0.5rem; text-align: right; }
+.status { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--ink); }
+.status i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--project-accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--project-accent) 18%, transparent); }
+
+.spreadGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: stretch; }
+.stageCol { grid-column: 1 / span 8; grid-row: 1; min-width: 0; }
+.story { grid-column: 9 / -1; grid-row: 1; display: flex; flex-direction: column; gap: 1.1rem; min-width: 0; padding-left: clamp(0rem, 1vw, 1rem); }
+.flip .stageCol { grid-column: 5 / -1; }
+.flip .story { grid-column: 1 / span 4; padding-left: 0; padding-right: clamp(0rem, 1vw, 1rem); }
+
+.story h4 { margin: 0; font-size: clamp(1.6rem, 2.3vw, 2.1rem); font-weight: 500; letter-spacing: -0.035em; line-height: 1.14; text-wrap: balance; }
+.oneLiner { font-size: 0.9688rem; line-height: 1.65; color: var(--muted); }
+.ownership { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.ownership > div { padding: 0.85rem 0; border-bottom: 1px solid var(--hair); }
+.ownership dt { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.3rem; }
+.ownership dd { margin: 0; font-size: 0.9063rem; line-height: 1.6; }
+.links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.4rem; font-size: 0.9063rem; }
+.links a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; text-underline-offset: 0.3em; text-decoration-color: var(--line); }
+.links a:hover { text-decoration-color: currentColor; }
+.links a span { transition: transform 200ms var(--ease); }
+.links a:hover span { transform: translateX(3px); }
+.cta { padding: 0 1.1rem; border-radius: 999px; background: var(--ink); color: var(--bg); font-weight: 600; text-decoration: none; }
+.cta:hover { background: var(--project-accent); }
+
+/* The second view overlaps the plate, one layer above it. */
+.inset { position: relative; z-index: 3; margin: auto 0 2.6rem clamp(-7rem, -8vw, -3rem); padding-top: 0.75rem; }
+.flip .inset { margin: auto clamp(-7rem, -8vw, -3rem) 2.6rem 0; }
+.inset a { display: block; border-radius: 10px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--plate-ink) 26%, var(--line)); background: var(--surface); box-shadow: 0 30px 60px -28px oklch(0.2 0.03 262 / 0.55), 0 0 0 6px color-mix(in oklch, var(--bg) 82%, transparent); transition: transform 420ms var(--ease); }
+.inset img { display: block; width: 100%; height: auto; }
+.inset figcaption { position: absolute; top: 100%; left: 0; right: 0; display: flex; gap: 0.6rem; align-items: baseline; margin-top: 0.7rem; padding-left: clamp(3rem, 8vw, 7rem); font-size: 0.75rem; color: var(--muted); }
+.flip .inset figcaption { padding-left: 0; }
+.inset figcaption span { font-family: var(--font-mono), ui-monospace, monospace; color: var(--project-accent); }
+.spread:hover .inset a { transform: translateY(-6px); }
+
+.proof { margin-top: clamp(2rem, 4vw, 3rem); padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.proof dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem clamp(1rem, 2vw, 1.75rem); margin: 0; }
+.proof dl > div { padding-left: 1rem; border-left: 1px solid var(--hair); }
+.proof dl > div:first-child { padding-left: 0; border-left: 0; }
+.proof dd { margin: 0 0 0.35rem; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1.1; }
+.proof dt { font-size: 0.8125rem; line-height: 1.45; color: var(--muted); max-width: 22ch; }
+.proof > p { margin-top: 1.25rem; font-size: 0.75rem; color: var(--muted); max-width: 90ch; }
+
+/* -------------------------------------------------------------- more work */
+.more { margin-top: clamp(4.5rem, 9vw, 7.5rem); scroll-margin-top: 7.5rem; }
+.moreHead { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: end; padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
+.moreHead h3 { grid-column: 1 / span 7; margin: 0; font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1; }
+.moreHead p { grid-column: 9 / -1; font-size: 0.9375rem; color: var(--muted); }
+
+.index { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: start; }
+.indexList { grid-column: 1 / span 7; list-style: none; margin: 0; padding: 0; }
+.indexList li > :is(a, div) { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr) auto 8.5rem; align-items: baseline; gap: 0.15rem 0.75rem; padding: 0.9rem 0.5rem 0.9rem 0; border-bottom: 1px solid var(--hair); text-decoration: none; transition: padding 240ms var(--ease), background-color 200ms var(--ease); }
+.indexNum { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.75rem; color: var(--muted); }
+.indexName { font-size: 1.1875rem; font-weight: 500; letter-spacing: -0.02em; }
+.indexKind { font-size: 0.8125rem; color: var(--muted); text-align: right; }
+.indexYear { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.75rem; color: var(--muted); text-align: right; white-space: nowrap; }
+.indexLine { display: none; grid-column: 2 / -1; font-size: 0.875rem; line-height: 1.55; color: var(--muted); }
+.indexList li[data-active] > :is(a, div) { padding-left: 0.75rem; background: color-mix(in oklch, var(--accent) 7%, transparent); }
+.indexList li[data-active] .indexNum { color: var(--accent-ink); }
+
+.indexPanel { grid-column: 9 / -1; position: sticky; top: 8.5rem; padding-top: 1.5rem; display: grid; gap: 0.9rem; }
+.indexArt { position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: color-mix(in oklch, var(--accent) 6%, var(--surface)); }
+.indexArt img { object-position: top left; opacity: 0; transform: scale(1.04); transition: opacity 320ms var(--ease), transform 600ms var(--ease); }
+.indexArt img[data-on] { opacity: 1; transform: scale(1); }
+.indexGlyph { position: absolute; inset: 0; display: grid; place-items: center; font-size: 6rem; font-weight: 500; color: color-mix(in oklch, var(--accent) 45%, var(--muted)); }
+.indexCaption { font-size: 0.9375rem; line-height: 1.6; color: var(--ink-2); min-height: 6.5em; }
+.indexCaption strong { display: block; font-size: 1.125rem; font-weight: 600; color: var(--ink); margin-bottom: 0.25rem; }
+.indexOpen { font-size: 0.8125rem; color: var(--accent-ink); }
+.footnote { margin-top: 1.5rem; font-size: 0.875rem; color: var(--muted); max-width: 70ch; }
+
+/* ------------------------------------------------------------- responsive */
+@media (max-width: 1040px) {
+  .intro h2, .introAside { grid-column: 1 / -1; }
+  .introAside { margin-top: 1.5rem; max-width: 34rem; }
+  .count { grid-column: 1 / -1; padding-bottom: 0.4rem; }
+  .spreadHead h3 { grid-column: 1 / span 8; }
+  .spreadMeta { grid-column: 9 / -1; }
+  .stageCol, .flip .stageCol, .story, .flip .story { grid-column: 1 / -1; grid-row: auto; padding-inline: 0; }
+  .story { margin-top: 2rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem clamp(1.5rem, 4vw, 3rem); }
+  .story h4, .oneLiner, .links { grid-column: 1; }
+  .ownership { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
+  .inset, .flip .inset { grid-column: 1 / -1; margin: 1rem 0 0; max-width: 28rem; }
+  .inset figcaption { position: static; padding-left: 0; }
+  .indexList { grid-column: 1 / -1; }
+  .indexPanel { display: none; }
+  .indexLine { display: block; }
+  .indexList li[data-active] > :is(a, div) { padding-left: 0; background: none; }
+  .moreHead h3, .moreHead p { grid-column: 1 / -1; }
+  .moreHead p { margin-top: 0.75rem; }
+}
+
+@media (max-width: 700px) {
+  .spy { position: relative; top: 0; flex-wrap: wrap; gap: 0 1rem; padding-block: 0.25rem; }
+  .spyLead, .spyContact { display: none; }
+  .spy ol { flex-wrap: wrap; gap: 0 1.1rem; }
+  .spreadHead h3, .spreadMeta { grid-column: 1 / -1; }
+  .spreadMeta { justify-items: start; text-align: left; margin-top: 0.9rem; grid-auto-flow: column; justify-content: start; gap: 1rem; }
+  .story { display: flex; }
+  .proof dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proof dl > div:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .indexList li > :is(a, div) { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+  .indexYear { white-space: normal; }
+  .indexKind { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inset a, .indexArt img, .introIndex a, .indexList li > :is(a, div), .spy ol a::after { transition: none; }
+  .spread:hover .inset a { transform: none; }
+}
