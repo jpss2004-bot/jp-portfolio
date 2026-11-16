@@ -128,6 +128,14 @@ def validate(route, html, vocabulary):
         assert any(l.get("hreflang") == language and l.get("href") == alternate for l in page.links)
     if "/journal" in route:
         validate_journal(route, page, typed, webpage, person)
+    elif route.endswith("/system"):
+        # A project's system map: a WebPage about the project, one level below the case study.
+        case_url = SITE + route[: -len("/system")]
+        assert webpage["@type"] == "WebPage"
+        assert webpage["about"]["@type"] == "CreativeWork" and webpage["about"]["url"] == case_url
+        assert webpage["name"] == normalized(" ".join(page.headings[:1]))
+        crumb = next(n for n in typed if n["@type"] == "BreadcrumbList")
+        assert [i["item"] for i in crumb["itemListElement"]] == [SITE + "/" + locale, case_url, SITE + route]
     elif "/projects/" in route:
         work = next(n for n in typed if n["@type"] == "CreativeWork")
         assert work["name"] == normalized(" ".join(page.headings))
@@ -240,7 +248,8 @@ def main():
     raw = vocab_path.read_text().replace('"schema:', '"https://schema.org/')
     vocabulary = {n["@id"]: n for n in json.loads(raw)["@graph"]}
     files = sorted(p for p in (ROOT / ".next/server/app").rglob("*.html") if re.match(r"(?:en|es)(?:/projects/|/journal(?:/|\.html)|\.html)", str(p.relative_to(ROOT / ".next/server/app"))))
-    expected_count = 32 + (2 + sum(len(entry_locales(e)) for e in published_entries()) if published_entries() else 0)
+    system_maps = len(re.findall(r'^  "?[a-z0-9-]+"?: \{$', (ROOT / "src/data/systems.ts").read_text(), re.M))
+    expected_count = 32 + 2 * system_maps + (2 + sum(len(entry_locales(e)) for e in published_entries()) if published_entries() else 0)
     assert len(files) == expected_count, f"Expected {expected_count} localized pages, found {len(files)}"
 
     def check(path):

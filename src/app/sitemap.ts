@@ -3,6 +3,7 @@ import { allCaseSlugs } from "@/data/content";
 import { locales } from "@/data/i18n";
 import { entryLocales, journalPath, publishedEntries } from "@/data/journal";
 import { siteUrl } from "@/lib/site";
+import { systemSlugs } from "@/data/systems";
 
 const updated = new Date("2026-11-16");
 
@@ -14,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...locales.map((l) => ({ url: `${siteUrl}/${l}`, lastModified: updated, alternates: pair("") })),
     ...locales.map((l) => ({ url: `${siteUrl}/${l}/work`, lastModified: updated, alternates: pair("/work") })),
     ...locales.flatMap((l) => allCaseSlugs.map((slug) => ({ url: `${siteUrl}/${l}/projects/${slug}`, lastModified: updated, alternates: pair(`/projects/${slug}`) }))),
+    ...locales.flatMap((l) => systemSlugs.map((slug) => ({ url: `${siteUrl}/${l}/projects/${slug}/system`, lastModified: updated, alternates: pair(`/projects/${slug}/system`) }))),
     ...(publishedEntries().length ? [
       ...locales.map((locale) => ({ url: `${siteUrl}/${locale}/journal`, lastModified: updated, alternates: pair("/journal") })),
       ...publishedEntries().flatMap((entry) => entryLocales(entry).map((locale) => ({ url: `${siteUrl}${journalPath(entry, locale)}`, lastModified: new Date(entry.updatedAt ?? entry.publishedAt!), alternates: { languages: Object.fromEntries(entryLocales(entry).map((l) => [l, `${siteUrl}${journalPath(entry, l)}`])) } }))),

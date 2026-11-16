@@ -34,6 +34,12 @@ const symbols: Record<string, string> = {
   queue: "M4 5h16v4H4z M4 15h16v4H4z M8 9v6 M16 9v6",
   desktop: "M3 4h18v13H3z M8 21h8 M12 17v4",
   external: "M14 3h7v7 M21 3l-9 9 M10 5H3v16h16v-7",
+  search: "M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13z M20 20l-4.8-4.8",
+  cpu: "M7 7h10v10H7z M10 10h4v4h-4z M9 3v4 M15 3v4 M9 17v4 M15 17v4 M3 9h4 M3 15h4 M17 9h4 M17 15h4",
+  shield: "M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6z M8.8 12.2l2.2 2.2 4.3-4.6",
+  database: "M4.5 6c0-1.7 3.4-3 7.5-3s7.5 1.3 7.5 3-3.4 3-7.5 3-7.5-1.3-7.5-3z M4.5 6v12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6 M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3",
+  browser: "M3 5h18v14H3z M3 9h18 M6 7h.01 M9 7h.01",
+  tunnel: "M4 20v-9a8 8 0 0 1 16 0v9 M8.5 20v-8.5a3.5 3.5 0 0 1 7 0V20 M2 20h20",
 };
 
 /* Each technology in its own brand colour; "ink" ones follow the text colour in both themes. */

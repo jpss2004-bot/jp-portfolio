@@ -133,3 +133,37 @@ export function projectStructuredData(project: Project, locale: Locale) {
     ],
   };
 }
+
+/** A project's system page: a WebPage about the project, one level below its case study. */
+export function systemStructuredData(project: Project, locale: Locale, title: string, description: string) {
+  const caseUrl = projectUrl(project.slug, locale);
+  const url = `${caseUrl}/system`;
+  const name = pick(project.title, locale);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...identityGraph(locale),
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: title,
+        description,
+        inLanguage: locale,
+        isPartOf: ref(websiteId),
+        author: ref(personId),
+        about: { "@type": "CreativeWork", "@id": projectId(project.slug), name, url: caseUrl },
+        breadcrumb: ref(`${url}#breadcrumb`),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: profile.shortName, item: `${siteUrl}/${locale}` },
+          { "@type": "ListItem", position: 2, name, item: caseUrl },
+          { "@type": "ListItem", position: 3, name: title, item: url },
+        ],
+      },
+    ],
+  };
+}

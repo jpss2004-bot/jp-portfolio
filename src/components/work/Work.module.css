@@ -66,6 +66,9 @@
 .supporting > a:hover > span { transform: translate(4px,-4px); }
 .caseSystem { --fg: var(--ink); --line: var(--rule); margin-block: 70px; border: 1px solid var(--line); border-radius: 12px; overflow: clip; }
 .caseSystem h2 { margin: 0; padding: 24px 32px 0; font-weight: 500; font-size: 24px; }
+.caseSystemBody { padding: 20px 32px 28px; }
+.systemPreview { padding: 28px 32px; background: var(--bg); color: var(--ink); }
+@media (max-width: 700px) { .caseSystemBody { padding: 16px 18px 22px; } }
 @media (prefers-reduced-motion: no-preference) {
   .motionRoot[data-motion="on"] .plate .display { transform: translateY(calc((1 - var(--work-progress,1)) * 50px)) rotateX(calc((1 - var(--work-progress,1)) * 12deg)) scale(calc(.94 + var(--work-progress,1) * .06)); }
   .detailText { animation: detail-arrive 220ms cubic-bezier(.2,.8,.2,1); }

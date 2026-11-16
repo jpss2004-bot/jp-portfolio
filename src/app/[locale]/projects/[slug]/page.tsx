@@ -25,6 +25,8 @@ import { visualFor } from "@/data/visuals";
 import { MockScreen, mockAlt, mockLabels, mockViews } from "@/components/work/mocks/MockScreen";
 import { ScrollSpyNav } from "@/components/work/ScrollSpyNav";
 import { architectures } from "@/data/architecture";
+import { systems } from "@/data/systems";
+import { SystemPreview } from "@/components/work/system/SystemMap";
 import { WorkMotion } from "@/components/work/WorkMotion";
 import { ProjectStage } from "@/components/work/ProjectStage";
 import { ProjectMark } from "@/components/work/ProjectMark";
@@ -199,7 +201,12 @@ export default async function CasePage({ params }: Props) {
           <ScrollSpyNav className="case-rail" label={locale === "es" ? "Contenido del caso" : "Case contents"} lead={<p className="case-rail-title">{locale === "es" ? "En este caso" : "In this case"}</p>} items={sections} />
 
           <div className="case-main">
-            {architectures[slug] ? <section id="system" className={`case-sec ${workStyles.caseSystem}`} aria-label={locale === "es" ? "Arquitectura del sistema" : "System architecture"}><h2>{locale === "es" ? "Cómo se conecta el sistema" : "How the system connects"}</h2><SystemExplorer headingLevel="h3" architecture={architectures[slug]} locale={locale} name={pick(project.title, locale)} /></section> : null}
+            {systems[slug] ? (
+              <section id="system" className={`case-sec ${workStyles.caseSystem}`} aria-labelledby="system-h">
+                <h2 id="system-h">{es ? "Cómo funciona" : "How it works"}</h2>
+                <div className={workStyles.caseSystemBody}><SystemPreview map={systems[slug]} locale={locale} href={`${base}/projects/${slug}/system`} /></div>
+              </section>
+            ) : architectures[slug] ? <section id="system" className={`case-sec ${workStyles.caseSystem}`} aria-label={locale === "es" ? "Arquitectura del sistema" : "System architecture"}><h2>{locale === "es" ? "Cómo se conecta el sistema" : "How the system connects"}</h2><SystemExplorer headingLevel="h3" architecture={architectures[slug]} locale={locale} name={pick(project.title, locale)} /></section> : null}
 
             {c ? (
               <>

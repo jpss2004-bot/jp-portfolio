@@ -4,6 +4,8 @@ import { useId, useState, type CSSProperties, type ReactNode } from "react";
 import type { Locale } from "@/data/i18n";
 import type { Architecture } from "@/data/architecture";
 import { TechnologyIcon } from "./ProjectMark";
+import type { SystemMap } from "@/data/systems";
+import { SystemPreview } from "./system/SystemMap";
 import styles from "./Work.module.css";
 
 const desktop = [[110,120],[360,120],[360,360],[710,120],[890,360],[590,360],[110,360],[890,120]];
@@ -63,7 +65,7 @@ export function SystemExplorer({ architecture, locale, name, headingLevel = "h4"
   </div>;
 }
 
-export function ProductDisplay({ children, architecture, locale, name, brand, initialView = "product", productLabel }: { children: ReactNode; architecture: Architecture; locale: Locale; name: string; brand: ReactNode; initialView?: "product" | "system"; productLabel?: string }) {
+export function ProductDisplay({ children, architecture, locale, name, brand, initialView = "product", productLabel, system }: { children: ReactNode; architecture: Architecture; locale: Locale; name: string; brand: ReactNode; initialView?: "product" | "system"; productLabel?: string; system?: { map: SystemMap; href: string } }) {
   const [view, setView] = useState<"product" | "system">(initialView);
   const id = useId();
   return <div className={styles.display}>
@@ -75,6 +77,6 @@ export function ProductDisplay({ children, architecture, locale, name, brand, in
       </div>
     </div>
     <div id={id + "product"} hidden={view !== "product"} className={styles.productSurface}>{children}</div>
-    <div id={id + "system"} hidden={view !== "system"}><SystemExplorer architecture={architecture} locale={locale} name={name} /></div>
+    <div id={id + "system"} hidden={view !== "system"}>{system ? <div className={styles.systemPreview}><SystemPreview map={system.map} locale={locale} href={system.href} /></div> : <SystemExplorer architecture={architecture} locale={locale} name={name} />}</div>
   </div>;
 }
