@@ -4,10 +4,16 @@ export type SystemStep = { name: L<string>; technology: string; detail: L<string
 export type Annotation = { x: number; y: number; text: L<string> };
 export type Milestone = { when: L<string>; what: L<string> };
 export type WalkScene = { src: string; fx: number; fy: number; zoom: number; text: L<string> };
-export type WorkStory = { headline: L<string>; ownership: L<string>; decision: L<string>; steps: SystemStep[]; annotations?: Annotation[]; timeline?: Milestone[]; walkthrough?: { width: number; height: number; scenes: WalkScene[] } };
+export type WorkStory = { headline: L<string>; ownership: L<string>; decision: L<string>; steps: SystemStep[]; annotations?: Annotation[]; timeline?: Milestone[]; walkthrough?: { width: number; height: number; scenes: WalkScene[] }; pin?: { width: number; height: number; kicker: L<string>; steps: { title: L<string>; text: L<string>; src: string; fx: number; fy: number; zoom: number }[] } };
 
 export const workStories: Record<string, WorkStory> = {
   checkwise: {
+    pin: { width: 1600, height: 900, kicker: { en: "One document, from upload to decision", es: "Un documento, de la carga a la decisión" }, steps: [
+      { title: { en: "Upload", es: "Carga" }, text: { en: "A provider starts from an obligation and a period, so the file lands in the right place.", es: "El proveedor parte de una obligación y un periodo; el archivo llega al lugar correcto." }, src: "/projects/checkwise/provider-upload.webp", fx: 59, fy: 43, zoom: 1.5 },
+      { title: { en: "Validate", es: "Validación" }, text: { en: "The system reads the document and explains what it found, and where.", es: "El sistema lee el documento y explica qué encontró y dónde." }, src: "/projects/checkwise/reviewer.webp", fx: 34, fy: 62, zoom: 1.6 },
+      { title: { en: "Review", es: "Revisión" }, text: { en: "An authorized person decides. Approving against a warning needs a written reason.", es: "Una persona autorizada decide. Aprobar pese a una advertencia exige una razón escrita." }, src: "/projects/checkwise/reviewer.webp", fx: 73, fy: 86, zoom: 1.6 },
+      { title: { en: "Trace", es: "Trazabilidad" }, text: { en: "The client sees one verdict, with the evidence and the decision behind it.", es: "El cliente ve un veredicto, con la evidencia y la decisión que lo respaldan." }, src: "/projects/checkwise/client-dashboard.webp", fx: 50, fy: 40, zoom: 1.25 },
+    ] },
     walkthrough: { width: 1600, height: 900, scenes: [
       { src: "/projects/checkwise/provider-upload.webp", fx: 59, fy: 43, zoom: 1.55, text: { en: "A provider starts from a specific obligation, never from a blank upload form.", es: "El proveedor parte de una obligación concreta, nunca de un formulario en blanco." } },
       { src: "/projects/checkwise/calendar.webp", fx: 68, fy: 72, zoom: 1.5, text: { en: "Every provider by month. The colour marks the most critical state.", es: "Cada proveedor por mes. El color marca el estado más crítico." } },
@@ -57,6 +63,12 @@ export const workStories: Record<string, WorkStory> = {
     steps: [],
   },
   neyvu: {
+    pin: { width: 1280, height: 800, kicker: { en: "From a course source to a cited answer", es: "De una fuente del curso a una respuesta con cita" }, steps: [
+      { title: { en: "Collect", es: "Recopilar" }, text: { en: "Course material is saved with the date it was collected.", es: "El material del curso se guarda con la fecha en que se recopiló." }, src: "/projects/neyvu/source.png", fx: 50, fy: 18, zoom: 1.5 },
+      { title: { en: "Preserve", es: "Conservar" }, text: { en: "The original text stays intact, separate from anything AI writes.", es: "El texto original se conserva, separado de lo que escribe la IA." }, src: "/projects/neyvu/source.png", fx: 42, fy: 74, zoom: 1.5 },
+      { title: { en: "Ask", es: "Preguntar" }, text: { en: "A question runs against that source on a local model.", es: "Una pregunta se resuelve sobre esa fuente con un modelo local." }, src: "/projects/neyvu/answer.png", fx: 72, fy: 30, zoom: 1.5 },
+      { title: { en: "Cite", es: "Citar" }, text: { en: "The answer links back to the saved version it used.", es: "La respuesta enlaza a la versión guardada que utilizó." }, src: "/projects/neyvu/answer.png", fx: 57, fy: 60, zoom: 1.55 },
+    ] },
     walkthrough: { width: 1280, height: 800, scenes: [
       { src: "/projects/neyvu/source.png", fx: 50, fy: 18, zoom: 1.5, text: { en: "A saved course source, with the date it was collected.", es: "Una fuente guardada del curso, con la fecha en que se recopiló." } },
       { src: "/projects/neyvu/source.png", fx: 42, fy: 74, zoom: 1.5, text: { en: "The original text stays intact. Neyvu does not collect submission status.", es: "El texto original se conserva. Neyvu no recopila el estado de entrega." } },
@@ -99,4 +111,41 @@ export const workStories: Record<string, WorkStory> = {
       { name: { en: "Issue", es: "Emitir" }, technology: "Versioned PDF", detail: { en: "Approved-opinion PDF issuance records the responsible reviewer, version and fingerprint. Electronic signing remains a distinct release gate.", es: "La emisión del dictamen aprobado en PDF registra responsable, versión y huella. La firma electrónica sigue siendo una compuerta distinta." } },
     ],
   },
+};
+
+/* Coded pipeline walkthroughs for cases without public product screens. */
+export const pipelines: Record<string, { name: L<string>; detail: L<string> }[]> = {
+  verifaid: [
+    { name: { en: "Preserve original", es: "Preservar original" }, detail: { en: "The original document and its version are stored untouched. A failed reading can be retried without overwriting history.", es: "El documento original y su versión se guardan intactos. Una lectura fallida puede repetirse sin sobrescribir el historial." } },
+    { name: { en: "Transcribe", es: "Transcribir" }, detail: { en: "Each page is transcribed so that every later fact can point to a position on a real page.", es: "Cada página se transcribe para que todo dato posterior apunte a una posición en una página real." } },
+    { name: { en: "Identify", es: "Identificar" }, detail: { en: "People, companies and instruments are identified, with instrument-number checks.", es: "Se identifican personas, sociedades e instrumentos, verificando los números de instrumento." } },
+    { name: { en: "Compare", es: "Comparar" }, detail: { en: "Supporting documents are compared with public-registry evidence.", es: "Los documentos de soporte se contrastan con la evidencia de registros públicos." } },
+    { name: { en: "Extract powers", es: "Extraer facultades" }, detail: { en: "Attorneys-in-fact and their powers are read from the appointment clause itself.", es: "Los apoderados y sus facultades se leen de la propia cláusula de designación." } },
+    { name: { en: "Read caps", es: "Leer límites" }, detail: { en: "Signing limits come from the clause, including amounts written out in words.", es: "Los límites de firma provienen de la cláusula, incluidos los montos escritos con letra." } },
+    { name: { en: "Conclude", es: "Concluir" }, detail: { en: "A decision with its citations goes to an identified reviewer. A second authorized person approves.", es: "Una decisión con sus citas llega a un revisor identificado. Una segunda persona autorizada aprueba." } },
+  ],
+  "document-pipelines": [
+    { name: { en: "Reconcile", es: "Conciliar" }, detail: { en: "The client's own index is unreliable, so it is kept as a hint rather than as the truth.", es: "El índice del cliente no es confiable, así que se conserva como pista y no como verdad." } },
+    { name: { en: "Plan", es: "Planear" }, detail: { en: "A plan maps every file to its destination before anything is copied.", es: "Un plan asigna cada archivo a su destino antes de copiar nada." } },
+    { name: { en: "Copy", es: "Copiar" }, detail: { en: "The organizer only ever copies. Confidential originals are never moved or modified.", es: "El organizador solo copia. Los originales confidenciales nunca se mueven ni se modifican." } },
+    { name: { en: "Read", es: "Leer" }, detail: { en: "Legible pages are read as text; scans are rendered and sent to Claude vision.", es: "Las páginas legibles se leen como texto; los escaneos se renderizan y se envían a Claude visión." } },
+    { name: { en: "Extract", es: "Extraer" }, detail: { en: "Fields are extracted through the Batch API, with the client's index passed as a prior to verify and correct.", es: "Los campos se extraen con la Batch API, usando el índice del cliente como referencia para verificar y corregir." } },
+    { name: { en: "Verify", es: "Verificar" }, detail: { en: "A gate compares every file by hash. The notarial archive passed 903 of 903.", es: "Una compuerta compara cada archivo por hash. El archivo notarial pasó 903 de 903." } },
+    { name: { en: "Deliver", es: "Entregar" }, detail: { en: "The organized archive is delivered with a reconciled master workbook.", es: "El archivo organizado se entrega con un libro maestro conciliado." } },
+  ],
+};
+
+/* Milestones for case pages whose project is not a featured story. */
+export const caseTimelines: Record<string, Milestone[]> = {
+  verifaid: [
+    { when: { en: "29 Jul 2026", es: "29 jul 2026" }, what: { en: "Work starts from an empty repository.", es: "El trabajo inicia desde un repositorio vacío." } },
+    { when: { en: "11 Sep 2026", es: "11 sep 2026" }, what: { en: "Controlled pilot: 262 commits and 85 merged pull requests.", es: "Piloto controlado: 262 commits y 85 pull requests fusionados." } },
+    { when: { en: "Sep 2026", es: "sep 2026" }, what: { en: "More than 50 operations cleared for a paying client.", es: "Más de 50 operaciones resueltas para un cliente de pago." } },
+    { when: { en: "After", es: "Después" }, what: { en: "Approved-opinion PDF issuance added.", es: "Se añade la emisión del dictamen aprobado en PDF." } },
+  ],
+  "document-pipelines": [
+    { when: { en: "Archive one", es: "Archivo uno" }, what: { en: "13,288 telecom documents organized into 12 legal areas.", es: "13,288 documentos de telecomunicaciones organizados en 12 áreas legales." } },
+    { when: { en: "Archive two", es: "Archivo dos" }, what: { en: "903 of 903 notarial files verified by hash.", es: "903 de 903 archivos notariales verificados por hash." } },
+    { when: { en: "Follow-up", es: "Seguimiento" }, what: { en: "Second phase designed to reconcile every annex one to one.", es: "Segunda fase diseñada para conciliar cada anexo uno a uno." } },
+  ],
 };

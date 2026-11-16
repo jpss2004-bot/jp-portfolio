@@ -206,8 +206,8 @@ export function FlameScene({ copy }: { copy: Copy }) {
           <div className={styles.copy}>
             <p className={styles.kicker}>{copy.kicker}</p>
             <div className={styles.states}>
-              <div className={styles.state} data-on={!inSpace || undefined}><h4>{copy.earth}</h4><p>{copy.earthBody}</p></div>
-              <div className={styles.state} data-on={inSpace || undefined}><h4>{copy.space}</h4><p>{copy.spaceBody}</p></div>
+              <div className={styles.state} data-on={!inSpace || undefined} aria-hidden={inSpace ? true : undefined}><h4>{copy.earth}</h4><p>{copy.earthBody}</p></div>
+              <div className={styles.state} data-on={inSpace || undefined} aria-hidden={inSpace ? undefined : true}><h4>{copy.space}</h4><p>{copy.spaceBody}</p></div>
             </div>
             <div className={styles.switch} role="group" aria-label={copy.kicker}>
               <button type="button" aria-pressed={!inSpace} onClick={() => jump(1)}>{copy.earth}</button>

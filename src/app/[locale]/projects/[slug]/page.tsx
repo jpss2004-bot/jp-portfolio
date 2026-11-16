@@ -14,7 +14,8 @@ import { projectStructuredData } from "@/lib/structured-data";
 import { SystemExplorer } from "@/components/work/SystemExplorer";
 import { CountUp } from "@/components/CountUp";
 import { Walkthrough } from "@/components/work/Walkthrough";
-import { workStories } from "@/data/work";
+import { caseTimelines, pipelines, workStories } from "@/data/work";
+import { PipelineFlow } from "@/components/work/PipelineFlow";
 import { ScrollSpyNav } from "@/components/work/ScrollSpyNav";
 import { architectures } from "@/data/architecture";
 import { WorkMotion } from "@/components/work/WorkMotion";
@@ -81,6 +82,8 @@ export default async function CasePage({ params }: Props) {
   const es = locale === "es";
   const story = workStories[slug];
   const walk = story?.walkthrough;
+  const flow = pipelines[slug];
+  const milestones = story?.timeline ?? caseTimelines[slug];
   const gallery = c?.gallery ?? [];
   const inline = gallery.length >= 4 ? [gallery[1], gallery[2]] : [];
   const screens = gallery.filter((g) => !inline.includes(g));
@@ -90,7 +93,9 @@ export default async function CasePage({ params }: Props) {
       { id: "problem", label: t.case.problem },
       { id: "constraints", label: t.case.constraints },
       { id: "decisions", label: t.case.decisions },
+      ...(flow ? [{ id: "pipeline", label: "Pipeline" }] : []),
       ...(walk || project.visuals?.secondary ? [{ id: "walkthrough", label: es ? "Recorrido" : "Walkthrough" }] : []),
+      ...(milestones ? [{ id: "timeline", label: es ? "Cronología" : "Timeline" }] : []),
       ...(c.built ? [{ id: "built", label: t.case.built }] : []),
       ...(project.team?.length ? [{ id: "team", label: es ? "Equipo" : "Team" }] : []),
       { id: "outcome", label: t.case.outcome },
@@ -183,6 +188,15 @@ export default async function CasePage({ params }: Props) {
                     <footer>{es ? "La decisión que definió el proyecto" : "The decision that shaped the project"}</footer>
                   </blockquote>
                 ) : null}
+                {flow ? (
+                  <section id="pipeline" className="case-sec case-row" data-reveal="">
+                    <h2 className="case-h2"><span className="mono">{num("pipeline")}</span>{es ? "El pipeline, paso a paso" : "The pipeline, step by step"}</h2>
+                    <PipelineFlow
+                      stages={flow.map((item) => ({ name: pick(item.name, locale), detail: pick(item.detail, locale) }))}
+                      labels={es ? { play: "Reproducir", pause: "Pausar", stage: "Etapa", note: "Ilustración del flujo; no muestra datos de clientes." } : { play: "Play", pause: "Pause", stage: "Stage", note: "Illustration of the flow; it shows no client data." }}
+                    />
+                  </section>
+                ) : null}
                 {walk ? (
                   <section id="walkthrough" className="case-sec case-row" data-reveal="">
                     <h2 className="case-h2"><span className="mono">{num("walkthrough")}</span>{es ? "Recorrido del producto" : "Product walkthrough"}</h2>
@@ -196,6 +210,14 @@ export default async function CasePage({ params }: Props) {
                   <section id="walkthrough" className="case-sec case-row" data-reveal="">
                     <h2 className="case-h2"><span className="mono">{num("walkthrough")}</span>{es ? "Recorrido del producto" : "Product walkthrough"}</h2>
                     <VisualFrame visual={project.visuals.secondary} locale={locale} sizes="(max-width: 900px) 100vw, 860px" />
+                  </section>
+                ) : null}
+                {milestones ? (
+                  <section id="timeline" className="case-sec case-row" data-reveal="">
+                    <h2 className="case-h2"><span className="mono">{num("timeline")}</span>{es ? "Cronología" : "Timeline"}</h2>
+                    <ol className="case-timeline" style={{ "--n": milestones.length } as React.CSSProperties}>
+                      {milestones.map((step) => <li key={step.when.en}><i aria-hidden="true" /><b className="mono">{pick(step.when, locale)}</b><span>{pick(step.what, locale)}</span></li>)}
+                    </ol>
                   </section>
                 ) : null}
                 {c.built ? (

@@ -15,6 +15,7 @@
   --hair: oklch(0.935 0.003 262);
   --accent: oklch(0.62 0.155 38);
   --accent-ink: oklch(0.5 0.15 36);
+  --on-accent: oklch(0.99 0.002 250);
   --ok: oklch(0.55 0.13 152);
   --pilot: oklch(0.64 0.13 72);
   --shadow: 0 0 0 1px var(--hair), 0 24px 56px -34px oklch(0.25 0.03 262 / 0.42);
@@ -37,6 +38,7 @@
     --hair: oklch(0.255 0.009 262);
     --accent: oklch(0.72 0.14 40);
     --accent-ink: oklch(0.78 0.12 42);
+    --on-accent: oklch(0.16 0.012 262);
     --ok: oklch(0.74 0.13 152);
     --pilot: oklch(0.8 0.12 78);
     --shadow: 0 0 0 1px var(--hair), 0 24px 56px -30px oklch(0 0 0 / 0.7);
@@ -53,6 +55,7 @@
     --hair: oklch(0.255 0.009 262);
     --accent: oklch(0.72 0.14 40);
     --accent-ink: oklch(0.78 0.12 42);
+    --on-accent: oklch(0.16 0.012 262);
     --ok: oklch(0.74 0.13 152);
     --pilot: oklch(0.8 0.12 78);
     --shadow: 0 0 0 1px var(--hair), 0 24px 56px -30px oklch(0 0 0 / 0.7);
@@ -81,6 +84,7 @@ html {
 
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -1449,3 +1453,12 @@ video.shot-media {
   .case-outcome { grid-template-columns: minmax(0, 1fr); }
   .case-keys { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 1.25rem 0 0; border-left: 0; border-top: 1px solid var(--rule); }
 }
+
+/* ------------------------------------------------------ case page: timeline */
+.case-timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: 0 clamp(1rem, 2vw, 1.75rem); }
+.case-timeline li { position: relative; display: grid; gap: 0.35rem; align-content: start; padding-top: 1.4rem; border-top: 1px solid var(--rule); }
+.case-timeline i { position: absolute; top: -0.3rem; left: 0; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--accent); }
+.case-timeline li:last-child i { background: var(--accent); }
+.case-timeline b { font-weight: 500; color: var(--accent-ink); }
+.case-timeline span { font-size: 0.9063rem; line-height: 1.5; color: var(--ink-2); }
+@media (max-width: 640px) { .case-timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.5rem; } }

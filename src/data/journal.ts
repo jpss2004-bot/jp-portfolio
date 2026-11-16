@@ -1,3 +1,4 @@
+import entry_leading_a_48_hour_nasa_build from "../../content/journal/leading-a-48-hour-nasa-build.json";
 import { publishedJournal, visibleJournal } from "@/lib/journal-visibility";
 import { validateJournalEntries } from "@/lib/validate-journal";
 import novaScotia from "../../content/journal/ai-investment-nova-scotia-trust.json";
@@ -27,7 +28,7 @@ export type JournalEntry = {
   externalPublication?: { label: string; url: string };
 };
 
-export const journalEntries = [novaScotia] as JournalEntry[];
+export const journalEntries = [entry_leading_a_48_hour_nasa_build, novaScotia] as JournalEntry[];
 validateJournalEntries(journalEntries);
 export const journalPreview = process.env.NODE_ENV === "development" || process.env.JOURNAL_PREVIEW === "1";
 export function publishedEntries() {

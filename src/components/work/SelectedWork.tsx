@@ -11,6 +11,7 @@ import { FlameScene } from "./FlameScene";
 import { ProjectMark } from "./ProjectMark";
 import { ProjectStage } from "./ProjectStage";
 import { ScrollSpyNav } from "./ScrollSpyNav";
+import { ScrollStory } from "./ScrollStory";
 import { WorkIndex } from "./WorkIndex";
 import { WorkMotion } from "./WorkMotion";
 import stage from "./Work.module.css";
@@ -50,7 +51,7 @@ export function SelectedWork({ locale }: { locale: Locale }) {
         <p className={styles.introNum}>01</p>
         <h2 id="work-h" data-reveal="">{es ? "Trabajo seleccionado." : "Selected work."}</h2>
         <div className={styles.introAside} data-reveal="" style={{ "--d": "140ms" } as CSSProperties}>
-          <p>{es ? "De la interfaz al modelo de datos. Tres proyectos que muestran cómo diseño, construyo y lidero software." : "From the interface to the data model. Three projects that show how I design, build and lead software."}</p>
+          <p>{es ? "Tres proyectos: cómo diseño, construyo y lidero software." : "Three projects: how I design, build and lead software."}</p>
           <ol className={styles.introIndex}>
             {primaryProjects.map((project, i) => (
               <li key={project.slug}><a href={`#${project.slug}`}><span>{String(i + 1).padStart(2, "0")}</span><b>{pick(project.title, locale)}</b><i>{pick(statusLabel[project.status], locale)}</i></a></li>
@@ -66,11 +67,11 @@ export function SelectedWork({ locale }: { locale: Locale }) {
           const inset = insets[project.slug];
           const live = project.links[0];
           return (
-            <article key={project.slug} id={project.slug} className={`${stage.project} ${stage[project.slug] ?? ""} ${styles.spread} ${i % 2 ? styles.flip : ""}`}>
-              <header className={styles.spreadHead} data-reveal="">
-                <p className={styles.count}><b>{String(i + 1).padStart(2, "0")}</b><span>/ {total}</span></p>
-                <h3><Link href={href}><ProjectMark slug={project.slug} /><span>{pick(project.title, locale)}</span></Link></h3>
-                <p className={styles.spreadMeta}><span className={styles.status}><i aria-hidden="true" />{pick(statusLabel[project.status], locale)}</span><span>{pick(project.period, locale)}</span></p>
+            <article key={project.slug} id={project.slug} className={`${stage.project} ${stage[project.slug] ?? ""} ${styles.spread} ${project.slug === "flaregrain" ? styles.night : ""} ${i % 2 ? styles.flip : ""}`}>
+              <header className={styles.spreadHead}>
+                <p className={styles.count} data-reveal=""><b>{String(i + 1).padStart(2, "0")}</b><span>/ {total}</span></p>
+                <p className={styles.spreadMeta} data-reveal=""><span className={styles.status}><i aria-hidden="true" />{pick(statusLabel[project.status], locale)}</span><span>{pick(project.period, locale)}</span></p>
+                <h3 data-reveal="rise"><Link href={href}><ProjectMark slug={project.slug} /><span>{pick(project.title, locale)}</span></Link></h3>
               </header>
 
               {project.slug === "flaregrain" ? (
@@ -91,11 +92,22 @@ export function SelectedWork({ locale }: { locale: Locale }) {
                 }} />
               ) : null}
 
+              {story.pin ? (
+                <ScrollStory
+                  width={story.pin.width} height={story.pin.height} kicker={pick(story.pin.kicker, locale)}
+                  alt={`${pick(project.title, locale)}: ${pick(story.pin.kicker, locale)}`}
+                  note={es ? "Capturas reales con datos de demostración." : "Real captures with demo data."}
+                  steps={story.pin.steps.map((item) => ({ title: pick(item.title, locale), text: pick(item.text, locale), src: item.src, fx: item.fx, fy: item.fy, zoom: item.zoom }))}
+                />
+              ) : null}
+
               <div className={styles.spreadGrid}>
-                <div className={styles.stageCol} data-reveal="rise"><ProjectStage project={project} locale={locale} priority={i === 0} /></div>
+                <div className={styles.stageCol} data-reveal="rise">
+                  <ProjectStage project={project} locale={locale} priority={i === 0} />
+                  {project.facts[1] ? <p className={styles.tag} data-work-plate=""><b>{project.facts[1].value}</b><span>{pick(project.facts[1].label, locale)}</span></p> : null}
+                </div>
                 <div className={styles.story} data-reveal="" style={{ "--d": "160ms" } as CSSProperties}>
                   <h4>{pick(story.headline, locale)}</h4>
-                  <p className={styles.oneLiner}>{pick(project.oneLiner, locale)}</p>
                   <dl className={styles.ownership}>
                     <div><dt>{es ? "Mi responsabilidad" : "My responsibility"}</dt><dd>{pick(story.ownership, locale)}</dd></div>
                     <div><dt>{es ? "Una decisión clave" : "A key decision"}</dt><dd>{pick(story.decision, locale)}</dd></div>
@@ -113,17 +125,20 @@ export function SelectedWork({ locale }: { locale: Locale }) {
                 </div>
               </div>
 
-              {story.timeline ? (
-                <ol className={styles.timeline} aria-label={es ? "Cronología" : "Timeline"}>
-                  {story.timeline.map((step, n) => (
-                    <li key={step.when.en} data-reveal="" style={{ "--d": `${n * 110}ms` } as CSSProperties}><i aria-hidden="true" /><b>{pick(step.when, locale)}</b><span>{pick(step.what, locale)}</span></li>
+              <div className={styles.ledger}>
+                {story.timeline ? (
+                  <ol className={styles.timeline} aria-label={es ? "Cronología" : "Timeline"}>
+                    {story.timeline.map((step, n) => (
+                      <li key={step.when.en} data-reveal="" style={{ "--d": `${n * 110}ms` } as CSSProperties}><i aria-hidden="true" /><b>{pick(step.when, locale)}</b><span>{pick(step.what, locale)}</span></li>
+                    ))}
+                  </ol>
+                ) : null}
+                <dl className={styles.proof}>
+                  {project.facts.filter((_, n) => n !== 1).slice(0, 3).map((fact, n) => (
+                    <div key={fact.label.en} data-reveal="" style={{ "--d": `${n * 90}ms` } as CSSProperties}><dd><CountUp value={fact.value} /></dd><dt>{pick(fact.label, locale)}</dt></div>
                   ))}
-                </ol>
-              ) : null}
-
-              <div className={styles.proof}>
-                <dl>{project.facts.slice(0, 4).map((fact, n) => <div key={fact.label.en} data-reveal="" style={{ "--d": `${n * 90}ms` } as CSSProperties}><dd><CountUp value={fact.value} /></dd><dt>{pick(fact.label, locale)}</dt></div>)}</dl>
-                {project.metricNote ? <p>{pick(project.metricNote, locale)}</p> : null}
+                </dl>
+                {project.metricNote ? <p className={styles.ledgerNote}>{pick(project.metricNote, locale)}</p> : null}
               </div>
             </article>
           );
@@ -133,7 +148,7 @@ export function SelectedWork({ locale }: { locale: Locale }) {
       <div id="more-work" className={styles.more}>
         <header className={styles.moreHead} data-reveal="">
           <h3>{es ? "Más trabajo" : "More work"}</h3>
-          <p>{es ? `${all.length} proyectos más: productos, herramientas de escritorio, sitios y trabajo académico. Aquí, los cinco primeros.` : `${all.length} more projects: products, desktop tools, websites and coursework. The first five are here.`}</p>
+          <p>{es ? `${all.length} proyectos más. Aquí, los cinco primeros.` : `${all.length} more projects. The first five are here.`}</p>
         </header>
         <WorkIndex rows={rows} labels={{ list: es ? "Más proyectos" : "More projects", open: es ? "Abrir" : "Open", all: es ? "Todos" : "All", type: es ? "Tipo" : "Type", year: es ? "Año" : "Year", empty: "", countOne: "", countMany: "" }} />
         <p className={styles.allWork}><Link href={`/${locale}/work`}><span>{es ? "Ver todo el trabajo" : "See all work"}</span><b>{all.length + primaryProjects.length}</b><i aria-hidden="true">→</i></Link></p>
