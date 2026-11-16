@@ -215,7 +215,7 @@ def main():
     raw = vocab_path.read_text().replace('"schema:', '"https://schema.org/')
     vocabulary = {n["@id"]: n for n in json.loads(raw)["@graph"]}
     files = sorted(p for p in (ROOT / ".next/server/app").rglob("*.html") if re.match(r"(?:en|es)(?:/projects/|/journal(?:/|\.html)|\.html)", str(p.relative_to(ROOT / ".next/server/app"))))
-    expected_count = 22 + (2 + len(published_entries()) if published_entries() else 0)
+    expected_count = 24 + (2 + len(published_entries()) if published_entries() else 0)
     assert len(files) == expected_count, f"Expected {expected_count} localized pages, found {len(files)}"
 
     def check(path):

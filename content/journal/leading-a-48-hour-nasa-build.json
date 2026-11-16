@@ -1,6 +1,6 @@
 {
   "slug": "leading-a-48-hour-nasa-build",
-  "status": "draft",
+  "status": "published",
   "kind": "article",
   "language": "en",
   "title": "What I learned leading a 48-hour NASA build",
@@ -9,6 +9,7 @@
     "es": "En NASA Space Apps Halifax lideré un equipo de cuatro que construyó Flaregrain, una herramienta que responde preguntas sobre experimentos de fuego de la NASA con oraciones que puedes comprobar. Lo más útil que hizo fue detectar un error que habíamos escrito nosotros."
   },
   "writtenAt": "2026-11-16",
+  "publishedAt": "2026-11-16",
   "topics": ["Leadership", "AI", "NASA Space Apps"],
   "blocks": [
     { "type": "paragraph", "text": "On the weekend of November 14 and 15 I led a team of four at NASA Space Apps Halifax. We chose the Flame in Freefall challenge, which asks for a dashboard that uses AI to summarize and interpret NASA's microgravity combustion experiments for space fire safety. [1] We called the team Sparkline Foundry and the project Flaregrain. [2]" },
