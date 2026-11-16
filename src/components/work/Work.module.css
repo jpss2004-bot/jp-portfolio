@@ -310,3 +310,9 @@ span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-posi
   .connections button:hover { color: var(--project-accent); }
 }
 @media (hover:none), (pointer:coarse) { .motionRoot[data-motion="on"] .plate .display { transform: none; } }
+
+/* Case pages for projects without their own palette take their colour from --tone. */
+.caseMotion.toned { --project-accent: color-mix(in oklab, var(--tone) 85%, black); --plate-bg: color-mix(in oklab, var(--tone) 22%, white); --plate-ink: color-mix(in oklab, var(--tone) 60%, black); --stage-one: var(--tone); --stage-two: color-mix(in oklab, var(--tone) 70%, black); --stage-three: color-mix(in oklab, var(--tone) 50%, white); }
+:global(:root[data-theme="dark"]) .caseMotion.toned { --project-accent: color-mix(in oklab, var(--tone) 75%, white); --plate-bg: color-mix(in oklab, var(--tone) 24%, #12151b); --plate-ink: color-mix(in oklab, var(--tone) 45%, white); }
+@media (prefers-color-scheme: dark) { :global(:root:not([data-theme="light"])) .caseMotion.toned { --project-accent: color-mix(in oklab, var(--tone) 75%, white); --plate-bg: color-mix(in oklab, var(--tone) 24%, #12151b); --plate-ink: color-mix(in oklab, var(--tone) 45%, white); } }
+.mockFigure { margin: 0; }

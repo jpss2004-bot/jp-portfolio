@@ -12,7 +12,7 @@
 .word { grid-area: 1 / 1; opacity: 0; transform: translateY(1.5rem); transition: opacity 450ms var(--ease), transform 650ms var(--ease); pointer-events: none; }
 .word[data-past] { transform: translateY(-1.5rem); }
 .word[data-on] { opacity: 1; transform: none; pointer-events: auto; }
-.word h4 { margin: 0 0 0.8rem; font-size: clamp(2.6rem, 6.5vw, 6rem); font-weight: 500; letter-spacing: -0.055em; line-height: 0.92; }
+.word h3 { margin: 0 0 0.8rem; font-size: clamp(2.6rem, 6.5vw, 6rem); font-weight: 500; letter-spacing: -0.055em; line-height: 0.92; }
 .word p { font-size: 1.0625rem; line-height: 1.55; max-width: 32ch; opacity: 0.85; }
 .steps { list-style: none; margin: 0.5rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .steps button { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 2.75rem; padding: 0 0.9rem; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--plate-ink) 30%, transparent); background: transparent; color: inherit; font: inherit; font-size: 0.8125rem; cursor: pointer; transition: background-color 200ms var(--ease), color 200ms var(--ease); }
@@ -31,7 +31,7 @@
 @media (max-width: 860px) {
   .pin { top: 4.25rem; height: calc(100vh - 5rem); }
   .scene { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); align-items: start; gap: 1rem; padding: 1.25rem; }
-  .word h4 { font-size: clamp(2.2rem, 11vw, 3.25rem); }
+  .word h3 { font-size: clamp(2.2rem, 11vw, 3.25rem); }
   .word p { font-size: 0.9375rem; }
   .steps button { padding: 0 0.7rem; font-size: 0.75rem; }
   .frame { transform: none; }

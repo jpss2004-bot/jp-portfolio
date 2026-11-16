@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { shareImage } from "@/lib/share";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +21,7 @@ import { FlameScene } from "@/components/work/FlameScene";
 import { ScrollStory } from "@/components/work/ScrollStory";
 import { flameCopy } from "@/data/flame";
 import { visualFor } from "@/data/visuals";
+import { MockScreen, mockAlt, mockLabels, mockViews } from "@/components/work/mocks/MockScreen";
 import { ScrollSpyNav } from "@/components/work/ScrollSpyNav";
 import { architectures } from "@/data/architecture";
 import { WorkMotion } from "@/components/work/WorkMotion";
@@ -85,12 +87,15 @@ export default async function CasePage({ params }: Props) {
   const base = `/${locale}`;
   const es = locale === "es";
   const story = workStories[slug];
+  const tone = visualFor(slug, pick(project.title, locale)).tone;
   const walk = story?.walkthrough;
   const flow = pipelines[slug];
   const milestones = story?.timeline ?? caseTimelines[slug];
   const gallery = c?.gallery ?? [];
   const inline = gallery.length >= 4 ? [gallery[1], gallery[2]] : [];
   const screens = gallery.filter((g) => !inline.includes(g));
+  const mockKind = visualFor(slug, pick(project.title, locale)).mock;
+  const mockScreens = mockKind ? Array.from({ length: mockViews[mockKind] }, (_, i) => i) : [];
   const sections = [
     ...(architectures[slug] ? [{ id: "system", label: es ? "Sistema" : "System" }] : []),
     ...(c ? [
@@ -104,7 +109,7 @@ export default async function CasePage({ params }: Props) {
       ...(project.team?.length ? [{ id: "team", label: es ? "Equipo" : "Team" }] : []),
       { id: "outcome", label: t.case.outcome },
       { id: "evidence", label: t.case.evidence },
-      ...(screens.length ? [{ id: "screens", label: t.case.gallery }] : []),
+      ...(screens.length || mockScreens.length > 1 ? [{ id: "screens", label: t.case.gallery }] : []),
     ] : []),
     { id: "stack", label: t.stackLabel },
     ...(c?.next?.en.length ? [{ id: "next", label: es ? "En desarrollo" : "In progress" }] : []),
@@ -124,9 +129,9 @@ export default async function CasePage({ params }: Props) {
       <StructuredData data={projectStructuredData(project, locale)} />
       <a href="#main" className="skip-link">{t.skip}</a>
       <Header locale={locale} altHref={`/projects/${slug}`} />
-      <WorkMotion locale={locale} showControls={!!architectures[slug]} className={architectures[slug] ? `${workStyles.caseMotion} ${workStyles[slug] ?? ""}` : ""}>
+      <WorkMotion locale={locale} showControls={!!architectures[slug]} className={architectures[slug] ? `${workStyles.caseMotion} ${workStyles[slug] ?? workStyles.toned}` : ""} style={{ "--tone": tone } as CSSProperties}>
       {architectures[slug] ? <div className={workStyles.caseBackdrop} data-motion-scene><StageAtmosphere /></div> : null}
-      <main id="main" className="case" tabIndex={-1} data-tone={visualFor(slug, pick(project.title, locale)).tone}>
+      <main id="main" className="case" tabIndex={-1} data-tone={tone}>
         <header className="frame grid12 case-head">
           <p className="back case-back"><Link className="link" href={featured ? `${base}#${slug}` : `${base}/work`}>← {t.case.back}</Link></p>
           <p className="case-index mono">{String(idx + 1).padStart(2, "0")}<span> / {String(order.length).padStart(2, "0")}</span></p>
@@ -161,7 +166,11 @@ export default async function CasePage({ params }: Props) {
           </div>
         </header>
 
-        {architectures[slug] ? <div className={`frame case-media ${workStyles.caseStage}`}><ProjectStage project={project} locale={locale} priority /></div> : project.visuals ? (
+        {architectures[slug] ? <div className={`frame case-media ${workStyles.caseStage}`}><ProjectStage project={project} locale={locale} priority /></div> : mockKind && !project.visuals ? (
+          <div className="frame case-media">
+            <figure className="shot media-frame media-interface"><div className="media-canvas"><MockScreen kind={mockKind} label={pick(mockAlt[mockKind][0], locale)} /></div><figcaption><span>{mockLabels[mockKind][0]}</span></figcaption></figure>
+          </div>
+        ) : project.visuals ? (
           <div className="frame case-media">
             <VisualFrame visual={project.visuals.primary} locale={locale} detailed priority sizes="(max-width: 900px) 100vw, 1240px" />
           </div>
@@ -172,7 +181,8 @@ export default async function CasePage({ params }: Props) {
         ) : null}
 
         {scene ? (
-          <section id="scene" className="frame case-scene" aria-label={sceneLabel}>
+          <section id="scene" className="frame case-scene" aria-labelledby="scene-h">
+            <h2 id="scene-h" className="sr-only">{sceneLabel}</h2>
             {scene === "flame" ? <FlameScene copy={flameCopy[locale]} /> : story?.pin ? (
               <ScrollStory
                 width={story.pin.width} height={story.pin.height} kicker={pick(story.pin.kicker, locale)}
@@ -286,10 +296,16 @@ export default async function CasePage({ params }: Props) {
               </>
             ) : null}
 
-            {screens.length ? (
+            {screens.length || mockScreens.length > 1 ? (
               <section id="screens" className="case-sec case-row" data-reveal="" aria-label={t.case.gallery}>
                 <h2 className="case-h2"><span className="mono">{num("screens")}</span>{t.case.gallery}</h2>
                 <div className="case-gallery">
+                  {mockKind && mockScreens.length > 1 ? mockScreens.map((view) => (
+                    <figure key={`mock-${view}`} className="shot media-frame media-interface">
+                      <div className="media-canvas"><MockScreen kind={mockKind} view={view} label={pick(mockAlt[mockKind][view], locale)} /></div>
+                      <figcaption><span>{mockLabels[mockKind][view]}</span></figcaption>
+                    </figure>
+                  )) : null}
                   {screens.map((g) => (
                     <figure key={g.src} className="shot media-frame media-interface">
                       <div className="media-canvas">

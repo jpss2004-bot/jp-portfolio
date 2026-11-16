@@ -17,10 +17,10 @@ export const categoryLabels: Record<Category, { en: string; es: string }> = {
 const categories: Record<string, Category> = {
   checkwise: "featured", flaregrain: "featured", neyvu: "featured",
   verifaid: "product", "document-pipelines": "product",
-  "legalshelf-mx": "website", "Red 360+1": "website",
+  "legalshelf-mx": "website", "red-360": "website",
   savr: "webapp", "band-of-brothers": "webapp", "la-red-de-casa": "webapp", "family-phrase-game": "webapp",
-  Cotejo: "desktop", "POS Geocoder": "desktop",
-  "AI in legal practice": "learning", "er-triage-queue-manager": "learning",
+  cotejo: "desktop", "pos-geocoder": "desktop",
+  "ai-legal-practice": "learning", "er-triage-queue-manager": "learning",
 };
 
 const yearOf = (text: string) => text.match(/20\d\d/)?.[0] ?? "";

@@ -13,7 +13,7 @@
 .states { display: grid; }
 .state { grid-area: 1 / 1; opacity: 0; transform: translateY(0.75rem); transition: opacity 500ms var(--ease), transform 700ms var(--ease); }
 .state[data-on] { opacity: 1; transform: none; }
-.state h4 { margin: 0 0 0.75rem; font-size: clamp(2.2rem, 5vw, 4.25rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.98; }
+.state h3 { margin: 0 0 0.75rem; font-size: clamp(2.2rem, 5vw, 4.25rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.98; }
 .state p { font-size: 1rem; line-height: 1.6; color: var(--mute-on); max-width: 34ch; }
 .switch { display: inline-flex; justify-self: start; padding: 0.2rem; border-radius: 999px; border: 1px solid oklch(1 0 0 / 0.18); }
 .switch button { min-height: 2.75rem; padding: 0 1rem; border: 0; border-radius: 999px; background: transparent; color: var(--mute-on); font: inherit; font-size: 0.8125rem; cursor: pointer; transition: background-color 200ms var(--ease), color 200ms var(--ease); }
@@ -35,7 +35,7 @@
   .track { height: 200vh; }
   .pin { top: 4.25rem; height: calc(100vh - 5rem); }
   .copy { width: auto; right: 1.25rem; }
-  .state h4 { font-size: 2.2rem; }
+  .state h3 { font-size: 2.2rem; }
   .state p { font-size: 0.9063rem; }
   .readout { top: auto; bottom: 5rem; left: 1.25rem; right: 1.25rem; width: auto; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; }
   .readout > div:nth-child(2) { border-top: 1px solid oklch(1 0 0 / 0.14); }

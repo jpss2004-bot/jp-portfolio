@@ -12,11 +12,14 @@ export function journalStructuredData(locale: Locale, entries: JournalEntry[], e
   const blog = { "@id": `${journalUrl}#journal` };
   const article = { "@id": `${url}#article` };
   const description = entry?.summary[entry.language] ?? journalLabels[locale].introduction;
-  const image = entry?.cover ? {
+  /* Articles without their own cover use their 1200×630 share card as the primary image. */
+  const imageUrl = entry ? (entry.cover ? `${siteUrl}${journalAsset(entry, "cover")}` : `${siteUrl}/share/${entry.language}/article-${entry.slug}`) : undefined;
+  const image = entry && imageUrl ? {
     "@type": "ImageObject",
     "@id": `${url}#primaryimage`,
-    url: `${siteUrl}${journalAsset(entry, "cover")}`,
-    contentUrl: `${siteUrl}${journalAsset(entry, "cover")}`,
+    url: imageUrl,
+    contentUrl: imageUrl,
+    ...(entry.cover ? {} : { width: 1200, height: 630 }),
   } : undefined;
 
   return {

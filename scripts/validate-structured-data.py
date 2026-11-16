@@ -141,7 +141,7 @@ def validate(route, html, vocabulary):
     else:
         assert webpage["@type"] == "ProfilePage"
         assert webpage["mainEntity"] == {"@id": person["@id"]}
-        assert len(webpage["mentions"]) == 10
+        assert len(webpage["mentions"]) == 8  # three featured projects and the first five in the index
         assert {n["name"] for n in webpage["mentions"]} >= {"CheckWise", "Neyvu", "Verifaid"}
         assert all(n["name"] in " ".join(page.text) for n in webpage["mentions"])
         published = published_entries()
@@ -192,10 +192,17 @@ def validate_journal(route, page, typed, webpage, person):
         assert {c["url"] for c in article["citation"]} == {r["url"] for r in entry["references"]}
         image = next(n for n in typed if n["@type"] == "ImageObject")
         assert article["image"] == webpage["primaryImageOfPage"] == {"@id": image["@id"]}
-        assert image["contentUrl"] == image["url"] == SITE + f'/journal/assets/{entry["slug"]}/cover'
-        assert article["encoding"]["contentUrl"] == SITE + f'/journal/assets/{entry["slug"]}/pdf'
-        assert article["encoding"]["encodingFormat"] == "application/pdf"
-        assert article["sameAs"] == entry["externalPublication"]["url"]
+        cover = SITE + f'/journal/assets/{entry["slug"]}/cover' if entry.get("cover") else SITE + f'/share/{entry["language"]}/article-{entry["slug"]}'
+        assert image["contentUrl"] == image["url"] == cover
+        if entry.get("pdf"):
+            assert article["encoding"]["contentUrl"] == SITE + f'/journal/assets/{entry["slug"]}/pdf'
+            assert article["encoding"]["encodingFormat"] == "application/pdf"
+        else:
+            assert "encoding" not in article
+        if entry.get("externalPublication"):
+            assert article["sameAs"] == entry["externalPublication"]["url"]
+        else:
+            assert "sameAs" not in article
         expected_urls.append(SITE + route)
     assert [item["position"] for item in crumb["itemListElement"]] == list(range(1, len(expected_urls) + 1))
     assert [item["item"] for item in crumb["itemListElement"]] == expected_urls
@@ -215,7 +222,7 @@ def main():
     raw = vocab_path.read_text().replace('"schema:', '"https://schema.org/')
     vocabulary = {n["@id"]: n for n in json.loads(raw)["@graph"]}
     files = sorted(p for p in (ROOT / ".next/server/app").rglob("*.html") if re.match(r"(?:en|es)(?:/projects/|/journal(?:/|\.html)|\.html)", str(p.relative_to(ROOT / ".next/server/app"))))
-    expected_count = 24 + (2 + len(published_entries()) if published_entries() else 0)
+    expected_count = 32 + (2 + len(published_entries()) if published_entries() else 0)
     assert len(files) == expected_count, f"Expected {expected_count} localized pages, found {len(files)}"
 
     def check(path):
