@@ -36,7 +36,7 @@ export const flaregrain: Project = {
     { href: "https://github.com/jpss2004-bot/flaregrain-submission/blob/main/flaregrain/ENGINEERING.md", label: { en: "Technical write-up", es: "Documento técnico" } },
     { href: "https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/", label: { en: "The NASA challenge", es: "El reto de la NASA" } },
   ],
-  stack: ["Python", "Node.js", "HTML, CSS and JavaScript", "Three.js", "Ollama", "qwen3:4b", "BM25 retrieval", "Playwright", "Vercel", "Tailscale"],
+  stack: ["Python", "Node.js", "HTML, CSS and JavaScript", "Three.js", "Ollama", "qwen3:4b", "BM25 retrieval", "Playwright", "Vercel"],
   team: [
     { name: "José Pablo Sámano Suárez", role: { en: "Team lead. Product direction, web interface, AI integration and the pitch.", es: "Líder del equipo. Dirección de producto, interfaz web, integración de IA y la presentación." } },
     { name: "Grish Acharya", role: { en: "Visual design and styling.", es: "Diseño visual y estilos." } },
@@ -80,8 +80,8 @@ export const flaregrain: Project = {
       {
         title: { en: "Let the model write, and let a checker decide what stays", es: "El modelo escribe y un verificador decide qué se queda" },
         why: {
-          en: "The model may only use numbered facts from the sources it was given. A rule-based checker removes any sentence with a wrong number, a wrong record or no citation, and the page says how many it removed. Across 139 saved explanations it kept 492 sentences and removed 270.",
-          es: "El modelo solo puede usar hechos numerados de las fuentes que recibió. Un verificador basado en reglas elimina cualquier oración con un número equivocado, un registro equivocado o sin cita, y la página indica cuántas eliminó. En 139 explicaciones guardadas conservó 492 oraciones y eliminó 270.",
+          en: "The model may only use numbered facts from the sources it was given. A rule-based checker removes any sentence with a wrong number, a wrong record or no citation, and the page says how many it removed. Across 139 explanations saved in the full build it kept 492 sentences and removed 270; 39 of them are published on the public site.",
+          es: "El modelo solo puede usar hechos numerados de las fuentes que recibió. Un verificador basado en reglas elimina cualquier oración con un número equivocado, un registro equivocado o sin cita, y la página indica cuántas eliminó. En 139 explicaciones guardadas en la versión completa conservó 492 oraciones y eliminó 270; 39 de ellas están publicadas en el sitio público.",
         },
       },
       {
@@ -102,14 +102,14 @@ export const flaregrain: Project = {
     built: {
       en: [
         "Intake: downloads NASA's PSI combustion area and reports, checksums each file and normalizes 24,573 values, flagging 575. Thirteen records were checked by hand against the original report pages.",
-        "Retrieval: 1,595 report passages from 9 NASA documents. The rules-only ranking measured recall@5 of 0.850 over 108 scored question wordings.",
+        "Retrieval: 1,595 report passages from 9 NASA documents in the full-data demo (1,321 on the public site). In that demo, the rules-only ranking of the 24 investigations measured recall@5 of 0.850 over 108 scored question wordings.",
         "Answers: qwen3:4b through Ollama writes sentences that must cite record fields; the checker filters them. A stress test of 343,758 synthetic sentences found no misses for wrong numbers or wrong records, with a known gap for invented details.",
         "Site: a Node.js server with plain HTML, CSS and JavaScript on Vercel. Ask, Compare, Evidence and Fire beyond Earth, plus a System design page that reports these measurements.",
         "Process: Claude Code and Codex wrote most of the code under the team's direction and review, and ran audits, browser checks and regression checks. Commits written this way carry a co-author trailer.",
       ],
       es: [
         "Ingesta: descarga el área de combustión de PSI de la NASA y sus reportes, calcula la huella de cada archivo y normaliza 24,573 valores, con 575 marcados. Trece registros se verificaron a mano contra las páginas originales.",
-        "Recuperación: 1,595 pasajes de 9 documentos de la NASA. El ordenamiento basado en reglas midió recall@5 de 0.850 sobre 108 redacciones de preguntas evaluadas.",
+        "Recuperación: 1,595 pasajes de 9 documentos de la NASA en la demo con todos los datos (1,321 en el sitio público). En esa demo, el ordenamiento basado en reglas de las 24 investigaciones midió recall@5 de 0.850 sobre 108 redacciones de preguntas evaluadas.",
         "Respuestas: qwen3:4b mediante Ollama escribe oraciones que deben citar campos de los registros; el verificador las filtra. Una prueba de estrés con 343,758 oraciones sintéticas no encontró fallas en números o registros equivocados, con una limitación conocida para detalles inventados.",
         "Sitio: un servidor Node.js con HTML, CSS y JavaScript sin framework, en Vercel. Ask, Compare, Evidence y Fire beyond Earth, más una página System design que reporta estas mediciones.",
         "Proceso: Claude Code y Codex escribieron la mayor parte del código bajo la dirección y revisión del equipo, y ejecutaron auditorías, pruebas de navegador y de regresión. Esos commits llevan una línea de coautoría.",

@@ -36,7 +36,7 @@
       "type": "list",
       "items": [
         "The reading is a prevalidation: one plain verdict, the fields it read, and where on the page it read them.",
-        "The rules are configured objective checks, including the auto-accept and auto-reject rules a client can set for itself, and live SAT invoice-folio checks.",
+        "The rules are configured objective checks, including an automatic rejection of invalid documents that a client can opt in to, and live SAT invoice-folio checks. Approval is never automatic.",
         "The decision belongs to an authorized reviewer, and every transition keeps its history."
       ]
     },
@@ -112,6 +112,7 @@
     }
   ],
   "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
   "translations": {
     "es": {
       "title": "Separar las lecturas del modelo de las decisiones humanas",
@@ -137,7 +138,7 @@
           "type": "list",
           "items": [
             "La lectura es una prevalidación: un veredicto claro, los campos que leyó y en qué parte de la página los leyó.",
-            "Las reglas son verificaciones objetivas configuradas, incluidas las reglas de aceptación y rechazo automático que cada cliente puede definir por su cuenta, y las verificaciones en vivo de folios de facturas ante el SAT.",
+            "Las reglas son verificaciones objetivas configuradas, incluido un rechazo automático de documentos inválidos que cada cliente puede activar, y las verificaciones en vivo de folios de facturas ante el SAT. La aprobación nunca es automática.",
             "La decisión le corresponde a un revisor autorizado, y cada transición conserva su historial."
           ]
         },

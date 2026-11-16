@@ -1,9 +1,9 @@
 import type { Project } from "@/data/content";
 import { pick } from "@/data/content";
 import type { Locale } from "@/data/i18n";
-import { architectures } from "@/data/architecture";
+import { systems } from "@/data/systems";
 import { VisualFrame } from "@/components/parts";
-import { ProductDisplay } from "./SystemExplorer";
+import { ProductDisplay } from "./ProductDisplay";
 import { ProjectMark, TechnologyRow } from "./ProjectMark";
 import { StageAtmosphere } from "./StageAtmosphere";
 import { AnnotatedShot } from "./AnnotatedShot";
@@ -34,5 +34,5 @@ export function ProjectStage({ project, locale, priority = false }: { project: P
       <figcaption><span>{mockLabels[mockKind][0]}</span></figcaption>
     </figure>
   ) : null;
-  return <><div className={styles.plate} data-work-plate data-motion-scene>{project.slug === "flaregrain" ? <FlameBackdrop /> : <StageAtmosphere />}<div className={styles.plateDepth} aria-hidden="true" /><ProductDisplay architecture={architectures[project.slug]} locale={locale} name={pick(project.title, locale)} brand={<ProjectMark slug={project.slug} />} initialView="product">{shot ? shot : mock ? mock : project.visuals ? <VisualFrame visual={project.visuals.primary} locale={locale} sizes="(max-width: 760px) 94vw, 1120px" priority={priority} /> : null}</ProductDisplay></div><TechnologyRow slug={project.slug} locale={locale} /></>;
+  return <><div className={styles.plate} data-work-plate data-motion-scene>{project.slug === "flaregrain" ? <FlameBackdrop /> : <StageAtmosphere />}<div className={styles.plateDepth} aria-hidden="true" /><ProductDisplay locale={locale} name={pick(project.title, locale)} brand={<ProjectMark slug={project.slug} />} initialView="product" system={systems[project.slug] ? { map: systems[project.slug], href: `/${locale}/projects/${project.slug}/system` } : undefined}>{shot ? shot : mock ? mock : project.visuals ? <VisualFrame visual={project.visuals.primary} locale={locale} sizes="(max-width: 760px) 94vw, 1120px" priority={priority} /> : null}</ProductDisplay></div><TechnologyRow slug={project.slug} locale={locale} /></>;
 }
