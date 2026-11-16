@@ -19,6 +19,7 @@ import { PipelineFlow } from "@/components/work/PipelineFlow";
 import { FlameScene } from "@/components/work/FlameScene";
 import { ScrollStory } from "@/components/work/ScrollStory";
 import { flameCopy } from "@/data/flame";
+import { visualFor } from "@/data/visuals";
 import { ScrollSpyNav } from "@/components/work/ScrollSpyNav";
 import { architectures } from "@/data/architecture";
 import { WorkMotion } from "@/components/work/WorkMotion";
@@ -125,7 +126,7 @@ export default async function CasePage({ params }: Props) {
       <Header locale={locale} altHref={`/projects/${slug}`} />
       <WorkMotion locale={locale} showControls={!!architectures[slug]} className={architectures[slug] ? `${workStyles.caseMotion} ${workStyles[slug] ?? ""}` : ""}>
       {architectures[slug] ? <div className={workStyles.caseBackdrop} data-motion-scene><StageAtmosphere /></div> : null}
-      <main id="main" className="case" tabIndex={-1}>
+      <main id="main" className="case" tabIndex={-1} data-tone={visualFor(slug, pick(project.title, locale)).tone}>
         <header className="frame grid12 case-head">
           <p className="back case-back"><Link className="link" href={featured ? `${base}#${slug}` : `${base}/work`}>← {t.case.back}</Link></p>
           <p className="case-index mono">{String(idx + 1).padStart(2, "0")}<span> / {String(order.length).padStart(2, "0")}</span></p>

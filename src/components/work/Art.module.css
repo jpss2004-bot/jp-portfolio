@@ -1,0 +1,33 @@
+/* One frame for every project image: a plate in the project's colour. */
+.frame { --tone: var(--accent); position: relative; display: grid; place-items: center; width: 100%; height: 100%; container-type: size; overflow: hidden; background: radial-gradient(130% 100% at 20% 0%, color-mix(in oklab, var(--tone) 18%, var(--surface)) 0%, color-mix(in oklab, var(--tone) 34%, var(--surface)) 100%); }
+.frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 50% at 80% 100%, color-mix(in oklab, var(--tone) 30%, transparent), transparent 70%); }
+
+/* The whole screen, scaled to fit and centred; the bar is part of the window. */
+.window { position: relative; z-index: 1; display: block; width: min(86cqw, calc((84cqh - 1.15rem) * var(--ratio))); border-radius: 7px; overflow: hidden; background: var(--surface); border: 1px solid color-mix(in oklab, var(--tone) 30%, var(--rule)); box-shadow: 0 18px 40px -22px color-mix(in oklab, var(--tone) 55%, oklch(0.15 0.02 262 / 0.6)); }
+.bar { display: flex; align-items: center; gap: 4px; height: 1.15rem; padding: 0 0.55rem; background: color-mix(in oklch, var(--ink) 5%, var(--surface)); border-bottom: 1px solid color-mix(in oklch, var(--ink) 8%, transparent); }
+.bar i { width: 0.36rem; height: 0.36rem; border-radius: 50%; background: color-mix(in oklch, var(--ink) 22%, transparent); }
+.bar em { overflow: hidden; margin-left: 0.5rem; font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.56rem; font-style: normal; color: var(--muted); white-space: nowrap; text-overflow: ellipsis; }
+.window img { display: block; width: 100%; height: auto; }
+
+/* Branded tile for projects without a public screen. */
+.tile { display: flex; flex-direction: column; justify-content: center; gap: 0.6rem; text-align: center; }
+.tileMark { position: relative; z-index: 1; width: min(30cqh, 6rem); height: min(30cqh, 6rem); }
+.tileName { position: relative; z-index: 1; font-size: clamp(1rem, 9cqh, 1.6rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; color: var(--ink); padding-inline: 1rem; }
+.tileOwner { position: relative; z-index: 1; font-size: 0.75rem; color: color-mix(in oklab, var(--tone) 60%, var(--ink)); }
+
+/* Marks: project artwork, a company mark on a light chip, or a monogram. */
+.glyph { --tone: var(--accent); display: inline-grid; place-items: center; flex: none; width: 1.6rem; height: 1.6rem; }
+.glyph.glyph > * { width: 100%; height: 100%; max-width: none; margin: 0; flex: none; }
+.glyph.glyph img { width: 100%; height: 100%; object-fit: contain; }
+/* Percentage padding would resolve against the row width, so the mark is inset by sizing instead. */
+.chip { border-radius: 22%; background: oklch(0.99 0.003 250); box-shadow: 0 0 0 1px color-mix(in oklab, var(--tone) 25%, transparent); }
+.chip.chip img { width: 70%; height: 70%; }
+.monogram { border-radius: 26%; background: var(--tone); color: oklch(0.99 0.003 250); font-size: 0.7em; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+.tileMark.monogram { font-size: min(13cqh, 2.6rem); }
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme="light"])) .frame { background: radial-gradient(130% 100% at 20% 0%, color-mix(in oklab, var(--tone) 26%, var(--bg)) 0%, color-mix(in oklab, var(--tone) 12%, var(--bg)) 100%); }
+  :global(:root:not([data-theme="light"])) .tileOwner { color: color-mix(in oklab, var(--tone) 45%, var(--ink)); }
+}
+:global(:root[data-theme="dark"]) .frame { background: radial-gradient(130% 100% at 20% 0%, color-mix(in oklab, var(--tone) 26%, var(--bg)) 0%, color-mix(in oklab, var(--tone) 12%, var(--bg)) 100%); }
+:global(:root[data-theme="dark"]) .tileOwner { color: color-mix(in oklab, var(--tone) 45%, var(--ink)); }

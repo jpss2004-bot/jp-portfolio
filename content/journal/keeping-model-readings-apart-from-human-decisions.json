@@ -1,0 +1,114 @@
+{
+  "slug": "keeping-model-readings-apart-from-human-decisions",
+  "status": "draft",
+  "kind": "article",
+  "language": "en",
+  "title": "Keeping model readings apart from human decisions",
+  "summary": {
+    "en": "In CheckWise, a model reads every compliance document, but it never decides. Here is how the product keeps the reading, the rules and the human decision in separate places, and why that made it easier to trust.",
+    "es": "En CheckWise un modelo lee cada documento de cumplimiento, pero nunca decide. Así es como el producto mantiene separadas la lectura, las reglas y la decisión humana, y por qué eso lo hizo más confiable."
+  },
+  "writtenAt": "2026-11-16",
+  "topics": [
+    "Human review",
+    "AI",
+    "Engineering"
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "CheckWise handles recurring compliance evidence for Mexican companies under the 2021 outsourcing reform, known as REPSE. A company is jointly liable for its service providers' labour and tax obligations, so it has to collect and check filings from every provider: monthly, bimonthly, four-monthly and annual, across SAT, IMSS, INFONAVIT and the labour ministry. [1]"
+    },
+    {
+      "type": "paragraph",
+      "text": "A model reads every one of those documents. It does not decide whether any of them is accepted. That split is the most important design decision in the product, and it is worth explaining why."
+    },
+    {
+      "type": "heading",
+      "id": "three-jobs",
+      "text": "Three jobs that look like one"
+    },
+    {
+      "type": "paragraph",
+      "text": "When a provider uploads a tax filing, three different things need to happen. Something has to read the document and pull out the fields that matter. Something has to apply the rules the client has agreed to. And someone has to own the decision. It is tempting to collapse all three into one model call that returns accept or reject. That would be faster to build and much harder to defend."
+    },
+    {
+      "type": "list",
+      "items": [
+        "The reading is a prevalidation: one plain verdict, the fields it read, and where on the page it read them.",
+        "The rules are configured objective checks, including the auto-accept and auto-reject rules a client can set for itself, and live SAT invoice-folio checks.",
+        "The decision belongs to an authorized reviewer, and every transition keeps its history."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Each of these lives in its own place in the system. The reading never grants itself approval power, and a configured rule has an explicit, auditable scope."
+    },
+    {
+      "type": "heading",
+      "id": "reading",
+      "text": "What a good reading looks like"
+    },
+    {
+      "type": "paragraph",
+      "text": "The prevalidation has to be useful to a reviewer who has about a minute per document. So it does not return a confidence score on its own. It returns a sentence a person can act on and the evidence behind it. In one demo case the reading says the document is not from the provider: it is issued to a different tax ID than the one on the provider's file. The reviewer can see both IDs side by side and the page the reading came from."
+    },
+    {
+      "type": "quote",
+      "text": "A reading should make the reviewer faster, not make the decision for them."
+    },
+    {
+      "type": "paragraph",
+      "text": "That framing changed how I wrote the reading's output. Every field has a location, and the verdict is phrased as a finding to check, not a conclusion to accept."
+    },
+    {
+      "type": "heading",
+      "id": "friction",
+      "text": "Friction in the right place"
+    },
+    {
+      "type": "paragraph",
+      "text": "Most of the review desk is about removing friction. One part deliberately adds it. If a reviewer wants to approve a document the prevalidation flagged, the product asks for a written justification and records it. Approving cleanly is one click. Approving against a warning takes a sentence. That sentence is what makes the decision reconstructable later."
+    },
+    {
+      "type": "heading",
+      "id": "vocabulary",
+      "text": "One vocabulary for status"
+    },
+    {
+      "type": "paragraph",
+      "text": "CheckWise has three audiences: providers who upload, LegalShelf reviewers who decide, and client companies who read their exposure. If those three portals describe the same document differently, trust erodes fast. Status labels live in one module, and sweep tests fail the build if any screen invents its own wording."
+    },
+    {
+      "type": "heading",
+      "id": "result",
+      "text": "What it made possible"
+    },
+    {
+      "type": "paragraph",
+      "text": "By September 2026, CheckWise served 7 client companies and more than 15 providers and had processed about 20,000 documents. Reviewers were clearing around 50 documents a day at roughly a minute each. [2] I do not think that pace would be safe without the split. Because the model only reads, a wrong reading costs a reviewer a few seconds. It never quietly becomes a wrong decision."
+    },
+    {
+      "type": "paragraph",
+      "text": "The same idea shows up in my other work. In Verifaid, a second authorized person approves every conclusion. In Flaregrain, a rule-based checker decides which model sentences reach the page. Models are good readers. Accountability still needs a name attached to it."
+    },
+    {
+      "type": "resource",
+      "title": "CheckWise case study",
+      "href": "https://jpsamanosuarez.com/en/projects/checkwise",
+      "description": "The full case study, with the review desk, the obligation model and the September figures."
+    }
+  ],
+  "references": [
+    {
+      "id": "1",
+      "label": "CheckWise, live product site",
+      "url": "https://checkwise.com.mx"
+    },
+    {
+      "id": "2",
+      "label": "CheckWise case study, September 2026 figures",
+      "url": "https://jpsamanosuarez.com/en/projects/checkwise"
+    }
+  ]
+}

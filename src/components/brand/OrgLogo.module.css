@@ -1,0 +1,11 @@
+.logo { display: inline-flex; align-items: center; }
+.logo img { display: block; width: auto; height: 100%; }
+.legalshelf { height: 1.35rem; }
+.acadia { height: 1.75rem; }
+.dark { display: none !important; }
+:global(:root[data-theme="dark"]) .light { display: none !important; }
+:global(:root[data-theme="dark"]) .dark { display: block !important; }
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme="light"])) .light { display: none !important; }
+  :global(:root:not([data-theme="light"])) .dark { display: block !important; }
+}

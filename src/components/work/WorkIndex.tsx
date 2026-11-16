@@ -1,19 +1,19 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import type { IndexRow } from "@/data/work-index";
+import { MarkGlyph, ProjectArt } from "./ProjectArt";
 import styles from "./Showcase.module.css";
 
 type Filter = { key: string; label: string };
-type Labels = { list: string; open: string; all: string; type: string; year: string; empty: string; count: (n: number) => string };
+type Labels = { list: string; open: string; all: string; type: string; year: string; empty: string; countOne: string; countMany: string };
 
 /**
- * Projects as one index. Pointing at or focusing a row brings its artwork and
+ * Projects as one index. Pointing at or focusing a row brings its picture and
  * description into the panel beside the list. With `categories`, the list can
- * be narrowed by type and year.
+ * be narrowed by type and year. Each row carries its project's colour.
  */
-export function WorkIndex({ rows, labels, categories, years }: { rows: IndexRow[]; labels: Omit<Labels, "count"> & { countOne: string; countMany: string }; categories?: Filter[]; years?: string[] }) {
+export function WorkIndex({ rows, labels, categories, years }: { rows: IndexRow[]; labels: Labels; categories?: Filter[]; years?: string[] }) {
   const [active, setActive] = useState(rows[0]?.key);
   const [category, setCategory] = useState("all");
   const [year, setYear] = useState("all");
@@ -37,14 +37,14 @@ export function WorkIndex({ rows, labels, categories, years }: { rows: IndexRow[
             const body = (
               <>
                 <span className={styles.indexNum}>{String(i + 1).padStart(2, "0")}</span>
-                <span className={styles.indexName}>{row.name}</span>
+                <span className={styles.indexName}><MarkGlyph mark={row.visual.mark} tone={row.visual.tone} className={styles.indexMark} />{row.name}</span>
                 <span className={styles.indexKind}>{row.kind}</span>
                 <span className={styles.indexYear}>{row.year}</span>
                 <span className={styles.indexLine}>{row.line}</span>
               </>
             );
             return (
-              <li key={row.key} data-active={current?.key === row.key || undefined} onPointerEnter={() => setActive(row.key)} onFocus={() => setActive(row.key)}>
+              <li key={row.key} style={{ "--tone": row.visual.tone } as CSSProperties} data-active={current?.key === row.key || undefined} onPointerEnter={() => setActive(row.key)} onFocus={() => setActive(row.key)}>
                 {row.href ? <a href={row.href} target={row.external ? "_blank" : undefined} rel={row.external ? "noreferrer" : undefined}>{body}</a> : <div tabIndex={0}>{body}</div>}
               </li>
             );
@@ -52,12 +52,13 @@ export function WorkIndex({ rows, labels, categories, years }: { rows: IndexRow[
           {!shown.length ? <li className={styles.indexEmpty}>{labels.empty}</li> : null}
         </ol>
         {current ? (
-          <aside className={styles.indexPanel} aria-hidden="true">
+          <aside className={styles.indexPanel} aria-hidden="true" style={{ "--tone": current.visual.tone } as CSSProperties}>
             <div className={styles.indexArt}>
-              {shown.map((row) => row.image ? (
-                <Image key={row.key} src={row.image} alt="" fill sizes="460px" quality={85} data-on={current.key === row.key || undefined} style={{ objectFit: row.contain ? "contain" : "cover" }} />
-              ) : null)}
-              {!current.image ? <span className={styles.indexGlyph}>{current.name.slice(0, 1)}</span> : null}
+              {shown.map((row) => (
+                <span key={row.key} className={styles.indexLayer} data-on={current.key === row.key || undefined}>
+                  <ProjectArt visual={row.visual} name={row.name} sizes="460px" hidden />
+                </span>
+              ))}
             </div>
             <p className={styles.indexCaption}><strong>{current.name}</strong>{current.line}</p>
             {current.href ? <p className={styles.indexOpen}>{labels.open} <span>{current.external ? "↗" : "→"}</span></p> : null}

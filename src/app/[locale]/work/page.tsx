@@ -45,7 +45,7 @@ export default async function WorkPage({ params }: Props) {
     <>
       <a href="#main" className="skip-link">{ui[locale].skip}</a>
       <Header locale={locale} altHref="/work" />
-      <main id="main" className={styles.page} tabIndex={-1}>
+      <main id="main" className={styles.page} tabIndex={-1} data-tone="oklch(0.62 0.155 38)">
         <p className="back"><Link className="link" href={`/${locale}`}>← {es ? "Inicio" : "Home"}</Link></p>
         <header className={styles.pageHead}>
           <h1>{es ? "Todo el trabajo." : "All work."}</h1>

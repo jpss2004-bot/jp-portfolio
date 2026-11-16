@@ -1,8 +1,9 @@
 import { pick, primaryProjects, shipped, statusLabel, supportingProjects } from "./content";
 import type { Locale } from "./i18n";
+import { visualFor, type ProjectVisual } from "./visuals";
 
 export type Category = "featured" | "product" | "webapp" | "desktop" | "website" | "learning";
-export type IndexRow = { key: string; name: string; line: string; kind: string; year: string; yearNum: string; category: Category; href?: string; external: boolean; image?: string; contain?: boolean };
+export type IndexRow = { key: string; name: string; line: string; kind: string; year: string; yearNum: string; category: Category; href?: string; external: boolean; visual: ProjectVisual };
 
 export const categoryLabels: Record<Category, { en: string; es: string }> = {
   featured: { en: "Featured", es: "Destacados" },
@@ -13,22 +14,13 @@ export const categoryLabels: Record<Category, { en: string; es: string }> = {
   learning: { en: "Talks and coursework", es: "Pláticas y trabajo académico" },
 };
 
-const art: Record<string, { src: string; contain?: boolean; category: Category }> = {
-  checkwise: { src: "/projects/checkwise/client-dashboard.webp", category: "featured" },
-  flaregrain: { src: "/projects/flaregrain/ask.webp", category: "featured" },
-  neyvu: { src: "/projects/neyvu/answer.png", category: "featured" },
-  verifaid: { src: "/art/verifaid-3d.webp", contain: true, category: "product" },
-  "document-pipelines": { src: "/art/pipelines-3d.webp", contain: true, category: "product" },
-  "legalshelf-mx": { src: "/projects/legalshelf-mx/home.webp", category: "website" },
-  SAVR: { src: "/projects/savr/savr-dashboard.png", category: "webapp" },
-  "Band of Brothers": { src: "/art/bob.webp", category: "webapp" },
-  "La Red de Casa": { src: "/art/redcasa-3d.webp", contain: true, category: "webapp" },
-  Cotejo: { src: "/art/cotejo-3d.webp", contain: true, category: "desktop" },
-  "POS Geocoder": { src: "/art/geocoder-3d.webp", contain: true, category: "desktop" },
-  "Red 360+1": { src: "/art/red360.webp", category: "website" },
-  "AI in legal practice": { src: "/art/talk-3d.webp", contain: true, category: "learning" },
-  "ER Triage & Queue Manager": { src: "/projects/er-triage-queue-manager/shot-dashboard.png", category: "learning" },
-  "Family Phrase Game": { src: "/projects/family-phrase-game/family-phrase-game-main.png", category: "webapp" },
+const categories: Record<string, Category> = {
+  checkwise: "featured", flaregrain: "featured", neyvu: "featured",
+  verifaid: "product", "document-pipelines": "product",
+  "legalshelf-mx": "website", "Red 360+1": "website",
+  savr: "webapp", "band-of-brothers": "webapp", "la-red-de-casa": "webapp", "family-phrase-game": "webapp",
+  Cotejo: "desktop", "POS Geocoder": "desktop",
+  "AI in legal practice": "learning", "er-triage-queue-manager": "learning",
 };
 
 const yearOf = (text: string) => text.match(/20\d\d/)?.[0] ?? "";
@@ -44,24 +36,22 @@ export function workRows(locale: Locale, withFeatured = false): IndexRow[] {
       kind: pick(statusLabel[project.status], locale),
       year: pick(project.period, locale),
       yearNum: yearOf(project.period.en),
-      category: art[project.slug]?.category ?? "product",
+      category: categories[project.slug] ?? "product",
       href: `/${locale}/projects/${project.slug}`,
       external: false,
-      image: art[project.slug]?.src,
-      contain: art[project.slug]?.contain,
+      visual: visualFor(project.slug, pick(project.title, locale)),
     })),
     ...shipped.map((item) => ({
-      key: item.name,
+      key: item.slug ?? item.name,
       name: item.name,
       line: pick(item.line, locale),
       kind: pick(item.kind, locale),
       year: item.year,
       yearNum: item.year,
-      category: art[item.name]?.category ?? "webapp",
+      category: categories[item.slug ?? item.name] ?? "webapp",
       href: item.slug ? `/${locale}/projects/${item.slug}` : item.href,
       external: !item.slug && !!item.href,
-      image: art[item.name]?.src,
-      contain: art[item.name]?.contain,
+      visual: visualFor(item.slug ?? item.name, item.name),
     })),
   ];
 }

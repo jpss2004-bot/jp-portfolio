@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import styles from "./Chooser.module.css";
 
-export type ChooserItem = { slug: string; title: string; status: string; period: string; className: string; panelClassName?: string; preview: ReactNode; panel: ReactNode };
+export type ChooserItem = { slug: string; title: string; status: string; period: string; tone: string; className: string; style?: CSSProperties; panelClassName?: string; preview: ReactNode; panel: ReactNode };
 type Labels = { open: string; close: string; previous: string; next: string };
 type Scroll = "reveal" | "top" | null;
 
@@ -74,8 +74,13 @@ export function ProjectChooser({ items, labels }: { items: ChooserItem[]; labels
     if (open !== null && mode) {
       const panel = document.getElementById(`panel-${items[open].slug}`);
       if (!panel) return;
-      const top = panel.getBoundingClientRect().top;
-      if (mode === "top" || top > window.innerHeight * 0.72) window.scrollTo({ top: window.scrollY + top - 88, behavior });
+      /* Centre the panel in the space under the header; a panel taller than that starts just below it. */
+      const header = document.querySelector<HTMLElement>(".topbar")?.offsetHeight ?? 56;
+      const room = document.documentElement.clientHeight - header;
+      const rect = panel.getBoundingClientRect();
+      const offset = rect.height < room - 16 ? header + (room - rect.height) / 2 : header + 8;
+      const target = window.scrollY + rect.top - offset;
+      if (Math.abs(target - window.scrollY) > 6) window.scrollTo({ top: target, behavior });
     } else if (open === null && held) {
       /* Closing jumps straight back to the preview; a smooth scroll here would fight the next one. */
       const top = held.el.getBoundingClientRect().top;
@@ -88,7 +93,7 @@ export function ProjectChooser({ items, labels }: { items: ChooserItem[]; labels
       {items.map((item, i) => {
         const isOpen = open === i;
         return [
-          <div key={`${item.slug}-item`} id={item.slug} className={`${styles.item} ${item.className}`} data-on={isOpen || undefined}>
+          <div key={`${item.slug}-item`} id={item.slug} className={`${styles.item} ${item.className}`} style={item.style} data-on={isOpen || undefined}>
             <h3 className={styles.itemHead}>
               <button
                 ref={(node) => { buttons.current[i] = node; }}
@@ -112,22 +117,19 @@ export function ProjectChooser({ items, labels }: { items: ChooserItem[]; labels
             className={`${styles.panel} ${item.className} ${item.panelClassName ?? ""}`}
             data-open={isOpen || undefined}
             data-dir={dir}
+            data-tone={item.tone}
           >
             <div className={styles.panelInner}>
               <div className={styles.panelBar}>
                 <p className={styles.panelCount}><b>{padded(i + 1)}</b> / {padded(items.length)}</p>
                 <p className={styles.panelMeta}><span className={styles.status}><i aria-hidden="true" />{item.status}</span><span>{item.period}</span></p>
+                <nav className={styles.panelNav} aria-label={`${labels.previous} / ${labels.next}`}>
+                  <button type="button" disabled={i === 0} onClick={() => choose(i - 1, null, "top")} aria-label={i > 0 ? `${labels.previous}: ${items[i - 1].title}` : labels.previous}><span aria-hidden="true">←</span>{i > 0 ? <b>{items[i - 1].title}</b> : null}</button>
+                  <button type="button" disabled={i === items.length - 1} onClick={() => choose(i + 1, null, "top")} aria-label={i < items.length - 1 ? `${labels.next}: ${items[i + 1].title}` : labels.next}>{i < items.length - 1 ? <b>{items[i + 1].title}</b> : null}<span aria-hidden="true">→</span></button>
+                </nav>
                 <button type="button" className={styles.close} onClick={() => choose(null, buttons.current[i], null)}>{labels.close} <span aria-hidden="true">✕</span></button>
               </div>
               {item.panel}
-              <nav className={styles.panelNav} aria-label={`${labels.previous} / ${labels.next}`}>
-                {i > 0 ? (
-                  <button type="button" onClick={() => choose(i - 1, null, "top")}><span>← {labels.previous}</span><b>{items[i - 1].title}</b></button>
-                ) : <span />}
-                {i < items.length - 1 ? (
-                  <button type="button" onClick={() => choose(i + 1, null, "top")}><span>{labels.next} →</span><b>{items[i + 1].title}</b></button>
-                ) : <span />}
-              </nav>
             </div>
           </div>,
         ];

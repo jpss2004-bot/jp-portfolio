@@ -20,9 +20,18 @@ const symbols: Record<string, string> = {
   external: "M14 3h7v7 M21 3l-9 9 M10 5H3v16h16v-7",
 };
 
+/* Each technology in its own brand colour; "ink" ones follow the text colour in both themes. */
+const brand: Record<string, string> = {
+  nextdotjs: "ink", vercel: "ink", github: "ink", flask: "ink",
+  python: "#3776ab", fastapi: "#009688", postgresql: "#4169e1", react: "#087ea4",
+  typescript: "#3178c6", render: "#2f9e83", sqlalchemy: "#d71f00", sqlite: "#0f6fa3", tailwindcss: "#0891b2",
+};
+
 export function TechnologyIcon({ name }: { name: string }) {
-  if (symbols[name]) return <svg className={styles.technologyIcon} viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d={symbols[name]} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>;
-  return <span className={styles.technologyIcon} style={{ "--icon": `url(/icons/${name}.svg)` } as CSSProperties} aria-hidden="true" />;
+  const tone = brand[name];
+  const style = (tone && tone !== "ink" ? { "--brand": tone } : {}) as CSSProperties;
+  if (symbols[name]) return <svg className={styles.technologyIcon} data-brand="project" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d={symbols[name]} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+  return <span className={styles.technologyIcon} data-brand={tone === "ink" ? "ink" : tone ? "brand" : "project"} style={{ ...style, "--icon": `url(/icons/${name}.svg)` } as CSSProperties} aria-hidden="true" />;
 }
 
 const stacks: Record<string, [string, string][]> = {

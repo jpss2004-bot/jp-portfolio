@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { shareImage } from "@/lib/share";
 import { Archivo } from "next/font/google";
 import Link from "next/link";
+import type { CSSProperties } from "react";
+import { OrgLogo } from "@/components/brand/OrgLogo";
+import { ProjectMark } from "@/components/work/ProjectMark";
 import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
 import { pick, profile } from "@/data/content";
@@ -87,18 +90,18 @@ export default async function Home({ params }: Props) {
           </div>
         </section>
 
-        <section className="frame context" data-reveal="" aria-label={es ? "Contexto actual" : "Current context"}>
+        <section className="frame context" data-reveal="" data-tone="#e0703f" aria-label={es ? "Contexto actual" : "Current context"}>
           <ul>
-            <li><span>{es ? "Desarrollador de software" : "Software Developer"}</span><b>LegalShelf</b><i>{es ? "may 2026 – presente" : "May 2026 – present"}</i></li>
-            <li><span>{es ? "Asistente de investigación" : "Research Assistant"}</span><b>Acadia AIoT Research Hub</b><i>{es ? "sep 2026 – presente" : "Sep 2026 – present"}</i></li>
-            <li><span>{es ? "Líder de equipo" : "Team lead"}</span><b>NASA Space Apps Halifax</b><i>{es ? "nov 2026 · Flaregrain" : "Nov 2026 · Flaregrain"}</i></li>
-            <li><span>{es ? "Ciencias de la Computación" : "B.Sc. Computer Science"}</span><b>Acadia University</b><i>{es ? "Generación 2027" : "Class of 2027"}</i></li>
+            <li style={{ "--tone": "#00558a" } as CSSProperties}><span>{es ? "Desarrollador de software" : "Software Developer"}</span><b className="context-logo"><OrgLogo org="legalshelf" /></b><i>{es ? "may 2026 – presente" : "May 2026 – present"}</i></li>
+            <li style={{ "--tone": "#113e74" } as CSSProperties}><span>{es ? "Asistente de investigación" : "Research Assistant"}</span><b className="context-logo"><OrgLogo org="acadia" decorative /><em>AIoT Research Hub</em></b><i>{es ? "sep 2026 – presente" : "Sep 2026 – present"}</i></li>
+            <li style={{ "--tone": "#e0703f" } as CSSProperties}><span>{es ? "Líder de equipo" : "Team lead"}</span><b className="context-logo context-text"><span className="context-mark"><ProjectMark slug="flaregrain" /></span>NASA Space Apps Halifax</b><i>{es ? "nov 2026 · Flaregrain" : "Nov 2026 · Flaregrain"}</i></li>
+            <li style={{ "--tone": "#113e74" } as CSSProperties}><span>{es ? "Ciencias de la Computación" : "B.Sc. Computer Science"}</span><b className="context-logo"><OrgLogo org="acadia" /></b><i>{es ? "Generación 2027" : "Class of 2027"}</i></li>
           </ul>
         </section>
 
         <SelectedWork locale={locale} />
 
-        <section id="experience" className="section band" aria-labelledby="experience-h">
+        <section id="experience" className="section band" data-tone="#00558a" aria-labelledby="experience-h">
           <div className="frame grid12">
             <header className="band-head" data-reveal="">
               <p className="band-num mono">02</p>
@@ -107,13 +110,14 @@ export default async function Home({ params }: Props) {
             </header>
             <ol className="timeline">
               {[
-                { period: es ? "sep 2026 – presente" : "Sep 2026 – present", role: es ? "Asistente de investigación" : "Research Assistant", org: <a className="link" href="https://aarh.acadiau.ca/" target="_blank" rel="noreferrer">Acadia AIoT Research Hub</a>, place: "Wolfville, NS", body: es ? "Lidero frontend, UX y diseño visual para el hub: diseño y desarrollo las interfaces que presentan su trabajo y sus sistemas." : "I lead frontend, UX and visual design for the hub, designing and developing the interfaces that present its work and systems.", tags: ["Frontend", "UX", es ? "Diseño visual" : "Visual design"] },
-                { period: es ? "may 2026 – presente" : "May 2026 – present", role: es ? "Desarrollador de software" : "Software Developer", org: <>LegalShelf</>, place: "", body: es ? "Dirijo CheckWise y Verifaid, construí pipelines documentales y rediseñé el sitio de LegalShelf. Ahora trabajo en mejoras de la plataforma y nuevos módulos de IA." : "I lead CheckWise and Verifaid, built document pipelines and redesigned the LegalShelf site. I now work on platform enhancements and new AI modules.", tags: ["Python · FastAPI", "Next.js", "PostgreSQL", es ? "IA documental" : "Document AI"] },
-                { period: es ? "nov 2026" : "Nov 2026", role: es ? "Líder de equipo, NASA Space Apps" : "Team lead, NASA Space Apps", org: <Link className="link" href={`/${locale}/projects/flaregrain`}>Flaregrain · Sparkline Foundry</Link>, place: "Halifax, NS", body: es ? "Formé y lideré un equipo de cuatro para construir en 48 horas una herramienta que responde preguntas sobre experimentos de fuego de la NASA con citas verificables." : "I formed and led a team of four to build, in 48 hours, a tool that answers questions about NASA fire experiments with checkable citations.", tags: [es ? "Liderazgo" : "Leadership", es ? "Recuperación e IA" : "Retrieval and AI", es ? "Presentación" : "Pitch"] },
+                { period: es ? "sep 2026 – presente" : "Sep 2026 – present", role: es ? "Asistente de investigación" : "Research Assistant", org: <a className="link" href="https://aarh.acadiau.ca/" target="_blank" rel="noreferrer">Acadia AIoT Research Hub</a>, logo: <OrgLogo org="acadia" decorative />, tone: "#113e74", place: "Wolfville, NS", body: es ? "Lidero frontend, UX y diseño visual para el hub: diseño y desarrollo las interfaces que presentan su trabajo y sus sistemas." : "I lead frontend, UX and visual design for the hub, designing and developing the interfaces that present its work and systems.", tags: ["Frontend", "UX", es ? "Diseño visual" : "Visual design"] },
+                { period: es ? "may 2026 – presente" : "May 2026 – present", role: es ? "Desarrollador de software" : "Software Developer", org: <>LegalShelf</>, logo: <OrgLogo org="legalshelf" decorative />, tone: "#00558a", place: "", body: es ? "Dirijo CheckWise y Verifaid, construí pipelines documentales y rediseñé el sitio de LegalShelf. Ahora trabajo en mejoras de la plataforma y nuevos módulos de IA." : "I lead CheckWise and Verifaid, built document pipelines and redesigned the LegalShelf site. I now work on platform enhancements and new AI modules.", tags: ["Python · FastAPI", "Next.js", "PostgreSQL", es ? "IA documental" : "Document AI"] },
+                { period: es ? "nov 2026" : "Nov 2026", role: es ? "Líder de equipo, NASA Space Apps" : "Team lead, NASA Space Apps", org: <Link className="link" href={`/${locale}/projects/flaregrain`}>Flaregrain · Sparkline Foundry</Link>, logo: <span className="timeline-mark"><ProjectMark slug="flaregrain" /></span>, tone: "#e0703f", place: "Halifax, NS", body: es ? "Formé y lideré un equipo de cuatro para construir en 48 horas una herramienta que responde preguntas sobre experimentos de fuego de la NASA con citas verificables." : "I formed and led a team of four to build, in 48 hours, a tool that answers questions about NASA fire experiments with checkable citations.", tags: [es ? "Liderazgo" : "Leadership", es ? "Recuperación e IA" : "Retrieval and AI", es ? "Presentación" : "Pitch"] },
               ].map((item) => (
-                <li key={item.role} data-reveal="">
+                <li key={item.role} data-reveal="" data-tone={item.tone} style={{ "--tone": item.tone } as CSSProperties}>
                   <p className="timeline-when mono">{item.period}{item.place ? <span>{item.place}</span> : null}</p>
                   <div className="timeline-what">
+                    <p className="timeline-logo" aria-hidden="true">{item.logo}</p>
                     <h3>{item.role}</h3>
                     <p className="timeline-org">{item.org}</p>
                   </div>
@@ -128,7 +132,7 @@ export default async function Home({ params }: Props) {
         </section>
 
         {/* About ----------------------------------------------------------- */}
-        <section id="about" className="section band" aria-labelledby="about-h">
+        <section id="about" className="section band" data-tone="oklch(0.62 0.155 38)" aria-labelledby="about-h">
           <div className="frame grid12">
             <header className="band-head" data-reveal="">
               <p className="band-num mono">03</p>
@@ -156,7 +160,7 @@ export default async function Home({ params }: Props) {
         <JournalTeaser locale={locale} />
 
         {/* Contact --------------------------------------------------------- */}
-        <section id="contact" className="section band contact-band" aria-labelledby="contact-h">
+        <section id="contact" className="section band contact-band" data-tone="oklch(0.62 0.155 38)" aria-labelledby="contact-h">
           <div className="frame grid12">
             <header className="band-head" data-reveal="">
               <p className="band-num mono">04</p>
