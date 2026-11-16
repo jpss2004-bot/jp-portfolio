@@ -63,12 +63,18 @@
 .loopLabel svg { width: 100%; stroke: #258c8b; stroke-width: 2; fill: none; margin-top: .4rem; }
 .heatArrow { color: #258c8b; font-size: 1.6rem; }
 .progress { position: fixed; top: 56px; left: 0; width: 100%; height: 2px; z-index: 31; background: #258c8b; transform: scaleX(var(--reading-progress,0)); transform-origin: left; pointer-events: none; }
-.teaser { max-width: var(--frame); padding: 4rem var(--gutter); margin: 0 auto; }
-.teaser > div { display: grid; grid-template-columns: 1fr 1.25fr; gap: 3rem; align-items: baseline; border-top: 1px solid var(--rule); padding-top: 3rem; }
-.teaser h2 { font-size: 2.3rem; font-weight: 500; letter-spacing: -.04em; }
-.teaser h3 { font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.2; font-weight: 500; letter-spacing: -.035em; }
-.teaser h3 a { text-decoration: none; }
-.teaser p { margin-top: 1rem; max-width: 60ch; color: var(--ink-2); }
+.teaser { max-width: var(--frame); padding: clamp(4rem, 8vw, 6rem) var(--gutter) 2rem; margin: 0 auto; }
+.teaserHead { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: end; padding-bottom: 1.25rem; margin-bottom: clamp(1.5rem, 3vw, 2.25rem); border-bottom: 1px solid var(--rule); }
+.teaserHead h2 { grid-column: 1 / span 6; font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1; }
+.teaserHead h2 a { text-decoration: none; }
+.teaserHead p { grid-column: 7 / span 4; font-size: 0.9375rem; color: var(--muted); }
+.teaserAll { grid-column: 11 / -1; justify-self: end; display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.75rem; font-size: 0.875rem; font-weight: 600; text-underline-offset: 0.3em; }
+.teaserGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
+@media (max-width: 960px) {
+  .teaserHead h2, .teaserHead p, .teaserAll { grid-column: 1 / -1; justify-self: start; }
+  .teaserHead p { margin-top: 0.75rem; }
+  .teaserGrid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+}
 .resource { margin: 1.5rem 0; padding-left: 1.5rem; border-left: 2px solid var(--journal-teal); }
 .resource a { font-size: 1.2rem; text-underline-offset: .2em; }
 .resource p { margin-top: .5rem; color: var(--ink-2); }

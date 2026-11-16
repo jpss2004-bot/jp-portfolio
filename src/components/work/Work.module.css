@@ -160,9 +160,12 @@
 .technologyRow li { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; }
 .technologyIcon { display: block; width: 24px; height: 24px; flex: 0 0 auto; }
 span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-position: center; mask-size: contain; background: currentColor; }
-.technologyRow li:nth-child(2n) .technologyIcon { color: var(--project-accent); }
-.technologyRow li:nth-child(3n) .technologyIcon { color: var(--stage-two); }
-.technologyRow li:first-child .technologyIcon { color: var(--ink); }
+.technologyRow li { color: var(--ink-2); }
+.technologyIcon[data-brand="brand"] { color: var(--brand); }
+.technologyIcon[data-brand="ink"] { color: var(--ink); }
+.technologyIcon[data-brand="project"] { color: var(--project-accent); }
+:global(:root[data-theme="dark"]) .technologyIcon[data-brand="brand"] { color: color-mix(in oklab, var(--brand) 72%, white); }
+@media (prefers-color-scheme: dark) { :global(:root:not([data-theme="light"])) .technologyIcon[data-brand="brand"] { color: color-mix(in oklab, var(--brand) 72%, white); } }
 
 /* A branching architecture map. Nodes are real buttons, wires are illustrative. */
 .system { container-type: inline-size; container-name: system; padding: 14px 24px 24px; min-height: 0; background: var(--bg); }

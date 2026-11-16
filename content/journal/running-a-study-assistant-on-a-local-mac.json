@@ -1,0 +1,106 @@
+{
+  "slug": "running-a-study-assistant-on-a-local-mac",
+  "status": "draft",
+  "kind": "article",
+  "language": "en",
+  "title": "Running a study assistant on a local Mac",
+  "summary": {
+    "en": "Neyvu answers questions about a student's own course material, and the model runs on a Mac rather than a paid API. Here is what that choice forced me to design: a queue, saved source versions and a workspace that still works when the model is offline.",
+    "es": "Neyvu responde preguntas sobre el material de curso de cada estudiante, y el modelo corre en una Mac en lugar de una API de pago. Esto es lo que esa decisión me obligó a diseñar: una cola, versiones guardadas de las fuentes y un espacio que funciona aunque el modelo esté desconectado."
+  },
+  "writtenAt": "2026-11-16",
+  "topics": [
+    "Local AI",
+    "Product",
+    "Engineering"
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Neyvu is a course-aware study assistant I am building on my own. It brings Moodle material, notes and study planning into one workspace, and its answers link back to the saved source they used. It is a working pilot, and I am onboarding students now. [1]"
+    },
+    {
+      "type": "paragraph",
+      "text": "The unusual part is where the model runs. The workspace is hosted on Render, but the AI runs on a local Mac. That one decision shaped most of the architecture."
+    },
+    {
+      "type": "heading",
+      "id": "why-local",
+      "text": "Why run it locally"
+    },
+    {
+      "type": "paragraph",
+      "text": "Course material is personal, and a student's notes and conversations should stay separate from everyone else's. Running inference on a machine I control keeps the system simple to reason about. It also means the model is sometimes unavailable, and a study tool that breaks whenever the model is busy is not a study tool."
+    },
+    {
+      "type": "heading",
+      "id": "queue",
+      "text": "A queue between the web and the model"
+    },
+    {
+      "type": "paragraph",
+      "text": "The hosted app never calls the model directly. It writes an answer job to a leased queue, and the local worker picks jobs up when it can. While a question waits, the rest of the workspace keeps working: saved notes, files and the calendar are all still there. If an answer fails, the student can keep a recoverable draft instead of losing what they wrote."
+    },
+    {
+      "type": "list",
+      "items": [
+        "The web app and its PostgreSQL store hold everything a student owns, scoped to that student.",
+        "The queue holds work that needs the model.",
+        "The local worker runs the model, with exact-math checks for mathematical answers."
+      ]
+    },
+    {
+      "type": "heading",
+      "id": "versions",
+      "text": "Answers point at a version, not a file"
+    },
+    {
+      "type": "paragraph",
+      "text": "Each answer job references an immutable version of its sources. If a student edits a note tomorrow, an answer from today still points at the text it actually read. AI-written study drafts are kept separate from the original course evidence, so the two can never blur."
+    },
+    {
+      "type": "quote",
+      "text": "If the source can change underneath the answer, the citation is decoration."
+    },
+    {
+      "type": "heading",
+      "id": "collection",
+      "text": "Collection on the student's own desktop"
+    },
+    {
+      "type": "paragraph",
+      "text": "Students sign into Moodle themselves through a paired desktop Companion. Neyvu never holds their university password. Collection timestamps and missing coverage stay visible, because a study assistant that silently has half a course is worse than one that tells you what it has not seen."
+    },
+    {
+      "type": "heading",
+      "id": "boundaries",
+      "text": "Boundaries the model does not get to guess"
+    },
+    {
+      "type": "paragraph",
+      "text": "Some lines are drawn in the data model instead of being left to the model. A planned study day is not an assignment deadline. Official dates stay separate from a student's own plan. The assistant must not infer a submission, a grade or a deadline from unrelated evidence. Those rules are enforced by structure, which is more reliable than a prompt."
+    },
+    {
+      "type": "heading",
+      "id": "next",
+      "text": "What comes next"
+    },
+    {
+      "type": "paragraph",
+      "text": "The next steps are about real students rather than architecture: onboarding pilot users, measuring the first successful course setup, and finishing acceptance on physical phones. I am not making any adoption claims yet. The system is ready to learn from people using it."
+    },
+    {
+      "type": "resource",
+      "title": "Neyvu case study",
+      "href": "https://jpsamanosuarez.com/en/projects/neyvu",
+      "description": "The full case study, with the system map, the source reader and the pilot status."
+    }
+  ],
+  "references": [
+    {
+      "id": "1",
+      "label": "Neyvu pilot access page",
+      "url": "https://schoolvault-beta-web.onrender.com/beta/join?lang=en"
+    }
+  ]
+}

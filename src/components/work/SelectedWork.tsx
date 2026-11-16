@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { explorations, pick, primaryProjects, statusLabel, summer } from "@/data/content";
@@ -8,6 +7,8 @@ import { ui } from "@/data/ui";
 import type { Locale } from "@/data/i18n";
 import { ProjectChooser, type ChooserItem } from "./ProjectChooser";
 import { ProjectMark } from "./ProjectMark";
+import { ProjectArt } from "./ProjectArt";
+import { visualFor } from "@/data/visuals";
 import { ProjectStage } from "./ProjectStage";
 import { WorkIndex } from "./WorkIndex";
 import { WorkMotion } from "./WorkMotion";
@@ -30,21 +31,21 @@ export function SelectedWork({ locale }: { locale: Locale }) {
     const story = workStories[project.slug];
     const href = `/${locale}/projects/${project.slug}`;
     const live = project.links[0];
-    const image = project.media?.type === "image" ? project.media : null;
+    const visual = visualFor(project.slug, pick(project.title, locale));
     return {
       slug: project.slug,
       title: pick(project.title, locale),
       status: pick(statusLabel[project.status], locale),
       period: pick(project.period, locale),
+      tone: visual.tone,
       className: `${stage.project} ${stage[project.slug] ?? ""} ${project.slug === "flaregrain" ? chooser.nightItem : ""}`,
+      style: { "--tone": visual.tone } as CSSProperties,
       panelClassName: project.slug === "flaregrain" ? chooser.night : undefined,
       preview: (
         <>
-          {image ? (
-            <span className={chooser.thumb}>
-              <Image src={image.src} alt="" width={image.width} height={image.height} sizes="(max-width: 760px) 38vw, 30vw" quality={80} loading={i === 0 ? "eager" : "lazy"} />
-            </span>
-          ) : null}
+          <span className={chooser.thumb}>
+            <ProjectArt visual={visual} name={pick(project.title, locale)} sizes="(max-width: 760px) 38vw, 30vw" priority={i === 0} />
+          </span>
           <span className={chooser.itemText}>
             <span className={chooser.itemIndex}>{String(i + 1).padStart(2, "0")}</span>
             <span className={chooser.itemName}><ProjectMark slug={project.slug} /><span>{pick(project.title, locale)}</span></span>
@@ -74,7 +75,7 @@ export function SelectedWork({ locale }: { locale: Locale }) {
   });
 
   return (
-    <section id="work" className={styles.work} aria-labelledby="work-h">
+    <section id="work" className={styles.work} data-tone="oklch(0.62 0.155 38)" aria-labelledby="work-h">
       <header className={styles.intro}>
         <p className={styles.introNum}>01</p>
         <h2 id="work-h" data-reveal="">{es ? "Trabajo seleccionado." : "Selected work."}</h2>

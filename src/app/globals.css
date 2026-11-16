@@ -1488,3 +1488,43 @@ video.shot-media {
   .case-brief-side { margin-top: 1.5rem; }
 }
 @media (max-width: 420px) { .case-numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); } .case-numbers > div:nth-child(3) { padding-left: 0; border-left: 0; } }
+
+/* ------------------------------------------------- organisation logos */
+.context li { position: relative; }
+.context li::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--tone, transparent); transform: scaleX(0.18); transform-origin: left; transition: transform 500ms var(--ease); }
+.context li:first-child::before { left: 0; }
+.context li:hover::before { transform: scaleX(1); }
+.context-logo { display: flex; align-items: center; gap: 0.6rem; min-height: 1.9rem; }
+.context-logo em { font-style: normal; font-size: clamp(0.85rem, 1.2vw, 1rem); font-weight: 600; letter-spacing: -0.015em; color: var(--ink); }
+.context-mark { display: inline-grid; width: 1.6rem; height: 1.6rem; color: var(--tone); }
+.context-mark svg { width: 100%; height: 100%; }
+.timeline > li { --tone: var(--accent); }
+.timeline > li:hover { background: color-mix(in oklab, var(--tone) 6%, transparent); }
+.timeline-when { color: color-mix(in oklab, var(--tone) 70%, var(--ink)); }
+.timeline-logo { display: flex; align-items: center; height: 1.75rem; margin-bottom: 0.7rem; }
+.timeline-mark { display: inline-grid; width: 1.75rem; height: 1.75rem; color: var(--tone); }
+.timeline-mark svg { width: 100%; height: 100%; }
+.timeline-how li { border-color: color-mix(in oklab, var(--tone) 30%, var(--rule)); }
+:root[data-theme="dark"] .timeline-when { color: color-mix(in oklab, var(--tone) 45%, var(--ink)); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .timeline-when { color: color-mix(in oklab, var(--tone) 45%, var(--ink)); } }
+
+/* ------------------------------------------------- background depth */
+/* The tint follows the section in view (ToneField); the grain makes flat surfaces read as material. */
+@property --page-tone { syntax: "<color>"; inherits: true; initial-value: rgb(0 0 0 / 0); }
+:root { --tone-strength: 13%; --grain-opacity: 0.055; --grain-blend: multiply; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --tone-strength: 20%; --grain-opacity: 0.07; --grain-blend: screen; } }
+:root[data-theme="dark"] { --tone-strength: 20%; --grain-opacity: 0.07; --grain-blend: screen; }
+@media (prefers-reduced-motion: no-preference) { :root { transition: --page-tone 1100ms var(--ease); } }
+body::before, body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+body::before {
+  background:
+    radial-gradient(70% 60% at 88% 12%, color-mix(in oklab, var(--page-tone) var(--tone-strength), transparent), transparent 72%),
+    radial-gradient(60% 55% at 6% 92%, color-mix(in oklab, var(--page-tone) calc(var(--tone-strength) * 0.7), transparent), transparent 70%);
+}
+body::after {
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+@media print { body::before, body::after { display: none; } }
