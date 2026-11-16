@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import type { Mark, ProjectVisual } from "@/data/visuals";
 import { ProjectMark } from "./ProjectMark";
+import { MockScreen, mockLabels } from "./mocks/MockScreen";
 import styles from "./Art.module.css";
 
 /** A project's mark: its real artwork, the company mark, or a monogram in its colour. */
@@ -14,8 +15,8 @@ export function MarkGlyph({ mark, tone, className = "" }: { mark: Mark; tone: st
 
 /**
  * Every project image uses the same frame: a plate in the project's colour and,
- * on it, either the whole screenshot centred in a browser window, or a branded
- * tile when there is no public screen to show.
+ * on it, the whole screenshot (or a coded screen for private tools) centred in a
+ * browser window, or a branded tile when there is neither.
  */
 export function ProjectArt({ visual, name, sizes, priority = false, className = "", hidden = false }: { visual: ProjectVisual; name: string; sizes: string; priority?: boolean; className?: string; hidden?: boolean }) {
   const shot = visual.shot;
@@ -26,6 +27,16 @@ export function ProjectArt({ visual, name, sizes, priority = false, className = 
         <span className={styles.window}>
           <span className={styles.bar} aria-hidden="true"><i /><i /><i /><em>{shot.label}</em></span>
           <Image src={shot.src} alt="" width={shot.width} height={shot.height} sizes={sizes} quality={80} loading={priority ? "eager" : "lazy"} />
+        </span>
+      </span>
+    );
+  }
+  if (visual.mock) {
+    return (
+      <span className={`${styles.frame} ${className}`} style={{ ...style, "--ratio": 1.6 } as CSSProperties} aria-hidden={hidden || undefined}>
+        <span className={styles.window}>
+          <span className={styles.bar} aria-hidden="true"><i /><i /><i /><em>{mockLabels[visual.mock][0]}</em></span>
+          <MockScreen kind={visual.mock} />
         </span>
       </span>
     );

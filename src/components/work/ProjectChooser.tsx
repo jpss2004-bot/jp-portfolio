@@ -123,7 +123,7 @@ export function ProjectChooser({ items, labels }: { items: ChooserItem[]; labels
               <div className={styles.panelBar}>
                 <p className={styles.panelCount}><b>{padded(i + 1)}</b> / {padded(items.length)}</p>
                 <p className={styles.panelMeta}><span className={styles.status}><i aria-hidden="true" />{item.status}</span><span>{item.period}</span></p>
-                <nav className={styles.panelNav} aria-label={`${labels.previous} / ${labels.next}`}>
+                <nav className={styles.panelNav} aria-label={`${item.title}: ${labels.previous} / ${labels.next}`}>
                   <button type="button" disabled={i === 0} onClick={() => choose(i - 1, null, "top")} aria-label={i > 0 ? `${labels.previous}: ${items[i - 1].title}` : labels.previous}><span aria-hidden="true">←</span>{i > 0 ? <b>{items[i - 1].title}</b> : null}</button>
                   <button type="button" disabled={i === items.length - 1} onClick={() => choose(i + 1, null, "top")} aria-label={i < items.length - 1 ? `${labels.next}: ${items[i + 1].title}` : labels.next}>{i < items.length - 1 ? <b>{items[i + 1].title}</b> : null}<span aria-hidden="true">→</span></button>
                 </nav>

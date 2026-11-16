@@ -9,6 +9,8 @@ import { StageAtmosphere } from "./StageAtmosphere";
 import { AnnotatedShot } from "./AnnotatedShot";
 import { FlameBackdrop } from "./FlameScene";
 import { workStories } from "@/data/work";
+import { visuals } from "@/data/visuals";
+import { MockScreen, mockAlt, mockLabels } from "./mocks/MockScreen";
 import styles from "./Work.module.css";
 
 export function ProjectStage({ project, locale, priority = false }: { project: Project; locale: Locale; priority?: boolean }) {
@@ -25,5 +27,12 @@ export function ProjectStage({ project, locale, priority = false }: { project: P
       video={primary?.kind === "video" ? { src: primary.src, poster: primary.poster, label: pick(primary.alt, locale), watch: es ? "Ver el demo de 29 segundos" : "Watch the 29-second demo", back: es ? "Volver a la captura" : "Back to the capture" } : undefined}
     />
   ) : null;
-  return <><div className={styles.plate} data-work-plate data-motion-scene>{project.slug === "flaregrain" ? <FlameBackdrop /> : <StageAtmosphere />}<div className={styles.plateDepth} aria-hidden="true" /><ProductDisplay architecture={architectures[project.slug]} locale={locale} name={pick(project.title, locale)} brand={<ProjectMark slug={project.slug} />} initialView={project.slug === "verifaid" ? "system" : "product"} productLabel={project.slug === "verifaid" ? (locale === "es" ? "Flujo" : "Workflow") : undefined}>{shot ? shot : project.visuals ? <VisualFrame visual={project.visuals.primary} locale={locale} sizes="(max-width: 760px) 94vw, 1120px" priority={priority} /> : null}</ProductDisplay></div><TechnologyRow slug={project.slug} locale={locale} /></>;
+  const mockKind = !shot ? visuals[project.slug]?.mock : undefined;
+  const mock = mockKind ? (
+    <figure className={`shot media-frame media-interface ${styles.mockFigure}`}>
+      <div className="media-canvas"><MockScreen kind={mockKind} label={pick(mockAlt[mockKind][0], locale)} /></div>
+      <figcaption><span>{mockLabels[mockKind][0]}</span></figcaption>
+    </figure>
+  ) : null;
+  return <><div className={styles.plate} data-work-plate data-motion-scene>{project.slug === "flaregrain" ? <FlameBackdrop /> : <StageAtmosphere />}<div className={styles.plateDepth} aria-hidden="true" /><ProductDisplay architecture={architectures[project.slug]} locale={locale} name={pick(project.title, locale)} brand={<ProjectMark slug={project.slug} />} initialView="product">{shot ? shot : mock ? mock : project.visuals ? <VisualFrame visual={project.visuals.primary} locale={locale} sizes="(max-width: 760px) 94vw, 1120px" priority={priority} /> : null}</ProductDisplay></div><TechnologyRow slug={project.slug} locale={locale} /></>;
 }

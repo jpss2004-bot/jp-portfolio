@@ -4,7 +4,7 @@ import { locales } from "@/data/i18n";
 import { journalPath, publishedEntries } from "@/data/journal";
 import { siteUrl } from "@/lib/site";
 
-const updated = new Date("2026-10-20");
+const updated = new Date("2026-11-16");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pair = (path: string) => ({

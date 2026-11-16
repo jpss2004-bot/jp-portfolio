@@ -1,13 +1,13 @@
 "use client";
 
-import { createContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import type { Locale } from "@/data/i18n";
 import styles from "./Work.module.css";
 
 export const MotionPause = createContext(false);
 
 /** Scroll and pointer updates share one frame; continuous loops stay in CSS. */
-export function WorkMotion({ children, locale, className = "", showControls = true }: { children: ReactNode; locale: Locale; className?: string; showControls?: boolean }) {
+export function WorkMotion({ children, locale, className = "", showControls = true, style }: { children: ReactNode; locale: Locale; className?: string; showControls?: boolean; style?: CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
   useEffect(() => {
@@ -57,7 +57,7 @@ export function WorkMotion({ children, locale, className = "", showControls = tr
     document.addEventListener("visibilitychange",preference);
     return()=>{cancelAnimationFrame(frame);observer.disconnect();window.removeEventListener("scroll",schedule);window.removeEventListener("resize",schedule);root.removeEventListener("pointermove",move);root.removeEventListener("pointerleave",leave);media.removeEventListener("change",preference);document.removeEventListener("visibilitychange",preference);};
   },[paused]);
-  return <MotionPause value={paused}><div ref={ref} className={`${styles.motionRoot} ${className}`}>
+  return <MotionPause value={paused}><div ref={ref} className={`${styles.motionRoot} ${className}`} style={style}>
     {showControls ? <div className={styles.motionControl}><button type="button" aria-pressed={paused} onClick={()=>setPaused(value=>!value)}><span aria-hidden="true">{paused?"▶":"Ⅱ"}</span>{locale==="es"?(paused?"Reanudar movimiento":"Pausar movimiento"):(paused?"Resume motion":"Pause motion")}</button></div> : null}
     {children}
   </div></MotionPause>;

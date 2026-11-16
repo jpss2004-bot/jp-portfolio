@@ -2,6 +2,7 @@ import type { Locale } from "./i18n";
 import { neyvu } from "./neyvu";
 import { flaregrain } from "./flaregrain";
 import { additionalCases } from "./additional-cases";
+import { moreCases } from "./more-cases";
 
 /**
  * Single source of truth for the portfolio.
@@ -179,29 +180,25 @@ export const featured: Project[] = [
           "Owned the obligation model, backend APIs, review interfaces and delivery across provider, client and reviewer surfaces.",
           "Connected institutions, cycles, periods and contracts so calendars and review state share the same domain model.",
           "Built document reading and review workflows with an explicit separation between model suggestions, configured rules and authorized human decisions.",
-          "Direct AI coding agents in isolated worktrees, define the constraints and test gates, and review the changes before release.",
         ],
         es: [
           "Me hice cargo del modelo de obligaciones, APIs, interfaces de revisión y entrega para proveedores, clientes y revisores.",
           "Conecté instituciones, ciclos, periodos y contratos para que calendarios y estados compartan el modelo de dominio.",
           "Construí flujos documentales separando sugerencias del modelo, reglas configuradas y decisiones humanas autorizadas.",
-          "Dirijo agentes de programación en worktrees aislados, defino restricciones y verificaciones, y reviso los cambios antes de liberarlos.",
         ],
       },
       outcome: {
-        en: "The September 2026 snapshot recorded 7 client companies, 15+ vendors and about 20,000 documents processed, with reviewers clearing around 50 documents a day at roughly a minute each. The October 19 release added contract-based provider workflows, contract calendars and lead tools. It has six surfaces: a provider portal, a client portal, a reviewer console, a public site, an in-app academy with 33 filmed lessons, and a reporting suite. Uploads get live SAT invoice-folio checks and AI-generated-document detection, and clients can set their own auto-accept and auto-reject rules.",
-        es: "El corte de septiembre de 2026 registró 7 empresas cliente, más de 15 proveedores y cerca de 20,000 documentos procesados; los revisores resolvían unos 50 documentos diarios en cerca de un minuto cada uno. La liberación del 19 de octubre añadió flujos por contrato para proveedores, calendarios por contrato y herramientas de prospectos. Tiene seis superficies: portal de proveedores, portal de clientes, consola de revisión, sitio público, una academia integrada con 33 lecciones filmadas y un módulo de reportes. Las cargas pasan por verificación en vivo de folios CFDI ante el SAT y detección de documentos generados por IA, y los clientes pueden definir sus propias reglas de aceptación y rechazo automático.",
+        en: "Reviewers clear around 50 documents a day at roughly a minute each (September 2026). CheckWise now has six surfaces: provider and client portals, a reviewer console, a public site, a 33-lesson academy and reporting. Uploads get live SAT folio checks and AI-generated-document detection, clients set their own auto-accept and auto-reject rules, and the October 19 release added contract-based workflows and calendars.",
+        es: "Los revisores resuelven unos 50 documentos diarios en cerca de un minuto cada uno (septiembre de 2026). CheckWise tiene seis superficies: portales de proveedores y clientes, consola de revisión, sitio público, una academia de 33 lecciones y reportes. Las cargas pasan por verificación en vivo de folios ante el SAT y detección de documentos generados por IA, los clientes definen sus reglas de aceptación y rechazo automático, y la liberación del 19 de octubre añadió flujos y calendarios por contrato.",
       },
       evidence: {
         en: [
-          "7 client companies, 15+ vendors and about 20,000 documents processed in production.",
           "2,454 commits on the main branch between 12 May and 11 September 2026.",
           "667 merged pull requests between June and September.",
           "9,941 backend and 4,773 frontend tests in the September 2026 verification snapshot; this is a dated baseline, not a live counter.",
           "Live at checkwise.com.mx. The source is private; I'm happy to walk through it.",
         ],
         es: [
-          "7 empresas cliente, más de 15 proveedores y cerca de 20,000 documentos procesados en producción.",
           "2,454 commits en la rama principal entre el 12 de mayo y el 11 de septiembre de 2026.",
           "667 pull requests fusionados entre junio y septiembre.",
           "9,941 pruebas de backend y 4,773 de frontend en el corte de verificación de septiembre de 2026; es una referencia fechada, no un contador en vivo.",
@@ -295,8 +292,8 @@ export const featured: Project[] = [
         },
       ],
       outcome: {
-        en: "Verifaid returns a decision, not a report: whether signing can proceed, why it cannot, and who holds the authority to sign. It has cleared more than 50 operations for a paying client. In six weeks the platform went from an empty repository to a controlled pilot: a seven-stage pipeline, a citation viewer, traceable human approval where every review keeps its rationale, and a second person required to approve. Subsequent implementation added approved-opinion PDF issuance with a responsible reviewer, version and fingerprint, plus recovery of failed document readings. PDF issuance is distinct from an electronic-signing rollout; the real-data and signing gates remain explicit.",
-        es: "Verifaid entrega una decisión, no un reporte: si la firma puede proceder, por qué no y quién tiene las facultades para firmar. Ha resuelto más de 50 operaciones para un cliente de pago. En seis semanas la plataforma pasó de un repositorio vacío a un piloto controlado: un pipeline de siete etapas, un visor de citas y una aprobación humana trazable donde cada revisión conserva su justificación y requiere una segunda persona. La implementación posterior añadió emisión de dictámenes aprobados en PDF con responsable, versión y huella, además de recuperación de lecturas fallidas. Emitir un PDF es distinto de liberar firma electrónica; las compuertas de datos reales y firma siguen explícitas.",
+        en: "Verifaid returns a decision, not a report: whether signing can proceed, why not, and who holds the authority. In six weeks it went from an empty repository to a controlled pilot with a seven-stage pipeline, a citation viewer and two-person approval. Later work added versioned approved-opinion PDFs and recovery of failed readings; electronic signing remains a separate, explicit gate.",
+        es: "Verifaid entrega una decisión, no un reporte: si la firma puede proceder, por qué no y quién tiene las facultades. En seis semanas pasó de un repositorio vacío a un piloto controlado con un pipeline de siete etapas, un visor de citas y aprobación de dos personas. Después se añadieron dictámenes aprobados en PDF versionado y recuperación de lecturas fallidas; la firma electrónica sigue siendo una compuerta aparte y explícita.",
       },
       evidence: {
         en: [
@@ -500,22 +497,22 @@ export const shipped: Shipped[] = [
     line: { en: "A phone-first app that coordinates a family's trips, cars and drivers, with parent approval.", es: "Una app para el celular que coordina los traslados, autos y choferes de una familia, con aprobación de los papás." },
   },
   {
-    name: "Cotejo", year: "2026", status: "delivered",
+    slug: "cotejo", name: "Cotejo", year: "2026", status: "delivered",
     kind: { en: "macOS app · Swift", es: "App para macOS · Swift" },
     line: { en: "Checks corporate data sheets against the underlying legal PDFs with on-device OCR, and never writes a cell it couldn't verify.", es: "Coteja hojas de datos corporativos contra los PDFs legales con OCR en el dispositivo, y nunca escribe una celda que no pudo verificar." },
   },
   {
-    name: "POS Geocoder", year: "2026", status: "delivered",
+    slug: "pos-geocoder", name: "POS Geocoder", year: "2026", status: "delivered",
     kind: { en: "Desktop app · PySide6", es: "App de escritorio · PySide6" },
-    line: { en: "Turns payment-terminal coordinates into audited addresses with official INEGI codes, from a 157,000-row catalog.", es: "Convierte coordenadas de terminales de pago en direcciones auditadas con claves oficiales del INEGI, a partir de un catálogo de 157,000 filas." },
+    line: { en: "Turns payment-terminal coordinates into audited addresses with official INEGI codes, from a 156,988-row catalog.", es: "Convierte coordenadas de terminales de pago en direcciones auditadas con claves oficiales del INEGI, a partir de un catálogo de 156,988 filas." },
   },
   {
-    name: "Red 360+1", year: "2026", status: "delivered",
+    slug: "red-360", name: "Red 360+1", year: "2026", status: "delivered",
     kind: { en: "Website · freelance", es: "Sitio web · freelance" },
     line: { en: "A 19-page bilingual redesign of a civil-society organization's institutional site, shipped in August after 34 tagged releases.", es: "Rediseño bilingüe de 19 páginas del sitio institucional de una organización de la sociedad civil, publicado en agosto tras 34 versiones etiquetadas." },
   },
   {
-    name: "AI in legal practice", year: "2026", status: "delivered",
+    slug: "ai-legal-practice", name: "AI in legal practice", year: "2026", status: "delivered",
     kind: { en: "Talk · landing page", es: "Plática · landing page" },
     line: { en: "A 35-minute talk and site on using AI tools with legal judgment, for a Mexico City law firm.", es: "Una plática de 35 minutos y un sitio sobre el uso de IA con criterio jurídico, para un despacho de la Ciudad de México." },
   },
@@ -534,6 +531,7 @@ export const shipped: Shipped[] = [
 /* Case studies for shipped projects that have one. Ported from the previous site. */
 export const shippedCases: Project[] = [
   ...additionalCases,
+  ...moreCases,
   {
     slug: "savr",
     title: { en: "SAVR", es: "SAVR" },

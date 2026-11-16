@@ -1,6 +1,6 @@
 {
   "slug": "running-a-study-assistant-on-a-local-mac",
-  "status": "draft",
+  "status": "published",
   "kind": "article",
   "language": "en",
   "title": "Running a study assistant on a local Mac",
@@ -102,5 +102,6 @@
       "label": "Neyvu pilot access page",
       "url": "https://schoolvault-beta-web.onrender.com/beta/join?lang=en"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-16"
 }

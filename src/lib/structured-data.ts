@@ -1,4 +1,5 @@
-import { caseOrder, pick, profile, shipped, statusLabel, type Project } from "@/data/content";
+import { caseOrder, pick, primaryProjects, profile, shipped, statusLabel, type Project } from "@/data/content";
+import { workRows } from "@/data/work-index";
 import { ui } from "@/data/ui";
 import type { Locale } from "@/data/i18n";
 import { siteUrl } from "@/lib/site";
@@ -49,7 +50,9 @@ export function identityGraph(locale: Locale) {
 export function homeStructuredData(locale: Locale, metadata: { title: string; description: string }) {
   const url = `${siteUrl}/${locale}`;
   // This order follows the visible featured, supporting and other-work sections.
-  const projects = caseOrder();
+  /* Only the projects the homepage actually names: three featured and the first five in the index. */
+  const shown = new Set([...primaryProjects.map((project) => project.slug), ...workRows(locale).slice(0, 5).map((row) => row.key)]);
+  const projects = caseOrder().filter((project) => shown.has(project.slug));
   const latestEntry = publishedEntries()[0];
   return {
     "@context": "https://schema.org",

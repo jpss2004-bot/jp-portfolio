@@ -63,7 +63,7 @@ export function ScrollStory({ steps, width, height, kicker, alt, note }: { steps
             <div className={styles.words} aria-live="polite">
               {steps.map((item, i) => (
                 <div key={item.title} className={styles.word} data-on={i === index || undefined} data-past={i < index || undefined} aria-hidden={i === index ? undefined : true}>
-                  <h4>{item.title}</h4>
+                  <h3>{item.title}</h3>
                   <p>{item.text}</p>
                 </div>
               ))}

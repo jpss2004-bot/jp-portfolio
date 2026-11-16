@@ -1,6 +1,6 @@
 {
   "slug": "keeping-model-readings-apart-from-human-decisions",
-  "status": "draft",
+  "status": "published",
   "kind": "article",
   "language": "en",
   "title": "Keeping model readings apart from human decisions",
@@ -110,5 +110,6 @@
       "label": "CheckWise case study, September 2026 figures",
       "url": "https://jpsamanosuarez.com/en/projects/checkwise"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-16"
 }
