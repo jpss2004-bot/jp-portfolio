@@ -52,11 +52,6 @@
 .projectProof dd { font-size: clamp(24px, 3vw, 38px); font-weight: 500; letter-spacing: -.045em; line-height: 1.15; margin: 0 0 7px; }
 .projectProof dt { font-size: 12px; color: var(--muted); }
 .projectProof > p { font-size: 11px; color: var(--muted); margin: 24px 0 0; max-width: 90ch; }
-.system { --fg: var(--ink); --line: var(--rule); padding: 32px; background: var(--bg); color: var(--fg); min-height: 440px; }
-.detailText :is(h3,h4) { font-size: 20px; font-weight: 500; margin: 0 0 12px; }
-.detailText :is(h3,h4) span { display: inline-block; font-weight: 400; font-size: 12px; color: var(--muted); margin-left: 8px; }
-.detailText p { margin: 0; font-size: 15px; line-height: 1.7; max-width: 64ch; }
-.diagramLabel { margin: 0; font-size: 11px; color: var(--muted); }
 .supporting { border-top: 1px solid var(--line); padding-top: 48px; }
 .supporting h3 { font-size: 24px; font-weight: 500; letter-spacing: -.03em; margin: 0 0 24px; }
 .supporting > a { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 26px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
@@ -71,7 +66,6 @@
 @media (max-width: 700px) { .caseSystemBody { padding: 16px 18px 22px; } }
 @media (prefers-reduced-motion: no-preference) {
   .motionRoot[data-motion="on"] .plate .display { transform: translateY(calc((1 - var(--work-progress,1)) * 50px)) rotateX(calc((1 - var(--work-progress,1)) * 12deg)) scale(calc(.94 + var(--work-progress,1) * .06)); }
-  .detailText { animation: detail-arrive 220ms cubic-bezier(.2,.8,.2,1); }
   @keyframes detail-arrive { from { opacity: .3; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
 }
 @media (prefers-color-scheme: dark) {
@@ -88,7 +82,6 @@
 @media (max-width: 900px) {
   .introduction { grid-template-columns: 1fr 280px; gap: 24px; }
   .projectBottom { gap: 6%; }
-  .system { --fg: var(--ink); --line: var(--rule); padding: 24px; }
 }
 @media (max-width: 700px) {
   .work { width: calc(100% - 40px); }
@@ -121,20 +114,14 @@
   .projectProof dl { grid-template-columns: repeat(2,1fr); gap: 22px; }
   .projectProof dl > div:last-child { grid-column: 1 / -1; }
   .projectProof dd { font-size: 27px; overflow-wrap: anywhere; }
-  .system { --fg: var(--ink); --line: var(--rule); padding: 20px 12px; min-height: 430px; }
-  .detailText :is(h3,h4) { font-size: 18px; }
-  .detailText :is(h3,h4) span { display: block; margin: 6px 0 0; }
-  .detailText p { font-size: 13px; }
-  .diagramLabel { font-size: 10px; }
   .supporting h3 { font-size: 22px; }
   .supporting > a div > span { font-size: 20px; }
   .caseSystem h2 { padding: 20px 12px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .workNav { scroll-behavior: auto; }
-  .detailText, .projectLinks a span, .supporting > a > span, .viewButtons button { animation: none; transition: none; }
+  .projectLinks a span, .supporting > a > span, .viewButtons button { animation: none; transition: none; }
 }
-.motionRoot[data-motion="off"] .detailText { animation: none; }
 /* Product-specific environments: the original brand colors drive the light. */
 .project, .caseMotion { --stage-one: #09c1b0; --stage-two: #02558a; --stage-three: #61d9dd; --project-accent: #087d79; --plate-bg: #cae9e5; --plate-ink: #013557; }
 .neyvu { --stage-one: #2457cc; --stage-two: #42a4ed; --stage-three: #20b6c2; --project-accent: #426bd8; --plate-bg: #d6e2fa; --plate-ink: #263778; }
@@ -171,35 +158,6 @@ span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-posi
 @media (prefers-color-scheme: dark) { :global(:root:not([data-theme="light"])) .technologyIcon[data-brand="brand"] { color: color-mix(in oklab, var(--brand) 72%, white); } }
 
 /* A branching architecture map. Nodes are real buttons, wires are illustrative. */
-.system { container-type: inline-size; container-name: system; padding: 14px 24px 24px; min-height: 0; background: var(--bg); }
-.networkCanvas { position: relative; height: 440px; isolation: isolate; background: radial-gradient(circle at 50% 60%,color-mix(in srgb,var(--stage-one) 8%,transparent),transparent 65%),radial-gradient(color-mix(in srgb,var(--ink) 14%,transparent) .7px,transparent .7px); background-size: auto,18px 18px; }
-.networkPlane { position: absolute; inset: 18% 4%; border: 1px solid color-mix(in srgb,var(--stage-two) 12%,transparent); transform: perspective(600px) rotateX(27deg) rotateZ(-8deg); border-radius: 30%; box-shadow: 0 25px 0 -24px color-mix(in srgb,var(--stage-one) 30%,transparent),0 50px 0 -49px color-mix(in srgb,var(--stage-two) 24%,transparent); pointer-events: none; }
-.wiresDesktop, .wiresMobile { position: absolute; width: 100%; height: 100%; inset: 0; overflow: visible; pointer-events: none; }
-.wiresMobile { display: none; }
-.wire, .wireSecondary { stroke: var(--project-accent); stroke-width: 1.25; opacity: .3; }
-.wireSecondary { stroke-dasharray: 3 5; }
-.wireSelected .wire, .wireSelected .wireSecondary { stroke-width: 1.7; opacity: .9; }
-.packet { stroke: var(--stage-one); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 3 80; opacity: .45; animation: packet-flow 7s linear infinite; }
-.wireSelected .packet { opacity: 1; }
-.wireLabel { font-size: 13px; fill: var(--muted); stroke: var(--bg); stroke-width: 6; paint-order: stroke; stroke-linejoin: round; }
-.networkNodes { list-style: none; padding: 0; margin: 0; }
-.interface { --node-color: #367dd7; }
-.service { --node-color: #098c83; }
-.data { --node-color: #8056cf; }
-.human { --node-color: #bb7a22; }
-.networkNode { position: absolute; z-index: 2; left: var(--x); top: var(--y); width: 17%; min-height: 88px; border: 1px solid color-mix(in srgb,var(--node-color) 38%,var(--rule)); background: color-mix(in srgb,var(--node-color) 6%,var(--bg)); box-shadow: 0 7px 0 -3px color-mix(in srgb,var(--node-color) 10%,var(--bg)),0 14px 24px -14px #081b3430; border-radius: 10px; padding: 12px 9px; color: var(--ink); font: inherit; cursor: pointer; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; transition: transform 200ms ease-out,box-shadow 200ms ease-out,border-color 200ms ease-out; }
-.networkNode .technologyIcon { color: var(--node-color); width: 25px; height: 25px; }
-.networkNode strong { font-size: clamp(11px,1.45cqw,14px); font-weight: 550; line-height: 1.3; }
-.networkNode small { font-size: clamp(9px,1.1cqw,11px); line-height: 1.3; color: var(--muted); }
-.networkNode[aria-pressed="true"] { border-color: var(--node-color); transform: translate(-50%,calc(-50% - 6px)); background: color-mix(in srgb,var(--node-color) 11%,var(--bg)); box-shadow: 0 8px 0 -3px color-mix(in srgb,var(--node-color) 23%,var(--bg)),0 19px 35px -17px color-mix(in srgb,var(--node-color) 65%,transparent); }
-.networkNode:hover { transform: translate(-50%,calc(-50% - 5px)); border-color: var(--node-color); }
-.networkNode:focus-visible { outline: 2px solid var(--node-color); outline-offset: 5px; }
-.networkLegend { display: flex; flex-wrap: wrap; list-style: none; padding: 0 0 22px; margin: 0; gap: 10px 23px; }
-.networkLegend li { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; color: var(--muted); }
-.networkLegend i { width: 7px; height: 7px; background: var(--node-color); border-radius: 2px; }
-.networkDetail { border-top: 1px solid var(--rule); padding: 22px 0; min-height: 145px; }
-.networkDetail .detailText p { max-width: 76ch; }
-.diagramLabel { font-size: 10px; line-height: 1.6; }
 .caseMotion { isolation: isolate; }
 .caseMotion > .motionControl { width: min(1280px,calc(100% - 64px)); margin: 0 auto; border-bottom: 0; }
 .caseMotion :global(.case) { padding-top: 30px; }
@@ -211,18 +169,11 @@ span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-posi
 @keyframes grid-travel { from { background-position: 0 0; } to { background-position: 52px 52px; } }
 @keyframes contour-turn { from { transform: translateY(var(--scene-drift,0px)) rotate(-4deg) scale(1.03); } to { transform: translateY(var(--scene-drift,0px)) rotate(4deg) scale(1.12); } }
 @keyframes depth-breathe { from { opacity: .45; transform: translateY(-2px); } to { opacity: 1; transform: translateY(8px); } }
-@keyframes packet-flow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -332; } }
 @media (prefers-reduced-motion: no-preference) {
   .motionRoot[data-motion="on"] .plate .display { transform: translateY(calc((1 - var(--work-progress,1)) * 58px)) rotateX(calc((1 - var(--work-progress,1)) * 12deg + var(--tilt-x,0deg))) rotateY(var(--tilt-y,0deg)) scale(calc(.95 + var(--work-progress,1) * .05)); }
 }
-.motionRoot[data-motion="off"] :is(.auraOne,.auraTwo,.flowGrid,.contours,.plateDepth,.packet), [data-motion-scene][data-in-view="false"] :is(.auraOne,.auraTwo,.flowGrid,.contours,.plateDepth,.packet) { animation-play-state: paused; }
+.motionRoot[data-motion="off"] :is(.auraOne,.auraTwo,.flowGrid,.contours,.plateDepth), [data-motion-scene][data-in-view="false"] :is(.auraOne,.auraTwo,.flowGrid,.contours,.plateDepth) { animation-play-state: paused; }
 @container system (max-width:720px) {
-  .networkCanvas { height: 480px; }
-  .wiresDesktop { display: none; }
-  .wiresMobile { display: block; }
-  .wireLabel { display: none; }
-  .networkNode { left: var(--mx); top: var(--my); width: 29%; padding: 11px 6px; min-height: 90px; }
-  .networkDetail { min-height: 175px; }
 }
 @media (prefers-color-scheme: dark) {
   :global(:root:not([data-theme="light"])) .project, :global(:root:not([data-theme="light"])) .caseMotion { --plate-bg: #0e343f; --plate-ink: #b8f6ee; --project-accent: #63d4c8; }
@@ -231,10 +182,6 @@ span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-posi
   :global(:root:not([data-theme="light"])) .flaregrain { --plate-bg: #101218; --plate-ink: #f0cdb9; --project-accent: #f0966b; }
   :global(:root:not([data-theme="light"])) .markLight { display: none; }
   :global(:root:not([data-theme="light"])) .markDark { display: block; }
-  :global(:root:not([data-theme="light"])) .interface { --node-color: #72a9fa; }
-  :global(:root:not([data-theme="light"])) .service { --node-color: #61cdb6; }
-  :global(:root:not([data-theme="light"])) .data { --node-color: #b196ef; }
-  :global(:root:not([data-theme="light"])) .human { --node-color: #dca55d; }
   :global(:root:not([data-theme="light"])) .auraOne, :global(:root:not([data-theme="light"])) .auraTwo { opacity: .65; }
   :global(:root:not([data-theme="light"])) .pointerLight { opacity: .35; }
 }
@@ -244,10 +191,6 @@ span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-posi
 :global(:root[data-theme="dark"]) .flaregrain { --plate-bg: #101218; --plate-ink: #f0cdb9; --project-accent: #f0966b; }
 :global(:root[data-theme="dark"]) .markLight { display: none; }
 :global(:root[data-theme="dark"]) .markDark { display: block; }
-:global(:root[data-theme="dark"]) .interface { --node-color: #72a9fa; }
-:global(:root[data-theme="dark"]) .service { --node-color: #61cdb6; }
-:global(:root[data-theme="dark"]) .data { --node-color: #b196ef; }
-:global(:root[data-theme="dark"]) .human { --node-color: #dca55d; }
 :global(:root[data-theme="dark"]) .auraOne, :global(:root[data-theme="dark"]) .auraTwo { opacity: .65; }
 :global(:root[data-theme="dark"]) .pointerLight { opacity: .35; }
 
@@ -262,24 +205,17 @@ span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-posi
   .technologyRow { gap: 15px 22px; padding-top: 18px; }
   .technologyRow li { font-size: 11px; gap: 7px; }
   .technologyRow .technologyIcon { width: 19px; height: 19px; }
-  .system { padding: 0 10px 18px; }
-  .networkNode .technologyIcon { width: 21px; height: 21px; }
-  .networkLegend { gap: 10px 15px; padding-bottom: 18px; }
-  .networkLegend li { font-size: 9px; }
-  .networkDetail { padding-block: 18px; }
   .caseMotion > .motionControl { width: calc(100% - 40px); }
   .caseTitle { gap: 14px; }
   .caseTitle .projectMark { width: 42px; height: 42px; }
   .caseBackdrop { height: 800px; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .motionRoot :is(.auraOne,.auraTwo,.flowGrid,.contours,.plateDepth,.packet,.detailText) { animation: none !important; }
-  .networkNode { transition: none; }
+  .motionRoot :is(.auraOne,.auraTwo,.flowGrid,.contours,.plateDepth) { animation: none !important; }
   .plate .display { transform: none; }
 }
 
 /* Phone controls stay flat and stationary while the surrounding scene keeps moving. */
-.connections { display: none; }
 .work :is(a,button), .caseMotion :is(a,button) { touch-action: manipulation; -webkit-tap-highlight-color: #258c8b30; }
 @media (max-width: 700px) {
   .workNav { gap: clamp(8px,3vw,16px); }
@@ -288,9 +224,6 @@ span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-posi
   .viewButtons button { min-height: 44px; font-size: 13px; }
   .productSurface :global(figcaption) { font-size: 12px; }
   .productSurface :global(figcaption a) { min-height: 44px; display: inline-flex; align-items: center; }
-  .networkLegend li { font-size: 11px; }
-  .detailText p { font-size: 15px; }
-  .diagramLabel { font-size: 12px; }
   .motionRoot[data-motion="on"] .plate .display { transform: none; }
   .displayBar { flex-wrap: wrap; padding: 8px 12px 0; gap: 8px; }
   .displayName { flex: 1; font-size: 12px; }
@@ -298,19 +231,6 @@ span.technologyIcon { mask-image: var(--icon); mask-repeat: no-repeat; mask-posi
   .viewButtons button { flex: 1; padding: 8px 4px; }
 }
 @container system (max-width:480px) {
-  .networkCanvas { height: auto; padding: 20px 0; }
-  .networkPlane, .wiresMobile, .wiresDesktop { display: none; }
-  .networkNodes { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px 12px; }
-  .networkNode, .networkNode:hover, .networkNode[aria-pressed="true"] { position: relative; inset: auto; transform: none; width: 100%; height: 100%; min-height: 108px; padding: 12px 7px; box-shadow: 0 4px 0 -1px color-mix(in srgb,var(--node-color) 12%,var(--bg)); }
-  .networkNode[aria-pressed="true"] { border-width: 2px; padding: 11px 6px; }
-  .networkNode strong { font-size: 13px; overflow-wrap: anywhere; }
-  .networkNode small { font-size: 11px; }
-  .networkDetail { min-height: 0; }
-  .connections { display: grid; border-top: 1px solid var(--rule); margin-bottom: 18px; }
-  .connections button { display: grid; gap: 4px; padding: 12px 2px; min-height: 56px; background: none; color: var(--ink); border: 0; border-bottom: 1px solid var(--rule); text-align: left; font: inherit; cursor: pointer; }
-  .connections button span { font-size: 12px; color: var(--muted); }
-  .connections button strong { font-size: 13px; font-weight: 500; }
-  .connections button:hover { color: var(--project-accent); }
 }
 @media (hover:none), (pointer:coarse) { .motionRoot[data-motion="on"] .plate .display { transform: none; } }
 

@@ -90,6 +90,12 @@
 .laneHead span { hyphens: auto; }
 .laneHead b { font-size: 0.9375rem; font-weight: 600; }
 .laneHead span { font-size: 0.75rem; line-height: 1.35; color: var(--muted); }
+/* Seven or more columns: tighter gaps and type so names stay on one or two lines. */
+.lanes[data-dense] { grid-template-columns: 7.25rem repeat(var(--cols), minmax(0, 1fr)); column-gap: 1.1rem; }
+.lanes[data-dense] .laneHead b { font-size: 0.875rem; }
+.lanes[data-dense] .card[data-compact] { padding: 0.65rem 0.6rem; }
+.lanes[data-dense] .card[data-compact] .cardName { font-size: 0.8125rem; letter-spacing: -0.015em; }
+.lanes[data-dense] .card[data-compact] .cardTech { font-size: 0.6875rem; }
 .cell { position: relative; z-index: 1; display: grid; align-items: center; padding: 1rem 0; }
 .wires { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; color: color-mix(in oklab, var(--project-accent, var(--accent)) 70%, var(--ink)); z-index: 0; }
 .wire, .wireUses { fill: none; stroke: currentColor; stroke-width: 1.4; opacity: 0.45; transition: opacity 200ms var(--ease); }

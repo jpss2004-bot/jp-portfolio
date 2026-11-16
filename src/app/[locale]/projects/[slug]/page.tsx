@@ -13,7 +13,6 @@ import { StructuredData } from "@/components/StructuredData";
 import { TrackReadToEnd } from "@/components/Track";
 import { projectStructuredData } from "@/lib/structured-data";
 
-import { SystemExplorer } from "@/components/work/SystemExplorer";
 import { CountUp } from "@/components/CountUp";
 import { Walkthrough } from "@/components/work/Walkthrough";
 import { caseTimelines, pipelines, workStories } from "@/data/work";
@@ -24,8 +23,7 @@ import { flameCopy } from "@/data/flame";
 import { visualFor } from "@/data/visuals";
 import { MockScreen, mockAlt, mockLabels, mockViews } from "@/components/work/mocks/MockScreen";
 import { ScrollSpyNav } from "@/components/work/ScrollSpyNav";
-import { architectures } from "@/data/architecture";
-import { systems } from "@/data/systems";
+import { stagedProjects, systems } from "@/data/systems";
 import { SystemPreview } from "@/components/work/system/SystemMap";
 import { WorkMotion } from "@/components/work/WorkMotion";
 import { ProjectStage } from "@/components/work/ProjectStage";
@@ -100,7 +98,7 @@ export default async function CasePage({ params }: Props) {
   const mockKind = visualFor(slug, pick(project.title, locale)).mock;
   const mockScreens = mockKind ? Array.from({ length: mockViews[mockKind] }, (_, i) => i) : [];
   const sections = [
-    ...(architectures[slug] ? [{ id: "system", label: es ? "Sistema" : "System" }] : []),
+    ...(systems[slug] ? [{ id: "system", label: es ? "Sistema" : "System" }] : []),
     ...(c ? [
       { id: "problem", label: t.case.problem },
       { id: "constraints", label: t.case.constraints },
@@ -132,14 +130,14 @@ export default async function CasePage({ params }: Props) {
       <StructuredData data={projectStructuredData(project, locale)} />
       <a href="#main" className="skip-link">{t.skip}</a>
       <Header locale={locale} altHref={`/projects/${slug}`} />
-      <WorkMotion locale={locale} showControls={!!architectures[slug]} className={architectures[slug] ? `${workStyles.caseMotion} ${workStyles[slug] ?? workStyles.toned}` : ""} style={{ "--tone": tone } as CSSProperties}>
-      {architectures[slug] ? <div className={workStyles.caseBackdrop} data-motion-scene><StageAtmosphere /></div> : null}
+      <WorkMotion locale={locale} showControls={stagedProjects.has(slug)} className={stagedProjects.has(slug) ? `${workStyles.caseMotion} ${workStyles[slug] ?? workStyles.toned}` : ""} style={{ "--tone": tone } as CSSProperties}>
+      {stagedProjects.has(slug) ? <div className={workStyles.caseBackdrop} data-motion-scene><StageAtmosphere /></div> : null}
       <main id="main" className="case" tabIndex={-1} data-tone={tone}>
         <header className="frame grid12 case-head">
           <p className="back case-back"><Link className="link" href={featured ? `${base}#${slug}` : `${base}/work`}>← {t.case.back}</Link></p>
           <p className="case-index mono">{String(idx + 1).padStart(2, "0")}<span> / {String(order.length).padStart(2, "0")}</span></p>
           <div className={`case-title ${workStyles.caseTitle}`}>
-            {architectures[slug] ? <ProjectMark slug={slug} /> : null}
+            {stagedProjects.has(slug) ? <ProjectMark slug={slug} /> : null}
             <h1 className="case-h1">{pick(project.title, locale)}</h1>
           </div>
           <div className="case-brief">
@@ -169,7 +167,7 @@ export default async function CasePage({ params }: Props) {
           </div>
         </header>
 
-        {architectures[slug] ? <div className={`frame case-media ${workStyles.caseStage}`}><ProjectStage project={project} locale={locale} priority /></div> : mockKind && !project.visuals ? (
+        {stagedProjects.has(slug) ? <div className={`frame case-media ${workStyles.caseStage}`}><ProjectStage project={project} locale={locale} priority /></div> : mockKind && !project.visuals ? (
           <div className="frame case-media">
             <figure className="shot media-frame media-interface"><div className="media-canvas"><MockScreen kind={mockKind} label={pick(mockAlt[mockKind][0], locale)} /></div><figcaption><span>{mockLabels[mockKind][0]}</span></figcaption></figure>
           </div>
@@ -206,7 +204,7 @@ export default async function CasePage({ params }: Props) {
                 <h2 id="system-h">{es ? "Cómo funciona" : "How it works"}</h2>
                 <div className={workStyles.caseSystemBody}><SystemPreview map={systems[slug]} locale={locale} href={`${base}/projects/${slug}/system`} /></div>
               </section>
-            ) : architectures[slug] ? <section id="system" className={`case-sec ${workStyles.caseSystem}`} aria-label={locale === "es" ? "Arquitectura del sistema" : "System architecture"}><h2>{locale === "es" ? "Cómo se conecta el sistema" : "How the system connects"}</h2><SystemExplorer headingLevel="h3" architecture={architectures[slug]} locale={locale} name={pick(project.title, locale)} /></section> : null}
+            ) : null}
 
             {c ? (
               <>
