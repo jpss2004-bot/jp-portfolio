@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { track } from "@vercel/analytics";
 import styles from "./Chooser.module.css";
 
 export type ChooserItem = { slug: string; title: string; status: string; period: string; tone: string; className: string; style?: CSSProperties; panelClassName?: string; preview: ReactNode; panel: ReactNode };
@@ -55,6 +56,7 @@ export function ProjectChooser({ items, labels }: { items: ChooserItem[]; labels
     if (from) anchor.current = { el: from, top: from.getBoundingClientRect().top };
     scroll.current = mode;
     apply(next);
+    if (next !== null) track("Project opened", { project: items[next].slug, from: "chooser" });
     const url = window.location.pathname + window.location.search + (next === null ? "" : `#${items[next].slug}`);
     if (next !== null && current === null) window.history.pushState(null, "", url);
     else window.history.replaceState(null, "", url);

@@ -122,7 +122,8 @@ def validate(route, html, vocabulary):
     assert webpage["description"] == page.meta["description"]
     assert "noindex" not in page.meta.get("robots", "")
     assert any(l.get("rel") == "canonical" and l.get("href") == webpage["url"] for l in page.links)
-    for language in ((locale,) if "/journal/" in route else ("en", "es")):
+    languages = entry_locales(next(e for e in published_entries() if e["slug"] == route.split("/")[-1])) if "/journal/" in route else ("en", "es")
+    for language in languages:
         alternate = SITE + "/" + language + route[3:]
         assert any(l.get("hreflang") == language and l.get("href") == alternate for l in page.links)
     if "/journal" in route:
@@ -147,13 +148,23 @@ def validate(route, html, vocabulary):
         published = published_entries()
         if published:
             assert SITE + f"/{locale}/journal" in webpage["relatedLink"]
-            assert SITE + f'/{published[0]["language"]}/journal/{published[0]["slug"]}' in webpage["relatedLink"]
+            assert any(entry_url(entry, locale) in webpage["relatedLink"] for entry in published)
     return {"route": route, "valid": True, "typedEntities": len(typed)}
 
 
 
 def published_entries():
     return [entry for path in (ROOT / "content/journal").glob("*.json") if (entry := json.loads(path.read_text()))["status"] == "published"]
+
+
+def entry_locales(entry):
+    """The original language first, then any translations."""
+    return [entry["language"], *[l for l in entry.get("translations", {}) if l != entry["language"]]]
+
+
+def entry_url(entry, locale):
+    """The article in `locale` when that version exists, otherwise the original."""
+    return SITE + f'/{locale if locale in entry_locales(entry) else entry["language"]}/journal/{entry["slug"]}'
 
 
 def validate_journal(route, page, typed, webpage, person):
@@ -169,15 +180,22 @@ def validate_journal(route, page, typed, webpage, person):
         listing = next(n for n in typed if n["@type"] == "ItemList")
         assert webpage["mainEntity"] == {"@id": listing["@id"]}
         entries = published_entries()
-        expected = {SITE + f'/{entry["language"]}/journal/{entry["slug"]}' for entry in entries}
+        expected = {entry_url(entry, locale) for entry in entries}
         assert listing["numberOfItems"] == len(entries)
         assert {item["url"] for item in listing["itemListElement"]} == expected
         assert [item["position"] for item in listing["itemListElement"]] == list(range(1, len(entries) + 1))
     else:
         entry = next(e for e in published_entries() if e["slug"] == route.split("/")[-1])
         article = next(n for n in typed if n["@type"] == "BlogPosting")
-        assert article["headline"] == normalized(" ".join(page.headings)) == entry["title"]
-        assert article["inLanguage"] == entry["language"] == locale
+        translated = locale != entry["language"]
+        title = entry["translations"][locale]["title"] if translated else entry["title"]
+        assert article["headline"] == normalized(" ".join(page.headings)) == title
+        assert article["inLanguage"] == locale and locale in entry_locales(entry)
+        version = lambda l: {"@type": "BlogPosting", "@id": entry_url(entry, l) + "#article", "url": entry_url(entry, l), "inLanguage": l}
+        if translated:
+            assert article["translationOfWork"] == version(entry["language"])
+        elif len(entry_locales(entry)) > 1:
+            assert article["workTranslation"] == [version(l) for l in entry_locales(entry)[1:]]
         assert webpage["datePublished"] == entry["publishedAt"]
         assert article["dateCreated"] == entry["writtenAt"]
         for key, source in (("datePublished", "publishedAt"), ("dateModified", "updatedAt")):
@@ -192,7 +210,7 @@ def validate_journal(route, page, typed, webpage, person):
         assert {c["url"] for c in article["citation"]} == {r["url"] for r in entry["references"]}
         image = next(n for n in typed if n["@type"] == "ImageObject")
         assert article["image"] == webpage["primaryImageOfPage"] == {"@id": image["@id"]}
-        cover = SITE + f'/journal/assets/{entry["slug"]}/cover' if entry.get("cover") else SITE + f'/share/{entry["language"]}/article-{entry["slug"]}'
+        cover = SITE + f'/journal/assets/{entry["slug"]}/cover' if entry.get("cover") else SITE + f'/share/{locale}/article-{entry["slug"]}'
         assert image["contentUrl"] == image["url"] == cover
         if entry.get("pdf"):
             assert article["encoding"]["contentUrl"] == SITE + f'/journal/assets/{entry["slug"]}/pdf'
@@ -222,7 +240,7 @@ def main():
     raw = vocab_path.read_text().replace('"schema:', '"https://schema.org/')
     vocabulary = {n["@id"]: n for n in json.loads(raw)["@graph"]}
     files = sorted(p for p in (ROOT / ".next/server/app").rglob("*.html") if re.match(r"(?:en|es)(?:/projects/|/journal(?:/|\.html)|\.html)", str(p.relative_to(ROOT / ".next/server/app"))))
-    expected_count = 32 + (2 + len(published_entries()) if published_entries() else 0)
+    expected_count = 32 + (2 + sum(len(entry_locales(e)) for e in published_entries()) if published_entries() else 0)
     assert len(files) == expected_count, f"Expected {expected_count} localized pages, found {len(files)}"
 
     def check(path):

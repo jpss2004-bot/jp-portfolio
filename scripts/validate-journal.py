@@ -78,10 +78,35 @@ for entry in entries:
             data, headers = get(f'/journal/assets/{entry["slug"]}/{asset}')
             assert data == (ROOT / entry[asset]).read_bytes()
             assert headers.get("content-type", "").startswith("application/pdf" if asset == "pdf" else "image/png")
+    translations = entry.get("translations", {})
+    if translations:
+        assert [v["@id"] for v in article.get("workTranslation", [])] == [f'{SITE}/{l}/journal/{entry["slug"]}#article' for l in translations], route
     for locale in ("en", "es"):
-        if locale != entry["language"]:
-            get(f'/{locale}/journal/{entry["slug"]}', 404)
-            assert SITE + f'/{locale}/journal/{entry["slug"]}' not in urls
+        if locale == entry["language"]:
+            continue
+        other = f'/{locale}/journal/{entry["slug"]}'
+        if locale not in translations:
+            get(other, 404)
+            assert SITE + other not in urls
+            continue
+        # A translation: its own page, language, headline and hreflang pair, pointing back at the original.
+        tbody, _ = get(other)
+        thtml = tbody.decode()
+        tpage = Page(thtml)
+        assert tpage.lang == locale and "noindex" not in tpage.meta.get("robots", "")
+        tgraph = json.loads(tpage.scripts[0])["@graph"]
+        tarticle = next(n for n in tgraph if n["@type"] == "BlogPosting")
+        assert tarticle["headline"] == translations[locale]["title"]
+        assert tarticle["inLanguage"] == locale
+        assert tarticle["translationOfWork"]["@id"] == SITE + route + "#article" and tarticle["translationOfWork"]["inLanguage"] == entry["language"]
+        assert len(tarticle["citation"]) == len(entry["references"])
+        assert f'hreflang="{entry["language"]}" href="{SITE}{route}"' in thtml.lower() and f'hreflang="{locale}" href="{SITE}{other}"' in thtml.lower()
+        assert f'hreflang="{locale}" href="{SITE}{other}"' in html.lower()
+        assert SITE + other in urls
+        for reference in entry["references"]:
+            assert f'id="source-{reference["id"]}"' in thtml
+        assert set(re.findall(r'href="#source-([^\"]+)"', thtml)) <= {r["id"] for r in entry["references"]}
+        results.append({"route": other, "valid": True, "translationOf": route})
     results.append({"route": route, "valid": True, "sources": len(entry["references"]), "assetsByteIdentical": True})
 get("/en/journal/no-such-entry", 404)
 get("/journal/assets/no-such-entry/pdf", 404)

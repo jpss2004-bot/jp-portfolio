@@ -32,10 +32,20 @@ Publish after author approval
 - Deploy a staged production build, validate it, then promote it.
 
 Language behavior
-Each entry has an original language. Both Journal indexes can list it using their
-localized summaries. The reading page exists in the entry's actual language;
-the other language link leads to that language's Journal index. No translation
-or alternate-language article URL is invented.
+Each entry has an original language. Both Journal indexes list it using their
+localized summaries. The reading page exists in the original language and in
+every language listed under "translations"; otherwise the other language link
+leads to that language's Journal index.
+
+Translations
+Add "translations": { "es": { "title": "...", "blocks": [...] } } to an entry.
+The blocks must mirror the original one for one: same count, order and type,
+same list lengths and figures, citation markers on the same claims, and heading
+IDs unique within the translation. References are not translated. The build
+refuses a translation that does not line up. A translated page says it is a
+translation and links to the original; both versions point at each other with
+hreflang, and the structured data marks the translation (translationOfWork).
+Translations use the original's publication dates.
 
 Current entry
 AI investment should earn Nova Scotia's trust was published by the author on

@@ -1,6 +1,6 @@
 /* Coded interface screens. 1em tracks the screen width, so each scales as one picture. */
 .screen { container-type: inline-size; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; }
-.app { --ink: #1c2230; --muted: #6b7385; --line: #e3e6ee; --bg: #f7f8fb; --card: #ffffff; --accent: #2f6fd6; --ok: #1f9d63; --warn: #d9932b;
+.app { --ink: #1c2230; --muted: #5d6577; --line: #e3e6ee; --bg: #f7f8fb; --card: #ffffff; --accent: #2f6fd6; --ok: #147a4b; --warn: #9c5d08;
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif; font-size: 1.45cqw; line-height: 1.35; color: var(--ink); background: var(--bg); width: 100%; height: 100%; display: flex; flex-direction: column; letter-spacing: -0.005em; text-align: left; }
 .icon { width: 1em; height: 1em; flex: none; }
 .dot { display: inline-block; width: 0.55em; height: 0.55em; margin-right: 0.4em; border-radius: 50%; background: var(--c); }
@@ -87,7 +87,7 @@
 .pin[data-on] { width: 1.3em; height: 1.3em; margin: -0.65em 0 0 -0.65em; background: #f0966b; box-shadow: 0 0 0 0.4em rgb(240 150 107 / 0.3); }
 
 /* la red de casa: phone-first */
-.casa { --bg: oklch(0.968 0.008 78); --ink: oklch(0.255 0.012 60); --accent: oklch(0.60 0.125 42); --muted: oklch(0.52 0.02 60); --line: oklch(0.9 0.012 70); }
+.casa { --bg: oklch(0.968 0.008 78); --ink: oklch(0.255 0.012 60); --accent: #a8532f; --muted: #6b5f55; --line: oklch(0.9 0.012 70); }
 .phoneStage { flex: 1; display: flex; align-items: center; justify-content: center; gap: 2.4em; }
 .phone { display: flex; flex-direction: column; gap: 0.55em; width: 19em; height: 92%; padding: 1.2em 1em; border-radius: 1.6em; background: #fffdf9; border: 0.35em solid #2b2622; box-shadow: 0 1.2em 2.4em -1.2em rgb(0 0 0 / 0.35); }
 .phoneHead { display: flex; justify-content: space-between; align-items: baseline; }
@@ -108,7 +108,7 @@
 .phoneNote span { color: var(--muted); font-size: 0.9em; }
 
 /* talk landing page */
-.talk { --bg: #fbf6f2; --accent: #c4572f; }
+.talk { --bg: #fbf6f2; --accent: #a8482a; }
 .landing { flex: 1; display: flex; flex-direction: column; gap: 0.8em; padding: 2em 2.6em; }
 .display { font-size: 3em; font-weight: 700; letter-spacing: -0.045em; line-height: 0.98; color: var(--ink); }
 .lead { max-width: 30em; color: var(--muted); }
@@ -126,3 +126,50 @@
 .sev { font-size: 0.72em; font-weight: 600; padding: 0.15em 0.5em; border-radius: 99em; background: color-mix(in oklab, var(--warn) 16%, transparent); color: color-mix(in oklab, var(--warn) 70%, black); }
 .sev[data-sev="Alta"] { background: rgb(220 70 60 / 0.14); color: #b4342a; }
 .sev[data-sev="Baja"] { background: var(--line); color: var(--muted); }
+
+/* ------------------------------------------------------------- playback
+ * Each step runs once, starting --d ms after the screen comes on screen.
+ * Steps are paused until MockPlay sets data-play, so a screen that is off
+ * screen waits on its first frame and resumes where it stopped. Only the
+ * "from" frame is defined, so every step ends on the static design.
+ */
+.player { --mock-ease: cubic-bezier(0.22, 1, 0.36, 1); display: block; }
+.clause mark.sweep { background: linear-gradient(color-mix(in oklab, var(--accent) 22%, #fff4c2), color-mix(in oklab, var(--accent) 22%, #fff4c2)) no-repeat; background-size: 100% 100%; }
+
+@keyframes mockRise { from { opacity: 0; transform: translateY(0.8em); } }
+@keyframes mockFade { from { opacity: 0; } }
+@keyframes mockPop { 0% { opacity: 0; transform: scale(0.6); } 65% { opacity: 1; transform: scale(1.08); } }
+@keyframes mockFill { from { transform: scaleX(0); } }
+@keyframes mockSweep { from { background-size: 0% 100%; } }
+@keyframes mockBox { from { outline-color: transparent; background-color: transparent; } }
+@keyframes mockType { from { clip-path: inset(0 100% 0 0); } }
+@keyframes mockScan { 0%, 100% { background-color: transparent; } 35% { background-color: color-mix(in oklab, var(--accent) 12%, transparent); } }
+@keyframes mockLit { from { background-color: transparent; border-color: var(--line); color: var(--muted); } }
+@keyframes mockRing { from { border-color: var(--line); box-shadow: none; } }
+@keyframes mockInk { from { color: var(--muted); } }
+@keyframes mockDay { from { background-color: transparent; color: var(--muted); } }
+@keyframes mockPulse { 0%, 100% { box-shadow: 0 0 0 0.4em rgb(240 150 107 / 0.3); } 50% { box-shadow: 0 0 0 0.9em rgb(240 150 107 / 0.06); } }
+@keyframes mockBlink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  :global(html[data-js]) .player :is(.rise, .fade, .pop, .fill, .sweep, .box, .type, .scan),
+  :global(html[data-js]) .player :is(.stepper span[data-done], .stages div[data-done], .stages div[data-now], .stages div[data-done] b, .days span[data-on], .days span[data-on] b) {
+    animation-timing-function: var(--mock-ease); animation-fill-mode: both; animation-delay: calc(var(--d, 0) * 1ms);
+  }
+  :global(html[data-js]) .player .rise { animation-name: mockRise; animation-duration: 560ms; }
+  :global(html[data-js]) .player .fade { animation-name: mockFade; animation-duration: 480ms; }
+  :global(html[data-js]) .player .pop { animation-name: mockPop; animation-duration: 520ms; }
+  :global(html[data-js]) .player .fill { animation-name: mockFill; animation-duration: 1100ms; transform-origin: left center; }
+  :global(html[data-js]) .player .sweep { animation-name: mockSweep; animation-duration: 1100ms; animation-timing-function: cubic-bezier(0.6, 0, 0.3, 1); }
+  :global(html[data-js]) .player .box { animation-name: mockBox; animation-duration: 420ms; }
+  :global(html[data-js]) .player .type { animation-name: mockType; animation-duration: 520ms; animation-timing-function: steps(22, end); }
+  :global(html[data-js]) .player .scan { animation-name: mockScan; animation-duration: 700ms; animation-fill-mode: none; }
+  :global(html[data-js]) .player .stepper span[data-done] { animation-name: mockLit; animation-duration: 320ms; }
+  :global(html[data-js]) .player .stages div[data-done], :global(html[data-js]) .player .stages div[data-now] { animation-name: mockRing; animation-duration: 360ms; }
+  :global(html[data-js]) .player .stages div[data-done] b { animation-name: mockInk; animation-duration: 360ms; }
+  :global(html[data-js]) .player .days span[data-on], :global(html[data-js]) .player .days span[data-on] b { animation-name: mockDay; animation-duration: 360ms; }
+  :global(html[data-js]) .player .pin[data-on] { animation: mockPop 520ms var(--mock-ease) calc(var(--d, 0) * 1ms) both, mockPulse 1.8s ease-in-out calc(var(--d, 0) * 1ms + 520ms) 3; }
+  :global(html[data-js]) .player .caret { animation: mockBlink 1s steps(1, end) calc(4300ms) infinite; }
+  /* Waiting off screen: hold the first frame. */
+  .player:not([data-play]) *, .player:not([data-play]) { animation-play-state: paused !important; }
+}

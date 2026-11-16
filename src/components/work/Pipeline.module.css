@@ -10,7 +10,7 @@
 .nodes button i { display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 50%; border: 1px solid var(--rule); background: var(--surface); font-family: var(--font-mono), ui-monospace, monospace; font-style: normal; font-size: 0.6875rem; transition: background-color 300ms var(--ease), border-color 300ms var(--ease), color 300ms var(--ease), transform 300ms var(--ease); }
 .nodes button[data-done] i { border-color: var(--accent); color: var(--accent-ink); }
 .nodes button[aria-current] { color: var(--ink); }
-.nodes button[aria-current] i { background: var(--accent); border-color: var(--accent); color: var(--on-accent, #fff); transform: scale(1.18); }
+.nodes button[aria-current] i { background: var(--accent-ink); border-color: var(--accent-ink); color: var(--on-accent, #fff); transform: scale(1.18); }
 .nodes button:hover { color: var(--ink); }
 
 .detail { display: grid; gap: 0.4rem; min-height: 8.5rem; padding-top: 1.25rem; border-top: 1px solid var(--hair); }

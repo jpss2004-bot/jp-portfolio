@@ -62,7 +62,7 @@ export const moreCases: Project[] = [
     },
     facts: [
       { value: "156,988", label: { en: "rows in the INEGI catalog", es: "filas en el catálogo INEGI" } },
-      { value: "6", label: { en: "sheets in each audited report", es: "hojas en cada reporte auditado" } },
+      { value: "5", label: { en: "sheets in each audited report", es: "hojas en cada reporte auditado" } },
       { value: "60", label: { en: "automated tests", es: "pruebas automatizadas" } },
     ],
     metricNote: { en: "Figures from the project repository and its reference database, July 2026.", es: "Cifras del repositorio del proyecto y su base de referencia, julio de 2026." },
@@ -78,12 +78,12 @@ export const moreCases: Project[] = [
         es: ["Lo usa personal no técnico: arrastrar una hoja y obtener un reporte.", "Nunca sobrescribir en silencio los registros anteriores.", "Entregarse como app para Mac, sin instalación."],
       },
       decisions: [
-        { title: { en: "Accept a match only with a clear margin", es: "Aceptar una coincidencia solo con margen claro" }, why: { en: "Catalog candidates are scored within the exact postal code. A match is accepted automatically only when it scores high and clearly beats the runner-up; everything else goes to manual review.", es: "Los candidatos del catálogo se califican dentro del código postal exacto. Solo se acepta en automático cuando la calificación es alta y supera con claridad al segundo; lo demás pasa a revisión manual." } },
-        { title: { en: "Compare with history, never overwrite it", es: "Comparar con el histórico, nunca sobrescribirlo" }, why: { en: "New results are checked against 29,496 earlier records and differences are sent to review, so the audit trail stays intact.", es: "Los resultados nuevos se cotejan con 29,496 registros anteriores y las diferencias pasan a revisión, así el historial queda intacto." } },
+        { title: { en: "Accept a match only with a clear margin", es: "Aceptar una coincidencia solo con margen claro" }, why: { en: "Catalog candidates are scored within the exact postal code. A match is accepted automatically only when it scores high and clearly beats the runner-up; otherwise the code is left blank and flagged for manual review with the top three candidates.", es: "Los candidatos del catálogo se califican dentro del código postal exacto. Solo se acepta en automático cuando la calificación es alta y supera con claridad al segundo; si no, la clave queda en blanco y se marca para revisión manual con los tres mejores candidatos." } },
+        { title: { en: "Compare with history, never overwrite it", es: "Comparar con el histórico, nunca sobrescribirlo" }, why: { en: "New results are checked against 29,496 earlier records; differences are flagged in the audit sheet and nothing earlier is overwritten.", es: "Los resultados nuevos se cotejan con 29,496 registros anteriores; las diferencias se marcan en la hoja de auditoría y no se sobrescribe nada anterior." } },
       ],
       built: {
-        en: ["Column detection that finds the sheet, header row and coordinates, shows its confidence and can be overridden, plus a pre-run check for unusable rows.", "Concurrent geocoding with a local SQLite cache, about 20 requests a second and retries; progress with an estimate and a cancel button.", "An Excel report with six sheets, including review and audit sheets, and an optional PDF."],
-        es: ["Detección de columnas que encuentra la hoja, los encabezados y las coordenadas, muestra su confianza y se puede corregir, más una revisión previa de filas inutilizables.", "Geocodificación concurrente con caché SQLite local, unas 20 solicitudes por segundo y reintentos; avance con estimado y botón para cancelar.", "Un reporte en Excel de seis hojas, con hojas de revisión y auditoría, y un PDF opcional."],
+        en: ["Column detection that finds the sheet, header row and coordinates, shows its confidence and can be overridden, plus a pre-run check for unusable rows.", "Concurrent geocoding with a local SQLite cache, about 20 requests a second and retries; progress with an estimate and a cancel button.", "An Excel report with five sheets, including review and audit sheets, and an optional PDF."],
+        es: ["Detección de columnas que encuentra la hoja, los encabezados y las coordenadas, muestra su confianza y se puede corregir, más una revisión previa de filas inutilizables.", "Geocodificación concurrente con caché SQLite local, unas 20 solicitudes por segundo y reintentos; avance con estimado y botón para cancelar.", "Un reporte en Excel de cinco hojas, con hojas de revisión y auditoría, y un PDF opcional."],
       },
       outcome: {
         en: "The broken workbook was replaced by a one-click desktop report, delivered at the end of July 2026 as a packaged app for Apple Silicon Macs.",

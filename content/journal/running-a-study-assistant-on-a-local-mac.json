@@ -103,5 +103,92 @@
       "url": "https://schoolvault-beta-web.onrender.com/beta/join?lang=en"
     }
   ],
-  "publishedAt": "2026-11-16"
+  "publishedAt": "2026-11-16",
+  "translations": {
+    "es": {
+      "title": "Correr un asistente de estudio en una Mac local",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Neyvu es un asistente de estudio que entiende el contexto de cada curso y que estoy construyendo por mi cuenta. Reúne material de Moodle, notas y planificación de estudio en un solo espacio de trabajo, y sus respuestas enlazan a la fuente guardada que usaron. Es un piloto funcional y ya estoy incorporando estudiantes. [1]"
+        },
+        {
+          "type": "paragraph",
+          "text": "Lo inusual es dónde corre el modelo. El espacio de trabajo está alojado en Render, pero la IA corre en una Mac local. Esa sola decisión dio forma a la mayor parte de la arquitectura."
+        },
+        {
+          "type": "heading",
+          "id": "por-que-local",
+          "text": "Por qué correrlo de forma local"
+        },
+        {
+          "type": "paragraph",
+          "text": "El material de los cursos es personal, y las notas y conversaciones de cada estudiante deben mantenerse separadas de las de los demás. Correr la inferencia en una máquina que yo controlo hace que el sistema sea sencillo de entender. También significa que a veces el modelo no está disponible, y una herramienta de estudio que deja de funcionar cada vez que el modelo está ocupado no es una herramienta de estudio."
+        },
+        {
+          "type": "heading",
+          "id": "cola",
+          "text": "Una cola entre la web y el modelo"
+        },
+        {
+          "type": "paragraph",
+          "text": "La app alojada nunca llama al modelo directamente. Escribe una tarea de respuesta en una cola con leases, y el worker local toma las tareas cuando puede. Mientras una pregunta espera, el resto del espacio de trabajo no se detiene: las notas guardadas, los archivos y el calendario siguen ahí. Si una respuesta falla, el estudiante puede conservar un borrador recuperable en lugar de perder lo que escribió."
+        },
+        {
+          "type": "list",
+          "items": [
+            "La app web y su base de datos en PostgreSQL guardan todo lo que pertenece a un estudiante, acotado a ese estudiante.",
+            "La cola guarda el trabajo para el que hace falta el modelo.",
+            "El worker local corre el modelo, con verificaciones de matemáticas exactas para las respuestas matemáticas."
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "versiones",
+          "text": "Las respuestas apuntan a una versión, no a un archivo"
+        },
+        {
+          "type": "paragraph",
+          "text": "Cada tarea de respuesta hace referencia a una versión inmutable de sus fuentes. Si un estudiante edita una nota mañana, una respuesta de hoy sigue apuntando al texto que realmente leyó. Los borradores de estudio escritos por IA se mantienen separados de la evidencia original del curso, así que las dos cosas nunca pueden confundirse."
+        },
+        {
+          "type": "quote",
+          "text": "Si la fuente puede cambiar a espaldas de la respuesta, la cita está de adorno."
+        },
+        {
+          "type": "heading",
+          "id": "recopilacion",
+          "text": "Recopilación en la computadora del propio estudiante"
+        },
+        {
+          "type": "paragraph",
+          "text": "Los estudiantes inician sesión en Moodle por su cuenta, a través de un Companion de escritorio vinculado. Neyvu nunca tiene su contraseña de la universidad. Las fechas de recopilación y los huecos de cobertura quedan a la vista, porque un asistente de estudio que tiene la mitad de un curso sin decírtelo es peor que uno que te dice lo que no ha visto."
+        },
+        {
+          "type": "heading",
+          "id": "limites",
+          "text": "Límites que no le toca adivinar al modelo"
+        },
+        {
+          "type": "paragraph",
+          "text": "Algunas líneas se trazan en el modelo de datos en lugar de dejárselas al modelo. Un día de estudio planeado no es la fecha de entrega de una tarea. Las fechas oficiales se mantienen separadas del plan personal del estudiante. El asistente no debe inferir una entrega, una calificación o una fecha límite a partir de evidencia no relacionada. Esas reglas las impone la estructura, que es más confiable que un prompt."
+        },
+        {
+          "type": "heading",
+          "id": "lo-que-sigue",
+          "text": "Lo que sigue"
+        },
+        {
+          "type": "paragraph",
+          "text": "Los siguientes pasos tienen que ver con estudiantes reales más que con arquitectura: incorporar a los usuarios del piloto, medir la primera configuración exitosa de un curso y terminar las pruebas de aceptación en teléfonos físicos. Por ahora no hago ninguna afirmación sobre adopción. El sistema está listo para aprender de quienes lo usen."
+        },
+        {
+          "type": "resource",
+          "title": "El caso de Neyvu",
+          "href": "https://jpsamanosuarez.com/en/projects/neyvu",
+          "description": "El caso completo, con el mapa del sistema, el lector de fuentes y el estado del piloto."
+        }
+      ]
+    }
+  }
 }

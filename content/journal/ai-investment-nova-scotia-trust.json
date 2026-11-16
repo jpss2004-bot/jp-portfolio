@@ -178,6 +178,104 @@
   "publishedAt": "2026-10-20",
   "externalPublication": {
     "label": "Also on LinkedIn",
+    "labels": { "es": "Original en inglés en LinkedIn" },
     "url": "https://www.linkedin.com/feed/update/urn:li:activity:7518338341054881792/"
+  },
+  "translations": {
+    "es": {
+      "title": "La inversión en IA debe ganarse la confianza de Nueva Escocia",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Había estudiantes entre quienes protestaron contra el centro de datos de IA que EverWind propone en Point Tupper, un día después de que se anunciara el 16 de octubre.[1] Como estudiante de ciencias de la computación que trabaja en desarrollo de software y en investigación relacionada con la IA, quiero que esta inversión tenga éxito. También entiendo por qué los residentes quieren saber a qué se estarían comprometiendo."
+        },
+        {
+          "type": "paragraph",
+          "text": "Quiero que Nueva Escocia les ofrezca a los egresados más razones para hacer su carrera aquí. La infraestructura de cómputo podría sostener trabajo calificado, darles a las universidades nuevos socios en la industria y generar negocio para proveedores locales. Canadá también se beneficia de tener más opciones sobre dónde se realiza su cómputo. Son buenas razones para impulsar esta propuesta con seriedad."
+        },
+        {
+          "type": "paragraph",
+          "text": "EverWind propone una inversión de más de 10 mil millones de dólares en un centro de datos en Point Tupper y cuatro proyectos eólicos. Anthropic, la empresa estadounidense detrás de Claude, arrendará la fase inicial.[2,4] Eso podría traer inversión aquí sin darle a Canadá control sobre el cómputo ni garantizar acceso a un laboratorio de investigación local. El acceso y las alianzas requieren sus propios acuerdos."
+        },
+        {
+          "type": "paragraph",
+          "text": "Las proyecciones de empleo merecen la misma precisión. Los cerca de 2,000 puestos de construcción y 215 puestos permanentes de operación corresponden al campus y al portafolio eólico en conjunto.[4] El trabajo de construcción importa, sobre todo para los trabajadores de oficio y las empresas que lo abastecen. Una economía tecnológica duradera también dependerá de quién obtenga los empleos de operación y de si las empresas locales consiguen trabajo más allá de la obra."
+        },
+        {
+          "type": "paragraph",
+          "text": "Vería con buenos ojos ingresos fiscales adicionales. EverWind ha publicado pronósticos de largo plazo sobre impuestos corporativos y municipales, pero son proyecciones.[3] La ciudadanía necesita ver en qué supuestos se basan y, junto a ellas, los costos públicos. El gasto en equipo importado no es ingreso local, y el presupuesto de inversión de un proyecto no es ingreso del gobierno."
+        },
+        {
+          "type": "paragraph",
+          "text": "La salud, la vivienda y la educación solo se benefician si los gobiernos recaudan ingresos adicionales, conservan una ganancia fiscal una vez descontados los costos públicos y deciden asignarla a través de sus presupuestos. También hay que distinguir cualquier ingreso municipal de los fondos provinciales. Quienes apoyan el proyecto deberían poder explicar esa cadena sin prometer que el anuncio de una inversión privada va a pagar un hospital."
+        },
+        {
+          "type": "heading",
+          "id": "suministro-electrico",
+          "text": "El suministro eléctrico necesita una respuesta"
+        },
+        {
+          "type": "paragraph",
+          "text": "La objeción inmediata más fuerte tiene que ver con la electricidad. The Canadian Press informa que los parques eólicos de EverWind no estarán listos para cuando se prevé que abra la primera fase, a finales de 2027. Representantes de la empresa dicen que un estudio de la red respalda la operación.[4] Publicar ese estudio y las condiciones de conexión permitiría a los residentes evaluar esa garantía."
+        },
+        {
+          "type": "paragraph",
+          "text": "La capacidad eólica describe lo que las turbinas pueden producir en condiciones adecuadas. Una instalación que sigue operando en periodos de poco viento necesita una combinación confiable de suministro, almacenamiento y flexibilidad de la demanda. El operador del sistema debe evaluar esa combinación junto con las necesidades de los clientes actuales.[5] Una propuesta para reducir la demanda sobre la red en momentos de estrés necesita reglas de operación exigibles, incluida una explicación de cómo continúan las operaciones y qué emisiones produciría cualquier generación de respaldo."
+        },
+        {
+          "type": "paragraph",
+          "text": "También se trata de usos de la electricidad que compiten entre sí. Los hogares, la electrificación y otros empleadores necesitan energía. Los reguladores deberían determinar si la contribución de esta instalación justifica la capacidad que requiere y si sus pagos cubren los costos que ocasiona. El anuncio de política que hizo Columbia Británica en enero ofrece una comparación útil: introdujo una asignación competitiva de electricidad para IA y centros de datos, que pondera beneficios económicos, comunitarios y ambientales.[6] Nueva Escocia puede exigir una explicación pública comparable sin copiar las reglas de otra provincia."
+        },
+        {
+          "type": "figure",
+          "figure": "cooling"
+        },
+        {
+          "type": "paragraph",
+          "text": "El agua requiere una evaluación aparte. EverWind propone un circuito sellado de agua y glicol, enfriado principalmente por aire, con apoyo de agua cuando hace calor. Las estimaciones actuales sitúan el uso inicial en unos 100,000 litros diarios y el uso promedio con el desarrollo completo en 500,000.[3] Son estimaciones de diseño, no máximos vinculantes."
+        },
+        {
+          "type": "paragraph",
+          "text": "Por lo tanto, un circuito cerrado no significa cero consumo de agua. El diseño publicado tampoco respalda la afirmación de que el fluido de enfriamiento se descargaría caliente en el lago de forma rutinaria.[3] Las críticas deberían abordar con precisión el sistema propuesto."
+        },
+        {
+          "type": "paragraph",
+          "text": "La pregunta relevante es cómo se suma esta demanda a las demás extracciones de Landrie Lake, sobre todo durante una sequía. Un procedimiento regulatorio sobre el servicio de agua ya abordó requisitos de conservación en caso de sequía que afectan a EverWind; esa decisión no es una asignación de agua específica para el campus.[7] Los residentes deberían recibir estimaciones de demanda máxima, límites vinculantes y resultados de monitoreo que muestren si las protecciones funcionan."
+        },
+        {
+          "type": "heading",
+          "id": "beneficios-publicos",
+          "text": "Qué haría que valiera la pena apoyar el acuerdo"
+        },
+        {
+          "type": "paragraph",
+          "text": "Empecé con la esperanza de que un desarrollo de esta escala cumpliera con los estándares más altos. La evidencia respalda una conclusión más prudente: EverWind ha asumido compromisos, mientras que todavía está por demostrarse un recuento público completo de las condiciones vinculantes del campus y de su desempeño verificado de forma independiente."
+        },
+        {
+          "type": "paragraph",
+          "text": "EverWind ha respaldado los principios de Canadá para centros de datos responsables y promete financiar los costos del sistema eléctrico atribuibles a su desarrollo.[3,8] Firmar unos principios no crea, por sí solo, un permiso de operación exigible. Las reglas provinciales de evaluación y de aprobación de actividades dependen de las obras y actividades de que se trate; las aprobaciones de proyectos eólicos o de hidrógeno relacionados no pueden determinar la situación del campus.[9] Las protecciones federales para las aguas con peces se aplican por separado.[11] El gobierno debería publicar un registro consolidado de permisos con sus condiciones, las obligaciones de monitoreo y quién es responsable de hacerlas cumplir. Los inspectores provinciales pueden emitir órdenes y presentar cargos cuando se incumplen los requisitos.[12]"
+        },
+        {
+          "type": "paragraph",
+          "text": "EDC registra un financiamiento de 2023 para el desarrollo de hidrógeno, amoniaco y energía eólica asociada de EverWind.[10] Eso no demuestra que exista un apoyo a fondo perdido para este centro de datos. Decir que el campus se financia con capital privado deja abiertas preguntas sobre los arreglos fiscales y los costos de infraestructura pública. EverWind debería dar a conocer el financiamiento y la propiedad del campus. El gobierno debería distinguir los préstamos de los subsidios y exigir garantías financieras por si la operación cesa antes de que se recuperen los costos de infraestructura."
+        },
+        {
+          "type": "paragraph",
+          "text": "La participación local debería poder medirse. Yo buscaría metas de adquisiciones y contratación con resultados anuales, prácticas profesionales pagadas para estudiantes y acuerdos de investigación que especifiquen el acceso y el costo. Las negociaciones sobre participación indígena en la propiedad son prometedoras, pero los acuerdos concluidos y la consulta que se debe a los titulares de derechos afectados tienen que evaluarse en sus propios términos. The Canadian Press informó que todavía se negociaba la parte del capital del campus que tendría un consorcio encabezado por Membertou.[4]"
+        },
+        {
+          "type": "paragraph",
+          "text": "El debate público también merece más cuidado. Que haya estudiantes en las protestas no demuestra ni un consenso generacional ni hostilidad hacia la tecnología. La preocupación por el clima, el costo de vida o la influencia corporativa puede convivir con la curiosidad por la IA. La ansiedad por el trabajo que la IA podría desplazar es comprensible, incluso entre quienes se preparan para desarrollar software. Mi apoyo a esta instalación no exige estar de acuerdo con todos los usos de los sistemas que van a correr en ella."
+        },
+        {
+          "type": "paragraph",
+          "text": "El gobierno debería publicar los estudios técnicos y los términos financieros mientras los residentes todavía puedan influir en las decisiones. Una evaluación independiente de los beneficios públicos netos debería poner a prueba alternativas realistas y explicar quién asume los riesgos. Los reportes anuales deberían cubrir los montos reales de impuestos y costos públicos, el uso de electricidad y agua, las emisiones y el ruido, y el cumplimiento de los compromisos locales."
+        },
+        {
+          "type": "paragraph",
+          "text": "Apoyo que esta propuesta avance. Quiero que Nueva Escocia tenga un papel mayor en la economía de la computación, y me decepcionaría ver que se pierde una oportunidad valiosa. También esperaría que nuestro gobierno rechazara términos que dejen a los residentes cargando con costos que debería asumir la desarrolladora. Los argumentos a favor de construir se vuelven convincentes cuando los acuerdos muestran cómo se van a beneficiar los habitantes de Nueva Escocia."
+        }
+      ]
+    }
   }
 }

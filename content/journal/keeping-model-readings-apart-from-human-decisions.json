@@ -111,5 +111,95 @@
       "url": "https://jpsamanosuarez.com/en/projects/checkwise"
     }
   ],
-  "publishedAt": "2026-11-16"
+  "publishedAt": "2026-11-16",
+  "translations": {
+    "es": {
+      "title": "Separar las lecturas del modelo de las decisiones humanas",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "CheckWise gestiona la evidencia de cumplimiento recurrente de empresas mexicanas en el marco de la reforma de subcontratación de 2021, conocida como REPSE. Una empresa es responsable solidaria de las obligaciones laborales y fiscales de sus proveedores de servicios, así que tiene que reunir y revisar las declaraciones de cada proveedor: mensuales, bimestrales, cuatrimestrales y anuales, ante el SAT, el IMSS, el INFONAVIT y la STPS. [1]"
+        },
+        {
+          "type": "paragraph",
+          "text": "Un modelo lee cada uno de esos documentos. No decide si se acepta ninguno de ellos. Esa separación es la decisión de diseño más importante del producto, y vale la pena explicar por qué."
+        },
+        {
+          "type": "heading",
+          "id": "tres-tareas",
+          "text": "Tres tareas que parecen una sola"
+        },
+        {
+          "type": "paragraph",
+          "text": "Cuando un proveedor carga una declaración fiscal, tienen que pasar tres cosas distintas. Algo tiene que leer el documento y extraer los campos que importan. Algo tiene que aplicar las reglas que acordó el cliente. Y alguien tiene que hacerse responsable de la decisión. Es tentador juntar las tres en una sola llamada al modelo que devuelva aceptar o rechazar. Sería más rápido de construir y mucho más difícil de defender."
+        },
+        {
+          "type": "list",
+          "items": [
+            "La lectura es una prevalidación: un veredicto claro, los campos que leyó y en qué parte de la página los leyó.",
+            "Las reglas son verificaciones objetivas configuradas, incluidas las reglas de aceptación y rechazo automático que cada cliente puede definir por su cuenta, y las verificaciones en vivo de folios de facturas ante el SAT.",
+            "La decisión le corresponde a un revisor autorizado, y cada transición conserva su historial."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Cada una vive en su propio lugar dentro del sistema. La lectura nunca se otorga a sí misma el poder de aprobar, y una regla configurada tiene un alcance explícito y auditable."
+        },
+        {
+          "type": "heading",
+          "id": "lectura",
+          "text": "Cómo es una buena lectura"
+        },
+        {
+          "type": "paragraph",
+          "text": "La prevalidación tiene que serle útil a un revisor que tiene alrededor de un minuto por documento. Por eso no devuelve solo un puntaje de confianza. Devuelve una oración con la que una persona puede actuar y la evidencia que la respalda. En un caso de demostración, la lectura indica que el documento no es del proveedor: está emitido a un RFC distinto del que aparece en el expediente del proveedor. El revisor puede ver ambos RFC lado a lado, junto con la página de donde salió la lectura."
+        },
+        {
+          "type": "quote",
+          "text": "Una lectura debe ayudar al revisor a ir más rápido, no tomar la decisión en su lugar."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ese planteamiento cambió cómo escribí el resultado de la lectura. Cada campo tiene una ubicación, y el veredicto está redactado como un hallazgo por verificar, no como una conclusión por aceptar."
+        },
+        {
+          "type": "heading",
+          "id": "friccion",
+          "text": "Fricción en el lugar correcto"
+        },
+        {
+          "type": "paragraph",
+          "text": "La mayor parte de la mesa de revisión busca quitar fricción. Una parte la agrega a propósito. Si un revisor quiere aprobar un documento que la prevalidación marcó, el producto le pide una justificación por escrito y la registra. Aprobar sin alertas toma un clic. Aprobar a pesar de una advertencia toma una oración. Esa oración es lo que permite reconstruir la decisión más adelante."
+        },
+        {
+          "type": "heading",
+          "id": "vocabulario",
+          "text": "Un solo vocabulario de estados"
+        },
+        {
+          "type": "paragraph",
+          "text": "CheckWise tiene tres públicos: los proveedores que cargan, los revisores de LegalShelf que deciden y las empresas cliente que consultan su exposición. Si esos tres portales describen el mismo documento de forma distinta, la confianza se desgasta rápido. Las etiquetas de estado viven en un solo módulo, y las pruebas de barrido rompen el build si alguna pantalla inventa su propia redacción."
+        },
+        {
+          "type": "heading",
+          "id": "resultado",
+          "text": "Lo que hizo posible"
+        },
+        {
+          "type": "paragraph",
+          "text": "Para septiembre de 2026, CheckWise atendía a 7 empresas cliente y a más de 15 proveedores, y había procesado alrededor de 20,000 documentos. Los revisores resolvían unos 50 documentos al día, en cerca de un minuto cada uno. [2] No creo que ese ritmo fuera seguro sin la separación. Como el modelo solo lee, una lectura equivocada le cuesta al revisor unos segundos. Nunca se convierte en una decisión equivocada sin que nadie lo note."
+        },
+        {
+          "type": "paragraph",
+          "text": "La misma idea aparece en mis otros proyectos. En Verifaid, una segunda persona autorizada aprueba cada conclusión. En Flaregrain, un verificador basado en reglas decide qué oraciones del modelo llegan a la página. Los modelos son buenos lectores. La responsabilidad sigue necesitando nombre y apellido."
+        },
+        {
+          "type": "resource",
+          "title": "El caso de CheckWise",
+          "href": "https://jpsamanosuarez.com/en/projects/checkwise",
+          "description": "El caso completo, con la mesa de revisión, el modelo de obligaciones y las cifras de septiembre."
+        }
+      ]
+    }
+  }
 }
