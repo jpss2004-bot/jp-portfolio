@@ -5,6 +5,7 @@ import { RevealObserver } from "@/components/RevealObserver";
 import { ToneField } from "@/components/ToneField";
 import { JetBrains_Mono, Schibsted_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { TrackDownloads } from "@/components/Track";
 import "../globals.css";
 import { isLocale, locales } from "@/data/i18n";
 import { profile } from "@/data/content";
@@ -48,6 +49,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
         <RevealObserver />
         <ToneField />
         <Analytics />
+        <TrackDownloads />
       </body>
     </html>
   );

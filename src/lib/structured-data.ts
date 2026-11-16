@@ -68,7 +68,7 @@ export function homeStructuredData(locale: Locale, metadata: { title: string; de
         isPartOf: ref(websiteId),
         mainEntity: ref(personId),
         author: ref(personId),
-        ...(latestEntry ? { relatedLink: [`${siteUrl}/${locale}/journal`, `${siteUrl}${journalPath(latestEntry)}`] } : {}),
+        ...(latestEntry ? { relatedLink: [`${siteUrl}/${locale}/journal`, `${siteUrl}${journalPath(latestEntry, locale)}`] } : {}),
         mentions: projects.map((project) => ({
           "@type": "CreativeWork",
           "@id": projectId(project.slug),

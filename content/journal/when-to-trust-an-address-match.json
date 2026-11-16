@@ -1,0 +1,248 @@
+{
+  "slug": "when-to-trust-an-address-match",
+  "status": "draft",
+  "kind": "article",
+  "language": "en",
+  "title": "When to trust an address match, and when to ask a person",
+  "summary": {
+    "en": "A desktop app I built at LegalShelf assigns official INEGI codes to payment-terminal coordinates from a 156,988-row catalog. Here is how it decides when to accept a match on its own and when to leave the decision to a person.",
+    "es": "Una app de escritorio que construí en LegalShelf asigna claves oficiales del INEGI a coordenadas de terminales de pago a partir de un catálogo de 156,988 filas. Así decide cuándo aceptar una coincidencia por su cuenta y cuándo dejarle la decisión a una persona."
+  },
+  "writtenAt": "2026-11-16",
+  "topics": [
+    "Human review",
+    "Engineering"
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "In June and July 2026, as an engineer at LegalShelf, I built a desktop app for a team that locates payment terminals from their coordinates. It turns a spreadsheet of coordinates into street addresses with official INEGI codes for colonia, locality, municipality and state, and records how each code was decided."
+    },
+    {
+      "type": "paragraph",
+      "text": "Before the app, the team used a workbook converted from another spreadsheet tool. Its lookup formulas had stopped working in Excel, it handled one coordinate at a time, and it carried its own reference data: a catalog of 156,988 rows of postal codes, colonias and official codes, plus 29,496 earlier records. The hard part was deciding when the app may fill in an official code on its own."
+    },
+    {
+      "type": "heading",
+      "id": "a-best-match-always-exists",
+      "text": "A best match always exists"
+    },
+    {
+      "type": "paragraph",
+      "text": "A postal code can cover several colonias, so the app must map the colonia name from the geocoding service to an official one. My June prototype took the first catalog row in the postal code whose name contained the geocoder’s name. If nothing matched, it used the first colonia in the postal code as a best guess and added a note."
+    },
+    {
+      "type": "paragraph",
+      "text": "There is always a top score, even when it is bad, and in the final report a wrong code looks exactly like a right one. So the delivered app asks two questions: how close is the best candidate, and how far ahead of the next one is it? A high score with a close runner-up means the data cannot tell them apart."
+    },
+    {
+      "type": "heading",
+      "id": "score-margin-and-postal-code",
+      "text": "Score, margin and the exact postal code"
+    },
+    {
+      "type": "paragraph",
+      "text": "The app compares only the official colonias inside the exact five-digit postal code. Names are normalized first: accents, case and punctuation go, written ordinals and Roman numerals become digits, and filler words such as “colonia” are dropped. An identical name scores 1.0, identical without filler words 0.98, and the same words in another order 0.97. Anything else is scored by word overlap and character similarity."
+    },
+    {
+      "type": "paragraph",
+      "text": "The app accepts a match automatically only when the best candidate clears one of two bars, and never when the numbers disagree:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "A score of at least 0.965 and a lead of at least 0.02 over the runner-up.",
+        "Or a score of at least 0.92 and a lead of at least 0.08. A lower score needs a wider lead.",
+        "A conflict in section or stage numbers caps the score at 0.74, below both bars. “Sector II” and “Sector IV” look almost identical but are different colonias."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The catalog can list one official code under several spellings. Those are aliases, not competitors, so the app keeps the best name per code before comparing. Otherwise a duplicate would sit right behind the winner and erase the margin."
+    },
+    {
+      "type": "heading",
+      "id": "review-is-the-feature",
+      "text": "Review is the feature, not a failure"
+    },
+    {
+      "type": "paragraph",
+      "text": "When nothing clears the bar, the app does not choose. If the postal code holds a single colonia, it uses that one. Otherwise it fills in the locality, municipality and state codes, which are the same across the postal code, and leaves the colonia code empty. The match is labeled for manual review, with the top three candidates and their scores in the audit sheet."
+    },
+    {
+      "type": "quote",
+      "text": "An empty cell is an honest answer. A plausible wrong code is not."
+    },
+    {
+      "type": "paragraph",
+      "text": "The review sheet is the decision queue. It groups rows by coordinate, so one decision settles every terminal at that location. A location lands there when:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Essential data is incomplete: no transaction key, a failed lookup, no postal code or address, or a postal code that disagrees with the address.",
+        "The geocoder gave no specific colonia: a blank, a bare number, a generic “no name” label, or the state’s name in the colonia field."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Each location gets a priority, a status, an owner and resolution notes. The final report holds only rows that passed, so pending cases never mix with the delivery."
+    },
+    {
+      "type": "heading",
+      "id": "compare-with-history",
+      "text": "Compare with history, never overwrite it"
+    },
+    {
+      "type": "paragraph",
+      "text": "The 29,496 earlier records were tempting to treat as an answer key. I used them only as a check. The app finds a historical record by transaction key, then by the same coordinate, compares the postal code and the four official codes, and labels the result: verified, different, not enough evidence, or no historical match."
+    },
+    {
+      "type": "paragraph",
+      "text": "When they differ, the researched value stays. The historical values sit beside it in the audit sheet, and the summary sheet counts the differences and marks them for review. Records can lag behind new or renamed colonias, and silently matching to them would carry old gaps forward."
+    },
+    {
+      "type": "heading",
+      "id": "advice",
+      "text": "What I would tell someone building this"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Decide what a wrong answer costs before tuning a threshold. Here a wrong code is invisible and an empty one is not, so the app leans toward empty.",
+        "Measure the margin, not just the score, and make sure the runner-up is a real alternative, not another spelling of the winner.",
+        "Cache only definitive answers. Each unique coordinate is looked up once, at about 20 requests a second, and a transient error is retried, not stored.",
+        "Write the rules as tests. Among the project’s 60 automated tests are checks that a section-number conflict is never accepted and that history never overwrites a researched result."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The app was delivered at the end of July 2026 as a packaged Mac app. The thresholds are written down, tested and visible: every match’s score and margin sit in the audit sheet, so anyone can see why the app trusted a match or asked a person."
+    },
+    {
+      "type": "resource",
+      "title": "POS Geocoder case study",
+      "href": "https://jpsamanosuarez.com/en/projects/pos-geocoder",
+      "description": "The short case study, with the system map and the input and review screens."
+    }
+  ],
+  "references": [],
+  "translations": {
+    "es": {
+      "title": "Cuándo confiar en una coincidencia de dirección y cuándo preguntarle a una persona",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "En junio y julio de 2026, como ingeniero en LegalShelf, construí una app de escritorio para un equipo que ubica terminales de pago a partir de sus coordenadas. Convierte una hoja de cálculo con coordenadas en direcciones con las claves oficiales del INEGI de colonia, localidad, municipio y estado, y registra cómo se decidió cada clave."
+        },
+        {
+          "type": "paragraph",
+          "text": "Antes de la app, el equipo usaba un libro convertido desde otra herramienta de hojas de cálculo. Sus fórmulas de búsqueda habían dejado de funcionar en Excel, procesaba una coordenada a la vez y cargaba sus propios datos de referencia: un catálogo de 156,988 filas de códigos postales, colonias y claves oficiales, más 29,496 registros anteriores. Lo difícil fue decidir cuándo la app puede llenar una clave oficial por su cuenta."
+        },
+        {
+          "type": "heading",
+          "id": "siempre-hay-un-mejor-candidato",
+          "text": "Siempre hay un mejor candidato"
+        },
+        {
+          "type": "paragraph",
+          "text": "Un código postal puede abarcar varias colonias, así que la app debe relacionar el nombre de colonia del servicio de geocodificación con una colonia oficial. Mi prototipo de junio tomaba la primera fila del catálogo en ese código postal cuyo nombre contuviera el del geocodificador. Si nada coincidía, usaba la primera colonia del código postal como mejor suposición y agregaba una nota."
+        },
+        {
+          "type": "paragraph",
+          "text": "Siempre hay una calificación más alta, aunque sea mala, y en el reporte final una clave equivocada se ve exactamente igual que una correcta. Por eso la app entregada se hace dos preguntas: ¿qué tan cerca está el mejor candidato y qué tanta ventaja le lleva al siguiente? Una calificación alta con un segundo lugar muy cercano significa que los datos no distinguen entre los dos."
+        },
+        {
+          "type": "heading",
+          "id": "calificacion-margen-y-codigo-postal",
+          "text": "Calificación, margen y el código postal exacto"
+        },
+        {
+          "type": "paragraph",
+          "text": "La app solo compara las colonias oficiales dentro del código postal exacto de cinco dígitos. Primero normaliza los nombres: quita acentos y puntuación, pasa todo a minúsculas, convierte ordinales escritos y números romanos en dígitos, y descarta palabras de relleno como “colonia”. Un nombre idéntico obtiene 1.0; uno idéntico sin palabras de relleno, 0.98, y las mismas palabras en otro orden, 0.97. Todo lo demás se califica por coincidencia de palabras y similitud de caracteres."
+        },
+        {
+          "type": "paragraph",
+          "text": "La app acepta una coincidencia en automático solo cuando el mejor candidato supera uno de dos umbrales, y nunca cuando los números no coinciden:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Una calificación de al menos 0.965 y una ventaja de al menos 0.02 sobre el segundo lugar.",
+            "O una calificación de al menos 0.92 y una ventaja de al menos 0.08. Una calificación más baja exige más ventaja.",
+            "Un conflicto en el número de sección o etapa limita la calificación a 0.74, por debajo de ambos umbrales. “Sector II” y “Sector IV” se ven casi idénticos pero son colonias distintas."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "El catálogo puede registrar una misma clave oficial con distintas formas de escribir el nombre. Esas variantes son alias, no competidores, así que la app conserva el mejor nombre por clave antes de comparar. Si no, un duplicado quedaría justo detrás del ganador y borraría el margen."
+        },
+        {
+          "type": "heading",
+          "id": "la-revision-no-es-una-falla",
+          "text": "La revisión es parte del producto, no una falla"
+        },
+        {
+          "type": "paragraph",
+          "text": "Cuando ningún candidato supera el umbral, la app no elige. Si el código postal tiene una sola colonia, usa esa. Si no, llena las claves de localidad, municipio y estado, que son las mismas en todo el código postal, y deja vacía la clave de colonia. La coincidencia queda marcada para revisión manual, con los tres mejores candidatos y sus calificaciones en la hoja de auditoría."
+        },
+        {
+          "type": "quote",
+          "text": "Una celda vacía es una respuesta honesta. Una clave equivocada pero creíble no lo es."
+        },
+        {
+          "type": "paragraph",
+          "text": "La hoja de revisión es la cola de decisiones. Agrupa las filas por coordenada, así una sola decisión resuelve todas las terminales de esa ubicación. Una ubicación llega ahí cuando:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Faltan datos esenciales: no hay clave de transacción, la consulta falló, no hay código postal o dirección, o el código postal no coincide con la dirección.",
+            "El geocodificador no dio una colonia específica: un campo vacío, solo un número, una etiqueta genérica de “sin nombre” o el nombre del estado en el campo de colonia."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Cada ubicación tiene prioridad, estatus, responsable y notas de resolución. El reporte final contiene solo las filas que pasaron, así los casos pendientes nunca se mezclan con la entrega."
+        },
+        {
+          "type": "heading",
+          "id": "comparar-con-el-historico",
+          "text": "Comparar con el histórico, nunca sobrescribirlo"
+        },
+        {
+          "type": "paragraph",
+          "text": "Era tentador usar los 29,496 registros anteriores como hoja de respuestas. Solo los usé como verificación. La app busca un registro histórico por clave de transacción y luego por la misma coordenada, compara el código postal y las cuatro claves oficiales, y etiqueta el resultado: verificado, diferente, evidencia insuficiente o sin coincidencia histórica."
+        },
+        {
+          "type": "paragraph",
+          "text": "Cuando hay diferencias, se conserva el valor investigado. Los valores históricos quedan junto a él en la hoja de auditoría, y la hoja de resumen cuenta las diferencias y las marca para revisión. Los registros pueden no estar al día con colonias nuevas o renombradas, y ajustar los resultados a ellos en silencio arrastraría esos huecos."
+        },
+        {
+          "type": "heading",
+          "id": "lo-que-le-diria-a-alguien",
+          "text": "Lo que le diría a alguien que construya algo así"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Decide cuánto cuesta una respuesta equivocada antes de ajustar un umbral. Aquí una clave equivocada es invisible y una vacía no, así que la app se inclina por dejarla vacía.",
+            "Mide el margen, no solo la calificación, y asegúrate de que el segundo lugar sea una alternativa real y no otra forma de escribir el nombre del ganador.",
+            "Guarda en caché solo respuestas definitivas. Cada coordenada única se consulta una vez, a unas 20 solicitudes por segundo, y un error temporal se reintenta, no se guarda.",
+            "Escribe las reglas como pruebas. Entre las 60 pruebas automatizadas del proyecto hay verificaciones de que un conflicto de número de sección nunca se acepte y de que el histórico nunca sobrescriba un resultado investigado."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "La app se entregó a finales de julio de 2026 como app empaquetada para computadoras Mac. Los umbrales están escritos, probados y a la vista: la calificación y el margen de cada coincidencia están en la hoja de auditoría, así cualquiera puede ver por qué la app confió en una coincidencia o le preguntó a una persona."
+        },
+        {
+          "type": "resource",
+          "title": "El caso de POS Geocoder",
+          "href": "https://jpsamanosuarez.com/en/projects/pos-geocoder",
+          "description": "El caso breve, con el mapa del sistema y las pantallas de entrada y revisión."
+        }
+      ]
+    }
+  }
+}

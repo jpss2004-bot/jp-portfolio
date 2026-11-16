@@ -35,6 +35,8 @@
 .articleHeader h1 { font-size: clamp(2.7rem, 6.7vw, 5.5rem); letter-spacing: -.055em; font-weight: 500; line-height: 1.075; max-width: 19ch; margin-bottom: 1.75rem; }
 .articleHeader .meta { margin-bottom: 1rem; }
 .articleHeader > p { max-width: 57ch; font-size: 1.15rem; color: var(--ink-2); }
+.articleHeader > p.translationNote { margin-bottom: 1rem; padding-left: .85rem; border-left: 2px solid var(--journal-teal); font-size: .92rem; color: var(--muted); }
+.translationNote a { color: var(--ink-2); text-underline-offset: .2em; }
 .articleLayout { display: grid; grid-template-columns: minmax(140px, 180px) minmax(0, 720px); gap: clamp(2rem, 5vw, 4.8rem); align-items: start; }
 .contents { position: sticky; top: 6rem; display: grid; gap: 1rem; font-size: .86rem; color: var(--muted); line-height: 1.5; }
 .contents strong { color: var(--ink); font-weight: 500; }

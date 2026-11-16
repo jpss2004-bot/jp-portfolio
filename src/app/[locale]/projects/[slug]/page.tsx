@@ -10,6 +10,7 @@ import { ui } from "@/data/ui";
 import { Footer, Header, ProjectMedia, VisualFrame } from "@/components/parts";
 
 import { StructuredData } from "@/components/StructuredData";
+import { TrackReadToEnd } from "@/components/Track";
 import { projectStructuredData } from "@/lib/structured-data";
 
 import { SystemExplorer } from "@/components/work/SystemExplorer";
@@ -334,6 +335,7 @@ export default async function CasePage({ params }: Props) {
           </div>
         </div>
 
+        <TrackReadToEnd event="Case read to end" project={slug} />
         <nav className="frame case-pager" aria-label={locale === "es" ? "Más proyectos" : "More projects"}>
           {prev ? <Link href={`${base}/projects/${prev.slug}`}><span>← {t.case.prev}</span><b>{pick(prev.title, locale)}</b></Link> : <span />}
           {next ? <Link href={`${base}/projects/${next.slug}`}><span>{t.case.nextCase} →</span><b>{pick(next.title, locale)}</b></Link> : <span />}

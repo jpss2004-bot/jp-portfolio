@@ -34,6 +34,8 @@
 .indexArt { position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; border: 1px solid color-mix(in oklab, var(--tone, var(--accent)) 25%, var(--line)); transition: border-color 320ms var(--ease); }
 .indexLayer { position: absolute; inset: 0; opacity: 0; transform: scale(1.03); transition: opacity 320ms var(--ease), transform 600ms var(--ease); }
 .indexLayer[data-on] { opacity: 1; transform: none; }
+/* A coded screen in a hidden layer waits, so it plays when its row is chosen. */
+.indexLayer:not([data-on]) :global([data-mock]) * { animation-play-state: paused !important; }
 .indexCaption { font-size: 0.9375rem; line-height: 1.6; color: var(--ink-2); min-height: 6.5em; }
 .indexCaption strong { display: block; font-size: 1.125rem; font-weight: 600; color: var(--ink); margin-bottom: 0.25rem; }
 .indexOpen { font-size: 0.8125rem; color: color-mix(in oklab, var(--tone, var(--accent)) 75%, var(--ink)); }

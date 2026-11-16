@@ -59,5 +59,132 @@
     { "id": "3", "label": "NASA, Why NASA is studying flames in space", "url": "https://science.nasa.gov/biological-physical/resources/explainers-infographics/why-nasa-is-studying-flames-in-space/" },
     { "id": "4", "label": "Flaregrain technical write-up (ENGINEERING.md)", "url": "https://github.com/jpss2004-bot/flaregrain-submission/blob/main/flaregrain/ENGINEERING.md" },
     { "id": "5", "label": "NASA, BASS-II summary report, NASA/TM-20210011385", "url": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf" }
-  ]
+  ],
+  "translations": {
+    "es": {
+      "title": "Lo que aprendí al liderar un proyecto de 48 horas en NASA Space Apps",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "El fin de semana del 14 y 15 de noviembre lideré un equipo de cuatro personas en NASA Space Apps Halifax. Elegimos el reto Flame in Freefall, que pide un tablero que use IA para resumir e interpretar los experimentos de combustión en microgravedad de la NASA para la seguridad contra incendios en el espacio. [1] Al equipo lo llamamos Sparkline Foundry y al proyecto, Flaregrain. [2]"
+        },
+        {
+          "type": "paragraph",
+          "text": "Esta es una nota sobre lo que repetiría y lo que cambiaría. Trata más de liderar un proyecto corto que del código, aunque al final resultaron ser el mismo tema."
+        },
+        {
+          "type": "heading",
+          "id": "problema",
+          "text": "El problema detrás del problema"
+        },
+        {
+          "type": "paragraph",
+          "text": "El fuego se comporta de otra manera sin gravedad. En la Tierra, los gases calientes suben y atraen aire fresco; por eso la flama de una vela tiene forma de lágrima. En microgravedad esa corriente es mucho más débil, y el oxígeno llega a la flama por difusión o con el aire que esté moviendo un ventilador. [3] La NASA tiene años de experimentos controlados sobre esto, repartidos en 24 investigaciones, cerca de 2,000 filas de tablas y un conjunto de reportes en PDF. A veces las fuentes no coinciden entre sí."
+        },
+        {
+          "type": "paragraph",
+          "text": "Una herramienta que resume esa evidencia tiene una manera de fallar gravemente: puede confundir lo que midió la NASA con lo que escribió un modelo. Un párrafo fluido con un número equivocado es peor que ningún párrafo, porque alguien va a confiar en él. Así que el verdadero problema no era construir un tablero. Era construir algo que pudiera equivocarse en público y mostrarte exactamente dónde."
+        },
+        {
+          "type": "heading",
+          "id": "antes",
+          "text": "La mayor parte del fin de semana ocurrió la semana anterior"
+        },
+        {
+          "type": "paragraph",
+          "text": "Publiqué en LinkedIn que buscaba a alguien que construyera la parte de datos en Python y a otra persona con experiencia en física o ingeniería, y de ahí se formó el equipo: Grish Acharya, Nora Forghani, Osman Khurram y yo. Nunca habíamos construido nada juntos."
+        },
+        {
+          "type": "paragraph",
+          "text": "En la semana previa al evento escribí resúmenes de investigación, dibujé mapas de arquitectura y construí un tablero de ensayo con datos de muestra. Casi nada de ese trabajo llegó a la versión final. La arquitectura que dibujé el 9 de noviembre era más elaborada que lo que entregamos. Lo que nos dio fue un sábado en la mañana en el que cuatro personas elegían entre opciones concretas en lugar de quedarse viendo una hoja en blanco."
+        },
+        {
+          "type": "paragraph",
+          "text": "Si tuviera que quedarme con un solo hábito de todo el proyecto, sería este. Prepararse no es acertar de antemano. Es hacer que la primera decisión real cueste poco."
+        },
+        {
+          "type": "heading",
+          "id": "entregas",
+          "text": "Entregas mediante registros, no conversaciones"
+        },
+        {
+          "type": "paragraph",
+          "text": "Cada quien trabajó desde su propia computadora con su propio asistente de programación con IA, algunos con Claude Code y otros con Codex. Ese esquema falla en silencio si la única memoria compartida es un hilo de chat, porque dos agentes van a producir con toda tranquilidad dos cambios limpios que no encajan entre sí."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Cada entrega era un issue, una rama y evidencia de revisión. Cualquiera podía retomarla en otra computadora con una sesión nueva del agente.",
+            "La responsabilidad era explícita. Una persona se encargaba de la estructura y la lógica; otra, del aspecto visual. El marcado llevaba nombres de clase compartidos para que los dos nunca editaran lo mismo.",
+            "Un humano aprobaba cada fusión. Los asistentes escribieron la mayor parte del código e hicieron auditorías y revisiones en el navegador, y los commits escritos así lo indican en una línea de coautoría."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Nada de esto es sofisticado. Es la misma disciplina que uso en mi trabajo en CheckWise, comprimida en dos días. Para mí, la lección fue que el proceso no hace más lento un proyecto corto. Con cuatro personas y varios agentes, es lo único que permite que las piezas embonen."
+        },
+        {
+          "type": "heading",
+          "id": "verificador",
+          "text": "Que el modelo escriba y que las reglas decidan qué se queda"
+        },
+        {
+          "type": "paragraph",
+          "text": "El modelo que responde es qwen3:4b, un modelo abierto y pequeño que corre en la propia computadora de un integrante del equipo, no un servicio de pago. Un modelo pequeño se va a equivocar, así que nunca pedimos que se confiara en él. Solo puede usar hechos numerados de las fuentes que se le entregaron, y cada oración que escribe debe citar uno. Después, un verificador basado en reglas lee cada oración y elimina cualquiera que tenga un número equivocado, un registro equivocado o que no tenga cita. La página te dice cuántas eliminó."
+        },
+        {
+          "type": "paragraph",
+          "text": "En 139 explicaciones guardadas, el verificador conservó 492 oraciones y eliminó 270. Esa proporción me sorprendió la primera vez que la vi. Más de un tercio de lo que escribió el modelo no era lo bastante bueno para mostrarse, y aun así el producto era útil, porque lo que quedaba se podía comprobar contra una página de la NASA con un clic. [4]"
+        },
+        {
+          "type": "quote",
+          "text": "Una oración citada que puedes verificar vale más que un párrafo seguro de sí mismo que no puedes verificar."
+        },
+        {
+          "type": "paragraph",
+          "text": "El verificador tiene límites y el sitio lo dice. En una prueba de estrés con 343,758 oraciones sintéticas no se le escapó ningún número ni registro equivocado, pero tiene una limitación conocida con los detalles inventados que no son números. Solo 13 registros del sitio público se verificaron a mano contra las páginas originales de los reportes. Los valores para Marte son supuestos y están etiquetados como supuestos."
+        },
+        {
+          "type": "heading",
+          "id": "error",
+          "text": "Detectó nuestro propio error"
+        },
+        {
+          "type": "paragraph",
+          "text": "Una de nuestras preguntas de demostración era: ¿cuánto tardó la flama en apagarse tras cortar el flujo de aire? Habíamos escrito la respuesta a mano, y según esa respuesta las fuentes no daban el tiempo transcurrido."
+        },
+        {
+          "type": "paragraph",
+          "text": "El domingo, en cambio, le hicimos la misma pregunta al modelo. La respuesta llegó citando una página del reporte BASS-II de la NASA que se nos había pasado, donde se describe una prueba en la que el flujo se cortó de golpe y la flama se apagó en menos de 2 segundos. [5] El verificador aprobó la oración. Abrimos la página, la leímos y corregimos el sitio esa misma tarde."
+        },
+        {
+          "type": "paragraph",
+          "text": "Pienso en ese momento más que en cualquier otra cosa del fin de semana. Construimos el sistema para evitar que un modelo engañara a la gente, y el primer error serio que expuso fue humano. Al diseño no le importaba quién había escrito la afirmación. Solo le importaba si la afirmación apuntaba a una fuente."
+        },
+        {
+          "type": "heading",
+          "id": "que-cambiaria",
+          "text": "Lo que cambiaría"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Congelar la interfaz antes. Rehicimos la navegación el domingo en la mañana, y eso nos quitó tiempo que necesitábamos para la presentación.",
+            "Hacer la prueba con usuarios el sábado en la noche, no el domingo en la mañana. Los hallazgos fueron buenos y llegaron tarde.",
+            "Decidir primero la pregunta del demo y construir hacia atrás a partir de ella. La pregunta del flujo de aire terminó cargando con toda la historia, y la encontramos por accidente."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "No ganamos ningún premio. Sí entregamos, dentro del fin de semana, un sitio en línea, un repositorio público, un demo de 29 segundos y una presentación, y me llevé una idea más clara de cómo quiero liderar: prepararme lo suficiente para que la primera decisión cueste poco, dejar las cosas por escrito para que cualquiera pueda continuar y construir sistemas honestos sobre dónde pueden equivocarse."
+        },
+        {
+          "type": "resource",
+          "title": "Caso de estudio de Flaregrain",
+          "href": "https://jpsamanosuarez.com/en/projects/flaregrain",
+          "description": "El caso de estudio completo, con el demo, el mapa del sistema y las cifras que medimos."
+        }
+      ]
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import type { Locale } from "@/data/i18n";
-import { journalAsset, journalLabels, journalPath, readingMinutes, type JournalEntry } from "@/data/journal";
+import { hasLocale, journalAsset, journalLabels, journalPath, localized, readingMinutes, type JournalEntry } from "@/data/journal";
 import { visuals, type ProjectVisual } from "@/data/visuals";
 
 /* Spanish names for topics; anything missing is shown as written. */
@@ -15,6 +15,7 @@ const relatedProject: Record<string, string> = {
   "leading-a-48-hour-nasa-build": "flaregrain",
   "keeping-model-readings-apart-from-human-decisions": "checkwise",
   "running-a-study-assistant-on-a-local-mac": "neyvu",
+  "when-to-trust-an-address-match": "pos-geocoder",
 };
 
 export type JournalCard = {
@@ -30,10 +31,11 @@ export function journalCard(entry: JournalEntry, locale: Locale): JournalCard {
   const date = entry.publishedAt ?? entry.writtenAt;
   const project = relatedProject[entry.slug];
   const visual = project ? visuals[project] : undefined;
+  const view = localized(entry, locale);
   return {
-    slug: entry.slug, href: journalPath(entry), title: entry.title, summary: entry.summary[locale], language: entry.language, draft: entry.status === "draft",
+    slug: entry.slug, href: journalPath(entry, locale), title: view.title, summary: entry.summary[locale], language: view.language, draft: entry.status === "draft",
     date, dateLabel: new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(date)),
-    kind: t.kinds[entry.kind], minutes: `${readingMinutes(entry)} ${t.minutes}`, foreign: entry.language !== locale ? t.english : null,
+    kind: t.kinds[entry.kind], minutes: `${readingMinutes(entry, locale)} ${t.minutes}`, foreign: entry.language === locale ? null : hasLocale(entry, locale) ? t.translatedFrom : t.english,
     topics: entry.topics.map((key) => ({ key, label: topicLabel(key, locale) })),
     tone: visual?.tone ?? "#258c8b",
     cover: entry.cover ? { kind: "image", src: journalAsset(entry, "cover") } : visual ? { kind: "project", visual } : null,
