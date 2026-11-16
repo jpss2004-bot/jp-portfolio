@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/data/i18n";
-import { allCaseSlugs, caseOrder, getProject, pick, profile, statusLabel, type Figure } from "@/data/content";
+import { allCaseSlugs, caseOrder, getProject, pick, primaryProjects, profile, statusLabel, type Figure } from "@/data/content";
 import { ui } from "@/data/ui";
 import { Footer, Header, ProjectMedia, VisualFrame } from "@/components/parts";
 
@@ -16,6 +16,9 @@ import { CountUp } from "@/components/CountUp";
 import { Walkthrough } from "@/components/work/Walkthrough";
 import { caseTimelines, pipelines, workStories } from "@/data/work";
 import { PipelineFlow } from "@/components/work/PipelineFlow";
+import { FlameScene } from "@/components/work/FlameScene";
+import { ScrollStory } from "@/components/work/ScrollStory";
+import { flameCopy } from "@/data/flame";
 import { ScrollSpyNav } from "@/components/work/ScrollSpyNav";
 import { architectures } from "@/data/architecture";
 import { WorkMotion } from "@/components/work/WorkMotion";
@@ -106,6 +109,14 @@ export default async function CasePage({ params }: Props) {
     ...(c?.next?.en.length ? [{ id: "next", label: es ? "En desarrollo" : "In progress" }] : []),
   ].map((item, i) => ({ ...item, index: String(i + 1).padStart(2, "0") }));
   const num = (id: string) => sections.find((item) => item.id === id)?.index ?? "";
+  const scene = slug === "flaregrain" ? "flame" : story?.pin ? "story" : null;
+  const sceneLabel = scene === "flame" ? flameCopy[locale].kicker : story?.pin ? pick(story.pin.kicker, locale) : "";
+  const jump = [
+    ...(scene ? [{ id: "scene", label: es ? "En movimiento" : "See it move" }] : []),
+    ...sections.filter((item) => ["problem", "decisions", "pipeline", "walkthrough", "outcome", "screens"].includes(item.id)),
+  ];
+  const decision = story ? pick(story.decision, locale) : c?.decisions[0] ? pick(c.decisions[0].title, locale) : null;
+  const featured = primaryProjects.some((item) => item.slug === slug);
 
   return (
     <>
@@ -116,19 +127,37 @@ export default async function CasePage({ params }: Props) {
       {architectures[slug] ? <div className={workStyles.caseBackdrop} data-motion-scene><StageAtmosphere /></div> : null}
       <main id="main" className="case" tabIndex={-1}>
         <header className="frame grid12 case-head">
-          <p className="back case-back"><Link className="link" href={`${base}#work`}>← {t.case.back}</Link></p>
+          <p className="back case-back"><Link className="link" href={featured ? `${base}#${slug}` : `${base}/work`}>← {t.case.back}</Link></p>
           <p className="case-index mono">{String(idx + 1).padStart(2, "0")}<span> / {String(order.length).padStart(2, "0")}</span></p>
           <div className={`case-title ${workStyles.caseTitle}`}>
             {architectures[slug] ? <ProjectMark slug={slug} /> : null}
             <h1 className="case-h1">{pick(project.title, locale)}</h1>
           </div>
-          <p className="lead case-lead">{pick(project.oneLiner, locale)}</p>
-          <dl className="case-meta case-spec">
-            <div><dt>{t.role}</dt><dd>{pick(project.role, locale)}</dd></div>
-            <div><dt>{t.period}</dt><dd className="mono">{pick(project.period, locale)}</dd></div>
-            <div><dt>{t.status}</dt><dd>{pick(statusLabel[project.status], locale)}</dd></div>
-            {project.links[0] ? <div><dt>{t.case.links}</dt><dd><a className="link" href={project.links[0].href} target="_blank" rel="noreferrer">{pick(project.links[0].label, locale)} ↗</a></dd></div> : null}
-          </dl>
+          <div className="case-brief">
+            <p className="case-brief-kicker mono">{es ? "En 60 segundos" : "In 60 seconds"}</p>
+            <p className="lead case-lead">{pick(project.oneLiner, locale)}</p>
+            {decision ? <p className="case-brief-decision"><span>{es ? "Decisión clave" : "Key decision"}</span>{decision}</p> : null}
+            {jump.length ? (
+              <nav className="case-jump" aria-label={es ? "Ir a una sección" : "Jump to a section"}>
+                <span>{es ? "Ir a" : "Jump to"}</span>
+                {jump.map((item) => <a key={item.id} href={`#${item.id}`}>{item.label}</a>)}
+              </nav>
+            ) : null}
+          </div>
+          <div className="case-brief-side">
+            <dl className="case-meta case-spec">
+              <div><dt>{t.role}</dt><dd>{pick(project.role, locale)}</dd></div>
+              <div><dt>{t.period}</dt><dd className="mono">{pick(project.period, locale)}</dd></div>
+              <div><dt>{t.status}</dt><dd>{pick(statusLabel[project.status], locale)}</dd></div>
+              {project.links[0] ? <div><dt>{t.case.links}</dt><dd><a className="link" href={project.links[0].href} target="_blank" rel="noreferrer">{pick(project.links[0].label, locale)} ↗</a></dd></div> : null}
+            </dl>
+            <dl className="case-numbers">
+              {project.facts.slice(0, 3).map((f) => (
+                <div key={f.value + f.label.en}><dd><CountUp value={f.value} /></dd><dt>{pick(f.label, locale)}</dt></div>
+              ))}
+            </dl>
+            <p className="case-numbers-note">{project.metricNote ? pick(project.metricNote, locale) : (es ? "Cifras históricas al 11 de septiembre de 2026." : "Historical figures as of 11 September 2026.")}</p>
+          </div>
         </header>
 
         {architectures[slug] ? <div className={`frame case-media ${workStyles.caseStage}`}><ProjectStage project={project} locale={locale} priority /></div> : project.visuals ? (
@@ -141,17 +170,18 @@ export default async function CasePage({ params }: Props) {
           </div>
         ) : null}
 
-        <div className="frame case-proof">
-          <dl>
-            {project.facts.map((f) => (
-              <div key={f.value + pick(f.label, locale)}>
-                <dd><CountUp value={f.value} /></dd>
-                <dt>{pick(f.label, locale)}</dt>
-              </div>
-            ))}
-          </dl>
-          <p className="muted small">{project.metricNote ? pick(project.metricNote, locale) : (locale === "es" ? "Cifras históricas al 11 de septiembre de 2026." : "Historical figures as of 11 September 2026.")}</p>
-        </div>
+        {scene ? (
+          <section id="scene" className="frame case-scene" aria-label={sceneLabel}>
+            {scene === "flame" ? <FlameScene copy={flameCopy[locale]} /> : story?.pin ? (
+              <ScrollStory
+                width={story.pin.width} height={story.pin.height} kicker={pick(story.pin.kicker, locale)}
+                alt={`${pick(project.title, locale)}: ${pick(story.pin.kicker, locale)}`}
+                note={es ? "Capturas reales con datos de demostración." : "Real captures with demo data."}
+                steps={story.pin.steps.map((item) => ({ title: pick(item.title, locale), text: pick(item.text, locale), src: item.src, fx: item.fx, fy: item.fy, zoom: item.zoom }))}
+              />
+            ) : null}
+          </section>
+        ) : null}
 
         <div className="frame grid12 case-layout">
           <ScrollSpyNav className="case-rail" label={locale === "es" ? "Contenido del caso" : "Case contents"} lead={<p className="case-rail-title">{locale === "es" ? "En este caso" : "In this case"}</p>} items={sections} />

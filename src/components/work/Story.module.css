@@ -1,6 +1,6 @@
 /* Pinned product story on a project plate. */
 .track { position: relative; height: calc(var(--steps) * 42vh + 100vh); margin-bottom: clamp(2rem, 4vw, 3rem); }
-.pin { position: sticky; top: 7.25rem; height: calc(100vh - 8.5rem); min-height: 30rem; }
+.pin { position: sticky; top: 4.75rem; height: calc(100vh - 6rem); min-height: 30rem; }
 .scene { position: relative; height: 100%; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; padding: clamp(1.5rem, 4vw, 3.5rem); border-radius: 16px; overflow: hidden; background: var(--plate-bg); color: var(--plate-ink); isolation: isolate; }
 .scene::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(70% 90% at 85% 50%, color-mix(in srgb, var(--project-accent) 26%, transparent), transparent 70%); }
 

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Flame.module.css";
 
-type Copy = {
+export type FlameCopy = {
   kicker: string; earth: string; space: string; earthBody: string; spaceBody: string;
   gravity: string; shape: string; oxygen: string; colour: string;
   teardrop: string; sphere: string; buoyant: string; diffusion: string; yellow: string; blue: string;
@@ -151,7 +151,7 @@ export function FlameBackdrop() {
  * Pinned scroll sequence: scrolling through the section takes the flame from
  * Earth to microgravity. The two buttons do the same without scrolling.
  */
-export function FlameScene({ copy }: { copy: Copy }) {
+export function FlameScene({ copy }: { copy: FlameCopy }) {
   const track = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const gravity = useRef(1);

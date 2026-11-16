@@ -1,0 +1,124 @@
+/*
+ * Featured work chooser: three previews in a row, one open panel below them.
+ * Project colours (--plate-bg, --project-accent) come from Work.module.css.
+ */
+.chooser { --gap: clamp(1.5rem, 3vw, 2.25rem); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: stretch; overflow-anchor: none; }
+.chooser .item { position: relative; grid-row: 1; display: flex; padding-top: 0; scroll-margin-top: 5.5rem; }
+.chooser .panel { grid-row: 2; grid-column: 1 / -1; padding-top: 0; scroll-margin-top: 5rem; }
+/* Without JavaScript every panel stays visible, one after another. */
+html:not([data-js]) .chooser .panel { grid-row: auto; }
+html[data-js] .chooser .panel:not([data-open]) { display: none; }
+
+/* ------------------------------------------------------------- previews */
+.itemHead { display: flex; width: 100%; margin: 0; font: inherit; }
+.tile { position: relative; display: flex; flex-direction: column; width: 100%; padding: 0; border: 1px solid var(--rule); border-radius: 14px; background: var(--surface); color: var(--ink); font: inherit; text-align: left; overflow: hidden; cursor: pointer; transition: border-color 200ms var(--ease), box-shadow 260ms var(--ease), transform 260ms var(--ease), opacity 260ms var(--ease); }
+.tile:hover { border-color: color-mix(in oklch, var(--project-accent) 55%, var(--rule)); transform: translateY(-3px); box-shadow: 0 22px 44px -32px oklch(0.2 0.03 262 / 0.55); }
+.tile:focus-visible { outline-offset: 4px; border-radius: 14px; }
+.item[data-on] .tile { border-color: var(--project-accent); box-shadow: 0 0 0 1px var(--project-accent), 0 22px 44px -30px oklch(0.2 0.03 262 / 0.5); transform: none; }
+.chooser[data-has-open] .item:not([data-on]) .tile { opacity: 0.62; }
+.chooser[data-has-open] .item:not([data-on]) .tile:hover, .chooser[data-has-open] .item:not([data-on]) .tile:focus-visible { opacity: 1; }
+
+.thumb { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--plate-bg); border-bottom: 1px solid var(--rule); }
+.thumb img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform 700ms var(--ease); }
+.tile:hover .thumb img { transform: scale(1.035); }
+
+.itemText { flex: 1; display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: start; gap: 0.3rem 0.75rem; padding: 1.1rem 1.25rem 3.4rem; }
+.itemIndex { align-self: center; font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.75rem; color: color-mix(in oklch, var(--project-accent) 78%, var(--ink)); }
+.itemName { display: inline-flex; align-items: center; gap: 0.55rem; font-size: clamp(1.25rem, 1.9vw, 1.6rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
+.itemName > :first-child:not(:last-child) { width: 1.7rem; height: 1.5rem; flex: none; }
+.itemLine { grid-column: 1 / -1; margin-top: 0.3rem; font-size: 1rem; line-height: 1.45; text-wrap: pretty; }
+.itemRole { grid-column: 1 / -1; font-size: 0.8125rem; line-height: 1.45; color: var(--muted); }
+.cue { position: absolute; right: 1.25rem; bottom: 1.05rem; display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.8125rem; font-weight: 600; }
+.cue i { width: 0.5rem; height: 0.5rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform 320ms var(--ease); }
+.item[data-on] .cue i { transform: translateY(2px) rotate(-135deg); }
+
+/* A notch joins the open preview to its panel. */
+.item[data-on]::after { content: ""; position: absolute; left: 50%; bottom: calc(-1 * (var(--gap) + 0.6rem)); width: 1.2rem; height: 1.2rem; margin-left: -0.6rem; background: var(--band, color-mix(in oklch, var(--plate-bg) 46%, var(--bg))); transform: rotate(45deg); }
+.nightItem { --band: oklch(0.15 0.012 262); }
+
+/* ---------------------------------------------------------------- panel */
+.chooser .panel { --band: color-mix(in oklch, var(--plate-bg) 46%, var(--bg)); position: relative; isolation: isolate; margin-top: var(--gap); padding-block: clamp(1.25rem, 2.5vw, 2rem) clamp(2rem, 4vw, 3rem); }
+.chooser .panel::before { content: ""; position: absolute; z-index: -1; inset: 0 calc(50% - 50vw); background: var(--band); }
+/* Flaregrain's panel is dark in both themes, so its tokens flip locally. */
+.chooser .panel.night { --on-accent: oklch(0.16 0.012 262); --bg: oklch(0.15 0.012 262); --surface: oklch(0.19 0.012 262); --ink: oklch(0.96 0.006 60); --ink-2: oklch(0.82 0.01 60); --muted: oklch(0.68 0.012 60); --rule: oklch(0.32 0.012 262); --hair: oklch(0.25 0.012 262); --line: var(--rule); --project-accent: #f0966b; --plate-ink: #f0cdb9; --band: oklch(0.15 0.012 262); color: var(--ink); }
+
+.panelBar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; padding-bottom: 1rem; margin-bottom: clamp(1.25rem, 2.5vw, 2rem); border-bottom: 1px solid var(--rule); font-size: 0.8125rem; color: var(--muted); }
+.panelCount { font-family: var(--font-mono), ui-monospace, monospace; }
+.panelCount b { font-weight: 500; color: color-mix(in oklch, var(--project-accent) 78%, var(--ink)); }
+.panelMeta { display: flex; flex-wrap: wrap; gap: 0.3rem 1.25rem; margin-right: auto; }
+.status { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--ink); }
+.status i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--project-accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--project-accent) 18%, transparent); }
+.close { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1rem; border: 1px solid var(--rule); border-radius: 999px; background: transparent; color: var(--ink); font: inherit; font-size: 0.8125rem; cursor: pointer; transition: border-color 160ms var(--ease), background-color 160ms var(--ease); }
+.close:hover { border-color: var(--ink-2); background: var(--surface); }
+
+.panelGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: start; }
+.panelStage { grid-column: 1 / span 8; min-width: 0; }
+.panelStory { grid-column: 9 / -1; position: sticky; top: 5.5rem; display: flex; flex-direction: column; gap: 1.1rem; min-width: 0; padding-left: clamp(0rem, 1vw, 1rem); }
+.panelTitle { display: flex; align-items: center; gap: 0.6rem; font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 500; letter-spacing: -0.055em; line-height: 1; }
+.panelTitle > :first-child:not(:last-child) { width: 0.85em; height: 0.8em; flex: none; }
+.panelStory h4 { margin: 0; font-size: clamp(1.25rem, 1.8vw, 1.55rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1.2; text-wrap: balance; }
+.ownership { margin: 0; display: grid; border-top: 1px solid var(--rule); }
+.ownership > div { padding: 0.85rem 0; border-bottom: 1px solid var(--hair); }
+.ownership dt { margin-bottom: 0.3rem; font-size: 0.75rem; color: var(--muted); }
+.ownership dd { margin: 0; font-size: 0.9063rem; line-height: 1.6; }
+.links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.4rem; font-size: 0.9063rem; }
+.links a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; text-underline-offset: 0.3em; text-decoration-color: var(--rule); }
+.links a:hover { text-decoration-color: currentColor; }
+.links a span { transition: transform 200ms var(--ease); }
+.links a:hover span { transform: translateX(3px); }
+.cta { padding: 0 1.1rem; border-radius: 999px; background: var(--ink); color: var(--bg); font-weight: 600; text-decoration: none; }
+.cta:hover { background: var(--project-accent); color: var(--on-accent, var(--bg)); }
+
+.panelNav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.75rem); margin-top: clamp(2rem, 4vw, 3rem); padding-top: 1rem; border-top: 1px solid var(--rule); }
+.panelNav button { display: grid; gap: 0.25rem; min-height: 2.75rem; padding: 0.5rem 0; border: 0; background: none; color: var(--ink); font: inherit; text-align: left; cursor: pointer; transition: color 160ms var(--ease); }
+.panelNav button:last-child { justify-self: end; text-align: right; }
+.panelNav span { font-size: 0.8125rem; color: var(--muted); }
+.panelNav b { font-size: clamp(1.25rem, 2.2vw, 1.75rem); font-weight: 500; letter-spacing: -0.035em; line-height: 1.1; }
+.panelNav button:hover b { color: color-mix(in oklch, var(--project-accent) 80%, var(--ink)); }
+
+/* Switching slides the panel in from the side of the chosen project. */
+@media (prefers-reduced-motion: no-preference) {
+  .chooser .panel[data-open] .panelInner { animation: slide-next 620ms var(--ease) both; }
+  .chooser .panel[data-open][data-dir="prev"] .panelInner { animation-name: slide-prev; }
+  .chooser .panel[data-open]::before { animation: band-in 420ms var(--ease) both; }
+  .item[data-on]::after { animation: band-in 420ms var(--ease) both; }
+}
+@keyframes slide-next { from { opacity: 0; transform: translate3d(3.5rem, 0, 0); } to { opacity: 1; transform: none; } }
+@keyframes slide-prev { from { opacity: 0; transform: translate3d(-3.5rem, 0, 0); } to { opacity: 1; transform: none; } }
+@keyframes band-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 1040px) {
+  .panelStage, .panelStory { grid-column: 1 / -1; }
+  .panelStory { position: static; margin-top: 2rem; padding-left: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem clamp(1.5rem, 4vw, 3rem); }
+  .panelTitle, .panelStory h4, .links { grid-column: 1; }
+  .ownership { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
+}
+
+/* Phones: previews stack and the chosen panel opens right under its preview. */
+@media (max-width: 760px) {
+  .chooser { --gap: 0.75rem; grid-template-columns: minmax(0, 1fr); row-gap: 0.75rem; }
+  .chooser .item, .chooser .panel { grid-row: auto; }
+  .chooser .panel { margin-top: 0.5rem; margin-bottom: 0.75rem; }
+  .tile { flex-direction: row; }
+  .thumb { flex: 0 0 36%; aspect-ratio: auto; min-height: 8.5rem; border-bottom: 0; border-right: 1px solid var(--rule); }
+  .itemText { padding: 0.85rem 1rem 2.6rem; gap: 0.2rem 0.6rem; }
+  .itemName { font-size: 1.2rem; }
+  .itemLine { font-size: 0.875rem; }
+  .itemRole { font-size: 0.75rem; }
+  .cue { right: 1rem; bottom: 0.8rem; }
+  .item[data-on]::after { display: none; }
+  .panelStory { display: flex; }
+  .panelNav b { font-size: 1.15rem; }
+  .panelMeta > span:last-child { display: none; }
+}
+@media (max-width: 760px) and (prefers-reduced-motion: no-preference) {
+  .chooser .panel[data-open] .panelInner { animation-name: slide-next-short; }
+  .chooser .panel[data-open][data-dir="prev"] .panelInner { animation-name: slide-prev-short; }
+}
+@keyframes slide-next-short { from { opacity: 0; transform: translate3d(1.25rem, 0, 0); } to { opacity: 1; transform: none; } }
+@keyframes slide-prev-short { from { opacity: 0; transform: translate3d(-1.25rem, 0, 0); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .tile, .thumb img, .cue i, .close, .links a span, .panelNav button { transition: none; }
+  .tile:hover { transform: none; }
+}

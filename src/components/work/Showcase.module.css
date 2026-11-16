@@ -1,21 +1,8 @@
 /*
- * Homepage work showcase. Composes the existing stage system (plates, product
- * display, project accents in Work.module.css) into ruled twelve-column spreads.
+ * Homepage work section and the /work index. The featured-project chooser
+ * has its own stylesheet (Chooser.module.css).
  */
 .work { --line: var(--rule); width: 100%; max-width: var(--frame); margin-inline: auto; padding-inline: var(--gutter); }
-
-/* ------------------------------------------------------------ section nav */
-.spy { position: sticky; top: 3.5rem; z-index: 15; display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; margin-top: clamp(2.5rem, 6vw, 4.5rem); border-block: 1px solid var(--line); background: color-mix(in oklch, var(--bg) 92%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
-.spyLead { font-size: 0.8125rem; color: var(--muted); margin-right: auto; }
-.spy ol { display: flex; gap: clamp(0.75rem, 2vw, 1.75rem); list-style: none; margin: 0; padding: 0; }
-.spy ol a { position: relative; display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; font-size: 0.875rem; color: var(--ink-2); text-decoration: none; transition: color 160ms var(--ease); }
-.spy ol a span { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.6875rem; color: var(--muted); }
-.spy ol a::after { content: ""; position: absolute; inset: auto 0 -1px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 260ms var(--ease); }
-.spy ol a:hover, .spy ol a[aria-current] { color: var(--ink); }
-.spy ol a[aria-current]::after { transform: scaleX(1); }
-.spy ol a[aria-current] span { color: var(--accent-ink); }
-.spyContact { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.75rem; padding-left: 1.5rem; border-left: 1px solid var(--line); font-size: 0.875rem; text-decoration: none; }
-.spyContact:hover { color: var(--accent-ink); }
 
 /* ------------------------------------------------------------------ intro */
 .intro { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: end; padding: clamp(4rem, 9vw, 7rem) 0 clamp(1.5rem, 3vw, 2.5rem); }
@@ -23,71 +10,7 @@
 .introNum { grid-column: 1 / -1; font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.8125rem; color: var(--accent-ink); margin-bottom: 0.75rem; }
 .introAside { grid-column: 9 / -1; display: grid; gap: 1.25rem; }
 .introAside > p { font-size: 1.0625rem; line-height: 1.6; color: var(--ink-2); }
-.introIndex { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-.introIndex a { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr) auto; align-items: baseline; gap: 0.5rem; min-height: 2.75rem; padding: 0.55rem 0; border-bottom: 1px solid var(--hair); text-decoration: none; font-size: 0.9375rem; transition: padding 220ms var(--ease), color 160ms var(--ease); }
-.introIndex a span { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.75rem; color: var(--muted); }
-.introIndex a b { font-weight: 600; }
-.introIndex a i { font-style: normal; font-size: 0.8125rem; color: var(--muted); }
-.introIndex a:hover { color: var(--accent-ink); padding-left: 0.4rem; }
-
-/* ----------------------------------------------------------------- spread */
-.spread { padding-top: clamp(3rem, 6vw, 5rem); scroll-margin-top: 7.5rem; }
-.spreadHead { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: end; padding-bottom: 1.5rem; margin-bottom: clamp(1.5rem, 3vw, 2.25rem); border-bottom: 1px solid var(--line); }
-.count { grid-column: 1 / span 1; display: flex; align-items: baseline; gap: 0.35rem; font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.8125rem; color: var(--muted); padding-bottom: 0.55rem; white-space: nowrap; }
-.count b { font-weight: 500; color: color-mix(in oklch, var(--project-accent) 78%, var(--ink)); }
-.spreadHead h3 { grid-column: 2 / span 8; margin: 0; font-size: clamp(2.5rem, 5.6vw, 4.75rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.98; }
-.spreadHead h3 a { display: inline-flex; align-items: center; gap: clamp(0.75rem, 1.6vw, 1.4rem); text-decoration: none; transition: color 160ms var(--ease); }
-.spreadHead h3 a:hover { color: var(--project-accent); }
-.spreadMeta { grid-column: 10 / -1; display: grid; justify-items: end; gap: 0.3rem; font-size: 0.8125rem; color: var(--muted); padding-bottom: 0.5rem; text-align: right; }
-.status { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--ink); }
-.status i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--project-accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--project-accent) 18%, transparent); }
-
-.spreadGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); align-items: stretch; }
-.stageCol { grid-column: 1 / span 8; grid-row: 1; min-width: 0; }
-.story { grid-column: 9 / -1; grid-row: 1; display: flex; flex-direction: column; gap: 1.1rem; min-width: 0; padding-left: clamp(0rem, 1vw, 1rem); }
-.flip .stageCol { grid-column: 5 / -1; }
-.flip .story { grid-column: 1 / span 4; padding-left: 0; padding-right: clamp(0rem, 1vw, 1rem); }
-
-.story h4 { margin: 0; font-size: clamp(1.6rem, 2.3vw, 2.1rem); font-weight: 500; letter-spacing: -0.035em; line-height: 1.14; text-wrap: balance; }
-.oneLiner { font-size: 0.9688rem; line-height: 1.65; color: var(--muted); }
-.ownership { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
-.ownership > div { padding: 0.85rem 0; border-bottom: 1px solid var(--hair); }
-.ownership dt { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.3rem; }
-.ownership dd { margin: 0; font-size: 0.9063rem; line-height: 1.6; }
-.links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.4rem; font-size: 0.9063rem; }
-.links a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; text-underline-offset: 0.3em; text-decoration-color: var(--line); }
-.links a:hover { text-decoration-color: currentColor; }
-.links a span { transition: transform 200ms var(--ease); }
-.links a:hover span { transform: translateX(3px); }
-.cta { padding: 0 1.1rem; border-radius: 999px; background: var(--ink); color: var(--bg); font-weight: 600; text-decoration: none; }
-.cta:hover { background: var(--project-accent); }
-
-/* The second view overlaps the plate, one layer above it. */
-/* inset lifted clear of the technology row */
-.inset { position: relative; z-index: 3; margin: auto 0 5.5rem clamp(-7rem, -8vw, -3rem); padding-top: 0.75rem; }
-.flip .inset { margin: auto clamp(-7rem, -8vw, -3rem) 5.5rem 0; }
-.inset a { display: block; border-radius: 10px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--plate-ink) 26%, var(--line)); background: var(--surface); box-shadow: 0 30px 60px -28px oklch(0.2 0.03 262 / 0.55), 0 0 0 6px color-mix(in oklch, var(--bg) 82%, transparent); transition: transform 420ms var(--ease); }
-.inset img { display: block; width: 100%; height: auto; }
-.inset figcaption { position: absolute; top: 100%; left: 0; right: 0; display: flex; gap: 0.6rem; align-items: baseline; margin-top: 0.7rem; padding-left: clamp(3rem, 8vw, 7rem); font-size: 0.75rem; color: var(--muted); }
-.flip .inset figcaption { padding-left: 0; }
-.inset figcaption span { font-family: var(--font-mono), ui-monospace, monospace; color: color-mix(in oklch, var(--project-accent) 78%, var(--ink)); }
-.spread:hover .inset a { transform: translateY(-6px); }
-
-/* Milestones on one line, read left to right. */
-.timeline { list-style: none; margin: clamp(2rem, 4vw, 3rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(1rem, 2vw, 1.75rem); }
-.timeline li { position: relative; display: grid; gap: 0.3rem; align-content: start; padding-top: 1.4rem; border-top: 1px solid color-mix(in srgb, var(--project-accent) 45%, var(--line)); }
-.timeline li i { position: absolute; top: -0.3rem; left: 0; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--project-accent); }
-.timeline li:last-child i { background: var(--project-accent); }
-.timeline b { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; color: color-mix(in oklch, var(--project-accent) 78%, var(--ink)); }
-.timeline span { font-size: 0.875rem; line-height: 1.5; color: var(--ink-2); max-width: 26ch; }
-
-.proof { margin-top: clamp(2rem, 4vw, 3rem); padding-top: 1.5rem; border-top: 1px solid var(--line); }
-.proof dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem clamp(1rem, 2vw, 1.75rem); margin: 0; }
-.proof dl > div { padding-left: 1rem; border-left: 1px solid var(--hair); }
-.proof dl > div:first-child { padding-left: 0; border-left: 0; }
-.proof dd { margin: 0 0 0.35rem; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1.1; }
-.proof dt { font-size: 0.8125rem; line-height: 1.45; color: var(--muted); max-width: 22ch; }
-.proof > p { margin-top: 1.25rem; font-size: 0.75rem; color: var(--muted); max-width: 90ch; }
+.introHint { font-size: 0.875rem; color: var(--muted); }
 
 /* -------------------------------------------------------------- more work */
 .more { margin-top: clamp(4.5rem, 9vw, 7.5rem); scroll-margin-top: 7.5rem; }
@@ -138,56 +61,10 @@
 .pageHead h1 { grid-column: 1 / span 7; margin: 0; font-size: clamp(2.8rem, 8vw, 6.75rem); font-weight: 500; letter-spacing: -0.055em; line-height: 0.95; }
 .pageHead p { grid-column: 9 / -1; font-size: 1.0625rem; line-height: 1.6; color: var(--ink-2); }
 
-/* ------------------------------------------------ bolder spreads (pass 3) */
-/* Each project sits on an edge-to-edge band in its own tint. */
-.spread { position: relative; isolation: isolate; padding: clamp(3.5rem, 7vw, 6rem) 0 clamp(3rem, 6vw, 5rem); margin-top: clamp(1.5rem, 3vw, 2.5rem); }
-.spread::before { content: ""; position: absolute; z-index: -1; inset: 0 calc(50% - 50vw); background: color-mix(in oklch, var(--plate-bg) 46%, var(--bg)); }
-/* Flaregrain's band is dark in both themes, so its tokens flip locally. */
-.spread.night { --on-accent: oklch(0.16 0.012 262); --bg: oklch(0.15 0.012 262); --surface: oklch(0.19 0.012 262); --ink: oklch(0.96 0.006 60); --ink-2: oklch(0.82 0.01 60); --muted: oklch(0.68 0.012 60); --rule: oklch(0.32 0.012 262); --hair: oklch(0.25 0.012 262); --line: var(--rule); --project-accent: #f0966b; --plate-ink: #f0cdb9; color: var(--ink); }
-.spread.night::before { background: oklch(0.15 0.012 262); }
-
-.spreadHead { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: baseline; padding-bottom: 0; margin-bottom: 0; border-bottom: 0; row-gap: clamp(0.75rem, 2vw, 1.5rem); }
-.count { grid-column: 1 / span 6; grid-row: 1; padding-bottom: 0; }
-.spreadMeta { grid-column: 7 / -1; grid-row: 1; grid-auto-flow: column; justify-content: end; gap: 1.25rem; padding-bottom: 0; }
-/* The name is set very large and the stage overlaps its lower edge. */
-.spreadHead h3 { grid-column: 1 / -1; grid-row: 2; position: relative; z-index: 0; font-size: clamp(3.6rem, 14.5vw, 13.5rem); font-weight: 500; letter-spacing: -0.065em; line-height: 0.82; margin-bottom: -0.14em; white-space: nowrap; }
-.spreadHead h3 a { gap: clamp(0.75rem, 2.4vw, 2.5rem); }
-.spreadHead h3 :global(svg), .spreadHead h3 a > span:first-child:not(:last-child) { width: 0.62em; height: 0.62em; }
-.flip .spreadHead h3 { text-align: right; }
-.flip .spreadHead h3 a { flex-direction: row-reverse; }
-.spread > :not(header) { position: relative; z-index: 1; }
-
-.stageCol { position: relative; }
-.story { padding-top: clamp(2.5rem, 5vw, 4.5rem); }
-/* A floating figure, one layer above the plate. */
-.tag { position: absolute; z-index: 4; top: clamp(-1.5rem, -2vw, -0.75rem); right: clamp(-1.25rem, -1.5vw, -0.5rem); display: grid; gap: 0.15rem; max-width: 13rem; padding: 0.9rem 1.1rem; border-radius: 12px; background: var(--surface); border: 1px solid color-mix(in srgb, var(--plate-ink) 22%, var(--line)); box-shadow: 0 24px 50px -24px oklch(0.2 0.03 262 / 0.55); transform: translateY(calc(var(--scene-drift, 0px) * -0.6)) rotate(2deg); }
-.flip .tag { right: auto; left: clamp(-1.25rem, -1.5vw, -0.5rem); transform: translateY(calc(var(--scene-drift, 0px) * -0.6)) rotate(-2deg); }
-.tag b { font-size: clamp(1.6rem, 2.6vw, 2.25rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1; color: var(--project-accent); }
-.tag span { font-size: 0.75rem; line-height: 1.35; color: var(--muted); }
-
-/* Timeline and figures share one ruled ledger. */
-.ledger { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 1.75rem); margin-top: clamp(2.5rem, 5vw, 4rem); padding-top: 1.5rem; border-top: 1px solid var(--line); }
-.ledger .timeline { grid-column: 1 / span 7; margin: 0; }
-.ledger .proof { grid-column: 9 / -1; margin: 0; padding: 0; border: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-.ledger .proof > div { padding-left: 0.9rem; border-left: 1px solid var(--hair); }
-.ledger .proof > div:first-child { padding-left: 0; border-left: 0; }
-.ledger .proof dd { margin: 0 0 0.3rem; font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1.05; }
-.ledger .proof dt { font-size: 0.75rem; line-height: 1.4; color: var(--muted); }
-.ledgerNote { grid-column: 1 / -1; margin-top: 1.25rem; font-size: 0.75rem; color: var(--muted); }
-
 /* ------------------------------------------------------------- responsive */
 @media (max-width: 1040px) {
   .intro h2, .introAside { grid-column: 1 / -1; }
   .introAside { margin-top: 1.5rem; max-width: 34rem; }
-  .count { grid-column: 1 / -1; padding-bottom: 0.4rem; }
-  .spreadHead h3 { grid-column: 1 / span 8; }
-  .spreadMeta { grid-column: 9 / -1; }
-  .stageCol, .flip .stageCol, .story, .flip .story { grid-column: 1 / -1; grid-row: auto; padding-inline: 0; }
-  .story { margin-top: 2rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem clamp(1.5rem, 4vw, 3rem); }
-  .story h4, .oneLiner, .links { grid-column: 1; }
-  .ownership { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
-  .inset, .flip .inset { grid-column: 1 / -1; margin: 1rem 0 0; max-width: 28rem; }
-  .inset figcaption { position: static; padding-left: 0; }
   .indexList { grid-column: 1 / -1; }
   .indexPanel { display: none; }
   .indexLine { display: block; }
@@ -198,44 +75,11 @@
 }
 
 @media (max-width: 700px) {
-  .spy { position: relative; top: 0; flex-wrap: wrap; gap: 0 1rem; padding-block: 0.25rem; }
-  .spyLead, .spyContact { display: none; }
-  .spy ol { flex-wrap: wrap; gap: 0 1.1rem; }
-  .spreadHead h3, .spreadMeta { grid-column: 1 / -1; }
-  .spreadMeta { justify-items: start; text-align: left; margin-top: 0.9rem; grid-auto-flow: column; justify-content: start; gap: 1rem; }
-  .story { display: flex; }
-  .proof dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.5rem; }
-  .proof dl > div:nth-child(odd) { padding-left: 0; border-left: 0; }
   .indexList li > :is(a, div) { grid-template-columns: 2rem minmax(0, 1fr) auto; }
   .indexYear { white-space: normal; }
   .indexKind { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .inset a, .indexArt img, .introIndex a, .indexList li > :is(a, div), .spy ol a::after { transition: none; }
-  .spread:hover .inset a { transform: none; }
-}
-
-/* ------------------------------------------- bolder spreads: narrow widths */
-@media (max-width: 1040px) {
-  .count { grid-column: 1 / span 4; }
-  .spreadMeta { grid-column: 5 / -1; }
-  .spreadHead h3 { grid-column: 1 / -1; }
-  .story { padding-top: 0; }
-  .ownership { grid-row: 1 / span 2; }
-  .ledger .timeline, .ledger .proof { grid-column: 1 / -1; }
-  .ledger .proof { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--hair); }
-}
-@media (max-width: 700px) {
-  .spread { padding-block: 3rem 2.5rem; }
-  .count, .spreadMeta { grid-column: 1 / -1; grid-row: auto; }
-  .spreadMeta { justify-content: start; margin-top: 0; }
-  .spreadHead h3 { grid-row: auto; font-size: clamp(2.4rem, 13.2vw, 5.5rem); white-space: nowrap; margin-bottom: -0.08em; }
-  .spreadHead h3 a { gap: 0.2em; }
-  .flip .spreadHead h3 { text-align: left; }
-  .flip .spreadHead h3 a { flex-direction: row; }
-  .tag, .flip .tag { top: -1rem; right: 0.5rem; left: auto; padding: 0.6rem 0.8rem; max-width: 10rem; transform: rotate(2deg); }
-  .ledger .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.5rem; }
-  .ledger .proof { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .indexArt img, .indexList li > :is(a, div) { transition: none; }
 }

@@ -73,6 +73,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
   scroll-padding-top: 5rem;
 }
 
@@ -1462,3 +1463,28 @@ video.shot-media {
 .case-timeline b { font-weight: 500; color: var(--accent-ink); }
 .case-timeline span { font-size: 0.9063rem; line-height: 1.5; color: var(--ink-2); }
 @media (max-width: 640px) { .case-timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.5rem; } }
+
+/* ------------------------------------------- case page: 60-second summary */
+.case-brief { grid-column: 1 / span 7; align-self: start; display: grid; gap: 1rem; align-content: start; }
+.case-brief-kicker { font-size: 0.75rem; color: var(--accent-ink); }
+.case-brief .case-lead { grid-column: auto; }
+.case-brief-decision { display: grid; gap: 0.3rem; padding: 0.9rem 1rem; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); font-size: 0.9688rem; line-height: 1.55; color: var(--ink-2); max-width: 40rem; }
+.case-brief-decision span { font-size: 0.75rem; color: var(--muted); }
+.case-jump { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin-top: 0.25rem; }
+.case-jump > span { margin-right: 0.35rem; font-size: 0.75rem; color: var(--muted); }
+.case-jump a { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.9rem; border: 1px solid var(--rule); border-radius: 999px; font-size: 0.8125rem; color: var(--ink-2); text-decoration: none; transition: border-color 160ms var(--ease), color 160ms var(--ease); }
+.case-jump a:hover { border-color: var(--ink-2); color: var(--ink); }
+.case-brief-side { grid-column: 9 / -1; align-self: start; display: grid; gap: 1.25rem; align-content: start; }
+.case-brief-side .case-spec { grid-column: auto; }
+.case-numbers { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.case-numbers > div { padding-left: 0.75rem; border-left: 1px solid var(--hair); }
+.case-numbers > div:first-child { padding-left: 0; border-left: 0; }
+.case-numbers dd { margin: 0 0 0.25rem; font-size: clamp(1.3rem, 2.2vw, 1.85rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1.05; overflow-wrap: anywhere; }
+.case-numbers dt { font-size: 0.75rem; line-height: 1.4; color: var(--muted); }
+.case-numbers-note { font-size: 0.75rem; color: var(--muted); }
+.case-scene { margin-top: clamp(2.5rem, 5vw, 4rem); scroll-margin-top: 4.5rem; }
+@media (max-width: 860px) {
+  .case-brief, .case-brief-side { grid-column: 1 / -1; }
+  .case-brief-side { margin-top: 1.5rem; }
+}
+@media (max-width: 420px) { .case-numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); } .case-numbers > div:nth-child(3) { padding-left: 0; border-left: 0; } }
